@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-
     // MARK: - Properties
 
     @StateObject private var viewModel = HomeViewModel()

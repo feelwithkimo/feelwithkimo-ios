@@ -5,10 +5,12 @@
 //  Created by jonathan calvin sutrisna on 19/10/25.
 //
 
-import Foundation
 import Combine
+import Foundation
+import SwiftUI
 
 class HomeViewModel: ObservableObject {
+    @AppStorage("identity") var identity: String = ""
 
     // MARK: - Published Properties
 
@@ -27,7 +29,8 @@ class HomeViewModel: ObservableObject {
     /// Mengambil semua data yang diperlukan untuk Home View.
     /// Fungsi ini memanggil manager untuk mendapatkan data user dan menyiapkan daftar emosi.
     private func fetchData() {
-        self.currentUser = UserManager.shared.getCurrentUser()
+//        self.currentUser = UserManager.shared.getCurrentUser()
+        self.currentUser = UserModel(id: UUID(), name: identity)
 
         // Data dummy untuk daftar emosi
         self.emotions = [
