@@ -8,17 +8,16 @@
 import Foundation
 
 class UserManager {
-    
     // MARK: - Properties
-    
+
     static let shared = UserManager()
-    
+
     // MARK: - Lifecycle
-    
+
     private init() {}
-    
+
     // MARK: - Public Methods
-    
+
     /// Mengambil data pengguna yang sedang login.
     /// Dalam aplikasi nyata, fungsi ini akan berkomunikasi dengan server atau database.
     /// - Returns: Sebuah instance `UserModel`.

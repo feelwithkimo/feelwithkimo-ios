@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct feelwithkimoApp: App {
+struct FeelwithkimoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
