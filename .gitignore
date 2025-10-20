@@ -115,3 +115,15 @@ xcuserdata
 
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,xcodeinjection,swift,swiftpm,swiftpackagemanager
+
+# --- Xcode User Data & UI State Cleanup ---
+# Ignore local workspace/user-specific UI state files
+**/*.xcuserstate
+**/*.xcuserdatad/
+**/*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+
+# Sometimes nested inside .xcodeproj directories
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
