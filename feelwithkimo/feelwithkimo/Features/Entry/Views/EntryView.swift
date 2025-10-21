@@ -37,8 +37,8 @@ struct EntryView: View {
                         .font(.body)
                         .padding(.horizontal, 26)
                         .padding(.vertical, 18)
-                        .background(Color.black)
-                        .foregroundColor(Color.white)
+                        .background(ColorToken.additionalColorsBlack.toColor())
+                        .foregroundColor(ColorToken.additionalColorsWhite.toColor())
                         .cornerRadius(50)
                         .accessibilitySortPriority(3)
                 }

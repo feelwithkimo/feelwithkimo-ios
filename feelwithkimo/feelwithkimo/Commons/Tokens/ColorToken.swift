@@ -39,7 +39,7 @@ enum ColorToken {
     @ColorElement(light: UIColor.from("#FEFEFE"), dark: UIColor.from("#FEFEFE"))
     static var additionalColorsWhite: UIColor
 
-    @ColorElement(light: UIColor.from("#000000"), dark: UIColor.from("#000000"))
+    @ColorElement(light: UIColor.from("#000000"), dark: UIColor.from("#FFFFFF"))
     static var additionalColorsBlack: UIColor
 
     // MARK: - Grayscale Colors
