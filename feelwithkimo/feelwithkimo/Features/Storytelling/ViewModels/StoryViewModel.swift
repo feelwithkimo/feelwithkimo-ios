@@ -51,9 +51,12 @@ class StoryViewModel: ObservableObject {
         }
     }
     
-    /// Mark breathing exercise as completed
+    /// Mark breathing exercise as completed and move to next scene
     func completeBreathingExercise() {
         hasCompletedBreathing = true
-        print("✅ Breathing exercise completed! Button text will change to 'Lanjut'")
+        print("✅ Breathing exercise completed! Moving to next scene...")
+        // Advance to the next scene when user presses "Lanjut" button
+        goScene(to: 1) // Move to next scene
+        print("📖 Advanced to scene \(self.index + 1) after breathing completion")
     }
 }

@@ -202,13 +202,27 @@ final class BreathingSoundClassifier: NSObject {
     static func getAllBreathingLabels() throws -> Set<String> {
         let request = try SNClassifySoundRequest(classifierIdentifier: .version1)
         let allLabels = Set<String>(request.knownClassifications)
+        // Include breathing-like sounds but exclude speech, crowd, and music
+        let breathingRelatedKeywords = [
+            "breathing", "blowing", "wind", "whoosh", "rustle", "rustling",
+            "air", "breeze", "sigh", "whistle", "hiss", "gust", "puff", 
+            "blow", "breath", "exhale", "inhale", "gasp"
+        ]
         
-        // Only use very specific breathing and blowing labels - exclude wind and other ambiguous sounds
-        let exactBreathingLabels = ["breathing", "blowing"]
+        let excludedKeywords = [
+            "speech", "crowd", "music", "voice", "talk", "singing", 
+            "conversation", "chatter", "instrument", "drums", "guitar"
+        ]
         
         return allLabels.filter { label in
             let lowercaseLabel = label.lowercased()
-            return exactBreathingLabels.contains(lowercaseLabel)
+            let hasBreathingKeyword = breathingRelatedKeywords.contains { keyword in
+                lowercaseLabel.contains(keyword)
+            }
+            let hasExcludedKeyword = excludedKeywords.contains { keyword in
+                lowercaseLabel.contains(keyword)
+            }
+            return hasBreathingKeyword && !hasExcludedKeyword
         }
     }
 }

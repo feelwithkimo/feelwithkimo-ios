@@ -15,8 +15,8 @@ class AudioLevelBreathDetector: ObservableObject {
     private let audioEngine = AVAudioEngine()
     private var audioLevelTimer: Timer?
     private var previousLevel: Double = 0.0
-    private let breathThreshold: Double = 0.02
-    private let changeThreshold: Double = 0.01
+    private let breathThreshold: Double = 0.015
+    private let changeThreshold: Double = 0.015
     func startDetection() {
         do {
             try AVAudioSession.sharedInstance().setCategory(.record, mode: .measurement, options: .duckOthers)
@@ -33,15 +33,31 @@ class AudioLevelBreathDetector: ObservableObject {
         }
     }
     func stopDetection() {
-        audioEngine.stop()
+        print("🔇 Stopping audio level detection...")
+        
+        // Stop the audio engine safely
+        if audioEngine.isRunning {
+            audioEngine.stop()
+        }
+        
+        // Remove audio tap safely
         audioEngine.inputNode.removeTap(onBus: 0)
+        
+        // Invalidate timer
         audioLevelTimer?.invalidate()
+        audioLevelTimer = nil
+        
+        // Reset state on main queue
         DispatchQueue.main.async {
             self.audioLevel = 0.0
             self.isBreathing = false
             self.breathType = .none
         }
-        print("🔇 Audio level detection stopped")
+        
+        // Deactivate audio session to prevent pipe errors
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        
+        print("🔇 Audio level detection fully stopped and cleaned up")
     }
     private func processAudioBuffer(_ buffer: AVAudioPCMBuffer) {
         guard let channelData = buffer.floatChannelData?[0] else { return }

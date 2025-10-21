@@ -10,7 +10,7 @@ import SwiftUI
 struct EmotionStoryView: View {
     @StateObject var viewModel: EmotionStoryViewModel
     @Environment(\.dismiss) private var dismiss
-    
+    @ObservedObject private var audioManager = AudioManager.shared
     var body: some View {
         HStack(spacing: 37) {
             ZStack {
@@ -26,6 +26,8 @@ struct EmotionStoryView: View {
                     }
                     .padding(.top, 35)
                     .onTapGesture {
+                        // Stop music when navigating back to main menu
+                        audioManager.stop()
                         dismiss()
                     }
 
@@ -45,7 +47,6 @@ struct EmotionStoryView: View {
                     Text("Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.")
                         .font(.title2)
                         .multilineTextAlignment(.center)
-                    
                     Spacer()
                 }
                 .padding(.horizontal, 35)

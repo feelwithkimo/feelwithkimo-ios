@@ -15,6 +15,7 @@ struct KimoBreathingGameView: View {
     @StateObject private var audioLevelDetector = AudioLevelBreathDetector()
     @StateObject private var gameState = GameStateManager()
     @StateObject private var voiceManager = VoiceInstructionManager()
+    @ObservedObject private var audioManager = AudioManager.shared
     @Binding var config: BreathingAppConfiguration
     let configureAction: () -> Void
     let onCompletion: (() -> Void)?
@@ -38,49 +39,63 @@ struct KimoBreathingGameView: View {
 
     var body: some View {
         GeometryReader { _ in
-            VStack(spacing: 20) {
-                HeaderView(phaseDescription: phaseDescription)
-                KimoImageView(gameState: gameState)
-                BalloonsSectionView(gameState: gameState)
-                ProgressSectionView(gameState: gameState)
-                BreathInfoSectionView(
-                    useAudioLevelDetection: $useAudioLevelDetection,
-                    isCurrentlyDetecting: isCurrentlyDetecting,
-                    audioLevel: useAudioLevelDetection ? audioLevelDetector.audioLevel : breathDetectionManager.audioLevel,
-                    confidence: useAudioLevelDetection ? audioLevelDetector.audioLevel * 10 : breathDetectionManager.breathingConfidence,
-                    currentBreathTypeText: currentBreathTypeText,
-                    currentBreathTypeColor: currentBreathTypeColor,
-                    startSoundAnalysis: { breathDetectionManager.startDetection() },
-                    stopSoundAnalysis: { breathDetectionManager.stopDetection() },
-                    startAudioLevel: { audioLevelDetector.startDetection() },
-                    stopAudioLevel: { audioLevelDetector.stopDetection() },
-                    speak: { voiceManager.speak($0) }
-                )
-                Spacer()
-                ControlButtonsSectionView(
-                    gameState: gameState,
-                    isCurrentlyDetecting: isCurrentlyDetecting,
-                    useAudioLevelDetection: useAudioLevelDetection,
-                    startAudioLevel: { audioLevelDetector.startDetection() },
-                    stopAudioLevel: { audioLevelDetector.stopDetection() },
-                    startSoundAnalysis: { breathDetectionManager.startDetection() },
-                    stopSoundAnalysis: { breathDetectionManager.stopDetection() },
-                    resetAction: { resetGame() },
-                    configureAction: configureAction,
-                    speak: { voiceManager.speak($0) },
-                    showGuide: {
-                        showOrientationGuide = true
-                        voiceManager.speak("Bernapaslah ke arah mikrofon iPad yang berada di sisi kiri. Lihat panah kuning untuk petunjuk arah.")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                            withAnimation(.easeOut(duration: 0.5)) {
-                                showOrientationGuide = false
+            ZStack {
+                VStack(spacing: 20) {
+                    HeaderView(phaseDescription: phaseDescription)
+                    KimoImageView(gameState: gameState)
+                    BalloonsSectionView(gameState: gameState)
+                    ProgressSectionView(gameState: gameState)
+                    BreathInfoSectionView(
+                        useAudioLevelDetection: $useAudioLevelDetection,
+                        isCurrentlyDetecting: isCurrentlyDetecting,
+                        audioLevel: useAudioLevelDetection ? audioLevelDetector.audioLevel : breathDetectionManager.audioLevel,
+                        confidence: useAudioLevelDetection ? audioLevelDetector.audioLevel * 10 : breathDetectionManager.breathingConfidence,
+                        currentBreathTypeText: currentBreathTypeText,
+                        currentBreathTypeColor: currentBreathTypeColor,
+                        startSoundAnalysis: { breathDetectionManager.startDetection() },
+                        stopSoundAnalysis: { breathDetectionManager.stopDetection() },
+                        startAudioLevel: { audioLevelDetector.startDetection() },
+                        stopAudioLevel: { audioLevelDetector.stopDetection() },
+                        speak: { voiceManager.speak($0) }
+                    )
+                    Spacer()
+                    ControlButtonsSectionView(
+                        gameState: gameState,
+                        isCurrentlyDetecting: isCurrentlyDetecting,
+                        useAudioLevelDetection: useAudioLevelDetection,
+                        startAudioLevel: { audioLevelDetector.startDetection() },
+                        stopAudioLevel: { audioLevelDetector.stopDetection() },
+                        startSoundAnalysis: { breathDetectionManager.startDetection() },
+                        stopSoundAnalysis: { breathDetectionManager.stopDetection() },
+                        resetAction: { resetGame() },
+                        configureAction: configureAction,
+                        speak: { voiceManager.speak($0) },
+                        showGuide: {
+                            showOrientationGuide = true
+                            voiceManager.speak("Bernapaslah ke arah mikrofon iPad yang berada di sisi kiri. Lihat panah kuning untuk petunjuk arah.")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                                withAnimation(.easeOut(duration: 0.5)) {
+                                    showOrientationGuide = false
+                                }
                             }
-                        }
+                        },
+                        onCompletion: onCompletion,
+                        audioManager: audioManager
+                    )
+                    Spacer()
+                }
+                .padding()
+                // Mute button in top right corner
+                VStack {
+                    HStack {
+                        Spacer()
+                        MusicMuteButton(audioManager: audioManager)
+                            .padding(.top, 10)
+                            .padding(.trailing, 20)
                     }
-                )
-                Spacer()
+                    Spacer()
+                }
             }
-            .padding()
         }
         .background(
             LinearGradient(
@@ -92,7 +107,16 @@ struct KimoBreathingGameView: View {
                 endPoint: .bottomTrailing
             )
         )
-        .onAppear { Task { await requestMicrophonePermission() } }
+        .onAppear {
+            Task { await requestMicrophonePermission() }
+            // Start background music when the view appears with lower volume for breathing game
+            audioManager.startBackgroundMusic(volume: 0.3)
+            print("🎵 Breathing game music started at 30% volume")
+        }
+        .onDisappear {
+            // Don't automatically unmute here - let the "Lanjut" button handle it
+            print("🎮 KimoBreathingGameView disappeared")
+        }
         .onChange(of: gameState.currentPhase) { _, phase in
             handlePhaseChange(phase)
         }
@@ -246,11 +270,9 @@ struct KimoBreathingGameView: View {
         case .gameComplete:
             voiceManager.speakGameComplete()
             breathDetectionManager.stopDetection()
-            
-            // Call completion callback if provided
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                onCompletion?()
-            }
+            audioLevelDetector.stopDetection()
+            // Don't auto-complete anymore - user needs to press "Lanjut" button
+            print("🎉 Game completed! Showing Lanjut button for manual continuation")
         }
     }
 
@@ -260,6 +282,7 @@ struct KimoBreathingGameView: View {
         gameState.resetGame()
         voiceManager.stopSpeaking()
         voiceManager.speak("Permainan direset. Siap untuk bermain lagi!")
+        // Keep the background music playing during reset
     }
 
     private func checkMilestoneProgress(
@@ -267,7 +290,7 @@ struct KimoBreathingGameView: View {
         newProgress: Double,
         player: PlayerType
     ) {
-        let milestones: [Double] = [25.0, 50.0, 75.0, 100.0]
+        let milestones: [Double] = [25.0, 50.0, 75.0, 100.0] // 25% intervals for 100% completion
         for milestone in milestones {
             if oldProgress < milestone && newProgress >= milestone {
                 voiceManager.speakMilestoneReached(progress: milestone, player: player)
@@ -698,6 +721,8 @@ struct ControlButtonsSectionView: View {
     let configureAction: () -> Void
     let speak: (String) -> Void
     let showGuide: () -> Void
+    let onCompletion: (() -> Void)?
+    let audioManager: AudioManager
 
     var body: some View {
         HStack(spacing: 20) {
@@ -713,11 +738,27 @@ struct ControlButtonsSectionView: View {
                         .cornerRadius(15)
                         .accessibilityLabel("Mulai bermain latihan pernapasan dengan Kimo")
                 }
+            } else if gameState.currentPhase == .gameComplete {
+                // Show only "Lanjut" button when game is completed
+                Button(action: {
+                    handleContinueAction()
+                }) {
+                    Text("Lanjut")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(15)
+                        .accessibilityLabel("Lanjut ke cerita berikutnya")
+                        .accessibilityHint("Ketuk untuk melanjutkan cerita setelah latihan pernapasan selesai")
+                }
             } else {
                 Button(action: {
                     resetAction()
                     showGuide()
-                }) {
+                }, label: {
                     Text("Mulai Ulang")
                         .font(.title3)
                         .fontWeight(.medium)
@@ -728,7 +769,9 @@ struct ControlButtonsSectionView: View {
                         .cornerRadius(15)
                         .accessibilityLabel("Mulai ulang permainan dari awal")
                         .accessibilityHint("Ketuk untuk memulai ulang latihan pernapasan")
-                }
+                })
+                let currentDetectionLabel = isCurrentlyDetecting ? "Hentikan deteksi napas" : "Mulai deteksi napas"
+                let currentDetectionHint = isCurrentlyDetecting ? "Ketuk untuk menghentikan pendeteksian napas" : "Ketuk untuk mulai mendeteksi napas"
                 Button(action: toggleDetection) {
                     Text(isCurrentlyDetecting ? "Stop" : "Mulai Deteksi")
                         .font(.title3)
@@ -738,10 +781,8 @@ struct ControlButtonsSectionView: View {
                         .padding()
                         .background(isCurrentlyDetecting ? Color.red : Color.blue)
                         .cornerRadius(15)
-                        .accessibilityLabel(isCurrentlyDetecting ? "Hentikan deteksi napas" : "Mulai deteksi napas")
-                        .accessibilityHint(
-                            isCurrentlyDetecting ? "Ketuk untuk menghentikan pendeteksian napas" : "Ketuk untuk mulai mendeteksi napas"
-                        )
+                        .accessibilityLabel(currentDetectionLabel)
+                        .accessibilityHint(currentDetectionHint)
                 }
                 Button(action: configureAction) {
                     Text("Pengaturan")
@@ -792,6 +833,16 @@ struct ControlButtonsSectionView: View {
 
     private func speakBreathingDetectionStart() { speak("Deteksi napas dimulai") }
     private func speakBreathingDetectionStop() { speak("Deteksi napas dihentikan") }
+    private func handleContinueAction() {
+        speak("Latihan pernapasan selesai! Melanjutkan cerita...")
+        print("🎮 Continue button pressed - calling completion callback")
+        // Stop current music and restart at full volume
+        audioManager.stop()
+        audioManager.startBackgroundMusic(volume: 1.0)
+        audioManager.setVolume(1.0)
+        print("🎵 Music stopped and restarted at 100% volume from Lanjut button")
+        onCompletion?()
+    }
 }
 
 #Preview {

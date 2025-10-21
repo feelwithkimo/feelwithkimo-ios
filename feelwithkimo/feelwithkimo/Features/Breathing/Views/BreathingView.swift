@@ -10,13 +10,10 @@ import SwiftUI
 struct BreathingView: View {
     /// Indicates whether to display the setup workflow
     @State var showSetup = false
-
     /// A configuration for managing the characteristics of breathing sound classification
     @State var appConfig = BreathingAppConfiguration()
-
     /// The runtime state that contains information about the strength of the detected breathing sounds
     @StateObject var breathingState = BreathDetectionManager()
-    
     /// Optional completion callback
     var onCompletion: (() -> Void)? = nil
 

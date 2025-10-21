@@ -14,8 +14,8 @@ class GameStateManager: ObservableObject {
     @Published var childBalloonProgress: Double = 0.0
     @Published var isGameActive = false
     private let maxBalloonProgress: Double = 100.0
-    private let progressPerBreath: Double = 5.0 // Reduced to make turns more frequent
-    private let turnSwitchThreshold: Double = 25.0 // Switch turns every 25%
+    private let progressPerBreath: Double = 8.0
+    private let turnSwitchThreshold: Double = 25.0
     func startGame() {
         currentPhase = .parentTurn
         currentPlayer = .parent
@@ -25,8 +25,8 @@ class GameStateManager: ObservableObject {
     }
     func processBreath(type: BreathType, confidence: Double) {
         guard isGameActive else { return }
-        // Lower confidence threshold for better responsiveness
-        let minConfidence: Double = 0.1
+        // Much lower confidence threshold for easier detection - made even more sensitive
+        let minConfidence: Double = 0.02
         guard confidence > minConfidence else { return }
         switch type {
         case .inhale, .exhale:
@@ -69,7 +69,6 @@ class GameStateManager: ObservableObject {
             }
         }
     }
-    
     private func switchPlayer() {
         switch currentPlayer {
         case .parent:
@@ -79,23 +78,19 @@ class GameStateManager: ObservableObject {
         }
         print("🔄 Switched to: \(currentPlayer)")
     }
-    
     private func switchToChild() {
         currentPhase = .childTurn
         currentPlayer = .child
     }
-    
     private func switchToParent() {
         currentPhase = .parentTurn
         currentPlayer = .parent
     }
-    
     private func completeGame() {
         currentPhase = .gameComplete
         isGameActive = false
         print("🎉 Game completed!")
     }
-    
     func resetGame() {
         currentPhase = .welcome
         currentPlayer = .parent
@@ -103,7 +98,6 @@ class GameStateManager: ObservableObject {
         childBalloonProgress = 0.0
         isGameActive = false
     }
-    
     func getCurrentBalloonProgress() -> Double {
         switch currentPlayer {
         case .parent:
@@ -112,17 +106,15 @@ class GameStateManager: ObservableObject {
             return childBalloonProgress
         }
     }
-    
     // Helper function to get current scene number
     func getCurrentScene() -> Int {
         let totalProgress = parentBalloonProgress + childBalloonProgress
-        
-        if totalProgress < 50 {
+        if totalProgress < 100 {
             return 1 // Scene 1: Initial breathing with one balloon
         } else if totalProgress < maxBalloonProgress * 2 {
             return 2 // Scene 2: Active breathing alternating between balloons
         } else {
-            return 3 // Scene 3: Both balloons complete
+            return 3 // Scene 3: Both balloons complete (200%)
         }
     }
 }

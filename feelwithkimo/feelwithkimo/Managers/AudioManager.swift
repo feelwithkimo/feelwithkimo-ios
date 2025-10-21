@@ -7,10 +7,17 @@
 
 import AVFoundation
 import UIKit   // diperlukan untuk NSDataAsset
+import Combine
 
-final class AudioManager {
+final class AudioManager: ObservableObject {
     static let shared = AudioManager()
     private var player: AVAudioPlayer?
+    @Published var isMuted: Bool = false {
+        didSet {
+            updateVolume()
+        }
+    }
+    private var baseVolume: Float = 1.0
 
     private init() {}
 
@@ -18,8 +25,9 @@ final class AudioManager {
     /// 1) Cari file "backsong.mp3" di bundle (kalau ternyata ada),
     /// 2) Cari file "backsong" TANPA ekstensi di bundle,
     /// 3) Ambil dari Assets.xcassets sebagai Data Asset bernama "backsong".
-    func startBackgroundMusic(assetName: String = "backsong") {
+    func startBackgroundMusic(assetName: String = "backsong", volume: Float = 1.0) {
         if let audioPlayer = player, audioPlayer.isPlaying { return }
+        self.baseVolume = volume
 
         // 1) URL dengan ekstensi mp3
         if let url = Bundle.main.url(forResource: assetName, withExtension: "mp3") {
@@ -48,7 +56,7 @@ final class AudioManager {
             try configureSession()
             let audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer.numberOfLoops = -1
-            audioPlayer.volume = 1.0
+            audioPlayer.volume = isMuted ? 0.0 : baseVolume
             audioPlayer.prepareToPlay()
             audioPlayer.play()
             self.player = audioPlayer
@@ -63,7 +71,7 @@ final class AudioManager {
             try configureSession()
             let audioPlayer = try AVAudioPlayer(data: data, fileTypeHint: fileTypeHint)
             audioPlayer.numberOfLoops = -1
-            audioPlayer.volume = 1.0
+            audioPlayer.volume = isMuted ? 0.0 : baseVolume
             audioPlayer.prepareToPlay()
             audioPlayer.play()
             self.player = audioPlayer
@@ -75,8 +83,27 @@ final class AudioManager {
 
     private func configureSession() throws {
         let session = AVAudioSession.sharedInstance()
-        try session.setCategory(.playback, mode: .default, options: [])
+        // Use .playAndRecord to allow both music playback and microphone recording for breathing detection
+        try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, AVAudioSession.CategoryOptions.allowBluetoothHFP])
         try session.setActive(true)
+    }
+    private func updateVolume() {
+        player?.volume = isMuted ? 0.0 : baseVolume
+    }
+    /// Toggle mute state for the background music
+    func toggleMute() {
+        isMuted.toggle()
+    }
+    /// Set volume (0.0 to 1.0), will be ignored if muted
+    func setVolume(_ volume: Float) {
+        baseVolume = min(max(volume, 0.0), 1.0)
+        if !isMuted {
+            player?.volume = baseVolume
+        }
+    }
+    /// Check if music is currently playing
+    var isPlaying: Bool {
+        return player?.isPlaying ?? false
     }
 
     func stop() {
