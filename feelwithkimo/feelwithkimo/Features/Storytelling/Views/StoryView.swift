@@ -91,6 +91,32 @@ struct StoryView: View {
                     }
                 }
             }
+            
+            // Show breathing button only on scene 13
+            if viewModel.index == 13 {
+                VStack {
+                    NavigationLink(destination: BreathingViewWrapper(onCompletion: {
+                        viewModel.completeBreathingExercise()
+                    })) {
+                        HStack {
+                            Image(systemName: "lungs")
+                                .font(.title3)
+                            Text(viewModel.hasCompletedBreathing ? "Lanjut" : "Mulai Bermain")
+                                .font(.title3)
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(12)
+                        .padding(.horizontal, 20)
+                    }
+                    .padding(.bottom, 30)
+                    
+                    Spacer()
+                }
+            }
         }
 //        .onAppear { AudioManager.shared.startBackgroundMusic() }
 //        .onDisappear { AudioManager.shared.stop() }
@@ -111,5 +137,19 @@ struct FadeContentTransition: ViewModifier {
         } else {
             content.transition(.opacity)
         }
+    }
+}
+
+/// Wrapper for BreathingView that handles completion callback
+struct BreathingViewWrapper: View {
+    let onCompletion: () -> Void
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        BreathingView(onCompletion: {
+            print("🎮 Breathing exercise completed, returning to story...")
+            onCompletion()
+            dismiss()
+        })
     }
 }

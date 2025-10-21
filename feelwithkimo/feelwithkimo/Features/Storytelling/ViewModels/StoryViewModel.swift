@@ -15,6 +15,7 @@ class StoryViewModel: ObservableObject {
         text: "",
         isEnd: false
     )
+    @Published var hasCompletedBreathing: Bool = false
 
     var story: StoryModel = StoryModel(
         id: UUID(),
@@ -103,10 +104,16 @@ class StoryViewModel: ObservableObject {
         case -1:
             guard self.currentScene.nextScene.count > 1 else { return }
 
-            self.currentScene = self.currentScene.nextScene[0]
+            withAnimation(.easeInOut(duration: 1.5)) { self.currentScene = self.currentScene.nextScene[0] }
             self.index -= 1
         default:
             break
         }
+    }
+    
+    /// Mark breathing exercise as completed
+    func completeBreathingExercise() {
+        hasCompletedBreathing = true
+        print("✅ Breathing exercise completed! Button text will change to 'Lanjut'")
     }
 }
