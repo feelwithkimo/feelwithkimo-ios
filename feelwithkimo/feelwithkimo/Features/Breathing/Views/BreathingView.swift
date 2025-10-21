@@ -16,6 +16,9 @@ struct BreathingView: View {
 
     /// The runtime state that contains information about the strength of the detected breathing sounds
     @StateObject var breathingState = BreathDetectionManager()
+    
+    /// Optional completion callback
+    var onCompletion: (() -> Void)? = nil
 
     var body: some View {
         ZStack {
@@ -31,7 +34,8 @@ struct BreathingView: View {
                 KimoBreathingGameView(
                     breathDetectionManager: breathingState,
                     config: $appConfig,
-                    configureAction: { showSetup = true })
+                    configureAction: { showSetup = true },
+                    onCompletion: onCompletion)
             }
         }
         .onAppear {

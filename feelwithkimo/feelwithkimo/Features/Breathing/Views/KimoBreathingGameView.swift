@@ -17,6 +17,7 @@ struct KimoBreathingGameView: View {
     @StateObject private var voiceManager = VoiceInstructionManager()
     @Binding var config: BreathingAppConfiguration
     let configureAction: () -> Void
+    let onCompletion: (() -> Void)?
 
     @State private var showingPermissionAlert = false
     @State private var hasRequestedPermission = false
@@ -26,11 +27,13 @@ struct KimoBreathingGameView: View {
     init(
         breathDetectionManager: BreathDetectionManager,
         config: Binding<BreathingAppConfiguration>,
-        configureAction: @escaping () -> Void
+        configureAction: @escaping () -> Void,
+        onCompletion: (() -> Void)? = nil
     ) {
         self.breathDetectionManager = breathDetectionManager
         self._config = config
         self.configureAction = configureAction
+        self.onCompletion = onCompletion
     }
 
     var body: some View {
@@ -243,6 +246,11 @@ struct KimoBreathingGameView: View {
         case .gameComplete:
             voiceManager.speakGameComplete()
             breathDetectionManager.stopDetection()
+            
+            // Call completion callback if provided
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                onCompletion?()
+            }
         }
     }
 
@@ -790,6 +798,7 @@ struct ControlButtonsSectionView: View {
     KimoBreathingGameView(
         breathDetectionManager: BreathDetectionManager(),
         config: .constant(BreathingAppConfiguration()),
-        configureAction: {}
+        configureAction: {},
+        onCompletion: nil
     )
 }
