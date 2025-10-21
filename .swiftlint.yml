@@ -77,4 +77,3 @@ custom_rules:
     message: "Class is complex, better explicitly declare access control (e.g., public, private, internal)."
     severity: warning
     # Warns if a class declaration is missing explicit access control modifier
-
