@@ -49,13 +49,13 @@ struct ClapGameView: View {
             ZStack {
                 CameraPreview(session: viewModel.avSession)
 
-                // Debugging overlays
-                handDebugOverlays
+//                // Debugging overlays
+//                handDebugOverlays
 
                 // Visual feedback
-                if viewModel.showClapFeedback {
-                    clapFeedbackCircle
-                }
+//                if viewModel.showClapFeedback {
+//                    clapFeedbackCircle
+//                }
 
                 if viewModel.isHeartbeatActive {
                     HeartbeatView(bpm: 100, isClapping: .constant(viewModel.showClapFeedback)) {
@@ -71,17 +71,17 @@ struct ClapGameView: View {
 
     private var handDebugOverlays: some View {
         Group {
-//            // Debug connection line user1
-//            if let left = viewModel.user1Hands.left,
-//               let right = viewModel.user1Hands.right {
-//                HandConnectionDebugView(left: left, right: right, color: .yellow)
-//            }
-//
-//            // Debug connection line user2
-//            if let left = viewModel.user2Hands.left,
-//               let right = viewModel.user2Hands.right {
-//                HandConnectionDebugView(left: left, right: right, color: .orange)
-//            }
+            // Debug connection line user1
+            if let left = viewModel.user1Hands.left,
+               let right = viewModel.user1Hands.right {
+                HandConnectionDebugView(left: left, right: right, color: .yellow)
+            }
+
+            // Debug connection line user2
+            if let left = viewModel.user2Hands.left,
+               let right = viewModel.user2Hands.right {
+                HandConnectionDebugView(left: left, right: right, color: .orange)
+            }
 
             // Debugging State User 1 & 2
             HandStateDebugView(handState: viewModel.user1HandState)
