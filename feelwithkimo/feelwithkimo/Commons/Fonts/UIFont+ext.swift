@@ -57,7 +57,24 @@ extension UIFont {
     }
 
     /// SwiftUI convenience
-    func toFont() -> Font {
-        Font(self)
+    func toFont(relativeTo textStyle: UIFont.TextStyle) -> Font {
+        // Map UIFont.TextStyle → SwiftUI.Font.TextStyle
+        let relativeStyle: Font.TextStyle
+        switch textStyle {
+        case .largeTitle: relativeStyle = .largeTitle
+        case .title1: relativeStyle = .title
+        case .title2: relativeStyle = .title2
+        case .title3: relativeStyle = .title3
+        case .headline: relativeStyle = .headline
+        case .subheadline: relativeStyle = .subheadline
+        case .body: relativeStyle = .body
+        case .callout: relativeStyle = .callout
+        case .footnote: relativeStyle = .footnote
+        case .caption1: relativeStyle = .caption
+        case .caption2: relativeStyle = .caption2
+        default: relativeStyle = .body
+        }
+
+        return .custom(fontName, size: pointSize, relativeTo: relativeStyle)
     }
 }

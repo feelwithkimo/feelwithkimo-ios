@@ -55,7 +55,7 @@ struct HomeView: View {
     private var questionView: some View {
         HStack(alignment: .top, spacing: 4) {
             Text("Hari ini mau belajar emosi apa, ya?")
-                .font(.title)
+//                .font(.caption)
                 .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                 .padding(0)
 
