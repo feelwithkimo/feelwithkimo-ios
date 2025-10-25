@@ -22,7 +22,10 @@ final class ClapViewModel: ObservableObject {
     /// Deteksi tepuk tangan berdasarkan jarak antar tangan
     func observeHands(_ publisher: AnyPublisher<(CGPoint?, CGPoint?), Never>) {
         publisher
-            .compactMap { $0.0 != nil && $0.1 != nil ? ($0.0!, $0.1!) : nil }
+            .compactMap { leftOpt, rightOpt in
+                guard let left = leftOpt, let right = rightOpt else { return nil }
+                return (left, right)
+            }
             .receive(on: RunLoop.main)
             .sink { [weak self] left, right in
                 self?.detectClap(left: left, right: right)
