@@ -88,7 +88,7 @@ final class AudioManager: ObservableObject {
             try session.setCategory(
                 .playAndRecord,
                 mode: .default,
-                options: [.defaultToSpeaker, .allowBluetooth]
+                options: [.defaultToSpeaker, .allowBluetoothHFP]
             )
         } catch {
             print("Failed to set audio session category: \(error)")
