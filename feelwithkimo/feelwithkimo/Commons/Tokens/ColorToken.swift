@@ -9,33 +9,64 @@ import Foundation
 import UIKit
 
 enum ColorToken {
-    // MARK: - Primary Colors
+    
+    // MARK: - Core Colors
+    @ColorElement(light: UIColor.from("#A394C5"), dark: UIColor.from("#C9B8EB"))
+    static var corePrimary: UIColor
 
-    @ColorElement(light: UIColor.from("#A394C5"), dark: UIColor.from("#A394C5"))
-    static var mainColorPrimary: UIColor
+    @ColorElement(light: UIColor.from("#FAC0D8"), dark: UIColor.from("#F4BBCD"))
+    static var coreSecondary: UIColor
 
-    @ColorElement(light: UIColor.from("#DACFF3"), dark: UIColor.from("#DACFF3"))
-    static var mainColorSecondary: UIColor
+    @ColorElement(light: UIColor.from("#ACECC7"), dark: UIColor.from("#A1D8C5"))
+    static var coreAccent: UIColor
 
-    @ColorElement(light: UIColor.from("#FAC0D8"), dark: UIColor.from("#FAC0D8"))
-    static var mainColorPastelPink: UIColor
+    // MARK: - Emotion Colors
+    @ColorElement(light: UIColor.from("#FFE680"), dark: UIColor.from("#FFDB4D"))
+    static var emotionJoy: UIColor
 
-    // MARK: - Secondary Colors
+    @ColorElement(light: UIColor.from("#9FD9F3"), dark: UIColor.from("#5CACD9"))
+    static var emotionSadness: UIColor
 
-    @ColorElement(light: UIColor.from("#ACECC7"), dark: UIColor.from("#ACECC7"))
-    static var secondaryColorDarkGreen: UIColor
+    @ColorElement(light: UIColor.from("#FF4850"), dark: UIColor.from("#E03A3F"))
+    static var emotionAnger: UIColor
 
-    @ColorElement(light: UIColor.from("#8EC2A7"), dark: UIColor.from("#8EC2A7"))
-    static var secondaryColorYellow: UIColor
+    @ColorElement(light: UIColor.from("#B3A7E6"), dark: UIColor.from("#8570D1"))
+    static var emotionFear: UIColor
 
-    @ColorElement(light: UIColor.from("#8EC2A7"), dark: UIColor.from("#8EC2A7"))
-    static var secondaryColorRed: UIColor
+    @ColorElement(light: UIColor.from("#CFCFCF"), dark: UIColor.from("#6F6F6F"))
+    static var emotionTired: UIColor
 
-    @ColorElement(light: UIColor.from("#9FD9F3"), dark: UIColor.from("#9FD9F3"))
-    static var secondaryColorBlue: UIColor
+    @ColorElement(light: UIColor.from("#C5B2FF"), dark: UIColor.from("#A48CFF"))
+    static var emotionSurprise: UIColor
 
+    @ColorElement(light: UIColor.from("#8EC2A7"), dark: UIColor.from("#4D866C"))
+    static var emotionDisgusted: UIColor
+
+    // MARK: - Background
+    @ColorElement(light: UIColor.from("#FFFDFB"), dark: UIColor.from("#1C162B"))
+    static var backgroundMain: UIColor
+
+    @ColorElement(light: UIColor.from("#F5F1FA"), dark: UIColor.from("#2A213A"))
+    static var backgroundCard: UIColor
+
+    // MARK: - Text
+    @ColorElement(light: UIColor.from("#352E4A"), dark: UIColor.from("#FFFFFF"))
+    static var textPrimary: UIColor
+
+    @ColorElement(light: UIColor.from("#6C6487"), dark: UIColor.from("#C4B8D9"))
+    static var textSecondary: UIColor
+
+    // MARK: - Status
+    @ColorElement(light: UIColor.from("#CFC0BB"), dark: UIColor.from("#7C728D"))
+    static var statusDisabled: UIColor
+
+    @ColorElement(light: UIColor.from("#FF858B"), dark: UIColor.from("#BF777F"))
+    static var statusError: UIColor
+
+    @ColorElement(light: UIColor.from("#A6E5B5"), dark: UIColor.from("#95DAB2"))
+    static var statusSuccess: UIColor
+    
     // MARK: - Additional Colors
-
     @ColorElement(light: UIColor.from("#FEFEFE"), dark: UIColor.from("#FEFEFE"))
     static var additionalColorsWhite: UIColor
 
@@ -43,7 +74,6 @@ enum ColorToken {
     static var additionalColorsBlack: UIColor
 
     // MARK: - Grayscale Colors
-
     @ColorElement(light: UIColor.from("#FDFDFD"), dark: UIColor.from("#FDFDFD"))
     static var grayscale10: UIColor
 

@@ -33,21 +33,26 @@ struct HomeView: View {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 
     // MARK: - Child Views
 
     /// View untuk menampilkan banner header.
     private var headerView: some View {
-        HStack(spacing: 23) {
-            Image(systemName: "photo.artframe.circle")
-                .font(.system(size: 140, weight: .thin))
-                .foregroundStyle(ColorToken.grayscale60.toColor())
+        KimoHeaderView {
+            HStack(spacing: 23) {
+                Image(systemName: "photo.artframe.circle")
+                    .font(.system(size: 140, weight: .thin))
+                    .foregroundStyle(ColorToken.grayscale60.toColor())
 
-            Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding()
+                Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                Spacer()
+            }
         }
     }
 
@@ -55,7 +60,7 @@ struct HomeView: View {
     private var questionView: some View {
         HStack(alignment: .top, spacing: 4) {
             Text("Hari ini mau belajar emosi apa, ya?")
-                .font(.title)
+//                .font(.caption)
                 .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                 .padding(0)
 

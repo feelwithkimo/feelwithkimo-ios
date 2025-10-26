@@ -47,7 +47,7 @@ struct EmotionCard: View {
 
             // Label Nama Emosi
             Text(emotion.name)
-                .font(.headline)
+                .font(.app(.caption1))
                 .fontWeight(isSelected ? .bold : .regular)
                 .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                 .padding(.horizontal, 20)

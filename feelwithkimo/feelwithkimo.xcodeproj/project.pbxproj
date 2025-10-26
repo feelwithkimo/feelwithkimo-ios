@@ -10,9 +10,22 @@
 		ABD50B9E2E9D558100237461 /* feelwithkimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feelwithkimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		ABF5879B2EAD01D600911456 /* Exceptions for "feelwithkimo" folder in "feelwithkimo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = ABD50B9D2E9D558100237461 /* feelwithkimo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ABD50BA02E9D558100237461 /* feelwithkimo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ABF5879B2EAD01D600911456 /* Exceptions for "feelwithkimo" folder in "feelwithkimo" target */,
+			);
 			path = feelwithkimo;
 			sourceTree = "<group>";
 		};
@@ -286,6 +299,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = feelwithkimo/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Aplikasi ini menggunakan akses kamera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Aplikasi ini memerlukan akses mikrofon untuk mendeteksi suara napas dalam permainan latihan pernapasan Kimo.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Aplikasi ini menggunakan pengenalan suara untuk mendeteksi pola pernapasan.";
@@ -323,6 +338,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = feelwithkimo/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Aplikasi ini menggunakan akses kamera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Aplikasi ini memerlukan akses mikrofon untuk mendeteksi suara napas dalam permainan latihan pernapasan Kimo.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Aplikasi ini menggunakan pengenalan suara untuk mendeteksi pola pernapasan.";
