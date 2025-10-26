@@ -14,11 +14,7 @@ struct IdentityView: View {
     var body: some View {
         if identity == "" {
             VStack(spacing: 24) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color(.systemGray6))
-                        .shadow(radius: 4)
-
+                KimoHeaderView {
                     VStack(alignment: .center, spacing: 8) {
                         Text("Identitas Orang Tua")
                             .font(.largeTitle)
@@ -28,10 +24,9 @@ struct IdentityView: View {
                             .font(.title2)
                             .lineLimit(2)
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 48)
                 }
-                .frame(height: 140)
+                
+                Spacer()
 
                 VStack(alignment: .center, spacing: 8) {
                     Text("Nama panggilan anak terhadap orang tua:")
@@ -51,7 +46,8 @@ struct IdentityView: View {
                         }
                 }
                 .padding(.horizontal)
-                .padding(.top, 175)
+                
+                Spacer()
 
                 Button(action: {
                     viewModel.submitNickname()
@@ -69,8 +65,6 @@ struct IdentityView: View {
                 })
                 .padding(.horizontal)
                 .disabled(viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-
-                Spacer()
             }
             .navigationDestination(isPresented: $viewModel.navigateToChild) {
                 ChildIdentityView(viewModel: viewModel)
@@ -85,4 +79,7 @@ struct IdentityView: View {
             HomeView()
         }
     }
+}
+#Preview {
+    IdentityView()
 }

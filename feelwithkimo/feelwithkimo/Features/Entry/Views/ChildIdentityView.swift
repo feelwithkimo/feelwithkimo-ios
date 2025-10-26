@@ -14,11 +14,7 @@ struct ChildIdentityView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(.systemGray6))
-                    .shadow(radius: 4)
-
+            KimoHeaderView {
                 VStack(alignment: .center, spacing: 8) {
                     Text("Identitas Anak")
                         .font(.largeTitle)
@@ -28,11 +24,10 @@ struct ChildIdentityView: View {
                         .font(.title2)
                         .lineLimit(2)
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 48)
             }
-            .frame(height: 140)
 
+            Spacer()
+            
             VStack(alignment: .center, spacing: 8) {
                 Text("Nama Anak:")
                     .font(.title2)
@@ -48,7 +43,8 @@ struct ChildIdentityView: View {
                     .submitLabel(.done)
             }
             .padding(.horizontal)
-            .padding(.top, 175)
+            
+            Spacer()
 
             Button(action: {
                 let success = viewModel.submitChildName()
@@ -70,7 +66,6 @@ struct ChildIdentityView: View {
             .padding(.horizontal)
             .disabled(viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
 
-            Spacer()
         }
         .alert("Notice", isPresented: $viewModel.showError) {
             Button("Close", role: .cancel) { }
