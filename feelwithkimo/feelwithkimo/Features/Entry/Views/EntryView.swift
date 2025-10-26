@@ -33,14 +33,7 @@ struct EntryView: View {
                 NavigationLink {
                     IdentityView()
                 } label: {
-                    Text("Ayo Mulai")
-                        .font(.body)
-                        .padding(.horizontal, 26)
-                        .padding(.vertical, 18)
-                        .background(ColorToken.additionalColorsBlack.toColor())
-                        .foregroundColor(ColorToken.additionalColorsWhite.toColor())
-                        .cornerRadius(50)
-                        .accessibilitySortPriority(3)
+                    KimoButton(textLabel: "Ayo Mulai")
                 }
             }
         }

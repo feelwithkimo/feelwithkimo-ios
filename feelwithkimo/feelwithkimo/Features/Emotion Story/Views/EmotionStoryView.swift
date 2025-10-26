@@ -19,18 +19,16 @@ struct EmotionStoryView: View {
 
                 VStack(alignment: .center) {
                     HStack {
-                        Image("Back")
-                            .resizable()
-                            .frame(maxWidth: 55, maxHeight: 55)
-
+                        KimoBackButton()
+                            .onTapGesture {
+                                // Stop music when navigating back to main menu
+                                audioManager.stop()
+                                dismiss()
+                            }
+                        
                         Spacer()
                     }
                     .padding(.top, 35)
-                    .onTapGesture {
-                        // Stop music when navigating back to main menu
-                        audioManager.stop()
-                        dismiss()
-                    }
 
                     Spacer().frame(height: 115)
 
