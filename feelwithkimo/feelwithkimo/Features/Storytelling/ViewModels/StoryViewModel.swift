@@ -19,7 +19,7 @@ internal class StoryViewModel: ObservableObject {
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
 
-    var story: StoryModel = StoryModel(
+    lazy var story: StoryModel = StoryModel(
         id: UUID(),
         name: "Story Angry 1",
         thumbnail: "Thumbnail 1",
@@ -28,11 +28,13 @@ internal class StoryViewModel: ObservableObject {
     )
 
     init() {
-        self.fetchStory()
+        Task { @MainActor in
+            await self.fetchStory()
+        }
     }
 
     /// Load story scene
-    private func fetchStory() {
+    private func fetchStory() async {
         var scenes: [StorySceneModel] = []
 
         for number in 1...17 {

@@ -22,6 +22,7 @@ struct StoryView: View {
                 .id(viewModel.index)
                 .modifier(FadeContentTransition())
                 .animation(.easeInOut(duration: 1.5), value: viewModel.index)
+            
             // Area tombol transparan kiri/kanan
             GeometryReader { geo in
                 if viewModel.currentScene.question == nil {

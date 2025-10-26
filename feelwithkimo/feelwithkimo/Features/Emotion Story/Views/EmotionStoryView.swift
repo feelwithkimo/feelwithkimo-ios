@@ -11,6 +11,7 @@ struct EmotionStoryView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: EmotionStoryViewModel
     @ObservedObject private var audioManager = AudioManager.shared
+    
     var body: some View {
         HStack(spacing: 37) {
             ZStack {
@@ -33,18 +34,18 @@ struct EmotionStoryView: View {
 
                     Spacer().frame(height: 115)
 
-                    Image("Anger")
+                    Image(viewModel.emotion.emotionImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 186, height: 186)
                         .clipShape(Circle())
                         .shadow(radius: 10)
 
-                    Text("Hi, Aku Marah!")
+                    Text(viewModel.emotion.title)
                         .font(.largeTitle)
                         .fontWeight(.bold)
 
-                    Text("Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.")
+                    Text(viewModel.emotion.description)
                         .font(.title2)
                         .multilineTextAlignment(.center)
                     Spacer()

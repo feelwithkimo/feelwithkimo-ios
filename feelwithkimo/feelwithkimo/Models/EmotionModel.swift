@@ -11,5 +11,8 @@ struct EmotionModel: Identifiable {
     let id: UUID
     let name: String
     let visualCharacterName: String
+    let emotionImage: String
+    let title: String
+    let description: String
     var stories: [StoryModel]
 }
