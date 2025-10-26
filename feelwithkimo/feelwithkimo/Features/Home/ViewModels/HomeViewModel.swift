@@ -27,7 +27,6 @@ internal class HomeViewModel: ObservableObject {
     /// Mengambil semua data yang diperlukan untuk Home View.
     /// Fungsi ini memanggil manager untuk mendapatkan data user dan menyiapkan daftar emosi.
     private func fetchData() {
-//        self.currentUser = UserManager.shared.getCurrentUser()
         self.currentUser = UserModel(id: UUID(), name: identity)
 
         // Data dummy untuk daftar emosi
@@ -56,6 +55,38 @@ internal class HomeViewModel: ObservableObject {
     /// Dipanggil dari View ketika pengguna mengetuk salah satu kartu emosi.
     /// - Parameter emotion: Emosi yang dipilih.
     func selectEmotion(_ emotion: EmotionModel) {
+        guard selectedEmotion?.id != emotion.id else { return }
         selectedEmotion = emotion
+    }
+
+    /// Update emosi terdekat berdasarkan posisi tengah layar
+    func updateSelectedEmotion(screenCenterX: CGFloat, centers: [AnyHashable: CGFloat]) {
+        guard !centers.isEmpty else { return }
+
+        if let (closestId, _) = centers.min(by: { abs($0.value - screenCenterX) < abs($1.value - screenCenterX) }),
+           let matched = emotions.first(where: { AnyHashable($0.id) == closestId }) {
+            selectEmotion(matched)
+        }
+    }
+
+    /// Scroll ke emosi yang dipilih
+    func scrollToSelected(proxy: ScrollViewProxy) {
+        guard let selected = selectedEmotion else { return }
+        withAnimation {
+            proxy.scrollTo(selected.id, anchor: .center)
+        }
+    }
+
+    /// Pastikan ada emosi awal yang dipilih
+    func ensureInitialSelection() {
+        if selectedEmotion == nil, !emotions.isEmpty {
+            let midIndex = emotions.count / 2
+            selectedEmotion = emotions[midIndex]
+        }
+    }
+
+    /// Buat destination view untuk NavigationLink
+    func makeEmotionStoryView(for emotion: EmotionModel) -> some View {
+        EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion))
     }
 }
