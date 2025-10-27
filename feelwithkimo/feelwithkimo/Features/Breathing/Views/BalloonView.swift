@@ -50,7 +50,7 @@ struct BalloonView: View {
 
             // Balloon string
             Rectangle()
-                .fill(Color.gray)
+                .fill(ColorToken.grayscale100.toColor())
                 .frame(width: 2, height: 20)
                 .opacity(balloonOpacity)
 
