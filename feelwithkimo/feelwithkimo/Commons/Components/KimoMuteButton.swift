@@ -26,8 +26,11 @@ struct KimoMuteButton: View {
         })
         .scaleEffect(audioManager.isMuted ? 0.9 : 1.0)
         .animation(.easeInOut(duration: 0.2), value: audioManager.isMuted)
-        .accessibilityLabel(audioManager.isMuted ? "Nyalakan musik latar" : "Matikan musik latar")
-        .accessibilityHint("Ketuk untuk \(audioManager.isMuted ? "menyalakan" : "mematikan") musik latar belakang")
+        .kimoButtonAccessibility(
+            label: audioManager.isMuted ? "Nyalakan musik latar" : "Matikan musik latar",
+            hint: "Ketuk dua kali untuk \(audioManager.isMuted ? "menyalakan" : "mematikan") musik latar belakang",
+            identifier: "kimoMuteButton"
+        )
     }
 }
 

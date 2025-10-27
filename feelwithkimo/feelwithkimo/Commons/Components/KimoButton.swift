@@ -18,6 +18,11 @@ struct KimoButton: View {
             .background(ColorToken.backgroundCard.toColor())
             .foregroundStyle(ColorToken.textPrimary.toColor())
             .cornerRadius(50)
+            .kimoButtonAccessibility(
+                label: textLabel,
+                hint: nil,
+                identifier: "kimoButton.\(textLabel.lowercased().replacingOccurrences(of: " ", with: ""))"
+            )
             .accessibilitySortPriority(3)
     }
 }

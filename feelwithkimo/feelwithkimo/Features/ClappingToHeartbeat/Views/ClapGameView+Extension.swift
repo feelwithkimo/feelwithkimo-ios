@@ -15,6 +15,11 @@ extension ClapGameView {
             Text("Clap the Hand")
                 .font(.app(.largeTitle, family: .primary))
                 .fontWeight(.bold)
+                .kimoTextAccessibility(
+                    label: "Permainan Tepuk Tangan",
+                    identifier: "clapping.title",
+                    sortPriority: 1
+                )
             Spacer()
         }
     }
@@ -23,6 +28,12 @@ extension ClapGameView {
         RoundedContainer {
             ZStack {
                 CameraPreview(session: viewModel.avSession)
+                    .kimoAccessibility(
+                        label: "Kamera untuk deteksi tangan",
+                        hint: "Posisikan kedua tangan di depan kamera untuk bermain",
+                        traits: .allowsDirectInteraction,
+                        identifier: "clapping.cameraPreview"
+                    )
 
                 // Debugging overlays
                 handDebugOverlays
@@ -44,22 +55,26 @@ extension ClapGameView {
             if let left = viewModel.user1Hands.left,
                let right = viewModel.user1Hands.right {
                 HandConnectionDebugView(left: left, right: right, color: .yellow)
+                    .accessibilityHidden(true)
             }
 
             // Debug connection line user2
             if let left = viewModel.user2Hands.left,
                let right = viewModel.user2Hands.right {
                 HandConnectionDebugView(left: left, right: right, color: .orange)
+                    .accessibilityHidden(true)
             }
 
             // Debugging State User 1 & 2
             HandStateDebugView(handState: viewModel.user1HandState)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding([.top, .leading], 24)
+                .handDetectionAccessibility(handState: viewModel.user1HandState)
 
             HandStateDebugView(handState: viewModel.user2HandState)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                 .padding([.top, .trailing], 24)
+                .handDetectionAccessibility(handState: viewModel.user2HandState)
         }
     }
 
@@ -71,6 +86,10 @@ extension ClapGameView {
                     .frame(width: 220, height: 220)
                     .transition(.scale)
                     .animation(.easeOut(duration: 0.25), value: viewModel.showClapFeedback)
+                    .clapFeedbackAccessibility(
+                        showFeedback: viewModel.showClapFeedback,
+                        isSuccessful: viewModel.didClapSuccessfully
+                    )
             }
         }
     }
@@ -81,6 +100,10 @@ extension ClapGameView {
                 HeartbeatView(bpm: 100, isClapping: .constant(viewModel.showClapFeedback)) {
                     viewModel.onHeartbeat()
                 }
+                .heartbeatAccessibility(
+                    isActive: viewModel.isHeartbeatActive,
+                    bpm: 100
+                )
             }
         }
     }
@@ -90,15 +113,29 @@ extension ClapGameView {
             Spacer()
             Button("▶️ Start Heartbeat") {
                 viewModel.startHeartbeat()
+                AccessibilityManager.announce("Detak jantung dimulai. Tepuk tangan mengikuti irama.")
             }
             .disabled(viewModel.isHeartbeatActive)
             .padding(.bottom, 20)
+            .clappingAccessibility(
+                label: "Mulai Detak Jantung",
+                hint: viewModel.isHeartbeatActive ? "Detak jantung sudah aktif" : "Ketuk dua kali untuk memulai detak jantung dan permainan",
+                traits: .isButton,
+                identifier: "startButton"
+            )
 
             Button("⏹ Stop") {
                 viewModel.stopHeartbeat()
+                AccessibilityManager.announce("Detak jantung berhenti. Permainan selesai.")
             }
             .disabled(!viewModel.isHeartbeatActive)
             .padding(.bottom, 40)
+            .clappingAccessibility(
+                label: "Berhenti",
+                hint: !viewModel.isHeartbeatActive ? "Detak jantung sudah tidak aktif" : "Ketuk dua kali untuk menghentikan detak jantung dan permainan",
+                traits: .isButton,
+                identifier: "stopButton"
+            )
         }
         .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
     }

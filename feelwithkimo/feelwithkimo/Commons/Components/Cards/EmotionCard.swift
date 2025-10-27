@@ -42,6 +42,11 @@ struct EmotionCard: View {
                 Image(systemName: emotion.visualCharacterName)
                     .font(.system(size: (cardSize)/2))
                     .foregroundStyle(ColorToken.textPrimary.toColor())
+                    .kimoImageAccessibility(
+                        label: "Ikon emosi \(emotion.name)",
+                        isDecorative: false,
+                        identifier: "emotionCard.icon.\(emotion.name.lowercased())"
+                    )
 
             }
 
@@ -57,6 +62,16 @@ struct EmotionCard: View {
                     Capsule()
                         .fill(ColorToken.corePrimary.toColor())
                 )
+                .kimoTextAccessibility(
+                    label: emotion.name,
+                    identifier: "emotionCard.label.\(emotion.name.lowercased())"
+                )
         }
+        .kimoCardAccessibility(
+            label: "Kartu emosi \(emotion.name)\(isSelected ? ", terpilih" : "")",
+            isSelected: isSelected,
+            hint: "Ketuk dua kali untuk memilih emosi \(emotion.name)",
+            identifier: "emotionCard.\(emotion.name.lowercased())"
+        )
     }
 }
