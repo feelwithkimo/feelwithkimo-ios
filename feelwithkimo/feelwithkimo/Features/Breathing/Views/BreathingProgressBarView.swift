@@ -13,7 +13,7 @@ struct BreathingProgressBar: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.3))
+                    .fill(ColorToken.grayscale30.toColor())
                     .frame(height: 20)
                 RoundedRectangle(cornerRadius: 8)
                     .fill(color)

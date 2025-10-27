@@ -17,7 +17,7 @@ struct KimoTextField: View {
             .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
             .overlay(
                 RoundedRectangle(cornerRadius: 50)
-                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                    .stroke(ColorToken.grayscale40.toColor(), lineWidth: 1)
             )
             .submitLabel(.done)
     }

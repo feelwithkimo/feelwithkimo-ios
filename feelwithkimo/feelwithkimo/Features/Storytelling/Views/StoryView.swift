@@ -59,8 +59,8 @@ struct StoryView: View {
                                 Text(question.question)
                                     .padding()
                                     .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
-                                    .background(Color.blue)
-                                    .foregroundColor(Color.white)
+                                    .background(ColorToken.corePrimary.toColor())
+                                    .foregroundColor(ColorToken.additionalColorsWhite.toColor())
                                     .cornerRadius(10)
 
                                 HStack(spacing: 5) {
@@ -69,8 +69,8 @@ struct StoryView: View {
                                     Text(question.option[0])
                                         .padding()
                                         .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                        .background(Color.blue)
-                                        .foregroundColor(Color.white)
+                                        .background(ColorToken.coreAccent.toColor())
+                                        .foregroundColor(ColorToken.additionalColorsWhite.toColor())
                                         .cornerRadius(10)
                                         .onTapGesture {
                                             viewModel.goScene(to: 1, choice: 0)
@@ -79,8 +79,8 @@ struct StoryView: View {
                                     Text(question.option[1])
                                         .padding()
                                         .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                        .background(Color.blue)
-                                        .foregroundColor(Color.white)
+                                        .background(ColorToken.coreAccent.toColor())
+                                        .foregroundColor(ColorToken.additionalColorsWhite.toColor())
                                         .cornerRadius(10)
                                         .frame(width: 0.25 * UIScreen.main.bounds.width)
                                         .onTapGesture {
@@ -116,7 +116,7 @@ struct StoryView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .background(Color.blue)
+                        .background(ColorToken.corePrimary.toColor())
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
                     }
@@ -147,7 +147,7 @@ struct StoryView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .background(Color.blue)
+                        .background(ColorToken.corePrimary.toColor())
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
                     }

@@ -17,11 +17,11 @@ struct KimoMuteButton: View {
             ZStack {
                 // Larger invisible tap area
                 Circle()
-                    .fill(Color.clear)
+                    .fill(ColorToken.additionalColorsWhite.toColor())
                     .frame(width: 70, height: 70) // Larger tap target
                 // Visible button
                 Circle()
-                    .fill(Color.black.opacity(0.6))
+                    .fill(ColorToken.grayscale60.toColor())
                     .frame(width: 50, height: 50)
                     .shadow(color: .black.opacity(0.3), radius: 4, x: 2, y: 2)
                 Image(systemName: audioManager.isMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")

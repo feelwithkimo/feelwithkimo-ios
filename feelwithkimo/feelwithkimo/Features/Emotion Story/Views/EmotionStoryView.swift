@@ -15,7 +15,7 @@ struct EmotionStoryView: View {
     var body: some View {
         HStack(spacing: 37) {
             ZStack {
-                Color.gray
+                ColorToken.grayscale100.toColor()
 
                 VStack(alignment: .center) {
                     HStack {
@@ -71,7 +71,7 @@ struct EmotionStoryView: View {
 
                                 }
                             }
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
                         }
 
                         Divider()
