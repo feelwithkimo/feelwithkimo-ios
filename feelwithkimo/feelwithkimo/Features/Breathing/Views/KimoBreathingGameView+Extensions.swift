@@ -12,14 +12,13 @@ struct HeaderView: View {
     var body: some View {
         VStack(spacing: 8) {
             Text("Kimo Breathing")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.primary)
+                .font(.app(.largeTitle, family: .primary))
+                .foregroundStyle(ColorToken.textPrimary.toColor())
                 .accessibilityAddTraits(.isHeader)
                 .accessibilityLabel("Kimo Breathing - Aplikasi Latihan Pernapasan")
             Text(phaseDescription)
-                .font(.title2)
-                .foregroundColor(.secondary)
+                .font(.app(.title2, family: .primary))
+                .foregroundStyle(ColorToken.textSecondary.toColor())
                 .multilineTextAlignment(.center)
                 .accessibilityLabel(phaseDescription)
         }
@@ -68,9 +67,9 @@ struct KimoImageView: View {
             .accessibilityAddTraits(.isImage)
             if gameState.isGameActive || gameState.currentPhase == .gameComplete {
                 Text("Scene \(gameState.getCurrentScene())")
-                    .font(.caption)
+                    .font(.app(.caption1, family: .primary))
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 4)
                     .background(
@@ -89,19 +88,19 @@ struct ProgressSectionView: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Text("Ayah/Ibu 🎈")
-                        .font(.caption)
+                        .font(.app(.caption1, family: .primary))
                         .fontWeight(.semibold)
-                        .foregroundColor(.red)
+                        .foregroundStyle(.red)
                     Spacer()
                     Text("\(Int(gameState.parentBalloonProgress))%")
-                        .font(.caption)
+                        .font(.app(.caption1, family: .primary))
                         .fontWeight(.bold)
-                        .foregroundColor(.red)
+                        .foregroundStyle(.red)
                     if gameState.currentPlayer == .parent && gameState.isGameActive {
                         Text("← AKTIF")
-                            .font(.caption2)
+                            .font(.app(.caption2, family: .primary))
                             .fontWeight(.bold)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     }
                 }
                 BreathingProgressBar(
@@ -116,19 +115,19 @@ struct ProgressSectionView: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Text("Anak 🎈")
-                        .font(.caption)
+                        .font(.app(.caption1, family: .primary))
                         .fontWeight(.semibold)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                     Spacer()
                     Text("\(Int(gameState.childBalloonProgress))%")
-                        .font(.caption)
+                        .font(.app(.caption1, family: .primary))
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                     if gameState.currentPlayer == .child && gameState.isGameActive {
                         Text("← AKTIF")
-                            .font(.caption2)
+                            .font(.app(.caption2, family: .primary))
                             .fontWeight(.bold)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                 }
                 BreathingProgressBar(
@@ -143,8 +142,8 @@ struct ProgressSectionView: View {
             if gameState.isGameActive {
                 HStack(spacing: 8) {
                     Text("Bergantian setiap:")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
+                        .font(.app(.caption2, family: .primary))
+                        .foregroundStyle(.gray)
                     ForEach([25, 50, 75, 100], id: \.self) { milestone in
                         Circle()
                             .fill(gameState.getCurrentBalloonProgress() >= Double(milestone) ? Color.green : Color.gray.opacity(0.3))
@@ -152,12 +151,12 @@ struct ProgressSectionView: View {
                             .overlay(
                                 Text("\(milestone)")
                                     .font(.system(size: 6))
-                                    .foregroundColor(.white)
+                                    .foregroundStyle(.white)
                             )
                     }
                     Text("%")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
+                        .font(.app(.caption2, family: .primary))
+                        .foregroundStyle(ColorToken.grayscale100.toColor())
                 }
                 .padding(.top, 8)
             }
@@ -179,11 +178,12 @@ struct BreathInfoSectionView: View {
         VStack(spacing: 8) {
             HStack {
                 Text("Mode Deteksi:")
-                    .font(.caption)
+                    .font(.app(.caption1, family: .primary))
                     .fontWeight(.medium)
+                    .foregroundStyle(ColorToken.textSecondary.toColor())
                 Button(action: toggleMode) {
                     Text(useAudioLevelDetection ? "Audio Level" : "SoundAnalysis")
-                        .font(.caption)
+                        .font(.app(.caption1, family: .primary))
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(Color.blue.opacity(0.2))
@@ -197,13 +197,13 @@ struct BreathInfoSectionView: View {
                     .fill(isCurrentlyDetecting ? Color.green : Color.gray)
                     .frame(width: 12, height: 12)
                 Text(isCurrentlyDetecting ? "Mendeteksi napas..." : "Tidak mendeteksi")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(.app(.caption1, family: .primary))
+                    .foregroundStyle(ColorToken.textSecondary.toColor())
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text("Audio Level: \(String(format: "%.3f", audioLevel))")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(.app(.caption1, family: .primary))
+                    .foregroundStyle(ColorToken.textSecondary.toColor())
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 4)
@@ -221,16 +221,16 @@ struct BreathInfoSectionView: View {
             }
             if confidence > 0 {
                 Text("Kepercayaan: \(Int(confidence * 100))%")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(.app(.caption1, family: .primary))
+                    .foregroundStyle(ColorToken.textSecondary.toColor())
             }
             Text("Jenis napas: \(currentBreathTypeText)")
-                .font(.caption)
+                .font(.app(.caption1, family: .primary))
                 .fontWeight(.medium)
-                .foregroundColor(currentBreathTypeColor)
+                .foregroundStyle(currentBreathTypeColor)
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(ColorToken.grayscale10.toColor())
         .cornerRadius(10)
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Informasi deteksi napas")
@@ -256,9 +256,9 @@ struct ControlButtonsSectionView: View {
             if gameState.currentPhase == .welcome {
                 Button(action: startGame) {
                     Text("Mulai Bermain")
-                        .font(.title2)
+                        .font(.app(.title2, family: .primary))
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.green)
@@ -269,9 +269,9 @@ struct ControlButtonsSectionView: View {
                 // Show only "Lanjut" button when game is completed
                 Button(action: handleContinueAction) {
                     Text("Lanjut")
-                        .font(.title2)
+                        .font(.app(.title2, family: .primary))
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.blue)
@@ -282,9 +282,9 @@ struct ControlButtonsSectionView: View {
             } else {
                 Button(action: resetAction) {
                     Text("Mulai Ulang")
-                        .font(.title3)
+                        .font(.app(.title3, family: .primary))
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.orange)
@@ -296,9 +296,9 @@ struct ControlButtonsSectionView: View {
                 let currentDetectionHint = isCurrentlyDetecting ? "Ketuk untuk menghentikan pendeteksian napas" : "Ketuk untuk mulai mendeteksi napas"
                 Button(action: toggleDetection) {
                     Text(isCurrentlyDetecting ? "Stop" : "Mulai Deteksi")
-                        .font(.title3)
+                        .font(.app(.title3, family: .primary))
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(isCurrentlyDetecting ? Color.red : Color.blue)
@@ -308,9 +308,9 @@ struct ControlButtonsSectionView: View {
                 }
                 Button(action: configureAction) {
                     Text("Pengaturan")
-                        .font(.title3)
+                        .font(.app(.title3, family: .primary))
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.purple)
@@ -331,8 +331,8 @@ struct OrientationGuideView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack(spacing: 12) {
                         Image(systemName: "mic.fill")
-                            .font(.title2)
-                            .foregroundColor(.white)
+                            .font(.app(.title2, family: .primary))
+                            .foregroundStyle(.white)
                             .padding(12)
                             .background(Color.red.opacity(0.9))
                             .clipShape(Circle())
@@ -342,17 +342,17 @@ struct OrientationGuideView: View {
                                 value: showOrientationGuide
                             )
                         Image(systemName: "chevron.left")
-                            .font(.title)
-                            .foregroundColor(.yellow)
+                            .font(.app(.title1, family: .primary))
+                            .foregroundStyle(.yellow)
                             .scaleEffect(1.2)
                             .shadow(color: .black.opacity(0.5), radius: 2, x: 1, y: 1)
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Tiup ke sini")
-                                .font(.headline)
-                                .foregroundColor(.white)
+                                .font(.app(.headline, family: .primary))
+                                .foregroundStyle(.white)
                             Text("Mikrofon iPad")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.8))
+                                .font(.app(.caption1, family: .primary))
+                                .foregroundStyle(.white.opacity(0.8))
                         }
                     }
                     .padding()
@@ -363,11 +363,11 @@ struct OrientationGuideView: View {
                     )
                     HStack(spacing: 8) {
                         Image(systemName: "arrow.right")
-                            .font(.caption)
-                            .foregroundColor(.green)
+                            .font(.app(.caption1, family: .primary))
+                            .foregroundStyle(.green)
                         Text("Bernapaslah ke arah mikrofon")
-                            .font(.caption)
-                            .foregroundColor(.white)
+                            .font(.app(.caption1, family: .primary))
+                            .foregroundStyle(.white)
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 6)

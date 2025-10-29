@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     // MARK: - Properties
     @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var accessibilityManager = AccessibilityManager.shared
 
     // MARK: - Body
     var body: some View {
@@ -29,6 +30,13 @@ struct HomeView: View {
             
             Spacer()
         }
+        .onAppear {
+            // Announce screen when it appears
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let userName = viewModel.currentUser?.name ?? "Teman"
+                accessibilityManager.announceScreenChange("Halaman utama aplikasi Kimo. Selamat datang, \(userName). Pilih emosi yang ingin dipelajari hari ini.")
+            }
+        }
     }
 }
 
@@ -41,11 +49,21 @@ private extension HomeView {
                 Image(systemName: "photo.artframe.circle")
                     .font(.system(size: 140, weight: .thin))
                     .foregroundStyle(ColorToken.grayscale60.toColor())
+                    .kimoImageAccessibility(
+                        label: "Ikon profil pengguna",
+                        isDecorative: true,
+                        identifier: "home.profileIcon"
+                    )
 
                 Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
-                    .font(.largeTitle)
+                    .font(.app(.largeTitle, family: .primary))
                     .fontWeight(.bold)
                     .padding()
+                    .kimoTextAccessibility(
+                        label: "Hai, \(viewModel.currentUser?.name ?? "Teman")!",
+                        identifier: "home.greeting",
+                        sortPriority: 1
+                    )
                 
                 Spacer()
             }
@@ -56,13 +74,23 @@ private extension HomeView {
     var questionView: some View {
         HStack(alignment: .top, spacing: 4) {
             Text("Hari ini mau belajar emosi apa, ya?")
-//                .font(.caption)
-                .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                .font(.app(.caption1, family: .primary))
+                .foregroundStyle(ColorToken.backgroundMain.toColor())
                 .padding(0)
+                .kimoTextAccessibility(
+                    label: "Hari ini mau belajar emosi apa, ya?",
+                    identifier: "home.question",
+                    sortPriority: 2
+                )
 
             Image(systemName: "speaker.wave.1.fill")
-                .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                .foregroundColor(ColorToken.backgroundMain.toColor())
                 .padding(0)
+                .kimoImageAccessibility(
+                    label: "Ikon suara",
+                    isDecorative: true,
+                    identifier: "home.speakerIcon"
+                )
         }
     }
 
@@ -102,14 +130,33 @@ private extension HomeView {
                                     }
                                 )
                             })
+                            .kimoCardAccessibility(
+                                label: "Kartu emosi \(emotion.name)\(viewModel.selectedEmotion?.name == emotion.name ? ", terpilih" : "")",
+                                isSelected: viewModel.selectedEmotion?.name == emotion.name,
+                                hint: "Ketuk dua kali untuk memilih emosi \(emotion.name) dan mulai belajar",
+                                identifier: "home.emotionCard.\(emotion.name.lowercased())"
+                            )
                         }
                     }
                     // optional padding so first/last items can reach exact center if you want:
                     // .padding(.horizontal, outerGeo.size.width / 2 - (approxCardWidth / 2))
                 }
+                .kimoAccessibility(
+                    label: "Daftar pilihan emosi",
+                    hint: "Geser ke kiri atau kanan untuk melihat pilihan emosi lainnya",
+                    traits: .allowsDirectInteraction,
+                    identifier: "home.emotionScrollView"
+                )
                 // react to updates of all card centers and pick the one nearest to the screen center
                 .onPreferenceChange(CardCenterPreferenceKey.self) { centers in
                     viewModel.updateSelectedEmotion(screenCenterX: screenCenterX, centers: centers)
+                    
+                    // Announce selection change for accessibility
+                    if let selectedEmotion = viewModel.selectedEmotion {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            accessibilityManager.announce("Emosi \(selectedEmotion.name) terpilih")
+                        }
+                    }
                 }
                 // initial selection + centering: pick middle index if nothing selected yet
                 .onAppear {

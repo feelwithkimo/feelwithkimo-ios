@@ -43,17 +43,17 @@ enum ColorToken {
     static var emotionDisgusted: UIColor
 
     // MARK: - Background
-    @ColorElement(light: UIColor.from("#FFFDFB"), dark: UIColor.from("#1C162B"))
+    @ColorElement(light: UIColor.from("#1C1628"), dark: UIColor.from("#FFFDFB"))
     static var backgroundMain: UIColor
 
-    @ColorElement(light: UIColor.from("#F5F1FA"), dark: UIColor.from("#2A213A"))
+    @ColorElement(light: UIColor.from("#2A213A"), dark: UIColor.from("#F5F1FA"))
     static var backgroundCard: UIColor
 
     // MARK: - Text
-    @ColorElement(light: UIColor.from("#352E4A"), dark: UIColor.from("#FFFFFF"))
+    @ColorElement(light: UIColor.from("#FFFFFF"), dark: UIColor.from("#352E4A"))
     static var textPrimary: UIColor
 
-    @ColorElement(light: UIColor.from("#6C6487"), dark: UIColor.from("#C4B8D9"))
+    @ColorElement(light: UIColor.from("#C4B8D9"), dark: UIColor.from("#6C6487"))
     static var textSecondary: UIColor
 
     // MARK: - Status

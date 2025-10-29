@@ -12,5 +12,10 @@ struct KimoBackButton: View {
         Image("Back")
             .resizable()
             .frame(maxWidth: 55, maxHeight: 55)
+            .kimoButtonAccessibility(
+                label: "Kembali",
+                hint: "Ketuk dua kali untuk kembali ke halaman sebelumnya",
+                identifier: "kimoBackButton"
+            )
     }
 }

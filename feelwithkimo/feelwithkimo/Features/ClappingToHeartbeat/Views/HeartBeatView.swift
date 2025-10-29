@@ -22,7 +22,7 @@ struct HeartbeatView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 120, height: 120)
-            .foregroundColor(.red)
+            .foregroundStyle(.red)
             .scaleEffect(viewModel.isExpanded ? 1.35 : 1.0)
             .shadow(color: .red.opacity(0.6), radius: viewModel.isExpanded ? 25 : 5)
             .animation(.easeInOut(duration: 0.2), value: viewModel.isExpanded)

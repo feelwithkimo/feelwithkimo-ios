@@ -50,15 +50,14 @@ struct BalloonView: View {
 
             // Balloon string
             Rectangle()
-                .fill(ColorToken.grayscale100.toColor())
+                .fill(ColorToken.additionalColorsBlack.toColor())
                 .frame(width: 2, height: 20)
                 .opacity(balloonOpacity)
 
             // Progress text
             Text("\(Int(progress))%")
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundColor(color)
+                .font(.app(.caption1, family: .primary))
+                .foregroundStyle(color)
                 .opacity(balloonOpacity)
         }
     }

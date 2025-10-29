@@ -13,8 +13,13 @@ extension ClapGameView {
         HStack {
             Spacer()
             Text("Clap the Hand")
-                .font(.largeTitle)
+                .font(.app(.largeTitle, family: .primary))
                 .fontWeight(.bold)
+                .kimoTextAccessibility(
+                    label: "Permainan Tepuk Tangan",
+                    identifier: "clapping.title",
+                    sortPriority: 1
+                )
             Spacer()
         }
     }
@@ -23,6 +28,12 @@ extension ClapGameView {
         RoundedContainer {
             ZStack {
                 CameraPreview(session: viewModel.avSession)
+                    .kimoAccessibility(
+                        label: "Kamera untuk deteksi tangan",
+                        hint: "Posisikan kedua tangan di depan kamera untuk bermain",
+                        traits: .allowsDirectInteraction,
+                        identifier: "clapping.cameraPreview"
+                    )
 
                 // Debugging overlays
                 handDebugOverlays
@@ -44,22 +55,26 @@ extension ClapGameView {
             if let left = viewModel.user1Hands.left,
                let right = viewModel.user1Hands.right {
                 HandConnectionDebugView(left: left, right: right, color: .yellow)
+                    .accessibilityHidden(true)
             }
 
             // Debug connection line user2
             if let left = viewModel.user2Hands.left,
                let right = viewModel.user2Hands.right {
                 HandConnectionDebugView(left: left, right: right, color: .orange)
+                    .accessibilityHidden(true)
             }
 
             // Debugging State User 1 & 2
             HandStateDebugView(handState: viewModel.user1HandState)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding([.top, .leading], 24)
+                .handDetectionAccessibility(handState: viewModel.user1HandState)
 
             HandStateDebugView(handState: viewModel.user2HandState)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                 .padding([.top, .trailing], 24)
+                .handDetectionAccessibility(handState: viewModel.user2HandState)
         }
     }
 
@@ -71,6 +86,10 @@ extension ClapGameView {
                     .frame(width: 220, height: 220)
                     .transition(.scale)
                     .animation(.easeOut(duration: 0.25), value: viewModel.showClapFeedback)
+                    .clapFeedbackAccessibility(
+                        showFeedback: viewModel.showClapFeedback,
+                        isSuccessful: viewModel.didClapSuccessfully
+                    )
             }
         }
     }
@@ -81,6 +100,10 @@ extension ClapGameView {
                 HeartbeatView(bpm: 100, isClapping: .constant(viewModel.showClapFeedback)) {
                     viewModel.onHeartbeat()
                 }
+                .heartbeatAccessibility(
+                    isActive: viewModel.isHeartbeatActive,
+                    bpm: 100
+                )
             }
         }
     }
@@ -90,17 +113,31 @@ extension ClapGameView {
             Spacer()
             Button("▶️ Start Heartbeat") {
                 viewModel.startHeartbeat()
+                AccessibilityManager.announce("Detak jantung dimulai. Tepuk tangan mengikuti irama.")
             }
             .disabled(viewModel.isHeartbeatActive)
             .padding(.bottom, 20)
+            .clappingAccessibility(
+                label: "Mulai Detak Jantung",
+                hint: viewModel.isHeartbeatActive ? "Detak jantung sudah aktif" : "Ketuk dua kali untuk memulai detak jantung dan permainan",
+                traits: .isButton,
+                identifier: "startButton"
+            )
 
             Button("⏹ Stop") {
                 viewModel.stopHeartbeat()
+                AccessibilityManager.announce("Detak jantung berhenti. Permainan selesai.")
             }
             .disabled(!viewModel.isHeartbeatActive)
             .padding(.bottom, 40)
+            .clappingAccessibility(
+                label: "Berhenti",
+                hint: !viewModel.isHeartbeatActive ? "Detak jantung sudah tidak aktif" : "Ketuk dua kali untuk menghentikan detak jantung dan permainan",
+                traits: .isButton,
+                identifier: "stopButton"
+            )
         }
-        .foregroundColor(.white)
+        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
     }
     
     /// View untuk visualisasi garis penghubung dan titik tangan
@@ -145,11 +182,11 @@ extension ClapGameView {
                     VStack {
                         Image(systemName: "hand.raised.slash")
                             .font(.system(size: 80))
-                            .foregroundColor(.gray.opacity(0.4))
+                            .foregroundStyle(ColorToken.grayscale40.toColor())
                             .padding(.bottom, 8)
                         Text("No Hands Detected")
-                            .font(.headline)
-                            .foregroundColor(.gray)
+                            .font(.app(.headline, family: .primary))
+                            .foregroundStyle(ColorToken.grayscale100.toColor())
                     }
                     .transition(.opacity)
 
@@ -157,11 +194,11 @@ extension ClapGameView {
                     VStack {
                         Image(systemName: "hand.point.up.left.fill")
                             .font(.system(size: 80))
-                            .foregroundColor(.yellow.opacity(0.8))
+                            .foregroundStyle(.yellow.opacity(0.8))
                             .padding(.bottom, 8)
                         Text("One Hand Detected")
-                            .font(.headline)
-                            .foregroundColor(.yellow)
+                            .font(.app(.headline, family: .primary))
+                            .foregroundStyle(.yellow)
                     }
                     .transition(.opacity)
 
@@ -169,17 +206,17 @@ extension ClapGameView {
                     VStack {
                         Image(systemName: "hands.clap.fill")
                             .font(.system(size: 80))
-                            .foregroundColor(.green.opacity(0.9))
+                            .foregroundStyle(.green.opacity(0.9))
                             .padding(.bottom, 8)
                         Text("Both Hands Detected")
-                            .font(.headline)
-                            .foregroundColor(.green)
+                            .font(.app(.headline, family: .primary))
+                            .foregroundStyle(.green)
                     }
                     .transition(.opacity)
                 }
             }
             .padding()
-            .background(Color.black.opacity(0.3))
+            .background(ColorToken.backgroundMain.toColor())
             .cornerRadius(16)
             .shadow(radius: 4)
             .animation(.easeInOut(duration: 0.3), value: handState)

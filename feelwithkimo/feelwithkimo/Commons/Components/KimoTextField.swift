@@ -20,5 +20,11 @@ struct KimoTextField: View {
                     .stroke(ColorToken.grayscale40.toColor(), lineWidth: 1)
             )
             .submitLabel(.done)
+            .kimoAccessibility(
+                label: "Kolom teks",
+                hint: "Ketuk dua kali untuk mulai mengetik. Placeholder: \(placeholder)",
+                traits: .isSearchField,
+                identifier: "kimoTextField.\(placeholder.lowercased().replacingOccurrences(of: " ", with: ""))"
+            )
     }
 }

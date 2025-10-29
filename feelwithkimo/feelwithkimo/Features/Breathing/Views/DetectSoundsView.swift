@@ -23,13 +23,12 @@ struct DetectSoundsView: View {
                     // Header
                     VStack(spacing: 8) {
                         Text("Deteksi Suara Napas")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .font(.app(.largeTitle, family: .primary))
                             .accessibilityAddTraits(.isHeader)
 
                         Text("Uji dan kalibrasi sistem deteksi napas")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .font(.app(.subheadline, family: .primary))
+                            .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)
                     }
 
@@ -40,31 +39,30 @@ struct DetectSoundsView: View {
                                 .fill(breathDetector.isDetecting ? Color.green : Color.gray)
                                 .frame(width: 12, height: 12)
                             Text("Status: \(breathDetector.isDetecting ? "Mendeteksi" : "Berhenti")")
-                                .font(.headline)
+                                .font(.app(.headline, family: .primary))
                         }
 
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Jenis Napas: \(breathTypeText)")
-                                .font(.title2)
-                                .fontWeight(.medium)
-                                .foregroundColor(breathTypeColor)
+                                .font(.app(.title2, family: .primary))
+                                .foregroundStyle(breathTypeColor)
 
                             Text("Kepercayaan: \(Int(breathDetector.breathingConfidence * 100))%")
-                                .font(.body)
+                                .font(.app(.body, family: .primary))
 
                             Text("Audio Level: \(String(format: "%.3f", breathDetector.audioLevel))")
-                                .font(.body)
-                                .foregroundColor(.secondary)
+                                .font(.app(.body, family: .primary))
+                                .foregroundStyle(ColorToken.textSecondary.toColor())
 
                             // Audio level visualization
                             GeometryReader { geometry in
                                 ZStack(alignment: .leading) {
                                     RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color.gray.opacity(0.3))
+                                        .fill(ColorToken.grayscale30.toColor())
                                         .frame(height: 8)
 
                                     RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color.blue)
+                                        .fill(ColorToken.emotionSadness.toColor())
                                         .frame(
                                             width: geometry.size.width * min(breathDetector.audioLevel * 20, 1.0),
                                             height: 8
@@ -90,9 +88,8 @@ struct DetectSoundsView: View {
                             }
                         }, label: {
                             Text(breathDetector.isDetecting ? "Stop Deteksi" : "Mulai Deteksi")
-                                .font(.title3)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
+                                .font(.app(.title3, family: .primary))
+                                .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(breathDetector.isDetecting ? Color.red : Color.green)
@@ -104,10 +101,10 @@ struct DetectSoundsView: View {
                             voiceManager.speak("Sekarang coba tarik napas dalam-dalam, lalu hembuskan perlahan")
                         }, label: {
                             Image(systemName: "speaker.wave.2.fill")
-                                .font(.title2)
-                                .foregroundColor(.white)
+                                .font(.app(.title2, family: .primary))
+                                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                                 .frame(width: 50, height: 50)
-                                .background(Color.blue)
+                                .background(ColorToken.emotionSadness.toColor())
                                 .cornerRadius(12)
                         })
                         .accessibilityLabel("Panduan suara untuk latihan napas")
@@ -116,36 +113,35 @@ struct DetectSoundsView: View {
                     // Instructions
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Instruksi:")
-                            .font(.headline)
-                            .fontWeight(.semibold)
+                            .font(.app(.headline, family: .primary))
 
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Image(systemName: "1.circle.fill")
-                                    .foregroundColor(.blue)
+                                    .foregroundStyle(ColorToken.emotionSadness.toColor())
                                 Text("Tekan 'Mulai Deteksi' untuk memulai")
-                                    .font(.body)
+                                    .font(.app(.body, family: .primary))
                             }
 
                             HStack {
                                 Image(systemName: "2.circle.fill")
-                                    .foregroundColor(.blue)
+                                    .foregroundStyle(ColorToken.emotionSadness.toColor())
                                 Text("Tarik napas dalam-dalam melalui hidung")
-                                    .font(.body)
+                                    .font(.app(.body, family: .primary))
                             }
 
                             HStack {
                                 Image(systemName: "3.circle.fill")
-                                    .foregroundColor(.blue)
+                                    .foregroundStyle(.blue)
                                 Text("Hembuskan napas perlahan melalui mulut")
-                                    .font(.body)
+                                    .font(.app(.body, family: .primary))
                             }
 
                             HStack {
                                 Image(systemName: "4.circle.fill")
-                                    .foregroundColor(.blue)
+                                    .foregroundStyle(.blue)
                                 Text("Perhatikan deteksi 'Menghirup' dan 'Menghembuskan'")
-                                    .font(.body)
+                                    .font(.app(.body, family: .primary))
                             }
                         }
                     }
@@ -165,7 +161,7 @@ struct DetectSoundsView: View {
                             Image(systemName: showingDebugInfo ? "chevron.up" : "chevron.down")
                         }
                         .padding()
-                        .background(Color.gray.opacity(0.2))
+                        .background(ColorToken.grayscale20.toColor())
                         .cornerRadius(8)
                     })
 
@@ -189,24 +185,23 @@ struct DetectSoundsView: View {
     private var debugSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Informasi Debug SoundAnalysis")
-                .font(.headline)
-                .foregroundColor(.orange)
+                .font(.app(.headline, family: .primary))
+                .foregroundStyle(ColorToken.coreSecondary.toColor())
 
             VStack(alignment: .leading, spacing: 10) {
                 Text("Label Terkait Pernapasan (\(breathingRelatedLabels.count)):")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.blue)
+                    .font(.app(.subheadline, family: .primary))
+                    .foregroundStyle(ColorToken.emotionSadness.toColor())
 
                 if breathingRelatedLabels.isEmpty {
                     Text("Loading...")
-                        .foregroundColor(.gray)
+                        .foregroundStyle(ColorToken.grayscale100.toColor())
                 } else {
                     LazyVStack(alignment: .leading, spacing: 4) {
                         ForEach(breathingRelatedLabels, id: \.self) { label in
                             Text("• \(label)")
-                                .font(.caption)
-                                .foregroundColor(.primary)
+                                .font(.app(.caption1, family: .primary))
+                                .foregroundStyle(ColorToken.textPrimary.toColor())
                         }
                     }
                 }
@@ -217,32 +212,31 @@ struct DetectSoundsView: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 Text("Semua Label Tersedia (\(allLabels.count)):")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.gray)
+                    .font(.app(.subheadline, family: .primary))
+                    .foregroundStyle(ColorToken.grayscale100.toColor())
 
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 2) {
                         ForEach(allLabels, id: \.self) { label in
                             Text("• \(label)")
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
+                                .font(.app(.caption2, family: .primary))
+                                .foregroundStyle(ColorToken.textSecondary.toColor())
                         }
                     }
                 }
                 .frame(maxHeight: 200)
             }
             .padding()
-            .background(Color.gray.opacity(0.05))
+            .background(ColorToken.grayscale10.toColor())
             .cornerRadius(8)
 
             Text("Gunakan informasi ini untuk memahami kategori suara yang tersedia dalam SoundAnalysis framework Apple.")
-                .font(.caption)
-                .foregroundColor(.gray)
+                .font(.app(.caption1, family: .primary))
+                .foregroundStyle(ColorToken.grayscale100.toColor())
                 .italic()
         }
         .padding()
-        .background(Color.orange.opacity(0.1))
+        .background(ColorToken.backgroundMain.toColor())
         .cornerRadius(12)
     }
 

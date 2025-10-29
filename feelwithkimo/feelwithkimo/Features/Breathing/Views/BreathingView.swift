@@ -136,7 +136,7 @@ struct SetupBreathingSoundsView: View {
                     .accessibilityLabel("Selesai pengaturan deteksi napas")
             }
             Text("Pilih Suara Napas untuk Dideteksi")
-                .font(.title)
+                .font(.app(.title1, family: .primary))
                 .frame(alignment: .leading)
                 .accessibilityAddTraits(.isHeader)
             HStack {
@@ -153,7 +153,7 @@ struct SetupBreathingSoundsView: View {
                     .accessibilityLabel("Cari suara napas")
                 Button(action: { soundSearchString = "" }, label: {
                     Image(systemName: "x.circle.fill")
-                      .foregroundColor(Color.gray)
+                      .foregroundStyle(Color.gray)
                       .opacity(soundSearchString == "" ? 0.0 : 1.0)
                 })
                 .accessibilityLabel("Hapus pencarian")
@@ -171,7 +171,7 @@ struct SetupBreathingSoundsView: View {
                     HStack {
                         Image(systemName: selectedSounds.contains(soundAndSelectionStatus.0)
                               ? "checkmark.circle.fill" : "circle")
-                          .foregroundColor(Color.blue)
+                          .foregroundStyle(Color.blue)
                         Text(soundAndSelectionStatus.0.displayName)
                             .frame(alignment: .leading)
                     }

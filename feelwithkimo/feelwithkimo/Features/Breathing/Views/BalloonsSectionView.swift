@@ -13,9 +13,8 @@ struct BalloonsSectionView: View {
         HStack(spacing: 40) {
             VStack {
                 Text("Ayah/Ibu")
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(
+                    .font(.app(.caption1, family: .primary))
+                    .foregroundStyle(
                         gameState.currentPlayer == .parent && gameState.isGameActive ? .red : .gray
                     )
                 BalloonView(
@@ -29,9 +28,8 @@ struct BalloonsSectionView: View {
                 .animation(.easeInOut(duration: 0.3), value: gameState.currentPlayer == .parent)
                 if gameState.currentPlayer == .parent && gameState.isGameActive {
                     Text("🎈 GILIRANMU!")
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
+                        .font(.app(.caption2, family: .primary))
+                        .foregroundStyle(.red)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(Color.red.opacity(0.1))
@@ -49,15 +47,14 @@ struct BalloonsSectionView: View {
             )
             if gameState.isGameActive {
                 VStack {
-                    Text("🐘").font(.title).scaleEffect(1.2)
-                    Text("Kimo").font(.caption2).foregroundColor(.gray)
+                    Text("🐘").font(.app(.title1, family: .primary)).scaleEffect(1.2)
+                    Text("Kimo").font(.app(.caption2, family: .primary)).foregroundStyle(.gray)
                 }
             }
             VStack {
                 Text("Anak")
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(
+                    .font(.app(.caption1, family: .primary))
+                    .foregroundStyle(
                         gameState.currentPlayer == .child && gameState.isGameActive ? .blue : .gray
                     )
                 BalloonView(
@@ -71,9 +68,8 @@ struct BalloonsSectionView: View {
                 .animation(.easeInOut(duration: 0.3), value: gameState.currentPlayer == .child)
                 if gameState.currentPlayer == .child && gameState.isGameActive {
                     Text("🎈 GILIRANMU!")
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .font(.app(.title1, family: .primary))
+                        .foregroundStyle(.blue)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(Color.blue.opacity(0.1))

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IdentityView: View {
     @StateObject var viewModel: IdentityViewModel = IdentityViewModel()
+    @StateObject private var accessibilityManager = AccessibilityManager.shared
 
     var body: some View {
         if viewModel.identity == "" {
@@ -16,12 +17,22 @@ struct IdentityView: View {
                 KimoHeaderView {
                     VStack(alignment: .center, spacing: 8) {
                         Text("Identitas Orang Tua")
-                            .font(.largeTitle)
+                            .font(.app(.largeTitle, family: .primary))
                             .fontWeight(.bold)
+                            .kimoTextAccessibility(
+                                label: "Identitas Orang Tua",
+                                identifier: "identity.parentTitle",
+                                sortPriority: 1
+                            )
 
                         Text("Yuk, isi sedikit data supaya Kimo bisa mengenal keluarga kecilmu!")
-                            .font(.title2)
+                            .font(.app(.title2, family: .primary))
                             .lineLimit(2)
+                            .kimoTextAccessibility(
+                                label: "Yuk, isi sedikit data supaya Kimo bisa mengenal keluarga kecilmu!",
+                                identifier: "identity.parentDescription",
+                                sortPriority: 2
+                            )
                     }
                 }
                 
@@ -29,10 +40,22 @@ struct IdentityView: View {
 
                 VStack(alignment: .center, spacing: 8) {
                     Text("Nama panggilan anak terhadap orang tua:")
-                        .font(.title2)
+                        .font(.app(.title2, family: .primary))
                         .fontWeight(.bold)
+                        .kimoTextAccessibility(
+                            label: "Nama panggilan anak terhadap orang tua:",
+                            identifier: "identity.nicknameLabel",
+                            sortPriority: 3
+                        )
                     
                     KimoTextField(placeholder: "Example: Papa", inputText: $viewModel.nicknameInput)
+                        .kimoAccessibility(
+                            label: "Kolom nama panggilan orang tua",
+                            hint: "Masukkan nama panggilan yang biasa digunakan anak untuk memanggil orang tua, contoh: Papa, Mama, Ayah, Ibu",
+                            traits: .isButton,
+                            identifier: "identity.nicknameField",
+                            sortPriority: 4
+                        )
                 }
                 .padding(.horizontal)
                 
@@ -40,20 +63,29 @@ struct IdentityView: View {
 
                 Button(action: {
                     viewModel.submitNickname()
+                    accessibilityManager.announce("Nama panggilan berhasil disimpan. Melanjutkan ke halaman identitas anak.")
                 }, label: {
                     Text("Lanjut")
-                        .font(.body)
+                        .font(.app(.body, family: .primary))
                         .bold()
                         .padding(.horizontal, 26)
                         .padding(.vertical, 14)
                         .frame(maxWidth: 150)
-                        .background(ColorToken.additionalColorsBlack.toColor())
-                        .foregroundColor(ColorToken.additionalColorsWhite.toColor())
+                        .background(ColorToken.backgroundMain.toColor())
+                        .foregroundStyle(ColorToken.textPrimary.toColor())
                         .cornerRadius(12)
                         .padding(.vertical, 170)
                 })
                 .padding(.horizontal)
                 .disabled(viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .kimoButtonAccessibility(
+                    label: viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 
+                        "Lanjut, tidak tersedia" : "Lanjut",
+                    hint: viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 
+                        "Isi nama panggilan terlebih dahulu untuk melanjutkan" : 
+                        "Ketuk dua kali untuk menyimpan nama panggilan dan melanjutkan ke halaman identitas anak",
+                    identifier: "identity.continueButton"
+                )
             }
             .navigationDestination(isPresented: $viewModel.navigateToChild) {
                 ChildIdentityView(viewModel: viewModel)
@@ -61,6 +93,11 @@ struct IdentityView: View {
             .onAppear {
                 if !viewModel.parentNickname.isEmpty {
                     viewModel.nicknameInput = viewModel.parentNickname
+                }
+                
+                // Announce screen when it appears
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    accessibilityManager.announceScreenChange("Halaman identitas orang tua. Silakan isi nama panggilan yang digunakan anak untuk memanggil orang tua.")
                 }
             }
             .navigationBarBackButtonHidden(true)

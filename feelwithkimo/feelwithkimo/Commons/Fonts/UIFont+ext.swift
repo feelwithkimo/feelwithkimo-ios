@@ -51,17 +51,17 @@ extension UIFont {
     /// Centralized mapping to SwiftUI.Font.TextStyle
     static func mapToSwiftUITextStyle(_ style: UIFont.TextStyle) -> Font.TextStyle {
         let styleMap: [UIFont.TextStyle: Font.TextStyle] = [
-            .largeTitle: .largeTitle,
-            .title1: .title,
-            .title2: .title2,
-            .title3: .title3,
-            .headline: .headline,
-            .subheadline: .subheadline,
-            .body: .body,
-            .callout: .callout,
-            .footnote: .footnote,
-            .caption1: .caption,
-            .caption2: .caption2
+            .largeTitle: .largeTitle,       // 34 px
+            .title1: .title,                // 28 px
+            .title2: .title2,               // 22 px
+            .title3: .title3,               // 20 px
+            .headline: .headline,           // 18 px
+            .subheadline: .subheadline,     // 17 px
+            .body: .body,                   // 16 px
+            .callout: .callout,             // 15 px
+            .footnote: .footnote,           // 13 px
+            .caption1: .caption,            // 12 px
+            .caption2: .caption2            // 11 px
         ]
         return styleMap[style] ?? .body
     }
