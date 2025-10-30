@@ -29,11 +29,21 @@ struct EntryView: View {
                         Text("Hai, aku Kimo!")
                             .font(.app(.largeTitle, family: .primary))
                             .fontWeight(.bold)
+                            .kimoTextGroupAccessibility(
+                                combinedLabel: "Hai, aku Kimo!",
+                                identifier: "entry.welcomeMessage",
+                                sortPriority: 1
+                            )
 
                         Text("Di sini, kamu dan si kecil akan belajar mengenal perasaan lewat cerita dan permainan seru.")
                             .font(.app(.body, family: .primary))
                             .fontWeight(.regular)
                             .padding(.bottom, 50)
+                            .kimoTextGroupAccessibility(
+                                combinedLabel: "Di sini, kamu dan si kecil akan belajar mengenal perasaan lewat cerita dan permainan seru.",
+                                identifier: "entry.welcomeMessageTwo",
+                                sortPriority: 2
+                            )
                         
                         NavigationLink {
                             IdentityView()
@@ -46,11 +56,7 @@ struct EntryView: View {
                             identifier: "entry.startButton"
                         )
                     }
-                    .kimoTextGroupAccessibility(
-                        combinedLabel: "Hai, aku Kimo! Yuk, bantu si kecil mengenal perasaan dengan cerita dan permainan seru",
-                        identifier: "entry.welcomeMessage",
-                        sortPriority: 1
-                    )
+                    
                 }
                 .padding(.horizontal, 110)
                 

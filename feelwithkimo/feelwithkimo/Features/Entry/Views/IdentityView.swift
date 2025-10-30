@@ -53,7 +53,7 @@ struct IdentityView: View {
                             .font(.app(.title2, family: .primary))
                             .fontWeight(.bold)
                             .kimoTextAccessibility(
-                                label: "Nama anak:",
+                                label: "Nama si kecil",
                                 identifier: "identity.nicknameChildLabel",
                                 sortPriority: 3
                             )
@@ -110,7 +110,6 @@ struct IdentityView: View {
                             .cornerRadius(50)
                     })
                     .padding(.horizontal)
-                    .disabled(viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     .kimoButtonAccessibility(
                         label: viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?
                         "Lanjut, tidak tersedia" : "Lanjut",
@@ -125,16 +124,17 @@ struct IdentityView: View {
                 Spacer()
             }
             .onAppear {
-                if !viewModel.parentNickname.isEmpty {
-                    viewModel.nicknameInput = viewModel.parentNickname
-                }
-                
                 // Announce screen when it appears
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     accessibilityManager.announceScreenChange("Halaman pengisian identitas")
                 }
             }
             .navigationBarBackButtonHidden(true)
+            .alert("Notice", isPresented: $viewModel.showError) {
+                Button("Ok", role: .cancel) { }
+            } message: {
+                Text(viewModel.alertMessage)
+            }
         } else {
             HomeView()
         }

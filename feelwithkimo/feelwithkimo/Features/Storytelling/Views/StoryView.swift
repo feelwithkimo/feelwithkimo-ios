@@ -217,17 +217,29 @@ struct StoryView: View {
             
             VStack {
                 HStack {
-                    Spacer()
                     KimoMuteButton(audioManager: audioManager)
-                        .padding(20)
-                        .padding(.top, 10)
-                        .padding(.trailing, 20)
                         .kimoButtonAccessibility(
                             label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
                             hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
                             identifier: "story.muteButton"
                         )
+
+                    Spacer()
+                    
+                    Image(systemName: "xmark")
+                        .font(.app(.title1))
+                        .foregroundColor(.gray)
+                        .padding(14)
+                        .background(
+                            Circle()
+                                .fill(Color(white: 0.9))
+                        )
+                        .onTapGesture {
+                            dismiss()
+                        }
                 }
+                .padding(.horizontal, 57 * UIScreen.main.bounds.width / 1194)
+                .padding(.top, 50 * UIScreen.main.bounds.height / 834)
                 Spacer()
             }
         }
@@ -260,6 +272,7 @@ struct StoryView: View {
             audioManager.stop()
         }
         .statusBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         .onChange(of: viewModel.index) {
             // Announce scene changes
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

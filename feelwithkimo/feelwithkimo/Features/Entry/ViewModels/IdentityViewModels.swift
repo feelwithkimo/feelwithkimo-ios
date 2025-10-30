@@ -34,13 +34,14 @@ internal class IdentityViewModel: ObservableObject {
     func submitName() {
         let trimmed = childNicknameInput.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
-            alertMessage = "Nama tidak boleh kosong"
+            alertMessage = "Nama anak tidak boleh kosong"
             showError = true
             return
         }
         
         let trimmedParent = nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedParent.isEmpty else {
+            alertMessage = "Nama panggilan tidak boleh kosong"
             showError = true
             return
         }
@@ -48,6 +49,5 @@ internal class IdentityViewModel: ObservableObject {
         identity = trimmed
         parentNickname = trimmedParent
         showError = false
-        return
     }
 }

@@ -16,11 +16,6 @@ struct KimoHeaderView<Content: View>: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color(.systemGray6))
                 .shadow(radius: 4)
-                .kimoAccessibility(
-                    label: "Area header",
-                    traits: .isHeader,
-                    identifier: "kimoHeaderBackground"
-                )
             
             content()
         }

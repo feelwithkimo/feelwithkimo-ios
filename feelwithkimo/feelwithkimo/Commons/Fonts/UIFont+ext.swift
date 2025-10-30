@@ -31,7 +31,7 @@ extension UIFont {
             default: return "\(family.rawValue)-Regular"
             }
         }()
-
+        
         guard let customFont = UIFont(name: fontName, size: pointSize) else {
             assertionFailure("❌ Failed to load font: \(fontName). Check .ttf or Info.plist registration.")
             return UIFont.preferredFont(forTextStyle: style)

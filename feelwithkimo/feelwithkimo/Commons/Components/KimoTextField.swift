@@ -19,11 +19,5 @@ struct KimoTextField: View {
                 RoundedRectangle(cornerRadius: 50).fill(ColorToken.grayscale30.toColor())
             )
             .submitLabel(.done)
-            .kimoAccessibility(
-                label: "Kolom teks",
-                hint: "Ketuk dua kali untuk mulai mengetik. Placeholder: \(placeholder)",
-                traits: .isSearchField,
-                identifier: "kimoTextField.\(placeholder.lowercased().replacingOccurrences(of: " ", with: ""))"
-            )
     }
 }

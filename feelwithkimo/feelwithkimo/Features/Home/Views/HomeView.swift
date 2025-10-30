@@ -36,7 +36,12 @@ struct HomeView: View {
                 let userName = viewModel.currentUser?.name ?? "Teman"
                 accessibilityManager.announceScreenChange("Halaman utama aplikasi Kimo. Selamat datang, \(userName). Pilih emosi yang ingin dipelajari hari ini.")
             }
+            AudioManager.shared.startBackgroundMusic()
         }
+        .onDisappear {
+            AudioManager.shared.stop()
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -46,15 +51,6 @@ private extension HomeView {
     var headerView: some View {
         KimoHeaderView {
             HStack(spacing: 23) {
-                Image(systemName: "photo.artframe.circle")
-                    .font(.system(size: 140, weight: .thin))
-                    .foregroundStyle(ColorToken.grayscale60.toColor())
-                    .kimoImageAccessibility(
-                        label: "Ikon profil pengguna",
-                        isDecorative: true,
-                        identifier: "home.profileIcon"
-                    )
-
                 Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
                     .font(.app(.largeTitle, family: .primary))
                     .fontWeight(.bold)
@@ -66,7 +62,18 @@ private extension HomeView {
                     )
                 
                 Spacer()
+                
+                KimoMuteButton(audioManager: AudioManager.shared)
+                    .padding(20)
+                    .padding(.top, 10)
+                    .padding(.trailing, 20)
+                    .kimoButtonAccessibility(
+                        label: viewModel.muted ? "Suara dimatikan" : "Suara dinyalakan",
+                        hint: viewModel.muted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                        identifier: "story.muteButton"
+                    )
             }
+            .padding(.horizontal, 70 * UIScreen.main.bounds.width / 1194)
         }
     }
 
