@@ -32,7 +32,7 @@ internal class HomeViewModel: ObservableObject {
 
         // Data dummy untuk daftar emosi
         self.emotions = [
-            EmotionModel(id: UUID(), name: "Seneng", visualCharacterName: "face.smiling", emotionImage: "", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "", title: "", description: "", stories: []),
             EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "", title: "", description: "", stories: []),
             EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Anger", title: "Hi, aku marah",
                          description: "Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.", stories: []),

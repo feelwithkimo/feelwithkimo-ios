@@ -17,16 +17,15 @@ struct EmotionStoryView: View {
         HStack(spacing: 37) {
             ZStack {
                 VStack(alignment: .center) {
-//                    HStack {
-//                        KimoBackButton()
-//                            .onTapGesture {
-//                                audioManager.stop()
-//                                dismiss()
-//                            }
-//                        
-//                        Spacer()
-//                    }
-//                    .padding(.top, 35)
+                    HStack {
+                        KimoBackButton()
+                            .onTapGesture {
+                                dismiss()
+                            }
+                        
+                        Spacer()
+                    }
+                    .padding(.top, 35)
 
                     Spacer().frame(height: 115)
 
@@ -36,11 +35,6 @@ struct EmotionStoryView: View {
                         .frame(width: 186, height: 186)
                         .clipShape(Circle())
                         .shadow(radius: 10)
-                        .kimoImageAccessibility(
-                            label: "Gambar emosi \(viewModel.emotion.name)",
-                            isDecorative: false,
-                            identifier: "emotionStory.emotionImage"
-                        )
 
                     VStack(spacing: 16) {
                         Text(viewModel.emotion.title)
@@ -54,7 +48,7 @@ struct EmotionStoryView: View {
                             .multilineTextAlignment(.center)
                     }
                     .kimoTextGroupAccessibility(
-                        combinedLabel: "Emosi \(viewModel.emotion.title). \(viewModel.emotion.description)",
+                        combinedLabel: "\(viewModel.emotion.title). \(viewModel.emotion.description)",
                         identifier: "emotionStory.titleAndDescription"
                     )
                     Spacer()
@@ -120,7 +114,7 @@ struct EmotionStoryView: View {
             Spacer()
         }
         .ignoresSafeArea()
-        .navigationBarBackButtonHidden(false)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

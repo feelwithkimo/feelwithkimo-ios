@@ -138,7 +138,7 @@ private extension HomeView {
                                 )
                             })
                             .kimoCardAccessibility(
-                                label: "Kartu emosi \(emotion.name)\(viewModel.selectedEmotion?.name == emotion.name ? ", terpilih" : "")",
+                                label: "Kartu emosi \(emotion.name) terpilih",
                                 isSelected: viewModel.selectedEmotion?.name == emotion.name,
                                 hint: "Ketuk dua kali untuk memilih emosi \(emotion.name) dan mulai belajar",
                                 identifier: "home.emotionCard.\(emotion.name.lowercased())"
