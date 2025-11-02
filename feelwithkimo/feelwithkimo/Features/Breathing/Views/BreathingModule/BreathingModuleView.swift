@@ -66,6 +66,8 @@ struct BreathingModuleView: View {
                     .animation(.easeInOut(duration: viewModel.currentPhase.duration), value: viewModel.animationScale)
             }
             
+            Spacer()
+            
             // Breathing instructions and countdown
             VStack(spacing: 10) {
                 Text(viewModel.currentPhase.rawValue)
@@ -77,8 +79,6 @@ struct BreathingModuleView: View {
                     .font(.system(size: 48, weight: .bold))
                     .foregroundColor(ColorToken.textSecondary.toColor())
             }
-            
-            Spacer()
             
             // Start/Stop button
             Button(action: {
