@@ -8,39 +8,41 @@
 import SwiftUI
 
 // MARK: - Subviews
-extension ClapGameView {
-    var headerView: some View {
-        HStack {
-            Spacer()
-            Text("Clap the Hand")
-                .font(.app(.largeTitle, family: .primary))
-                .fontWeight(.bold)
-                .kimoTextAccessibility(
-                    label: "Permainan Tepuk Tangan",
-                    identifier: "clapping.title",
-                    sortPriority: 1
-                )
-            Spacer()
+extension ClapGameView { 
+    func headerView(progress: Double) -> some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text("Clap the Hand")
+                    .font(.app(.largeTitle, family: .primary))
+                    .kimoTextAccessibility(
+                        label: "Permainan Tepuk Tangan",
+                        identifier: "clapping.title",
+                        sortPriority: 1
+                    )
+                Spacer()
+            }
+            
+            KimoProgressBar(value: progress)
+                .animation(.spring(duration: 0.5), value: progress)
         }
     }
 
     var cameraContentView: some View {
-        RoundedContainer {
-            ZStack {
-                CameraPreview(session: viewModel.avSession)
-                    .kimoAccessibility(
-                        label: "Kamera untuk deteksi tangan",
-                        hint: "Posisikan kedua tangan di depan kamera untuk bermain",
-                        traits: .allowsDirectInteraction,
-                        identifier: "clapping.cameraPreview"
-                    )
+        ZStack {
+            CameraPreview(session: viewModel.avSession)
+                .kimoAccessibility(
+                    label: "Kamera untuk deteksi tangan",
+                    hint: "Posisikan kedua tangan di depan kamera untuk bermain",
+                    traits: .allowsDirectInteraction,
+                    identifier: "clapping.cameraPreview"
+                )
 
-                // Debugging overlays
-                handDebugOverlays
-
-                // Visual feedback
-                clapFeedbackCircle
-            }
+//            // Debugging overlays
+//            handDebugOverlays
+//
+//            // Visual feedback
+//            clapFeedbackCircle
         }
     }
 

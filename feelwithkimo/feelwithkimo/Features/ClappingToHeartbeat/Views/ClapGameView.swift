@@ -20,20 +20,23 @@ struct ClapGameView: View {
 
     var body: some View {
         VStack {
-            // MARK: - Header
-            headerView
+            RoundedContainer {
+                ZStack {
+                    // MARK: - Content
+                    cameraContentView
+                    
+                    // MARK: - Header
+//                    let progress = Double(viewModel.beatCount) / Double(viewModel.totalClap)
 
-            // MARK: - Progress Bar
-            ProgressBarView(currentStep: viewModel.beatCount)
-                .clappingProgressAccessibility(
-                    currentStep: viewModel.beatCount,
-                    totalSteps: viewModel.totalClap
-                )
-
-            // MARK: - Content
-            cameraContentView
+                    headerView(progress: viewModel.progress)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .padding(.top, 24)
+                        .padding(.horizontal, 202)
+                }
+            }
         }
         .padding(40)
+        .background(ColorToken.coreAccent.toColor())
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

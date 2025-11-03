@@ -55,6 +55,9 @@ final class ClapGameViewModel: ObservableObject {
     var user1HandState: HandState { detectHandState(for: user1Hands) }
     var user2HandState: HandState { detectHandState(for: user2Hands) }
     var avSession: AVCaptureSession { visionManager.session }
+    var progress: Double {
+        Double(beatCount) / Double(totalClap)
+    }
     let totalClap = 20
 
     // MARK: - Private Properties
