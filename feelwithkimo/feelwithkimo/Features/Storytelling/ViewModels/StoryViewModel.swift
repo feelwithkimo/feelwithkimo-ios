@@ -42,19 +42,27 @@ internal class StoryViewModel: ObservableObject {
         for number in 1...17 {
             scenes.append(StorySceneModel(
                 path: "Scene \(number)",
-                text: "",
+                text: "Lala suka bermain balok tinggi-tinggi. \"Tinggi Sekali!\" kata Lala sambil tertawa ",
                 isEnd: false,
                 interactionType: .normal
             ))
         }
 
+        // Branch A Ending
+        scenes.append(StorySceneModel(
+            path: "Scene 17",
+            text: "Kesimpulan",
+            isEnd: true,
+            interactionType: .normal
+        ))
+        
         // Input previous Scene
-        for number in 1...16 {
+        for number in 1...17 {
             scenes[number].nextScene.append(scenes[number - 1])
         }
 
         // Input next scene
-        for number in 0...15 {
+        for number in 0...16 {
             scenes[number].nextScene.append(scenes[number + 1])
         }
 
@@ -74,23 +82,28 @@ internal class StoryViewModel: ObservableObject {
                 interactionType: .normal
             ))
         }
+        
+        // Branch B Ending
+        branchBScene.append(StorySceneModel(
+            path: "Scene 14_B",
+            text: "",
+            isEnd: true,
+            interactionType: .normal
+        ))
 
         // Previous Scene for branch B
-        for number in 1...4 {
+        for number in 1...5 {
             branchBScene[number].nextScene.append(branchBScene[number - 1])
         }
         branchBScene[0].nextScene.append(scenes[8])
 
         // Next Scene for branch B
-        for number in 0...3 {
+        for number in 0...4 {
             branchBScene[number].nextScene.append(branchBScene[number + 1])
         }
 
         // Connect branching scene to branch B
         scenes[8].nextScene.append(branchBScene[0])
-
-        scenes[16].isEnd = true // Branch A Ending
-        branchBScene[4].isEnd = true // Branch B Ending
         
         scenes[7].interactionType = .storyBranching
         scenes[5].interactionType = .clapping
@@ -140,14 +153,20 @@ internal class StoryViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.hasSeenTutorial = true
                 self.hasSeenTutor = true
-                print(self.hasSeenTutor)
             }
-            print("Test")
             return
         }
         
         DispatchQueue.main.async {
             self.tutorialStep += 1
+        }
+    }
+    func replayStory() {
+        DispatchQueue.main.async {
+            self.index = 0
+            self.currentScene = self.story.storyScene[0]
+            self.hasCompletedBreathing = false
+            self.hasCompletedClapping = false
         }
     }
 }

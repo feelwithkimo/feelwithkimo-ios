@@ -155,6 +155,7 @@ struct IdentityView: View {
         }
     }
 }
+
 #Preview {
     IdentityView()
 }
