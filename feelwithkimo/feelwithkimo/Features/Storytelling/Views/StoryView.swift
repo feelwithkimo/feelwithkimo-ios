@@ -100,8 +100,8 @@ struct StoryView: View {
                                         identifier: "story.nextButton"
                                     )
                             } else if viewModel.currentScene.isEnd {
-                                Text("")
-                                    .frame(width: 80 * UIScreen.main.bounds.width / 1194)
+                                Spacer()
+                                    .frame(width: 80.getWidth())
                             }
                         }
                         .padding(.bottom, 49 * UIScreen.main.bounds.height / 834)
