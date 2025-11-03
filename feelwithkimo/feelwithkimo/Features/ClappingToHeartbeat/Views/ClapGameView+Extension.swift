@@ -40,11 +40,6 @@ extension ClapGameView {
 
                 // Visual feedback
                 clapFeedbackCircle
-
-                heartbeatView
-
-                // Buttons
-                controlButtons
             }
         }
     }
@@ -92,52 +87,6 @@ extension ClapGameView {
                     )
             }
         }
-    }
-    
-    var heartbeatView: some View {
-        Group {
-            if viewModel.isHeartbeatActive {
-                HeartbeatView(bpm: 100, isClapping: .constant(viewModel.showClapFeedback)) {
-                    viewModel.onHeartbeat()
-                }
-                .heartbeatAccessibility(
-                    isActive: viewModel.isHeartbeatActive,
-                    bpm: 100
-                )
-            }
-        }
-    }
-
-    var controlButtons: some View {
-        VStack {
-            Spacer()
-            Button("▶️ Start Heartbeat") {
-                viewModel.startHeartbeat()
-                AccessibilityManager.announce("Detak jantung dimulai. Tepuk tangan mengikuti irama.")
-            }
-            .disabled(viewModel.isHeartbeatActive)
-            .padding(.bottom, 20)
-            .clappingAccessibility(
-                label: "Mulai Detak Jantung",
-                hint: viewModel.isHeartbeatActive ? "Detak jantung sudah aktif" : "Ketuk dua kali untuk memulai detak jantung dan permainan",
-                traits: .isButton,
-                identifier: "startButton"
-            )
-
-            Button("⏹ Stop") {
-                viewModel.stopHeartbeat()
-                AccessibilityManager.announce("Detak jantung berhenti. Permainan selesai.")
-            }
-            .disabled(!viewModel.isHeartbeatActive)
-            .padding(.bottom, 40)
-            .clappingAccessibility(
-                label: "Berhenti",
-                hint: !viewModel.isHeartbeatActive ? "Detak jantung sudah tidak aktif" : "Ketuk dua kali untuk menghentikan detak jantung dan permainan",
-                traits: .isButton,
-                identifier: "stopButton"
-            )
-        }
-        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
     }
     
     /// View untuk visualisasi garis penghubung dan titik tangan
