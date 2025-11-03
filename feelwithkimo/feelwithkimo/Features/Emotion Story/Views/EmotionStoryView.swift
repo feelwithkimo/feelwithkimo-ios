@@ -14,99 +14,90 @@ struct EmotionStoryView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     
     var body: some View {
-        HStack(spacing: 37) {
-            ZStack {
-                VStack(alignment: .center) {
-                    Spacer().frame(height: 115)
-
-                    Image(viewModel.emotion.emotionImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 186, height: 186)
-                        .clipShape(Circle())
-                        .shadow(radius: 10)
-                        .kimoImageAccessibility(
-                            label: "Gambar emosi \(viewModel.emotion.name)",
-                            isDecorative: false,
-                            identifier: "emotionStory.emotionImage"
-                        )
-
-                    VStack(spacing: 16) {
-                        Text(viewModel.emotion.title)
-                            .font(.app(.largeTitle, family: .primary))
-                            .fontWeight(.bold)
-                            .foregroundStyle(ColorToken.textPrimary.toColor())
-
-                        Text(viewModel.emotion.description)
-                            .font(.app(.title2, family: .primary))
-                            .foregroundStyle(ColorToken.textSecondary.toColor())
-                            .multilineTextAlignment(.center)
-                    }
-                    .kimoTextGroupAccessibility(
-                        combinedLabel: "Emosi \(viewModel.emotion.title). \(viewModel.emotion.description)",
-                        identifier: "emotionStory.titleAndDescription"
-                    )
-                    Spacer()
-                }
-                .padding(.horizontal, 35)
+        ZStack {
+            VStack(spacing: 0) {
+                Spacer()
+                
+                ColorToken.coreSecondary.toColor()
+                    .frame(height: 101 * UIScreen.main.bounds.height / 834)
+                
+                ColorToken.coreSecondaryTwo.toColor()
+                    .frame(height: 130 * UIScreen.main.bounds.height / 834)
             }
-            .frame(maxWidth: 0.4 * UIScreen.main.bounds.width)
-            .background(ColorToken.backgroundMain.toColor())
             
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack(alignment: .leading) {
-                    ForEach(Array(viewModel.emotion.stories.enumerated()), id: \.element.id) { index, story in
-                        NavigationLink {
-                            StoryView()
-                        } label: {
-                            HStack {
-                                Image("Thumbnail")
-                                    .kimoImageAccessibility(
-                                        label: "Gambar thumbnail cerita",
-                                        isDecorative: true,
-                                        identifier: "emotionStory.thumbnail.\(index)"
-                                    )
-
-                                VStack(alignment: .leading) {
-                                    Text(story.name)
-                                        .font(.app(.title2, family: .primary))
-                                        .fontWeight(.bold)
-                                        .kimoTextAccessibility(
-                                            label: "Judul cerita: \(story.name)",
-                                            identifier: "emotionStory.storyName.\(index)"
-                                        )
-
-                                    Text(story.description)
-                                        .font(.app(.body, family: .primary))
-                                        .kimoTextAccessibility(
-                                            label: "Deskripsi cerita: \(story.description)",
-                                            identifier: "emotionStory.storyDescription.\(index)"
-                                        )
-
-                                }
-                            }
-                            .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
-                        }
-                        .kimoNavigationAccessibility(
-                            label: "Cerita \(story.name)",
-                            hint: "Ketuk dua kali untuk membuka cerita \(story.name) tentang emosi \(viewModel.emotion.name)",
-                            identifier: "emotionStory.storyLink.\(index)"
+            VStack(alignment: .center, spacing: 0) {
+                HStack {
+                    KimoMuteButton(audioManager: audioManager)
+                        .kimoButtonAccessibility(
+                            label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
+                            hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                            identifier: "story.muteButton"
                         )
 
-                        Divider()
-                            .accessibilityHidden(true)
+                    Spacer()
+                    
+                    Image(systemName: "xmark")
+                        .font(.app(.title1))
+                        .foregroundColor(.gray)
+                        .padding(14)
+                        .background(
+                            Circle()
+                                .fill(Color(white: 0.9))
+                        )
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
+                .padding(.horizontal, 57 * UIScreen.main.bounds.width / 1194)
+                .padding(.top, 50 * UIScreen.main.bounds.height / 834)
+                
+                HStack(spacing: 39) {
+                    Image("KimoEmotionStory")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 512 * UIScreen.main.bounds.width / 1194)
+                    
+                    VStack(spacing: 0) {
+                        Text("Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.")
+                            .frame(maxWidth: 500 * UIScreen.main.bounds.width / 1194)
+                            .padding(.horizontal, 49 * UIScreen.main.bounds.width / 1194)
+                            .padding(.vertical, 42.5 * UIScreen.main.bounds.height / 834)
+                            .background(ColorToken.corePinkDialogue.toColor())
+                            .cornerRadius(30)
+                        
+                        HStack {
+                            Image("KimoDialogue")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 157 * UIScreen.main.bounds.width / 1194)
+                            
+                            Spacer()
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            
+                            NavigationLink(destination: {
+                                StoryView()
+                            }, label: {
+                                Text("Mulai bermain")
+                                    .font(.app(.title1, family: .primary))
+                                    .frame(maxWidth: 234 * UIScreen.main.bounds.width / 1194)
+                                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 15.5)
+                                    .background(ColorToken.backgroundCard.toColor())
+                                    .cornerRadius(30)
+                            })
+                        }
                     }
                 }
-                .kimoAccessibility(
-                    label: "Daftar cerita tentang emosi \(viewModel.emotion.name)",
-                    hint: "Geser untuk melihat semua cerita yang tersedia",
-                    traits: .allowsDirectInteraction,
-                    identifier: "emotionStory.storiesList"
-                )
+                .padding(.top, 53)
+                .padding(.horizontal, 72)
+                
+                Spacer()
             }
-            .frame(maxWidth: 0.6 * UIScreen.main.bounds.width)
-            .padding(.top, 115)
-            Spacer()
+            .padding(.horizontal, 35)
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(false)

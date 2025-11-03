@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct StoryView: View {
-    @AppStorage("hasSeenTutorial") var seenTutorial = false
-    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: StoryViewModel = StoryViewModel()
     @ObservedObject private var audioManager = AudioManager.shared
     @StateObject var viewModel: StoryViewModel = StoryViewModel()
     @StateObject private var accessibilityManager = AccessibilityManager.shared
@@ -323,6 +322,181 @@ struct StoryView: View {
                 accessibilityManager.announce(announcement)
             }
         }
+    }
+    
+    private func firstTutorialView() -> some View {
+        VStack {
+            Spacer()
+            
+            HStack(alignment: .bottom, spacing: 0) {
+                Spacer()
+                
+                VStack(alignment: .leading) {
+                    Text("Bacakan cerita ini untuk si kecil, ya!")
+                        .font(.app(.title3, family: .primary))
+                    
+                    Text("Gunakan suara dan ekspresi supaya si kecil ikut merasakannya")
+                        .font(.app(.title3, family: .primary))
+                        .fontWeight(.regular)
+                }
+                .padding(.vertical, 24)
+                .padding(.horizontal, 15)
+                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                .cornerRadius(20)
+                
+                Image("TextDialogue")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
+                    .padding(.bottom, 10 * UIScreen.main.bounds.height / 834)
+                    .padding(.trailing, 19)
+                
+                Image("Kimo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .padding(.trailing, 79)
+            }
+            
+            Image("Point")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 125)
+            
+            RoundedRectangle(cornerRadius: 24)
+                .fill(ColorToken.backgroundCard.toColor())
+                .overlay(
+                    Text(viewModel.currentScene.text)
+                        .font(.app(.headline, family: .primary))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+                        .multilineTextAlignment(.center)
+                        .kimoTextAccessibility(
+                            label: "Narasi: \(viewModel.currentScene.text)",
+                            identifier: "story.narration.text"
+                        ),
+                    alignment: .center
+                )
+                .frame(
+                    width: 840 * UIScreen.main.bounds.width / 1194,
+                    height: 120 * UIScreen.main.bounds.height / 834
+                )
+                .padding(.horizontal, 177)
+                .padding(.bottom, 49)
+                .padding(.top, 11)
+                .onTapGesture {
+                    viewModel.nextTutorial()
+                }
+        }
+    }
+    
+    private func secondTutorialView() -> some View {
+        VStack {
+            Spacer()
+            
+            HStack(spacing: 0) {
+                Image("Kimo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .padding(.top, 51 / 834 * UIScreen.main.bounds.height)
+                    .padding(.trailing, 9)
+                
+                Image("TextDialogue_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
+                    .padding(.top, 71 / 834 * UIScreen.main.bounds.height)
+                
+                // Text
+                VStack(alignment: .leading) {
+                    Text("Klik ikon Kimo, ya!")
+                        .font(.app(.title3, family: .primary))
+                    
+                    Text("Kimo akan memberikan petunjuk saat si kecil butuh bantuan")
+                        .font(.app(.title3, family: .primary))
+                        .fontWeight(.regular)
+                }
+                .frame(maxWidth: 564)
+                .padding(.vertical, 24)
+                .padding(.horizontal, 15)
+                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                .cornerRadius(20)
+                .padding(.trailing, 18)
+                .padding(.top, 71)
+                
+                Image("Point_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 125)
+                    .padding(.top, 45)
+                
+                Image("KimoVisual")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 130)
+                    .padding(.bottom, 71)
+                    .onTapGesture {
+                        viewModel.nextTutorial()
+                    }
+            }
+            .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
+        }
+        .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
+        .padding(.trailing, 33 / 1194 * UIScreen.main.bounds.width)
+    }
+    
+    private func thirdTutorialView() -> some View {
+        VStack {
+            Spacer()
+            
+            HStack(spacing: 0) {
+                Image("Kimo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .padding(.top, 51 / 834 * UIScreen.main.bounds.height)
+                    .padding(.trailing, 9)
+                
+                Image("TextDialogue_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
+                    .padding(.top, 71 / 834 * UIScreen.main.bounds.height)
+                
+                // Text
+                Text("dan juga komentar seru untuk menemani si kecil sepanjang cerita!...")
+                    .font(.app(.title3, family: .primary))
+                    .fontWeight(.regular)
+                    .frame(maxWidth: 564)
+                    .padding(.vertical, 24)
+                    .padding(.horizontal, 15)
+                    .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                    .cornerRadius(20)
+                    .padding(.trailing, 18)
+                    .padding(.top, 71)
+                
+                Image("Point_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 125)
+                    .padding(.top, 45)
+                
+                Image("KimoVisual_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 130)
+                    .padding(.bottom, 71)
+                    .onTapGesture {
+                        viewModel.nextTutorial()
+                        print("test")
+                    }
+            }
+            .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
+        }
+        .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
+        .padding(.trailing, 33 / 1194 * UIScreen.main.bounds.width)
     }
 }
 
