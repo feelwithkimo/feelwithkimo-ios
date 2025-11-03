@@ -40,7 +40,7 @@ struct EmotionCard: View {
                     .frame(width: cardSize, height: cardSize)
 
                 Image(systemName: emotion.visualCharacterName)
-                    .font(.system(size: (cardSize)/2))
+                    .font(.system(size: (cardSize) / 2))
                     .foregroundStyle(ColorToken.textPrimary.toColor())
                     .kimoImageAccessibility(
                         label: "Ikon emosi \(emotion.name)",

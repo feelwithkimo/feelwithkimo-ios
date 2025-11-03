@@ -12,7 +12,7 @@ struct KimoButton: View {
     
     var body: some View {
         Text(textLabel)
-            .font(.app(.title3, family: .primary))
+            .font(.app(.title1, family: .primary))
             .padding(.horizontal, 26)
             .padding(.vertical, 18)
             .background(ColorToken.backgroundCard.toColor())

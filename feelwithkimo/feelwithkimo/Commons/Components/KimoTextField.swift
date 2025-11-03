@@ -13,18 +13,11 @@ struct KimoTextField: View {
     
     var body: some View {
         TextField(placeholder, text: $inputText)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
-            .overlay(
-                RoundedRectangle(cornerRadius: 50)
-                    .stroke(ColorToken.grayscale40.toColor(), lineWidth: 1)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 28)
+            .background(
+                RoundedRectangle(cornerRadius: 50).fill(ColorToken.grayscale30.toColor())
             )
             .submitLabel(.done)
-            .kimoAccessibility(
-                label: "Kolom teks",
-                hint: "Ketuk dua kali untuk mulai mengetik. Placeholder: \(placeholder)",
-                traits: .isSearchField,
-                identifier: "kimoTextField.\(placeholder.lowercased().replacingOccurrences(of: " ", with: ""))"
-            )
     }
 }

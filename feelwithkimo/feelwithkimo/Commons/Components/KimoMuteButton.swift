@@ -17,9 +17,10 @@ struct KimoMuteButton: View {
             ZStack {
                 Circle()
                     .fill(ColorToken.grayscale60.toColor())
-                    .frame(width: 50, height: 50)
+                    .frame(width: 65, height: 65)
                     .shadow(color: .black.opacity(0.3), radius: 4, x: 2, y: 2)
-                Image(systemName: audioManager.isMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+                
+                Image(audioManager.isMuted ? "Mute" : "Music")
                     .font(.app(.title3, family: .primary))
                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
             }

@@ -172,105 +172,51 @@ struct StoryView: View {
                     }
                 }
             }
-
-            // Switch for case interactions -> Breathing, Clapping, Mimic, and so on.
-            switch viewModel.currentScene.interactionType {
-            case .breathing:
-                VStack {
-                    NavigationLink(
-                        destination: InteractionWrapper(
-                            onCompletion: {
-                                viewModel.completeBreathingExercise()
-                                accessibilityManager.announce("Latihan pernapasan selesai. Melanjutkan cerita.")
-                            },
-                            viewFactory: { wrapperCompletion in
-                                BreathingView(onCompletion: wrapperCompletion)
-                            }
-                        )
-                    ) {
-                        HStack {
-                            Text("Ayo Latihan Pernapasan")
-                                .font(.app(.title3, family: .primary))
-                                .fontWeight(.medium)
-                        }
-                        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .background(ColorToken.corePrimary.toColor())
-                        .cornerRadius(12)
-                        .padding(.horizontal, 20)
-                    }
-                    .padding(.bottom, 30)
-                    .kimoNavigationAccessibility(
-                        label: "Ayo Latihan Pernapasan",
-                        hint: "Ketuk dua kali untuk memulai permainan latihan pernapasan",
-                        identifier: "story.breathingButton"
-                    )
-                    
-                    Spacer()
-                }
-
-            case .clapping:
-                VStack {
-                    NavigationLink(
-                        destination: InteractionWrapper(
-                            onCompletion: {
-                                viewModel.completeClappingExercise()
-                                accessibilityManager.announce("Permainan tepuk tangan selesai. Melanjutkan cerita.")
-                            },
-                            viewFactory: { wrapperCompletion in
-                                ClapGameView(onCompletion: wrapperCompletion)
-                            }
-                        )
-                    ) {
-                        HStack {
-                            Image(systemName: "hands.clap")
-                                .font(.app(.title3, family: .primary))
-                                .kimoImageAccessibility(
-                                    label: "Ikon tepuk tangan",
-                                    isDecorative: true,
-                                    identifier: "story.clapIcon"
-                                )
-                            Text("Mulai Bermain")
-                                .font(.app(.title3, family: .primary))
-                                .fontWeight(.medium)
-                        }
-                        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .background(ColorToken.corePrimary.toColor())
-                        .cornerRadius(12)
-                        .padding(.horizontal, 20)
-                    }
-                    .padding(.bottom, 30)
-                    .kimoNavigationAccessibility(
-                        label: "Mulai Bermain tepuk tangan",
-                        hint: "Ketuk dua kali untuk memulai permainan tepuk tangan mengikuti detak jantung",
-                        identifier: "story.clappingButton"
-                    )
-                    Spacer()
-                }
-                
-            default:
-                EmptyView()
-            }
             
             VStack {
                 HStack {
-                    Spacer()
                     KimoMuteButton(audioManager: audioManager)
-                        .padding(20)
-                        .padding(.top, 10)
-                        .padding(.trailing, 20)
                         .kimoButtonAccessibility(
                             label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
                             hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
                             identifier: "story.muteButton"
                         )
+
+                    Spacer()
+                    
+                    Image(systemName: "xmark")
+                        .font(.app(.title1))
+                        .foregroundColor(.gray)
+                        .padding(14)
+                        .background(
+                            Circle()
+                                .fill(Color(white: 0.9))
+                        )
+                        .onTapGesture {
+                            dismiss()
+                        }
                 }
+                .padding(.horizontal, 57 * UIScreen.main.bounds.width / 1194)
+                .padding(.top, 50 * UIScreen.main.bounds.height / 834)
+                .padding(.bottom, 16)
+                
+                InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
+                
                 Spacer()
             }
             
+            if !viewModel.hasSeenTutor {
+                ColorToken.additionalColorsBlack.toColor().opacity(0.6)
+                    .ignoresSafeArea()
+                
+                switch viewModel.tutorialStep {
+                case 1: firstTutorialView()
+                case 2: secondTutorialView()
+                case 3: thirdTutorialView()
+                default: EmptyView()
+                }
+            }
+
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
                     dismiss: { dismiss() },
@@ -279,7 +225,7 @@ struct StoryView: View {
             }
         }
         .onAppear {
-            audioManager.startBackgroundMusic()
+            // audioManager.startBackgroundMusic()
             
             // Announce story scene information
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -307,6 +253,7 @@ struct StoryView: View {
             audioManager.stop()
         }
         .statusBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         .onChange(of: viewModel.index) {
             // Announce scene changes
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -323,6 +270,181 @@ struct StoryView: View {
                 accessibilityManager.announce(announcement)
             }
         }
+    }
+    
+    private func firstTutorialView() -> some View {
+        VStack {
+            Spacer()
+            
+            HStack(alignment: .bottom, spacing: 0) {
+                Spacer()
+                
+                VStack(alignment: .leading) {
+                    Text("Bacakan cerita ini untuk si kecil, ya!")
+                        .font(.app(.title3, family: .primary))
+                    
+                    Text("Gunakan suara dan ekspresi supaya si kecil ikut merasakannya")
+                        .font(.app(.title3, family: .primary))
+                        .fontWeight(.regular)
+                }
+                .padding(.vertical, 24)
+                .padding(.horizontal, 15)
+                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                .cornerRadius(20)
+                
+                Image("TextDialogue")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
+                    .padding(.bottom, 10 * UIScreen.main.bounds.height / 834)
+                    .padding(.trailing, 19)
+                
+                Image("Kimo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .padding(.trailing, 79)
+            }
+            
+            Image("Point")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 125)
+            
+            RoundedRectangle(cornerRadius: 24)
+                .fill(ColorToken.backgroundCard.toColor())
+                .overlay(
+                    Text(viewModel.currentScene.text)
+                        .font(.app(.headline, family: .primary))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+                        .multilineTextAlignment(.center)
+                        .kimoTextAccessibility(
+                            label: "Narasi: \(viewModel.currentScene.text)",
+                            identifier: "story.narration.text"
+                        ),
+                    alignment: .center
+                )
+                .frame(
+                    width: 840 * UIScreen.main.bounds.width / 1194,
+                    height: 120 * UIScreen.main.bounds.height / 834
+                )
+                .padding(.horizontal, 177)
+                .padding(.bottom, 49)
+                .padding(.top, 11)
+                .onTapGesture {
+                    viewModel.nextTutorial()
+                }
+        }
+    }
+    
+    private func secondTutorialView() -> some View {
+        VStack {
+            Spacer()
+            
+            HStack(spacing: 0) {
+                Image("Kimo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .padding(.top, 51 / 834 * UIScreen.main.bounds.height)
+                    .padding(.trailing, 9)
+                
+                Image("TextDialogue_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
+                    .padding(.top, 71 / 834 * UIScreen.main.bounds.height)
+                
+                // Text
+                VStack(alignment: .leading) {
+                    Text("Klik ikon Kimo, ya!")
+                        .font(.app(.title3, family: .primary))
+                    
+                    Text("Kimo akan memberikan petunjuk saat si kecil butuh bantuan")
+                        .font(.app(.title3, family: .primary))
+                        .fontWeight(.regular)
+                }
+                .frame(maxWidth: 564)
+                .padding(.vertical, 24)
+                .padding(.horizontal, 15)
+                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                .cornerRadius(20)
+                .padding(.trailing, 18)
+                .padding(.top, 71)
+                
+                Image("Point_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 125)
+                    .padding(.top, 45)
+                
+                Image("KimoVisual")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 130)
+                    .padding(.bottom, 71)
+                    .onTapGesture {
+                        viewModel.nextTutorial()
+                    }
+            }
+            .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
+        }
+        .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
+        .padding(.trailing, 33 / 1194 * UIScreen.main.bounds.width)
+    }
+    
+    private func thirdTutorialView() -> some View {
+        VStack {
+            Spacer()
+            
+            HStack(spacing: 0) {
+                Image("Kimo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .padding(.top, 51 / 834 * UIScreen.main.bounds.height)
+                    .padding(.trailing, 9)
+                
+                Image("TextDialogue_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
+                    .padding(.top, 71 / 834 * UIScreen.main.bounds.height)
+                
+                // Text
+                Text("dan juga komentar seru untuk menemani si kecil sepanjang cerita!...")
+                    .font(.app(.title3, family: .primary))
+                    .fontWeight(.regular)
+                    .frame(maxWidth: 564)
+                    .padding(.vertical, 24)
+                    .padding(.horizontal, 15)
+                    .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                    .cornerRadius(20)
+                    .padding(.trailing, 18)
+                    .padding(.top, 71)
+                
+                Image("Point_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 125)
+                    .padding(.top, 45)
+                
+                Image("KimoVisual_2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 130)
+                    .padding(.bottom, 71)
+                    .onTapGesture {
+                        viewModel.nextTutorial()
+                        print("test")
+                    }
+            }
+            .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
+        }
+        .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
+        .padding(.trailing, 33 / 1194 * UIScreen.main.bounds.width)
     }
 }
 

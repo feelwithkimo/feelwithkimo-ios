@@ -9,15 +9,19 @@ import Foundation
 import SwiftUI
 
 internal class StoryViewModel: ObservableObject {
+    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
+    @Published var hasSeenTutor: Bool = false
+    
     @Published var index: Int = 0
     @Published var currentScene: StorySceneModel = StorySceneModel(
-        path: "",
-        text: "",
+        path: "Scene 1",
+        text: "Hi aku Lala​",
         isEnd: false,
         interactionType: .normal
     )
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
+    @Published var tutorialStep: Int = 1
 
     lazy var story: StoryModel = StoryModel(
         id: UUID(),
@@ -28,14 +32,11 @@ internal class StoryViewModel: ObservableObject {
     )
 
     init() {
-        Task { @MainActor in
-            await self.fetchStory()
-        }
+        fetchStory()
     }
 
     /// Load story scene
-    @MainActor
-    private func fetchStory() async {
+    private func fetchStory() {
         var scenes: [StorySceneModel] = []
 
         for number in 1...17 {
@@ -147,6 +148,19 @@ internal class StoryViewModel: ObservableObject {
         goScene(to: 1, choice: 0)
     }
     
+    func nextTutorial() {
+        guard self.tutorialStep < 3 else {
+            DispatchQueue.main.async {
+                self.hasSeenTutorial = true
+                self.hasSeenTutor = true
+            }
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.tutorialStep += 1
+        }
+    }
     func replayStory() {
         DispatchQueue.main.async {
             self.index = 0

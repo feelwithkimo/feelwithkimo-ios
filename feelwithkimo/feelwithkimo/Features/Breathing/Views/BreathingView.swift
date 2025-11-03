@@ -135,10 +135,12 @@ struct SetupBreathingSoundsView: View {
                     .padding()
                     .accessibilityLabel("Selesai pengaturan deteksi napas")
             }
+            
             Text("Pilih Suara Napas untuk Dideteksi")
                 .font(.app(.title1, family: .primary))
                 .frame(alignment: .leading)
                 .accessibilityAddTraits(.isHeader)
+            
             HStack {
                 Button("Pilih Semua", action: { selectedSounds.formUnion(soundOptions) })
                     .padding()
@@ -146,7 +148,9 @@ struct SetupBreathingSoundsView: View {
                 Button("Hapus Semua", action: { selectedSounds.removeAll() })
                     .padding()
                     .accessibilityLabel("Hapus semua pilihan suara napas")
-            }.padding()
+            }
+            .padding()
+            
             HStack {
                 Image(systemName: "magnifyingglass")
                 TextField("Cari", text: $soundSearchString)
