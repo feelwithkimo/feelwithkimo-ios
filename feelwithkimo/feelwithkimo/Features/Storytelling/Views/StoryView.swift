@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct StoryView: View {
-//    @AppStorage("hasSeenTutorial") var hasSeenTutorial = false
     @StateObject var viewModel: StoryViewModel = StoryViewModel()
     @ObservedObject private var audioManager = AudioManager.shared
     @Environment(\.dismiss) private var dismiss
@@ -343,7 +342,6 @@ struct StoryView: View {
                         viewModel.nextTutorial()
                     }
             }
-            .background(.blue)
             .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
         }
         .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
@@ -396,7 +394,6 @@ struct StoryView: View {
                         print("test")
                     }
             }
-            .background(.blue)
             .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
         }
         .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
