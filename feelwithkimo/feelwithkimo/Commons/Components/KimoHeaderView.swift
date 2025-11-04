@@ -14,7 +14,7 @@ struct KimoHeaderView<Content: View>: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.systemGray6))
+                .fill(Color(ColorToken.emotionSurprise.toColor()))
                 .shadow(radius: 4)
             
             content()

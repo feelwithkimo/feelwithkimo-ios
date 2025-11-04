@@ -39,6 +39,7 @@ extension StoryView {
                         HStack {
                             Image(systemName: "arrow.right.square")
                                 .font(.app(.title1, family: .primary))
+                            
                             Text("Keluar")
                                 .font(.app(.title1, family: .primary))
                         }

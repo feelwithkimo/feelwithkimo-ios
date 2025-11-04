@@ -23,154 +23,151 @@ struct StoryView: View {
                 .ignoresSafeArea()
                 .id(viewModel.index)
                 .modifier(FadeContentTransition())
-                .animation(.easeInOut(duration: 1.5), value: viewModel.index)
+                .animation(.easeInOut(duration: 1), value: viewModel.index)
                 .kimoImageAccessibility(
                     label: "Gambar cerita adegan \(viewModel.index + 1)",
                     isDecorative: false,
                     identifier: "story.scene.\(viewModel.index)"
                 )
-
-            // Area tombol transparan kiri/kanan
-            GeometryReader { _ in
-                if viewModel.currentScene.question == nil {
-                    VStack {
-                        Spacer()
-                        
-                        HStack {
+            
+            if viewModel.currentScene.question == nil {
+                VStack(alignment: .center) {
+                    Spacer()
+                        .frame(height: 685.getHeight())
+                    
+                    HStack(spacing: 0) {
+                        if viewModel.currentScene.nextScene.count > 1 || viewModel.currentScene.isEnd {
+                            Image("PreviousScene")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100.getWidth())
+                                .onTapGesture {
+                                    viewModel.goScene(to: -1, choice: 0)
+                                    accessibilityManager.announce("Kembali ke adegan sebelumnya")
+                                }
+                                .kimoButtonAccessibility(
+                                    label: "Adegan sebelumnya",
+                                    hint: "Ketuk dua kali untuk kembali ke adegan sebelumnya",
+                                    identifier: "story.previousButton"
+                                )
+                        } else {
                             Spacer()
-                            
-                            if viewModel.currentScene.nextScene.count > 1 || viewModel.currentScene.isEnd {
-                                Image("PreviousScene")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80 * UIScreen.main.bounds.width / 1194)
-                                    .onTapGesture {
-                                        viewModel.goScene(to: -1, choice: 0)
-                                        accessibilityManager.announce("Kembali ke adegan sebelumnya")
-                                    }
-                                    .kimoButtonAccessibility(
-                                        label: "Adegan sebelumnya",
-                                        hint: "Ketuk dua kali untuk kembali ke adegan sebelumnya",
-                                        identifier: "story.previousButton"
-                                    )
-                            } else {
-                                Text("")
-                                    .frame(width: 80 * UIScreen.main.bounds.width / 1194)
-                            }
-                            
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(ColorToken.backgroundCard.toColor())
-                                .overlay(
-                                    Text(viewModel.currentScene.text)
-                                        .font(.app(.headline, family: .primary))
-                                        .foregroundColor(.white)
-                                        .padding(.horizontal, 24)
-                                        .padding(.vertical, 16)
-                                        .multilineTextAlignment(.center)
-                                        .kimoTextAccessibility(
-                                            label: "Narasi: \(viewModel.currentScene.text)",
-                                            identifier: "story.narration.text"
-                                        ),
-                                    alignment: .center
-                                )
-                                .frame(
-                                    width: 840 * UIScreen.main.bounds.width / 1194,
-                                    height: 120 * UIScreen.main.bounds.height / 834
-                                )
-                            
-                            // Next Scene Button
-                            if viewModel.currentScene.nextScene.count >= 1 && !viewModel.currentScene.isEnd {
-                                Image("NextScene")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80 * UIScreen.main.bounds.width / 1194)
-                                    .onTapGesture {
-                                        guard !viewModel.currentScene.isEnd else {
-                                            accessibilityManager.announce("Cerita selesai. Kembali ke halaman sebelumnya.")
-                                            dismiss()
-                                            return
-                                        }
-                                        viewModel.goScene(to: 1, choice: 0)
-                                        accessibilityManager.announce("Melanjutkan ke adegan berikutnya")
-                                    }
-                                    .kimoButtonAccessibility(
-                                        label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
-                                        hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
-                                            "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
-                                        identifier: "story.nextButton"
-                                    )
-                            } else if viewModel.currentScene.isEnd {
-                                Spacer()
-                                    .frame(width: 80.getWidth())
-                            }
+                                .frame(width: 100.getWidth())
                         }
-                        .padding(.bottom, 49 * UIScreen.main.bounds.height / 834)
-                        .padding(.horizontal, 67 * UIScreen.main.bounds.width / 1194)
-                    }
-                } else {
-                    ZStack {
-                        Color.black.opacity(0.5)
-                            .kimoAccessibility(
-                                label: "Latar belakang pertanyaan",
-                                traits: .isStaticText,
-                                identifier: "story.questionBackground"
+                        
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(ColorToken.corePinkStory.toColor())
+                            .overlay(
+                                Text(viewModel.currentScene.text)
+                                    .font(.app(.headline, family: .primary))
+                                    .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                                    .padding(.horizontal, 45.getWidth())
+                                    .padding(.vertical, 32.getHeight())
+                                    .multilineTextAlignment(.center)
+                                    .kimoTextAccessibility(
+                                        label: "Narasi: \(viewModel.currentScene.text)",
+                                        identifier: "story.narration.text"
+                                    ),
+                                alignment: .center
                             )
+                            .frame(
+                                width: 840.getWidth(),
+                                height: 120.getHeight()
+                            )
+                            .padding(.horizontal, 20.getWidth())
+                        
+                        // Next Scene Button
+                        if viewModel.currentScene.nextScene.count >= 1 && !viewModel.currentScene.isEnd {
+                            Image("NextScene")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100.getWidth())
+                                .onTapGesture {
+                                    guard !viewModel.currentScene.isEnd else {
+                                        accessibilityManager.announce("Cerita selesai. Kembali ke halaman sebelumnya.")
+                                        dismiss()
+                                        return
+                                    }
+                                    viewModel.goScene(to: 1, choice: 0)
+                                    accessibilityManager.announce("Melanjutkan ke adegan berikutnya")
+                                }
+                                .kimoButtonAccessibility(
+                                    label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
+                                    hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
+                                        "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
+                                    identifier: "story.nextButton"
+                                )
+                        } else if viewModel.currentScene.isEnd {
+                            Spacer()
+                                .frame(width: 100.getWidth())
+                        }
+                    }
+                    .padding(.bottom, 50.getHeight())
+                    .padding(.horizontal, 57.getWidth())
+                }
+            } else {
+                ZStack {
+                    Color.black.opacity(0.5)
+                        .kimoAccessibility(
+                            label: "Latar belakang pertanyaan",
+                            traits: .isStaticText,
+                            identifier: "story.questionBackground"
+                        )
 
-                        VStack {
-                            if let question = viewModel.currentScene.question {
-                                Text(question.question)
+                    VStack {
+                        if let question = viewModel.currentScene.question {
+                            Text(question.question)
+                                .padding()
+                                .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
+                                .background(ColorToken.backgroundMain.toColor())
+                                .foregroundStyle(ColorToken.textPrimary.toColor())
+                                .cornerRadius(10)
+                                .kimoTextAccessibility(
+                                    label: "Pertanyaan: \(question.question)",
+                                    identifier: "story.questionText",
+                                    sortPriority: 1
+                                )
+
+                            HStack(spacing: 5) {
+                                Spacer()
+
+                                Text(question.option[0])
                                     .padding()
-                                    .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
-                                    .background(ColorToken.backgroundMain.toColor())
+                                    .frame(width: 0.25 * UIScreen.main.bounds.width)
+                                    .background(ColorToken.backgroundCard.toColor())
                                     .foregroundStyle(ColorToken.textPrimary.toColor())
                                     .cornerRadius(10)
-                                    .kimoTextAccessibility(
-                                        label: "Pertanyaan: \(question.question)",
-                                        identifier: "story.questionText",
-                                        sortPriority: 1
+                                    .onTapGesture {
+                                        viewModel.goScene(to: 1, choice: 0)
+                                        accessibilityManager.announce("Memilih: \(question.option[0])")
+                                    }
+                                    .kimoButtonAccessibility(
+                                        label: "Pilihan A: \(question.option[0])",
+                                        hint: "Ketuk dua kali untuk memilih jawaban ini",
+                                        identifier: "story.optionA"
                                     )
 
-                                HStack(spacing: 5) {
-                                    Spacer()
-
-                                    Text(question.option[0])
-                                        .padding()
-                                        .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                        .background(ColorToken.backgroundCard.toColor())
-                                        .foregroundStyle(ColorToken.textPrimary.toColor())
-                                        .cornerRadius(10)
-                                        .onTapGesture {
-                                            viewModel.goScene(to: 1, choice: 0)
-                                            accessibilityManager.announce("Memilih: \(question.option[0])")
-                                        }
-                                        .kimoButtonAccessibility(
-                                            label: "Pilihan A: \(question.option[0])",
-                                            hint: "Ketuk dua kali untuk memilih jawaban ini",
-                                            identifier: "story.optionA"
-                                        )
-
-                                    Text(question.option[1])
-                                        .padding()
-                                        .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                        .background(ColorToken.backgroundCard.toColor())
-                                        .foregroundStyle(ColorToken.textPrimary.toColor())
-                                        .cornerRadius(10)
-                                        .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                        .onTapGesture {
-                                            viewModel.goScene(to: 1, choice: 1)
-                                            accessibilityManager.announce("Memilih: \(question.option[1])")
-                                        }
-                                        .kimoButtonAccessibility(
-                                            label: "Pilihan B: \(question.option[1])",
-                                            hint: "Ketuk dua kali untuk memilih jawaban ini",
-                                            identifier: "story.optionB"
-                                        )
-                                    Spacer()
-                                }
+                                Text(question.option[1])
+                                    .padding()
+                                    .frame(width: 0.25 * UIScreen.main.bounds.width)
+                                    .background(ColorToken.backgroundCard.toColor())
+                                    .foregroundStyle(ColorToken.textPrimary.toColor())
+                                    .cornerRadius(10)
+                                    .onTapGesture {
+                                        viewModel.goScene(to: 1, choice: 1)
+                                        accessibilityManager.announce("Memilih: \(question.option[1])")
+                                    }
+                                    .kimoButtonAccessibility(
+                                        label: "Pilihan B: \(question.option[1])",
+                                        hint: "Ketuk dua kali untuk memilih jawaban ini",
+                                        identifier: "story.optionB"
+                                    )
+                                Spacer()
                             }
                         }
                     }
                 }
+                .ignoresSafeArea()
             }
             
             VStack {
@@ -196,9 +193,9 @@ struct StoryView: View {
                                 identifier: "story.muteButton"
                             )
                 }
-                .padding(.horizontal, 57 * UIScreen.main.bounds.width / 1194)
-                .padding(.top, 50 * UIScreen.main.bounds.height / 834)
-                .padding(.bottom, 16)
+                .padding(.horizontal, 57.getWidth())
+                .padding(.top, 50.getHeight())
+                .padding(.bottom, 16.getHeight())
                 
                 InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
                 
@@ -273,7 +270,7 @@ struct StoryView: View {
     }
     
     private func firstTutorialView() -> some View {
-        VStack {
+        VStack(alignment: .center) {
             Spacer()
             
             HStack(alignment: .bottom, spacing: 0) {
@@ -295,30 +292,30 @@ struct StoryView: View {
                 Image("TextDialogue")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
-                    .padding(.bottom, 10 * UIScreen.main.bounds.height / 834)
+                    .frame(width: 59.getWidth())
+                    .padding(.bottom, 10.getHeight())
                     .padding(.trailing, 19)
                 
                 Image("Kimo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
+                    .frame(width: 150.getWidth())
                     .padding(.trailing, 79)
             }
             
             Image("Point")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 125)
+                .frame(width: 125.getWidth())
             
             RoundedRectangle(cornerRadius: 24)
-                .fill(ColorToken.backgroundCard.toColor())
+                .fill(ColorToken.additionalColorsWhite.toColor())
                 .overlay(
                     Text(viewModel.currentScene.text)
                         .font(.app(.headline, family: .primary))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 16)
+                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                        .padding(.horizontal, 24.getWidth())
+                        .padding(.vertical, 16.getHeight())
                         .multilineTextAlignment(.center)
                         .kimoTextAccessibility(
                             label: "Narasi: \(viewModel.currentScene.text)",
@@ -327,16 +324,18 @@ struct StoryView: View {
                     alignment: .center
                 )
                 .frame(
-                    width: 840 * UIScreen.main.bounds.width / 1194,
-                    height: 120 * UIScreen.main.bounds.height / 834
+                    width: 840.getWidth(),
+                    height: 120.getHeight()
                 )
-                .padding(.horizontal, 177)
-                .padding(.bottom, 49)
-                .padding(.top, 11)
+                .padding(.horizontal, 177.getWidth())
+                .padding(.top, 11.getHeight())
                 .onTapGesture {
                     viewModel.nextTutorial()
                 }
         }
+        .padding(.bottom, 50.getHeight())
+        .ignoresSafeArea()
+        .padding(0)
     }
     
     private func secondTutorialView() -> some View {
@@ -347,15 +346,15 @@ struct StoryView: View {
                 Image("Kimo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
-                    .padding(.top, 51 / 834 * UIScreen.main.bounds.height)
+                    .frame(width: 150.getWidth())
+                    .padding(.top, 51 )
                     .padding(.trailing, 9)
                 
                 Image("TextDialogue_2")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
-                    .padding(.top, 71 / 834 * UIScreen.main.bounds.height)
+                    .frame(width: 59.getWidth())
+                    .padding(.top, 71.getHeight())
                 
                 // Text
                 VStack(alignment: .leading) {
@@ -389,10 +388,10 @@ struct StoryView: View {
                         viewModel.nextTutorial()
                     }
             }
-            .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
+            .padding(.bottom, 175.getHeight())
         }
-        .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
-        .padding(.trailing, 33 / 1194 * UIScreen.main.bounds.width)
+        .padding(.leading, 112.getWidth())
+        .padding(.trailing, 33.getWidth())
     }
     
     private func thirdTutorialView() -> some View {
@@ -403,15 +402,15 @@ struct StoryView: View {
                 Image("Kimo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150 / 1194 * UIScreen.main.bounds.width)
-                    .padding(.top, 51 / 834 * UIScreen.main.bounds.height)
+                    .frame(width: 150.getWidth())
+                    .padding(.top, 51.getHeight())
                     .padding(.trailing, 9)
                 
                 Image("TextDialogue_2")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 59 * UIScreen.main.bounds.width / 1194)
-                    .padding(.top, 71 / 834 * UIScreen.main.bounds.height)
+                    .frame(width: 59.getWidth())
+                    .padding(.top, 71.getHeight())
                 
                 // Text
                 Text("dan juga komentar seru untuk menemani si kecil sepanjang cerita!...")
@@ -441,10 +440,10 @@ struct StoryView: View {
                         print("test")
                     }
             }
-            .padding(.bottom, 175 * UIScreen.main.bounds.height / 834)
+            .padding(.bottom, 175.getHeight())
         }
-        .padding(.leading, 112 / 1194 * UIScreen.main.bounds.width)
-        .padding(.trailing, 33 / 1194 * UIScreen.main.bounds.width)
+        .padding(.leading, 112.getWidth())
+        .padding(.trailing, 33.getWidth())
     }
 }
 

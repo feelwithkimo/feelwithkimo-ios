@@ -19,10 +19,10 @@ struct EmotionStoryView: View {
                 Spacer()
                 
                 ColorToken.coreSecondary.toColor()
-                    .frame(height: 101 * UIScreen.main.bounds.height / 834)
+                    .frame(height: 101.getHeight())
                 
                 ColorToken.coreSecondaryTwo.toColor()
-                    .frame(height: 130 * UIScreen.main.bounds.height / 834)
+                    .frame(height: 130.getHeight())
             }
             
             VStack(alignment: .center, spacing: 0) {
@@ -48,20 +48,20 @@ struct EmotionStoryView: View {
                             identifier: "story.muteButton"
                         )
                 }
-                .padding(.horizontal, 57 * UIScreen.main.bounds.width / 1194)
-                .padding(.top, 50 * UIScreen.main.bounds.height / 834)
+                .padding(.horizontal, 57.getWidth())
+                .padding(.top, 50.getHeight())
                 
                 HStack(spacing: 39) {
                     Image("KimoEmotionStory")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 512 * UIScreen.main.bounds.width / 1194)
+                        .frame(width: 512.getWidth())
                     
                     VStack(spacing: 0) {
                         Text("Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.")
-                            .frame(maxWidth: 500 * UIScreen.main.bounds.width / 1194)
-                            .padding(.horizontal, 49 * UIScreen.main.bounds.width / 1194)
-                            .padding(.vertical, 42.5 * UIScreen.main.bounds.height / 834)
+                            .frame(maxWidth: 500.getWidth())
+                            .padding(.horizontal, 49.getWidth())
+                            .padding(.vertical, 42.getHeight())
                             .background(ColorToken.corePinkDialogue.toColor())
                             .cornerRadius(30)
                         
@@ -69,7 +69,7 @@ struct EmotionStoryView: View {
                             Image("KimoDialogue")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(maxWidth: 157 * UIScreen.main.bounds.width / 1194)
+                                .frame(maxWidth: 157.getWidth())
                             
                             Spacer()
                         }
@@ -80,24 +80,17 @@ struct EmotionStoryView: View {
                             NavigationLink(destination: {
                                 StoryView()
                             }, label: {
-                                Text("Mulai bermain")
-                                    .font(.app(.title1, family: .primary))
-                                    .frame(maxWidth: 234 * UIScreen.main.bounds.width / 1194)
-                                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 15.5)
-                                    .background(ColorToken.backgroundCard.toColor())
-                                    .cornerRadius(30)
+                                KimoBubbleButton(buttonLabel: "Mulai bermain")
                             })
                         }
                     }
                 }
-                .padding(.top, 53)
-                .padding(.horizontal, 72)
+                .padding(.top, 53.getHeight())
+                .padding(.horizontal, 72.getWidth())
                 
                 Spacer()
             }
-            .padding(.horizontal, 35)
+            .padding(.horizontal, 35.getWidth())
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
