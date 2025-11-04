@@ -27,26 +27,26 @@ struct EmotionStoryView: View {
             
             VStack(alignment: .center, spacing: 0) {
                 HStack {
+                    Image(systemName: "xmark")
+                        .font(.app(.title1))
+                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                        .padding(14)
+                        .background(
+                            Circle()
+                                .fill(ColorToken.coreSecondary.toColor())
+                        )
+                        .onTapGesture {
+                            dismiss()
+                        }
+                    
+                    Spacer()
+                    
                     KimoMuteButton(audioManager: audioManager)
                         .kimoButtonAccessibility(
                             label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
                             hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
                             identifier: "story.muteButton"
                         )
-
-                    Spacer()
-                    
-                    Image(systemName: "xmark")
-                        .font(.app(.title1))
-                        .foregroundColor(.gray)
-                        .padding(14)
-                        .background(
-                            Circle()
-                                .fill(Color(white: 0.9))
-                        )
-                        .onTapGesture {
-                            dismiss()
-                        }
                 }
                 .padding(.horizontal, 57 * UIScreen.main.bounds.width / 1194)
                 .padding(.top, 50 * UIScreen.main.bounds.height / 834)
