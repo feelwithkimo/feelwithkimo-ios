@@ -15,15 +15,15 @@ struct KimoBubbleButton: View {
             Image("KimoBubbleButton")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 253.getWidth())
+                .frame(width: 253.getWidth(), height: 74.getHeight())
                 .padding(0)
             
             Text(buttonLabel)
                 .font(.app(.title1, family: .primary))
-                .foregroundStyle(Color.white)
+                .foregroundStyle(ColorToken.textPrimary.toColor())
                 .padding(.bottom, 8.getHeight())
         }
-        .frame(maxWidth: 253.getWidth())
+        .frame(maxWidth: 253.getWidth(), maxHeight: 74.getHeight())
         .cornerRadius(100)
     }
 }

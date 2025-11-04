@@ -235,8 +235,7 @@ struct BreathingModuleView: View {
                     KimoDialogueButtonConfig(
                         title: "Coba lagi",
                         symbol: .arrowClockwise,
-                        backgroundColor: ColorToken.emotionSurprise.toColor(),
-                        foregroundColor: ColorToken.textPrimary.toColor(),
+                        style: .bubbleSecondary,
                         action: {
                             viewModel.restartBreathing()
                         }
@@ -244,8 +243,7 @@ struct BreathingModuleView: View {
                     KimoDialogueButtonConfig(
                         title: "Lanjutkan",
                         symbol: .chevronRight,
-                        backgroundColor: ColorToken.emotionSurprise.toColor(),
-                        foregroundColor: ColorToken.textPrimary.toColor(),
+                        style: .bubbleSecondary,
                         action: {
                             dismiss()
                         }
