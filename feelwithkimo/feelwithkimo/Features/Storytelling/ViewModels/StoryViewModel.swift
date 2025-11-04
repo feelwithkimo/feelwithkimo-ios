@@ -153,9 +153,7 @@ internal class StoryViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.hasSeenTutorial = true
                 self.hasSeenTutor = true
-                print(self.hasSeenTutor)
             }
-            print("Test")
             return
         }
         
@@ -163,7 +161,7 @@ internal class StoryViewModel: ObservableObject {
             self.tutorialStep += 1
         }
     }
-    
+  
     func replayStory() {
         DispatchQueue.main.async {
             self.index = 0

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct StoryView: View {
-    @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: StoryViewModel = StoryViewModel()
+    @AppStorage("hasSeenTutorial") var seenTutorial = false
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var audioManager = AudioManager.shared
+    @StateObject var viewModel: StoryViewModel = StoryViewModel()
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     
     var body: some View {
@@ -99,8 +100,8 @@ struct StoryView: View {
                                         identifier: "story.nextButton"
                                     )
                             } else if viewModel.currentScene.isEnd {
-                                Text("")
-                                    .frame(width: 80 * UIScreen.main.bounds.width / 1194)
+                                Spacer()
+                                    .frame(width: 80.getWidth())
                             }
                         }
                         .padding(.bottom, 49 * UIScreen.main.bounds.height / 834)
@@ -218,7 +219,7 @@ struct StoryView: View {
                 default: EmptyView()
                 }
             }
-            
+          
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
                     dismiss: { dismiss() },
@@ -227,7 +228,7 @@ struct StoryView: View {
             }
         }
         .onAppear {
-//            audioManager.startBackgroundMusic()
+            // audioManager.startBackgroundMusic()
             
             // Announce story scene information
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
