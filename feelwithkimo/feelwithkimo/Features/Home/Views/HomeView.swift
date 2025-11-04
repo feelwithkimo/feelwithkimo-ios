@@ -73,7 +73,7 @@ private extension HomeView {
                         identifier: "story.muteButton"
                     )
             }
-            .padding(.horizontal, 70 * UIScreen.main.bounds.width / 1194)
+            .padding(.horizontal, 70.getWidth())
         }
     }
 
