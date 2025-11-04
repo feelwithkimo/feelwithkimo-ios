@@ -17,7 +17,7 @@ struct InteractionBanner: View {
             interactionLink(
                 label: "Ayo Latihan Pernapasan",
                 accessibilityId: "story.breathingButton",
-                destinationFactory: { BreathingView(onCompletion: $0) },
+                destinationFactory: { BreathingModuleView(onCompletion: $0) },
                 onCompletion: viewModel.completeBreathingExercise
             )
             .kimoNavigationAccessibility(
