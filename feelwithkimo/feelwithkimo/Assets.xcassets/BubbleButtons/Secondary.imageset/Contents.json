@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "TanyaKimoDialogue-1.png",
+      "filename" : "KimoButtonSecondary-1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "KimoAskDialogue-2.png",
+      "filename" : "KimoButtonSecondary-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "KimoAskDialogue-3.png",
+      "filename" : "KimoButtonSecondary-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

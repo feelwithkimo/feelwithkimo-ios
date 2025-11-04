@@ -1,16 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Variant5.svg",
+      "filename" : "KimoButtonPrimary-1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Variant5 1.svg",
+      "filename" : "KimoButtonPrimary-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "KimoButtonPrimary-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
