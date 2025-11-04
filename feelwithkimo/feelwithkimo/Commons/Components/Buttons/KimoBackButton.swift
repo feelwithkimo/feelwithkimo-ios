@@ -19,3 +19,7 @@ struct KimoBackButton: View {
             )
     }
 }
+
+#Preview {
+    KimoBackButton()
+}

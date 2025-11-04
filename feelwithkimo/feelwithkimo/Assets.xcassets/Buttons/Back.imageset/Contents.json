@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Back.svg",
+      "filename" : "Back-Bar-Button-1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Back 1.svg",
+      "filename" : "Back-Bar-Button-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Back 2.svg",
+      "filename" : "Back-Bar-Button-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
