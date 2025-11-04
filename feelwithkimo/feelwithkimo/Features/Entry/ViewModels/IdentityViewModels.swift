@@ -13,35 +13,26 @@ internal class IdentityViewModel: ObservableObject {
     @AppStorage("identity") var identity: String = ""
 
     @Published var nicknameInput: String = ""
-    @Published var showError: Bool = false
-    @Published var navigateToChild: Bool = false
-    @Published var childName: String = ""
+    @Published var childNicknameInput: String = ""
 
-    var alertMessage: String = ""
-
+    var errorMessageChild: String = "Lengkapi dulu nama Si Kecil, ya!"
+    var errorMessageNickname: String = "Isi dulu panggilan Ayah/Ibu, ya."
+    @Published var showErrorChild: Bool = false
+    @Published var showErrorNickname: Bool = false
+    
     // Function to submit nickname of parent
-    func submitNickname() {
-        let trimmed = nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            showError = true
+    func submitName() {
+        let trimmed = childNicknameInput.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedParent = nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        showErrorChild = trimmed.isEmpty
+        showErrorNickname = trimmedParent.isEmpty
+        
+        guard !showErrorChild && !showErrorNickname else {
             return
         }
-
-        parentNickname = trimmed
-        showError = false
-        navigateToChild = true
-    }
-
-    func submitChildName() -> Bool {
-        let trimmed = childName.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            alertMessage = "Nama tidak boleh kosong"
-            showError = true
-            return false
-        }
-
+        
         identity = trimmed
-        showError = false
-        return true
+        parentNickname = trimmedParent
     }
 }

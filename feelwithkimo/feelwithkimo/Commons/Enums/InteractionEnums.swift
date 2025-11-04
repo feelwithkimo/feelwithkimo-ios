@@ -7,7 +7,8 @@
 
 enum InteractionType {
     case breathing
-    case storyBranching
     case clapping
     case normal
+    case facialExpressions  
+    case storyBranching
 }

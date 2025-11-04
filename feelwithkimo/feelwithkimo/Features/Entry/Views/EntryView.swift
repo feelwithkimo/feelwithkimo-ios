@@ -12,46 +12,55 @@ struct EntryView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Image("Kimo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 330)
-                    .padding(.bottom, 70)
-                    .kimoImageAccessibility(
-                        label: "Kimo, karakter utama aplikasi",
-                        isDecorative: false,
-                        identifier: "entry.kimoCharacter"
-                    )
+                Spacer()
+                
+                HStack(spacing: 70) {
+                    Image("Kimo")
+                        .resizable()
+                        .scaledToFit()
+                        .kimoImageAccessibility(
+                            label: "Kimo, karakter utama aplikasi",
+                            isDecorative: false,
+                            identifier: "entry.kimoCharacter"
+                        )
+                        .frame(width: 400 / 1194 * UIScreen.main.bounds.width)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Hai, aku Kimo!")
+                            .font(.app(.largeTitle, family: .primary))
+                            .fontWeight(.bold)
+                            .kimoTextGroupAccessibility(
+                                combinedLabel: "Hai, aku Kimo!",
+                                identifier: "entry.welcomeMessage",
+                                sortPriority: 1
+                            )
 
-                // Combined text container for better VoiceOver experience
-                VStack(spacing: 16) {
-                    Text("Hai, aku Kimo!")
-                        .font(.app(.largeTitle, family: .primary))
-                        .fontWeight(.bold)
-
-                    Text("Yuk, bantu si kecil mengenal perasaan dengan cerita dan permainan seru")
-                        .font(.app(.title2, family: .primary))
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
-                        .padding(.horizontal)
+                        Text("Di sini, kamu dan si kecil akan belajar mengenal perasaan lewat cerita dan permainan seru.")
+                            .font(.app(.body, family: .primary))
+                            .fontWeight(.regular)
+                            .padding(.bottom, 50)
+                            .kimoTextGroupAccessibility(
+                                combinedLabel: "Di sini, kamu dan si kecil akan belajar mengenal perasaan lewat cerita dan permainan seru.",
+                                identifier: "entry.welcomeMessageTwo",
+                                sortPriority: 2
+                            )
+                        
+                        NavigationLink {
+                            IdentityView()
+                        } label: {
+                            KimoButton(textLabel: "Ayo Mulai!")
+                        }
+                        .kimoNavigationAccessibility(
+                            label: "Ayo Mulai",
+                            hint: "Ketuk dua kali untuk mulai menggunakan aplikasi dan mengisi identitas",
+                            identifier: "entry.startButton"
+                        )
+                    }
+                    
                 }
-                .padding(.bottom, 35)
-                .kimoTextGroupAccessibility(
-                    combinedLabel: "Hai, aku Kimo! Yuk, bantu si kecil mengenal perasaan dengan cerita dan permainan seru",
-                    identifier: "entry.welcomeMessage",
-                    sortPriority: 1
-                )
-
-                NavigationLink {
-                    IdentityView()
-                } label: {
-                    KimoButton(textLabel: "Ayo Mulai")
-                }
-                .kimoNavigationAccessibility(
-                    label: "Ayo Mulai",
-                    hint: "Ketuk dua kali untuk mulai menggunakan aplikasi dan mengisi identitas",
-                    identifier: "entry.startButton"
-                )
+                .padding(.horizontal, 110)
+                
+                Spacer()
             }
         }
         .onAppear {
