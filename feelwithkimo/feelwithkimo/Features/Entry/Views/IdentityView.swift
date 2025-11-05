@@ -37,11 +37,10 @@ struct IdentityView: View {
                     }
                 }
                 
-                HStack(spacing: 120 * UIScreen.main.bounds.width / 1194) {
+                HStack(spacing: 120.getWidth()) {
                     Image("KimoDance")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 350 * UIScreen.main.bounds.width / 1194)
                         .kimoImageAccessibility(
                             label: "Kimo, karakter utama aplikasi",
                             isDecorative: false,
@@ -50,7 +49,8 @@ struct IdentityView: View {
                     
                     VStack(alignment: .leading) {
                         Text("Nama Si Kecil:")
-                            .font(.app(.title2, family: .primary))
+//                            .font(.app(.title2 , family: .primary))
+                            .font(.title2)
                             .fontWeight(.bold)
                             .kimoTextAccessibility(
                                 label: "Nama si kecil",
@@ -85,7 +85,7 @@ struct IdentityView: View {
                                 identifier: "identity.nicknameLabel",
                                 sortPriority: 6
                             )
-                            .padding(.top, 12 * UIScreen.main.bounds.height / 834)
+                            .padding(.top, 12.getHeight())
                         
                         KimoTextField(placeholder: "Misal: Ibu / Ayah / Papa / Mama", inputText: $viewModel.nicknameInput)
                             .kimoAccessibility(
@@ -107,9 +107,9 @@ struct IdentityView: View {
                             )
                     }
                 }
-                .padding(.horizontal, 82)
-                .padding(.top, 91 * UIScreen.main.bounds.width / 1194)
-                .padding(.bottom, 49)
+                .padding(.horizontal, 82.getWidth())
+                .padding(.top, 91.getHeight())
+                .padding(.bottom, 49.getHeight())
                 
                 // Button
                 HStack {
@@ -119,17 +119,8 @@ struct IdentityView: View {
                         viewModel.submitName()
                         accessibilityManager.announce("Nama panggilan berhasil disimpan.")
                     }, label: {
-                        Text("Simpan")
-                            .font(.app(.title1, family: .primary))
-                            .bold()
-                            .padding(.horizontal, 44)
-                            .padding(.vertical, 20)
-                            .frame(maxWidth: 200)
-                            .background(ColorToken.backgroundMain.toColor())
-                            .foregroundStyle(ColorToken.textPrimary.toColor())
-                            .cornerRadius(50)
+                        KimoBubbleButton(buttonLabel: "Simpan")
                     })
-                    .padding(.horizontal)
                     .kimoButtonAccessibility(
                         label: viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?
                         "Lanjut, tidak tersedia" : "Lanjut",

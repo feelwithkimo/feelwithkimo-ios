@@ -14,7 +14,7 @@ struct EntryView: View {
             VStack {
                 Spacer()
                 
-                HStack(spacing: 70) {
+                HStack(spacing: 70.getWidth()) {
                     Image("Kimo")
                         .resizable()
                         .scaledToFit()
@@ -23,12 +23,11 @@ struct EntryView: View {
                             isDecorative: false,
                             identifier: "entry.kimoCharacter"
                         )
-                        .frame(width: 400 / 1194 * UIScreen.main.bounds.width)
+                        .frame(width: 400.getWidth())
                     
                     VStack(alignment: .leading) {
                         Text("Hai, aku Kimo!")
                             .font(.app(.largeTitle, family: .primary))
-                            .fontWeight(.bold)
                             .kimoTextGroupAccessibility(
                                 combinedLabel: "Hai, aku Kimo!",
                                 identifier: "entry.welcomeMessage",
@@ -37,8 +36,7 @@ struct EntryView: View {
 
                         Text("Di sini, kamu dan si kecil akan belajar mengenal perasaan lewat cerita dan permainan seru.")
                             .font(.app(.body, family: .primary))
-                            .fontWeight(.regular)
-                            .padding(.bottom, 50)
+                            .padding(.bottom, 40.getHeight())
                             .kimoTextGroupAccessibility(
                                 combinedLabel: "Di sini, kamu dan si kecil akan belajar mengenal perasaan lewat cerita dan permainan seru.",
                                 identifier: "entry.welcomeMessageTwo",
@@ -48,17 +46,12 @@ struct EntryView: View {
                         NavigationLink {
                             IdentityView()
                         } label: {
-                            KimoButton(textLabel: "Ayo Mulai!")
+                            KimoBubbleButton(buttonLabel: "Ayo Mulai!")
                         }
-                        .kimoNavigationAccessibility(
-                            label: "Ayo Mulai",
-                            hint: "Ketuk dua kali untuk mulai menggunakan aplikasi dan mengisi identitas",
-                            identifier: "entry.startButton"
-                        )
                     }
                     
                 }
-                .padding(.horizontal, 110)
+                .padding(.horizontal, 110.getWidth())
                 
                 Spacer()
             }
@@ -69,5 +62,10 @@ struct EntryView: View {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
         }
+        .dynamicTypeSize(.xSmall ... .large)
     }
+}
+
+#Preview {
+    EntryView()
 }

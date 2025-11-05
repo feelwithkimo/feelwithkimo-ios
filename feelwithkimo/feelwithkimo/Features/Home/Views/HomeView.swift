@@ -38,9 +38,6 @@ struct HomeView: View {
             }
             AudioManager.shared.startBackgroundMusic()
         }
-        .onDisappear {
-            AudioManager.shared.stop()
-        }
         .navigationBarBackButtonHidden(true)
     }
 }
@@ -73,7 +70,7 @@ private extension HomeView {
                         identifier: "story.muteButton"
                     )
             }
-            .padding(.horizontal, 70 * UIScreen.main.bounds.width / 1194)
+            .padding(.horizontal, 70.getWidth())
         }
     }
 

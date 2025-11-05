@@ -22,6 +22,9 @@ enum ColorToken {
     
     @ColorElement(light: UIColor.from("#F6F0FF"), dark: UIColor.from("#F6F0FF"))
     static var corePinkDialogue: UIColor
+    
+    @ColorElement(light: UIColor.from("#EFEAFF"), dark: UIColor.from("#EFEAFF"))
+    static var corePinkStory: UIColor
 
     @ColorElement(light: UIColor.from("#ACECC7"), dark: UIColor.from("#A1D8C5"))
     static var coreAccent: UIColor

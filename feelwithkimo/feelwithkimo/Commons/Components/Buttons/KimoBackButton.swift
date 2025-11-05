@@ -11,11 +11,16 @@ struct KimoBackButton: View {
     var body: some View {
         Image("Back")
             .resizable()
-            .frame(maxWidth: 55, maxHeight: 55)
+            .scaledToFit()
+            .frame(maxWidth: 80.getWidth())
             .kimoButtonAccessibility(
                 label: "Kembali",
                 hint: "Ketuk dua kali untuk kembali ke halaman sebelumnya",
                 identifier: "kimoBackButton"
             )
     }
+}
+
+#Preview {
+    KimoBackButton()
 }
