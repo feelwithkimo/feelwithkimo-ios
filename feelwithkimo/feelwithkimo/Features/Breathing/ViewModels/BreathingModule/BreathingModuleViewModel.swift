@@ -15,11 +15,11 @@ final class BreathingModuleViewModel: ObservableObject {
     @Published var isActive = false
     @Published var startAnimation = false
     @Published var kimoMascotScale: CGFloat = 1.0
+    @Published var cycleCount = 0
     @Published var isMascotTapped = false
     @Published var showCompletionView = false
     
     // MARK: - Private Properties
-    private var cycleCount = 0
     private var timer: Timer?
     private var maxCycles = 3 // Complete full breathing cycles before showing completion
     
