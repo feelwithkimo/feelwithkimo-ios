@@ -1,12 +1,13 @@
 //
-//  EntryView.swift
+//  NewEntryView.swift
+//  feelwithkimo
 //
-//  Created by Richard Sugiharto on 20/10/25.
+//  Created by Ferdinand Lunardy on 05/11/25.
 //
 
 import SwiftUI
 
-struct EntryView: View {
+struct NewEntryView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     
     var body: some View {
@@ -67,5 +68,5 @@ struct EntryView: View {
 }
 
 #Preview {
-    EntryView()
+    NewEntryView()
 }

@@ -78,7 +78,7 @@ struct EmotionStoryView: View {
                              NavigationLink(destination: {
                                  StoryView()
                              }, label: {
-                                 KimoBubbleButton(buttonLabel: "Mulai bermain")
+                                 KimoBubbleButtonPrimary(buttonLabel: "Mulai bermain")
                              })
                          }
                      }

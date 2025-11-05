@@ -124,4 +124,8 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#171725"), dark: UIColor.from("#171725"))
     static var grayscale100: UIColor
+    
+    // MARK: - Stroke Button
+    @ColorElement(light: UIColor.from("#DBDAF9"), dark: UIColor.from("#DBDAF9"))
+    static var strokeButton: UIColor
 }
