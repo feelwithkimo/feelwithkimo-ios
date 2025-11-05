@@ -9,113 +9,221 @@ import AVFoundation
 import Combine
 import UIKit
 
-final class AudioManager: ObservableObject {
+final class AudioManager: NSObject, ObservableObject {
     static let shared = AudioManager()
-    private var player: AVAudioPlayer?
+
+    // Separate players so multiple sounds can run in parallel
+    private var backgroundPlayer: AVAudioPlayer?
+    private var effectPlayer: AVAudioPlayer?
+
+    // Optional: remember current background asset name
+    private(set) var currentBackgroundAsset: String?
+
     @Published var isMuted: Bool = false {
-        didSet {
-            updateVolume()
-        }
+        didSet { updateVolume() }
     }
+
+    /// baseVolume controls the background player's volume (0.0 .. 1.0)
     private var baseVolume: Float = 1.0
 
-    private init() {}
+    private override init() {
+        super.init()
+        // audio session configuration is lazy and called before playback in helpers,
+        // but you can call configureSession() here if you prefer early activation.
+    }
 
-    /// Coba mainkan musik dengan 3 strategi:
-    /// 1) Cari file "backsong.mp3" di bundle (kalau ternyata ada),
-    /// 2) Cari file "backsong" TANPA ekstensi di bundle,
-    /// 3) Ambil dari Assets.xcassets sebagai Data Asset bernama "backsong".
-    func startBackgroundMusic(assetName: String = "backsong", volume: Float = 1.0) {
-        if let audioPlayer = player, audioPlayer.isPlaying { return }
-        self.baseVolume = volume
+    // MARK: - Background music
 
-        // 1) URL dengan ekstensi mp3
-        if let url = Bundle.main.url(forResource: assetName, withExtension: "mp3") {
-            startFromURL(url)
+    /// Start background music. If the same asset is already playing and forceRestart is false, this is a no-op.
+    func startBackgroundMusic(
+        assetName: String = "backsong",
+        volume: Float = 1.0,
+        forceRestart: Bool = false,
+        loop: Bool = true
+    ) {
+        // If already playing the same asset and not asked to restart, do nothing.
+        if let player = backgroundPlayer,
+           player.isPlaying,
+           !forceRestart,
+           currentBackgroundAsset == assetName {
             return
         }
 
-        // 2) URL tanpa ekstensi
-        if let urlNoExt = Bundle.main.url(forResource: assetName, withExtension: nil) {
-            startFromURL(urlNoExt)
+        currentBackgroundAsset = assetName
+        baseVolume = min(max(volume, 0.0), 1.0)
+
+        // Try resources in order: mp3, no extension, NSDataAsset
+        if let url = Bundle.main.url(forResource: assetName, withExtension: "mp3") ??
+                     Bundle.main.url(forResource: assetName, withExtension: nil) {
+            startBackgroundFromURL(url, loop: loop)
             return
         }
 
-        // 3) Data Asset dari Assets.xcassets (nama "backsong")
         if let dataAsset = NSDataAsset(name: assetName) {
-            startFromData(dataAsset.data, fileTypeHint: AVFileType.mp3.rawValue)
+            startBackgroundFromData(dataAsset.data, fileTypeHint: AVFileType.mp3.rawValue, loop: loop)
             return
         }
 
-        // Jika semua gagal, beri log jelas
-        assertionFailure("Audio '\(assetName)' tidak ditemukan sebagai file (.mp3 / tanpa ekstensi) atau Data Asset.")
+        assertionFailure("Audio '\(assetName)' not found as .mp3, file without extension, or NSDataAsset.")
     }
 
-    private func startFromURL(_ url: URL) {
-        do {
-            try configureSession()
-            let audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer.numberOfLoops = -1
-            audioPlayer.volume = isMuted ? 0.0 : baseVolume
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-            self.player = audioPlayer
-        } catch {
-            assertionFailure("Audio error (URL): \(error.localizedDescription)")
+    // MARK: - Sound effects
+
+    /// Play a one-off sound effect (stored so you can stop it early). Playing a new effect stops any previous effect.
+    func playSoundEffect(effectName: String, volume: Float = 1.0, loop: Bool = false) {
+        // Stop existing effect (we only keep a single effect player in this manager)
+        effectPlayer?.stop()
+        effectPlayer = nil
+
+        guard let url = Bundle.main.url(forResource: effectName, withExtension: "mp3")
+                ?? Bundle.main.url(forResource: effectName, withExtension: nil) else {
+            if let dataAsset = NSDataAsset(name: effectName) {
+                startEffectFromData(dataAsset.data, fileTypeHint: AVFileType.mp3.rawValue, volume: volume, loop: loop)
+            } else {
+                print("⚠️ Effect '\(effectName)' not found in bundle or NSDataAsset.")
+            }
+            return
+        }
+
+        startEffectFromURL(url, volume: volume, loop: loop)
+    }
+
+    /// Stop only the current sound effect, leave background playing
+    func stopEffectOnly() {
+        effectPlayer?.stop()
+        effectPlayer = nil
+    }
+
+    // MARK: - Control / volume
+
+    private func updateVolume() {
+        // Mute flag only affects background music in this implementation.
+        backgroundPlayer?.volume = isMuted ? 0.0 : baseVolume
+    }
+
+    func toggleMute() {
+        isMuted.toggle()
+    }
+
+    func setVolume(_ volume: Float) {
+        baseVolume = min(max(volume, 0.0), 1.0)
+        if !isMuted {
+            backgroundPlayer?.volume = baseVolume
         }
     }
 
-    private func startFromData(_ data: Data, fileTypeHint: String? = AVFileType.mp3.rawValue) {
-        do {
-            try configureSession()
-            let audioPlayer = try AVAudioPlayer(data: data, fileTypeHint: fileTypeHint)
-            audioPlayer.numberOfLoops = -1
-            audioPlayer.volume = isMuted ? 0.0 : baseVolume
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-            self.player = audioPlayer
-        } catch {
-            assertionFailure("Audio error (Data): \(error.localizedDescription)")
+    var isPlaying: Bool {
+        return backgroundPlayer?.isPlaying ?? false
+    }
+
+    // Stop everything and deactivate session
+    func stopAll() {
+        backgroundPlayer?.stop()
+        backgroundPlayer = nil
+        currentBackgroundAsset = nil
+
+        effectPlayer?.stop()
+        effectPlayer = nil
+
+        // Deactivate session off the main thread
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try AVAudioSession.sharedInstance().setActive(false)
+            } catch {
+                print("AVAudioSession setActive(false) failed: \(error)")
+            }
         }
     }
 
-    private func configureSession() throws {
+    // MARK: - Private helpers
+
+    // Configure the audio session. We include .mixWithOthers so playback can coexist with other audio.
+    private func configureSessionIfNeeded() throws {
         let session = AVAudioSession.sharedInstance()
-        // Use .playAndRecord to allow both music playback and microphone recording for breathing detection
+
+        // Prefer mixing behavior so multiple players can play simultaneously and other apps can keep audio
+        // Also keep .playAndRecord because the app uses mic for breathing detection; include defaultToSpeaker and allowBluetoothHFP
+        let options: AVAudioSession.CategoryOptions = [.defaultToSpeaker, .allowBluetoothHFP, .mixWithOthers]
+
         do {
-            try session.setCategory(
-                .playAndRecord,
-                mode: .default,
-                options: [.defaultToSpeaker, .allowBluetoothHFP]
-            )
+            try session.setCategory(.playAndRecord, mode: .default, options: options)
         } catch {
-            print("Failed to set audio session category: \(error)")
+            // If setting playAndRecord fails for some reason, fallback to .playback with mixing to avoid catastrophic failure.
+            print("Warning: setCategory(.playAndRecord) failed: \(error). Falling back to .playback with .mixWithOthers.")
+            try session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
         }
 
         try session.setActive(true)
     }
-    private func updateVolume() {
-        player?.volume = isMuted ? 0.0 : baseVolume
-    }
-    /// Toggle mute state for the background music
-    func toggleMute() {
-        isMuted.toggle()
-    }
-    /// Set volume (0.0 to 1.0), will be ignored if muted
-    func setVolume(_ volume: Float) {
-        baseVolume = min(max(volume, 0.0), 1.0)
-        if !isMuted {
-            player?.volume = baseVolume
+
+    private func makePlayer(from url: URL, volume: Float, loop: Bool) -> AVAudioPlayer? {
+        do {
+            try configureSessionIfNeeded()
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.numberOfLoops = loop ? -1 : 0
+            player.volume = volume
+            player.prepareToPlay()
+            player.delegate = self
+            return player
+        } catch {
+            print("Failed to create AVAudioPlayer for url \(url): \(error)")
+            return nil
         }
     }
-    /// Check if music is currently playing
-    var isPlaying: Bool {
-        return player?.isPlaying ?? false
+
+    private func makePlayer(from data: Data, fileTypeHint: String?, volume: Float, loop: Bool) -> AVAudioPlayer? {
+        do {
+            try configureSessionIfNeeded()
+            let player = try AVAudioPlayer(data: data, fileTypeHint: fileTypeHint)
+            player.numberOfLoops = loop ? -1 : 0
+            player.volume = volume
+            player.prepareToPlay()
+            player.delegate = self
+            return player
+        } catch {
+            print("Failed to create AVAudioPlayer from data: \(error)")
+            return nil
+        }
     }
 
-    func stop() {
-        player?.stop()
-        player = nil
-        try? AVAudioSession.sharedInstance().setActive(false)
+    // Background helpers
+    private func startBackgroundFromURL(_ url: URL, loop: Bool) {
+        backgroundPlayer?.stop()      // stop any existing background player
+        backgroundPlayer = makePlayer(from: url, volume: isMuted ? 0.0 : baseVolume, loop: loop)
+        backgroundPlayer?.play()
+    }
+
+    private func startBackgroundFromData(_ data: Data, fileTypeHint: String?, loop: Bool) {
+        backgroundPlayer?.stop()
+        backgroundPlayer = makePlayer(from: data, fileTypeHint: fileTypeHint, volume: isMuted ? 0.0 : baseVolume, loop: loop)
+        backgroundPlayer?.play()
+    }
+
+    // Effect helpers
+    private func startEffectFromURL(_ url: URL, volume: Float, loop: Bool) {
+        let player = makePlayer(from: url, volume: volume, loop: loop)
+        effectPlayer = player
+        effectPlayer?.play()
+    }
+
+    private func startEffectFromData(_ data: Data, fileTypeHint: String?, volume: Float, loop: Bool) {
+        let player = makePlayer(from: data, fileTypeHint: fileTypeHint, volume: volume, loop: loop)
+        effectPlayer = player
+        effectPlayer?.play()
+    }
+}
+
+// MARK: - AVAudioPlayerDelegate
+extension AudioManager: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        // Clean up effect player automatically when it finishes
+        if player === effectPlayer {
+            effectPlayer = nil
+        }
+        // If background player finished (unlikely when loop = true), clean it up
+        if player === backgroundPlayer {
+            backgroundPlayer = nil
+            currentBackgroundAsset = nil
+        }
     }
 }
