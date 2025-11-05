@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "KimoDefault-1x.png",
+      "filename" : "KimoButtonPrimary-1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "KimoDefault-2x.png",
+      "filename" : "KimoButtonPrimary-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "KimoDefault-3x.png",
+      "filename" : "KimoButtonPrimary-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -11,6 +11,8 @@ struct BreathingModuleView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     @StateObject private var audioManager = AudioManager.shared
     @Environment(\.dismiss) var dismiss
+    @StateObject private var audioManager = AudioManager.shared
+    @Environment(\.dismiss) var dismiss
     var onCompletion: (() -> Void)?
     
     // MARK: - Public Initializer
@@ -248,6 +250,27 @@ struct BreathingModuleView: View {
             // Semi-transparent background
             Color.black.opacity(0.6)
                 .ignoresSafeArea()
+            KimoDialogueView(
+                textDialogue: "Hore.. kamu berhasil tarik nafas",
+                buttonLayout: .horizontal([
+                    KimoDialogueButtonConfig(
+                        title: "Coba lagi",
+                        symbol: .arrowClockwise,
+                        style: .bubbleSecondary,
+                        action: {
+                            viewModel.restartBreathing()
+                        }
+                    ),
+                    KimoDialogueButtonConfig(
+                        title: "Lanjutkan",
+                        symbol: .chevronRight,
+                        style: .bubbleSecondary,
+                        action: {
+                            dismiss()
+                        }
+                    )
+                ])
+            )
             KimoDialogueView(
                 textDialogue: "Hore.. kamu berhasil tarik nafas",
                 buttonLayout: .horizontal([
