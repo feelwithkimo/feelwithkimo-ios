@@ -28,14 +28,10 @@ struct EmotionStoryView: View {
             
             VStack(alignment: .center, spacing: 0) {
                 HStack {
-                    Image(systemName: "xmark")
-                        .font(.app(.title1))
-                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                        .padding(14)
-                        .background(
-                            Circle()
-                                .fill(ColorToken.coreSecondary.toColor())
-                        )
+                    Image("xmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80.getWidth())
                         .onTapGesture {
                             dismiss()
                         }
@@ -120,7 +116,7 @@ struct EmotionStoryView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
-        .onAppear {
+        .onAppear {            
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 accessibilityManager.announceScreenChange("Halaman cerita emosi \(viewModel.emotion.name). Pilih salah satu cerita untuk dimulai.")

@@ -34,7 +34,7 @@ internal class HomeViewModel: ObservableObject {
         self.emotions = [
             EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "", title: "", description: "", stories: []),
             EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Anger", title: "Hi, aku marah",
+            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "", title: "Hi, aku marah",
                          description: "Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.", stories: []),
             EmotionModel(id: UUID(), name: "Kaget", visualCharacterName: "figure.mind.and.body", emotionImage: "", title: "", description: "", stories: []),
             EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "", title: "", description: "", stories: [])
