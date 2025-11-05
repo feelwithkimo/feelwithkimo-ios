@@ -175,14 +175,10 @@ struct StoryView: View {
             
             VStack {
                 HStack {
-                    Image(systemName: "xmark")
-                        .font(.app(.title1))
-                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                        .padding(14)
-                        .background(
-                            Circle()
-                                .fill(ColorToken.coreSecondary.toColor())
-                        )
+                    Image("xmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80.getWidth())
                         .onTapGesture {
                             dismiss()
                         }

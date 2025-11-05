@@ -38,9 +38,6 @@ struct HomeView: View {
             }
             AudioManager.shared.startBackgroundMusic()
         }
-        .onDisappear {
-            AudioManager.shared.stop()
-        }
         .navigationBarBackButtonHidden(true)
     }
 }
