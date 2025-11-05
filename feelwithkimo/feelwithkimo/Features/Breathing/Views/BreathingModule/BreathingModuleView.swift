@@ -11,8 +11,6 @@ struct BreathingModuleView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     @StateObject private var audioManager = AudioManager.shared
     @Environment(\.dismiss) var dismiss
-    @StateObject private var audioManager = AudioManager.shared
-    @Environment(\.dismiss) var dismiss
     var onCompletion: (() -> Void)?
     
     // MARK: - Public Initializer

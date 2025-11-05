@@ -32,10 +32,6 @@ enum ColorToken {
     @ColorElement(light: UIColor.from("#C9B8E8"), dark: UIColor.from("#C9B8E8"))
     static var coreLightPrimary: UIColor
 
-    
-    @ColorElement(light: UIColor.from("#C9B8E8"), dark: UIColor.from("#C9B8E8"))
-    static var coreLightPrimary: UIColor
-
     // MARK: - Emotion Colors
     @ColorElement(light: UIColor.from("#FFE680"), dark: UIColor.from("#FFDB4D"))
     static var emotionJoy: UIColor
