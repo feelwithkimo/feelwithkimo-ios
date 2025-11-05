@@ -394,7 +394,7 @@ struct StoryView: View {
                     .frame(width: 125)
                     .padding(.top, 45)
                 
-                Image("KimoVisual_2")
+                Image("KimoVisual")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 130)
