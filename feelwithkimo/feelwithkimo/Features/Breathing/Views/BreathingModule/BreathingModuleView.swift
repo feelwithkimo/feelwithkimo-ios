@@ -167,15 +167,6 @@ struct BreathingModuleView: View {
                     }
                     .padding(.bottom, geometry.safeAreaInsets.bottom + 40)
                 }
-                
-                // Small Kimo mascot - bottom right, fixed position
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        KimoAskView()
-                    }
-                }
             }
         }
         .ignoresSafeArea()

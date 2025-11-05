@@ -13,11 +13,11 @@ struct NarrationCard: View {
 
     var body: some View {
         RoundedRectangle(cornerRadius: 24)
-            .fill(ColorToken.backgroundCard.toColor())
+            .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
                 Text(text)
                     .font(.app(.headline, family: .primary))
-                    .foregroundColor(.white)
+                    .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                     .padding(.horizontal, 24.getWidth())
                     .padding(.vertical, 16.getHeight())
                     .multilineTextAlignment(.center)
@@ -29,7 +29,6 @@ struct NarrationCard: View {
                 height: 120.getHeight()
             )
             .padding(.horizontal, 177.getWidth())
-            .padding(.bottom, 49.getHeight())
             .padding(.top, 11.getHeight())
             .onTapGesture(perform: onTap)
     }

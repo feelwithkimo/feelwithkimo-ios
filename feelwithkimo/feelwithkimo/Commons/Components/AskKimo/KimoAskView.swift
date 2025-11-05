@@ -70,7 +70,7 @@ struct KimoAskView: View {
                         Button(action: {
                             toggleMascot()
                         }, label: {
-                            Image("KimoVisual_1")
+                            Image("KimoVisual")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 105.getWidth())
@@ -93,6 +93,7 @@ struct KimoAskView: View {
                                     .scaledToFit()
                                     .frame(width: 20.getWidth())
                                     .background(.blue)
+                                    .scaleEffect(showDialogue ? 1.2 : 1)
                                 
                             case .star:
                                 HStack {
@@ -102,6 +103,7 @@ struct KimoAskView: View {
                                         .scaledToFit()
                                         .frame(width: 45.getWidth())
                                         .padding(.trailing, 14.getWidth())
+                                        .scaleEffect(showDialogue ? 1.2 : 1)
                                 }
                                 
                             default:

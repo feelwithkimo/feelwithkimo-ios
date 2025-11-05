@@ -298,8 +298,6 @@ struct StoryView: View {
             NarrationCard(text: viewModel.currentScene.text, onTap: viewModel.nextTutorial)
         }
         .padding(.bottom, 50.getHeight())
-        .ignoresSafeArea()
-        .padding(0)
     }
     
     private func secondTutorialView() -> some View {
@@ -394,7 +392,7 @@ struct StoryView: View {
                     .frame(width: 125)
                     .padding(.top, 45)
                 
-                Image("KimoVisual_2")
+                Image("KimoVisual")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 130)

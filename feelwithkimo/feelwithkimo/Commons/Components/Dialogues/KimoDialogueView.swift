@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct KimoDialogueView: View {
-    var kimoDialogueIcon: String = "KimoDialogueIcon"
+    var kimoDialogueIcon: String = "KimoTutorialAsset"
     var textDialogue: String = "Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala."
     var textDialogueTriangle: String = "KimoDialogueTriangle"
     var buttonLayout: KimoDialogueButtonLayout = .horizontal([

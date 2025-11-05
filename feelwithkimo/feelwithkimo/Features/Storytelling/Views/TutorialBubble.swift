@@ -19,7 +19,7 @@ struct TutorialBubble: View {
         }
         .padding(.vertical, 24.getHeight())
         .padding(.horizontal, 15.getWidth())
-        .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+        .background(ColorToken.additionalColorsWhite.toColor())
         .cornerRadius(20)
     }
 }
