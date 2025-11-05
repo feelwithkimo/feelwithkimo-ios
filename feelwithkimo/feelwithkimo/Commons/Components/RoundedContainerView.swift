@@ -16,6 +16,10 @@ struct RoundedContainer<Content: View>: View {
 
     var body: some View {
         content
-            .clipShape(RoundedRectangle(cornerRadius: 25))
+            .overlay(
+                 RoundedRectangle(cornerRadius: 26)
+                    .stroke(ColorToken.corePrimary.toColor(), lineWidth: 19)
+             )
+            .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }

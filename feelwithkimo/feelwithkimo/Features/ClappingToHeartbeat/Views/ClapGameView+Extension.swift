@@ -8,23 +8,21 @@
 import SwiftUI
 
 // MARK: - Subviews
-extension ClapGameView { 
-    func headerView(progress: Double) -> some View {
-        VStack {
-            HStack {
-                Spacer()
-                Text("Clap the Hand")
-                    .font(.app(.largeTitle, family: .primary))
-                    .kimoTextAccessibility(
-                        label: "Permainan Tepuk Tangan",
-                        identifier: "clapping.title",
-                        sortPriority: 1
-                    )
-                Spacer()
+extension ClapGameView {
+    func headerView() -> some View {
+        HStack {
+            KimoBackButton {
+                dismiss()
             }
-            
-            KimoProgressBar(value: progress)
-                .animation(.spring(duration: 0.5), value: progress)
+            Spacer()
+            Text("Tepuk Tangan")
+                .font(.app(.largeTitle, family: .primary))
+                .kimoTextAccessibility(
+                    label: "Permainan Tepuk Tangan",
+                    identifier: "clapping.title",
+                    sortPriority: 1
+                )
+            Spacer()
         }
     }
 
@@ -43,6 +41,63 @@ extension ClapGameView {
 //
 //            // Visual feedback
 //            clapFeedbackCircle
+        }
+    }
+    
+    @ViewBuilder
+    func skeletonPairView() -> some View {
+        VStack {
+            Spacer()
+            HStack(alignment: .bottom, spacing: 40.getHeight()) {
+                parentSkeleton
+                    .alignmentGuide(.bottom) { dimension in dimension[.bottom] - 38.getWidth() }
+                kidSkeleton
+            }
+            .offset(y: 190.getWidth())
+        }
+    }
+
+    private var parentSkeleton: some View {
+        VStack(spacing: 29.getWidth()) {
+            DashedCircleView(
+                type: .full,
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 266.getHeight(), height: 266.getHeight()),
+                clockwise: false
+            )
+            
+            DashedCircleView(
+                type: .half(startAngle: .degrees(180)),
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 400.getHeight(), height: 400.getHeight()),
+                clockwise: true
+            )
+        }
+    }
+
+    private var kidSkeleton: some View {
+        VStack(spacing: 24.getWidth()) {
+            DashedCircleView(
+                type: .full,
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 222.getHeight(), height: 222.getHeight()),
+                clockwise: false
+            )
+            
+            DashedCircleView(
+                type: .half(startAngle: .degrees(180)),
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 324.getHeight(), height: 324.getHeight()),
+                clockwise: true
+            )
         }
     }
 

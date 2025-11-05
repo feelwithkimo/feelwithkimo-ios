@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 struct ClapGameView: View {
-    // Cukup satu StateObject untuk ViewModel
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClapGameViewModel
     var onCompletion: (() -> Void)?
 
@@ -20,28 +20,37 @@ struct ClapGameView: View {
 
     var body: some View {
         VStack {
+            headerView()
+            
             RoundedContainer {
                 ZStack {
                     // MARK: - Content
                     cameraContentView
                     
-                    // MARK: - Header
-//                    let progress = Double(viewModel.beatCount) / Double(viewModel.totalClap)
-
-                    headerView(progress: viewModel.progress)
+                    // MARK: - ProgressBar
+                    KimoProgressBar(value: viewModel.progress)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                        .padding(.top, 24)
-                        .padding(.horizontal, 202)
+                        .padding(.top, 33.getHeight())
+                        .padding(.horizontal, 181.getWidth())
+                        .animation(.spring(duration: 0.5), value: viewModel.progress)
+                    
+                    skeletonPairView()
                 }
             }
+            .padding(.horizontal, 31.getWidth())
         }
-        .padding(40)
-        .background(ColorToken.coreAccent.toColor())
+        .padding(.horizontal, 65.getWidth())
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 viewModel.announceGameStart()
             }
         }
+    }
+}
+
+#Preview {
+    ClapGameView {
+        print("Test")
     }
 }
