@@ -14,7 +14,7 @@ struct KimoCloseButton: View {
             .frame(maxWidth: 55, maxHeight: 55)
             .kimoButtonAccessibility(
                 label: "Tutup",
-                hint: "Ketuk dua kali untuk menutup ke halaman ini",
+                hint: "Ketuk dua kali untuk menutup halaman ini",
                 identifier: "kimoCloseButton"
             )
     }

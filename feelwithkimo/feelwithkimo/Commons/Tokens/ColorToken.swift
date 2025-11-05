@@ -29,7 +29,7 @@ enum ColorToken {
     @ColorElement(light: UIColor.from("#ACECC7"), dark: UIColor.from("#A1D8C5"))
     static var coreAccent: UIColor
     
-    @ColorElement(light: UIColor.from("#C9B8E8"), dark: UIColor.from("C9B8E8"))
+    @ColorElement(light: UIColor.from("#C9B8E8"), dark: UIColor.from("#C9B8E8"))
     static var coreLightPrimary: UIColor
 
     // MARK: - Emotion Colors
@@ -58,10 +58,10 @@ enum ColorToken {
     @ColorElement(light: UIColor.from("#1C1628"), dark: UIColor.from("#FFFDFB"))
     static var backgroundMain: UIColor
     
-    @ColorElement(light: UIColor.from("5E5573"), dark: UIColor.from("5E5573"))
+    @ColorElement(light: UIColor.from("5E5573"), dark: UIColor.from("#5E5573"))
     static var backgroundSecondary: UIColor
     
-    @ColorElement(light: UIColor.from("E9E3F9"), dark: UIColor.from("E9E3F9"))
+    @ColorElement(light: UIColor.from("#E9E3F9"), dark: UIColor.from("#E9E3F9"))
     static var backgroundBreathing: UIColor
     
     @ColorElement(light: UIColor.from("#2A213A"), dark: UIColor.from("#F5F1FA"))
@@ -74,7 +74,7 @@ enum ColorToken {
     @ColorElement(light: UIColor.from("#C4B8D9"), dark: UIColor.from("#6C6487"))
     static var textSecondary: UIColor
     
-    @ColorElement(light: UIColor.from("5E5573"), dark: UIColor.from("5E5573"))
+    @ColorElement(light: UIColor.from("#5E5573"), dark: UIColor.from("#5E5573"))
     static var textBreathing: UIColor
     
     // MARK: - Status

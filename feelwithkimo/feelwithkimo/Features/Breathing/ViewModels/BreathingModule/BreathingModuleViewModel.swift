@@ -12,14 +12,16 @@ final class BreathingModuleViewModel: ObservableObject {
     @Published var currentPhase: BreathingPhase = .inhale
     @Published var animationScale: CGFloat = 1.0
     @Published var remainingTime: Int = 4
-    @Published var cycleCount = 0
-    @Published var timer: Timer?
-    @Published var maxCycles = 3 // Complete full breathing cycles before showing completion
     @Published var isActive = false
     @Published var startAnimation = false
     @Published var kimoMascotScale: CGFloat = 1.0
     @Published var isMascotTapped = false
     @Published var showCompletionView = false
+    
+    // MARK: - Private Properties
+    private var cycleCount = 0
+    private var timer: Timer?
+    private var maxCycles = 3 // Complete full breathing cycles before showing completion
     
     // MARK: - Lazy Computed Properties
     private lazy var breathingDuration: TimeInterval = 4.0
