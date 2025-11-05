@@ -79,7 +79,7 @@ struct BreathingModuleView: View {
                                     weight: .bold
                                 )
                             ))
-                            .foregroundColor(ColorToken.textBreathing.toColor())
+                            .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .multilineTextAlignment(.leading)
                             .lineSpacing(0)
                             .padding(.leading, 60.getWidth())
@@ -117,7 +117,7 @@ struct BreathingModuleView: View {
                                         weight: .bold
                                     )
                                 ))
-                                .foregroundColor(ColorToken.textBreathing.toColor())
+                                .foregroundColor(ColorToken.backgroundSecondary.toColor())
                         }
                         .padding(.trailing, 72.getWidth())
                         .padding(.top, geometry.safeAreaInsets.top + 120.getHeight())
@@ -149,7 +149,7 @@ struct BreathingModuleView: View {
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
                                     .padding(.vertical, 14)
-                                    .background(ColorToken.textBreathing.toColor())
+                                    .background(ColorToken.backgroundSecondary.toColor())
                                     .cornerRadius(30)
                             })
                             .kimoButtonAccessibility(
@@ -175,7 +175,7 @@ struct BreathingModuleView: View {
                                 }, label: {
                                     Text("Berhenti")
                                         .font(.app(.title1, family: .primary))
-                                        .foregroundColor(ColorToken.textBreathing.toColor())
+                                        .foregroundColor(ColorToken.backgroundSecondary.toColor())
                                         .padding(.horizontal, geometry.size.width * 0.035)
                                         .padding(.vertical, 14)
                                         .background(ColorToken.backgroundBreathing.toColor())
