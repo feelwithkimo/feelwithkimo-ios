@@ -11,7 +11,8 @@ import SwiftUI
 struct FeelwithkimoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EntryView()
+                .dynamicTypeSize(.xSmall ... .large)
         }
     }
 }

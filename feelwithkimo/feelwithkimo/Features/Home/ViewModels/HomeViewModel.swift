@@ -92,7 +92,7 @@ internal class HomeViewModel: ObservableObject {
                 AudioManager.shared.startBackgroundMusic()
             } else {
                 self.muted = true
-                AudioManager.shared.stop()
+                AudioManager.shared.stopAll()
             }
         }
     }

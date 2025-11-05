@@ -15,13 +15,13 @@ final class BreathingModuleViewModel: ObservableObject {
     @Published var isActive = false
     @Published var startAnimation = false
     @Published var kimoMascotScale: CGFloat = 1.0
+    @Published var cycleCount = 0
     @Published var isMascotTapped = false
     @Published var showCompletionView = false
     
     // MARK: - Private Properties
     private var timer: Timer?
-    private var cycleCount = 0
-    private lazy var maxCycles = 3 // Complete full breathing cycles before showing completion
+    private var maxCycles = 3 // Complete full breathing cycles before showing completion
     
     // MARK: - Lazy Computed Properties
     private lazy var breathingDuration: TimeInterval = 4.0
@@ -39,9 +39,9 @@ final class BreathingModuleViewModel: ObservableObject {
     
     // MARK: - Enum
     enum BreathingPhase: String, CaseIterable {
-        case inhale = "Tarik Nafas"
-        case hold = "Tahan Nafas"
-        case exhale = "Hembuskan Nafas"
+        case inhale = "Tarik\nNafas"
+        case hold = "Tahan\nNafas"
+        case exhale = "Buang\nNafas"
         
         var duration: TimeInterval {
             return 4.0 // 4 seconds for each phase

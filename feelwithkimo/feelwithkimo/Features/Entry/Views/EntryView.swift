@@ -62,7 +62,6 @@ struct EntryView: View {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
         }
-        .dynamicTypeSize(.xSmall ... .large)
     }
 }
 

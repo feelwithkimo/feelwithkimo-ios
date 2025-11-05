@@ -50,7 +50,7 @@ struct EmotionStoryView: View {
                 
                 // TODO: Move this code to KimoDialogueView
                  HStack(spacing: 39) {
-                     Image("KimoEmotionStory")
+                     Image("KimoTutorialAsset")
                          .resizable()
                          .scaledToFit()
                          .frame(width: 512.getWidth())
@@ -87,7 +87,7 @@ struct EmotionStoryView: View {
                  .padding(.horizontal, 72.getWidth())
                 
 //                KimoDialogueView(
-//                    kimoDialogueIcon: "KimoEmotionStory",
+//                    kimoDialogueIcon: "KimoTutorialAsset",
 //                    textDialogue: "Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.",
 //                    textDialogueTriangle: "KimoDialogue",
 //                    buttonLayout: .single(
