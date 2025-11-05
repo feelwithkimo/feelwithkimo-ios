@@ -62,22 +62,57 @@ struct KimoDialogueView: View {
 }
 
 #Preview {
-    KimoDialogueView(
-        buttonLayout: .horizontal([
-            KimoDialogueButtonConfig(
-                title: "Coba lagi",
-                symbol: .arrowClockwise,
-                backgroundColor: ColorToken.coreSecondary.toColor(),
-                foregroundColor: ColorToken.textPrimary.toColor(),
-                action: { print("Try again tapped") }
-            ),
-            KimoDialogueButtonConfig(
-                title: "Lanjutkan",
-                symbol: .chevronRight,
-                backgroundColor: ColorToken.backgroundCard.toColor(),
-                foregroundColor: ColorToken.textPrimary.toColor(),
-                action: { print("Continue tapped") }
+    VStack(spacing: 40) {
+        // Preview with regular horizontal buttons
+        KimoDialogueView(
+            textDialogue: "Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.",
+            buttonLayout: .horizontal([
+                KimoDialogueButtonConfig(
+                    title: "Coba lagi",
+                    symbol: .arrowClockwise,
+                    backgroundColor: ColorToken.coreSecondary.toColor(),
+                    foregroundColor: ColorToken.textPrimary.toColor(),
+                    action: { print("Try again tapped") }
+                ),
+                KimoDialogueButtonConfig(
+                    title: "Lanjutkan",
+                    symbol: .chevronRight,
+                    backgroundColor: ColorToken.backgroundCard.toColor(),
+                    foregroundColor: ColorToken.textPrimary.toColor(),
+                    action: { print("Continue tapped") }
+                )
+            ])
+        )
+        
+        // Preview with bubble secondary buttons with SF Symbols (like in image)
+        KimoDialogueView(
+            textDialogue: "Hore, berhasil!!!",
+            buttonLayout: .horizontal([
+                KimoDialogueButtonConfig(
+                    title: "Coba lagi",
+                    symbol: .arrowClockwise,
+                    style: .bubbleSecondary,
+                    action: { print("Bubble secondary try again tapped") }
+                ),
+                KimoDialogueButtonConfig(
+                    title: "Lanjutkan",
+                    symbol: .chevronRight,
+                    style: .bubbleSecondary,
+                    action: { print("Bubble secondary continue tapped") }
+                )
+            ])
+        )
+        
+        // Preview with bubble primary button
+        KimoDialogueView(
+            textDialogue: "Yuk, kita mulai petualangan bersama Kimo!",
+            buttonLayout: .single(
+                KimoDialogueButtonConfig(
+                    title: "Ayo Mulai!",
+                    style: .bubblePrimary,
+                    action: { print("Bubble primary tapped") }
+                )
             )
-        ])
-    )
+        )
+    }
 }

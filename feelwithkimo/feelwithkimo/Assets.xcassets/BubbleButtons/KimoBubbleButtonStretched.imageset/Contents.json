@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Hold-1x.png",
+      "filename" : "KimoButtonPrimaryStreched-1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Hold-2x.png",
+      "filename" : "KimoButtonPrimaryStreched-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Hold-3x.png",
+      "filename" : "KimoButtonPrimaryStreched-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

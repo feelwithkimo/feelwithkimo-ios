@@ -25,7 +25,7 @@ struct KimoAskView: View {
     
     // MARK: - Initializers
     init(
-        dialogueText: String = "Kimo Goblok Kimo Goblok Kimo Goblok Kimo Goblok",
+        dialogueText: String = "Sayang Sekali!",
         dialogueIcon: String = "Kimo",
         textDialogueLeft: String = "TextDialogueLeft",
         titleText: String = "Title",
