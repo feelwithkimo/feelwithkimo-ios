@@ -27,7 +27,24 @@ struct BreathingModuleView: View {
             if viewModel.showCompletionView {
                 completionView
             }
+            
+            // Back button overlay - top left
+            VStack {
+                HStack {
+                    Button(action: { dismiss() }, label: {
+                        KimoBackButton()
+                    })
+                    .padding(.leading, 57.getWidth())
+                    .padding(.top, 50.getHeight())
+
+                    Spacer()
+                }
+                
+                Spacer()
+            }
+            .ignoresSafeArea(edges: .all)
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.onCompletion = onCompletion
             // Announce screen when it appears
@@ -53,11 +70,11 @@ struct BreathingModuleView: View {
                 VStack {
                     Spacer()
                     
-                    HStack(alignment: .center, spacing: geometry.size.width * 0.05) {
+                    HStack(alignment: .center, spacing: 60.getWidth()) {
                         Text(viewModel.currentPhase.rawValue)
                             .font(Font(
                                 UIFont.appFont(
-                                    size: geometry.size.width * 0.06,
+                                    size: 72.getWidth(),
                                     family: .primary,
                                     weight: .bold
                                 )
@@ -65,8 +82,8 @@ struct BreathingModuleView: View {
                             .foregroundColor(ColorToken.textBreathing.toColor())
                             .multilineTextAlignment(.leading)
                             .lineSpacing(0)
-                            .padding(.leading, geometry.size.width * 0.05)
-                            .padding(.top, geometry.safeAreaInsets.top + 100)
+                            .padding(.leading, 60.getWidth())
+                            .padding(.top, geometry.safeAreaInsets.top + 100.getHeight())
                             .kimoTextAccessibility(
                                 label: "Latihan Pernafasan Tarik Nafas",
                                 identifier: "breathing.title",
@@ -77,6 +94,7 @@ struct BreathingModuleView: View {
                     }
                     Spacer()
                 }
+                .padding(.bottom, 100.getWidth())
                 
                 // Timer circle - top right, fixed position
                 VStack {
@@ -88,24 +106,25 @@ struct BreathingModuleView: View {
                         ZStack {
                             Circle()
                                 .fill(ColorToken.backgroundBreathing.toColor())
-                                .frame(width: geometry.size.width * 0.12, 
-                                       height: geometry.size.width * 0.12)
+                                .frame(width: 143.getWidth(),
+                                       height: 143.getWidth())
                             
                             Text("\(viewModel.remainingTime) detik")
                                 .font(Font(
                                     UIFont.appFont(
-                                        size: geometry.size.width * 0.025,
+                                        size: 30.getWidth(),
                                         family: .primary,
                                         weight: .bold
                                     )
                                 ))
                                 .foregroundColor(ColorToken.textBreathing.toColor())
                         }
-                        .padding(.trailing, geometry.size.width * 0.06)
-                        .padding(.top, geometry.safeAreaInsets.top + 120)
+                        .padding(.trailing, 72.getWidth())
+                        .padding(.top, geometry.safeAreaInsets.top + 120.getHeight())
                     }
                     Spacer()
                 }
+                .padding(.bottom, 100.getWidth())
                 .kimoTextGroupAccessibility(
                     combinedLabel: "Instruksi pernapasan: \(viewModel.currentPhase.rawValue). Waktu tersisa: \(viewModel.remainingTime) detik.",
                     identifier: "breathing.instruction",
