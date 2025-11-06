@@ -17,6 +17,8 @@ internal class HomeViewModel: ObservableObject {
     @Published var emotions: [EmotionModel] = []
     @Published var selectedEmotion: EmotionModel?
     @Published var muted: Bool = false
+    
+    let ellipseHeight = 674
 
     // MARK: - Lifecycle
     init() {
@@ -32,15 +34,17 @@ internal class HomeViewModel: ObservableObject {
 
         // Data dummy untuk daftar emosi
         self.emotions = [
-            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "", title: "Hi, aku marah",
+            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "Carousel-Senang", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Carousel-Marah", title: "Hi, aku marah",
                          description: "Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.", stories: []),
-            EmotionModel(id: UUID(), name: "Kaget", visualCharacterName: "figure.mind.and.body", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "", title: "", description: "", stories: [])
+            EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "Carousel-Sedih", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Takut", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Jijik", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Jijik", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Terkejut", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Terkejut", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Capek", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Capek", title: "", description: "", stories: [])
         ]
 
-        self.selectedEmotion = emotions.first(where: { $0.name == "Sedih" })
+        self.selectedEmotion = emotions.first(where: { $0.name == "Marah" })
     }
 
     // MARK: - Public Methods

@@ -14,22 +14,38 @@ struct HomeView: View {
 
     // MARK: - Body
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             // MARK: - Header Section
             headerView
             
             Spacer()
             
             // MARK: - Main Content
-            VStack(alignment: .center, spacing: 40) {
-                questionView
-                emotionSelectionView
+            ZStack {
+                VStack {
+                    Spacer()
+                    
+                    KimoEllipseView(color: ColorToken.ellipseHome.toColor(), height: CGFloat(viewModel.ellipseHeight))
+                        .offset(y: 360.getHeight())
+                }
+                    
+                VStack(alignment: .center, spacing: 40.getHeight()) {
+                    Text("Pilih Emosi!")
+                        .font(.app(size: 80, family: .primary, weight: .bold))
+                        .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                        .kimoTextAccessibility(
+                            label: "Hari ini mau belajar emosi apa, ya?",
+                            identifier: "home.question",
+                            sortPriority: 2
+                        )
+                    
+                    emotionSelectionView
+                }
+                .padding(.top, 60.getHeight())
+                .padding(.bottom, 174.getHeight())
             }
-            .padding(.leading, 20)
-            .padding(.top, 60)
-            
-            Spacer()
         }
+        .background(ColorToken.backgroundHome.toColor())
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -74,30 +90,6 @@ private extension HomeView {
         }
     }
 
-    /// View untuk menampilkan teks pertanyaan.
-    var questionView: some View {
-        HStack(alignment: .top, spacing: 4) {
-            Text("Hari ini mau belajar emosi apa, ya?")
-                .font(.app(.title1, family: .primary))
-                .foregroundStyle(ColorToken.backgroundMain.toColor())
-                .padding(0)
-                .kimoTextAccessibility(
-                    label: "Hari ini mau belajar emosi apa, ya?",
-                    identifier: "home.question",
-                    sortPriority: 2
-                )
-
-            Image(systemName: "speaker.wave.1.fill")
-                .foregroundColor(ColorToken.backgroundMain.toColor())
-                .padding(0)
-                .kimoImageAccessibility(
-                    label: "Ikon suara",
-                    isDecorative: true,
-                    identifier: "home.speakerIcon"
-                )
-        }
-    }
-
     /// View untuk menampilkan daftar emosi yang bisa di-scroll.
     struct CardCenterPreferenceKey: PreferenceKey {
         static var defaultValue: [AnyHashable: CGFloat] = [:]
@@ -113,7 +105,7 @@ private extension HomeView {
 
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 100) {
+                    HStack(spacing: 50.getWidth()) {
                         ForEach(viewModel.emotions) { emotion in
                             NavigationLink(destination: {
                                 EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion))
@@ -142,8 +134,7 @@ private extension HomeView {
                             )
                         }
                     }
-                    // optional padding so first/last items can reach exact center if you want:
-                    // .padding(.horizontal, outerGeo.size.width / 2 - (approxCardWidth / 2))
+                    .padding(.horizontal, 148.getWidth())
                 }
                 .kimoAccessibility(
                     label: "Daftar pilihan emosi",
