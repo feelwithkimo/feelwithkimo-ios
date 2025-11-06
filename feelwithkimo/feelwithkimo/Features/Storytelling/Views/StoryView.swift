@@ -56,7 +56,7 @@ struct StoryView: View {
                         }
                         
                         RoundedRectangle(cornerRadius: 24)
-                            .fill(ColorToken.corePinkStory.toColor())
+                            .fill(ColorToken.additionalColorsWhite.toColor())
                             .overlay(
                                 Text(viewModel.currentScene.text)
                                     .font(.app(.headline, family: .primary))
@@ -162,6 +162,7 @@ struct StoryView: View {
                                         hint: "Ketuk dua kali untuk memilih jawaban ini",
                                         identifier: "story.optionB"
                                     )
+                                
                                 Spacer()
                             }
                         }
@@ -171,7 +172,10 @@ struct StoryView: View {
             }
             
             // Add KimoAskView overlay
-            KimoAskView()
+            KimoAskView(dialogueText: viewModel.currentScene.kimoText,
+                        mark: viewModel.currentScene.kimoVisual,
+                        showDialogue: $viewModel.showDialogue,
+                        isMascotTapped: $viewModel.isTappedMascot)
             
             VStack {
                 HStack {
@@ -221,8 +225,6 @@ struct StoryView: View {
             }
         }
         .onAppear {
-            // audioManager.startBackgroundMusic()
-            
             // Announce story scene information
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 var announcement = "Cerita dimulai. Adegan \(viewModel.index + 1)"
@@ -244,9 +246,6 @@ struct StoryView: View {
                 
                 accessibilityManager.announceScreenChange(announcement)
             }
-        }
-        .onDisappear {
-            audioManager.stop()
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -275,20 +274,9 @@ struct StoryView: View {
             HStack(alignment: .bottom, spacing: 0) {
                 Spacer()
                 
-                VStack(alignment: .leading) {
-                    Text("Bacakan cerita ini untuk si kecil, ya!")
-                        .font(.app(.title3, family: .primary))
-                    
-                    Text("Gunakan suara dan ekspresi supaya si kecil ikut merasakannya")
-                        .font(.app(.title3, family: .primary))
-                        .fontWeight(.regular)
-                }
-                .padding(.vertical, 24)
-                .padding(.horizontal, 15)
-                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                .cornerRadius(20)
+                TutorialBubble()
                 
-                Image("textDialogueLeft")
+                Image("TextDialogueRight")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 59.getWidth())
@@ -307,34 +295,9 @@ struct StoryView: View {
                 .scaledToFit()
                 .frame(width: 125.getWidth())
             
-            RoundedRectangle(cornerRadius: 24)
-                .fill(ColorToken.additionalColorsWhite.toColor())
-                .overlay(
-                    Text(viewModel.currentScene.text)
-                        .font(.app(.headline, family: .primary))
-                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                        .padding(.horizontal, 24.getWidth())
-                        .padding(.vertical, 16.getHeight())
-                        .multilineTextAlignment(.center)
-                        .kimoTextAccessibility(
-                            label: "Narasi: \(viewModel.currentScene.text)",
-                            identifier: "story.narration.text"
-                        ),
-                    alignment: .center
-                )
-                .frame(
-                    width: 840.getWidth(),
-                    height: 120.getHeight()
-                )
-                .padding(.horizontal, 177.getWidth())
-                .padding(.top, 11.getHeight())
-                .onTapGesture {
-                    viewModel.nextTutorial()
-                }
+            NarrationCard(text: viewModel.currentScene.text, onTap: viewModel.nextTutorial)
         }
         .padding(.bottom, 50.getHeight())
-        .ignoresSafeArea()
-        .padding(0)
     }
     
     private func secondTutorialView() -> some View {
@@ -349,7 +312,7 @@ struct StoryView: View {
                     .padding(.top, 51 )
                     .padding(.trailing, 9)
                 
-                Image("textDialogueRight")
+                Image("TextDialogueLeft")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 59.getWidth())
@@ -405,7 +368,7 @@ struct StoryView: View {
                     .padding(.top, 51.getHeight())
                     .padding(.trailing, 9)
                 
-                Image("textDialogueRight")
+                Image("TextDialogueLeft")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 59.getWidth())
@@ -429,14 +392,13 @@ struct StoryView: View {
                     .frame(width: 125)
                     .padding(.top, 45)
                 
-                Image("KimoVisual_2")
+                Image("KimoVisual")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 130)
                     .padding(.bottom, 71)
                     .onTapGesture {
                         viewModel.nextTutorial()
-                        print("test")
                     }
             }
             .padding(.bottom, 175.getHeight())

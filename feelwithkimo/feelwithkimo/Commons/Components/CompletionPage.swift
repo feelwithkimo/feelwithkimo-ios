@@ -16,7 +16,7 @@ struct CompletionPage: View {
             
             HStack {
                 HStack(spacing: 39) {
-                    Image("KimoEmotionStory")
+                    Image("KimoTutorialAsset")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 512.getWidth())

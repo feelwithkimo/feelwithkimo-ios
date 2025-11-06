@@ -14,72 +14,107 @@ struct KimoAskView: View {
     let textDialogueLeft: String
     let titleText: String
     let bodyText: String
+    let mark: KimoVisual
     
-    @State private var kimoMascotScale: CGFloat = 1.0
-    @State private var isMascotTapped: Bool = false
-    @State private var showDialogue: Bool = false
     @Environment(\.dismiss) var dismiss
+    @Binding var showDialogue: Bool
+    @Binding var isMascotTapped: Bool
     
     private let animationDuration: Double = 0.3
     private let textDialogue: String = "KimoAskTextDialogue"
     
     // MARK: - Initializers
     init(
-        dialogueText: String = "Sayang Sekali!",
+        dialogueText: String = "Halo Kimo",
         dialogueIcon: String = "Kimo",
         textDialogueLeft: String = "TextDialogueLeft",
         titleText: String = "Title",
-        bodyText: String = "Body"
+        bodyText: String = "Body",
+        mark: KimoVisual = .normal,
+        showDialogue: Binding<Bool>,
+        isMascotTapped: Binding<Bool>
     ) {
         self.customDialogueText = dialogueText
         self.dialogueIcon = dialogueIcon
         self.textDialogueLeft = textDialogueLeft
         self.titleText = titleText
         self.bodyText = bodyText
+        self.mark = mark
+        self._showDialogue = showDialogue
+        self._isMascotTapped = isMascotTapped
     }
     
     var body: some View {
         ZStack {
-            // Dialogue positioned above mascot
-            if showDialogue {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        dialogue
-                            .padding(.trailing, 30)
-                            .padding(.bottom, 180)
-                    }
-                }
-                .transition(
-                    .asymmetric(
-                        insertion: .move(edge: .trailing).combined(with: .opacity),
-                        removal: .move(edge: .trailing).combined(with: .opacity)
-                    )
-                )
-            }
-            
             // Mascot positioned in bottom right
             VStack {
                 Spacer()
-                HStack {
+                
+                HStack(spacing: 0) {
                     Spacer()
-                    Button(action: {
-                        toggleMascot()
-                    }, label: {
-                        Image("Kimo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            .scaleEffect(kimoMascotScale)
-                    })
-                    .kimoButtonAccessibility(
-                        label: "Kimo maskot kecil",
-                        hint: "Ketuk dua kali untuk berinteraksi dengan Kimo",
-                        identifier: "breathing.kimoMascot"
-                    )
-                    .padding(.trailing, 30)
-                    .padding(.bottom, 200)
+                    
+                    ZStack(alignment: .topTrailing) {
+                        if showDialogue {
+                            dialogue
+                                .padding(.top)
+                                .padding(.trailing, 130.getWidth())
+                                .transition(
+                                    .asymmetric(
+                                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                                        removal: .move(edge: .trailing).combined(with: .opacity)
+                                    )
+                                )
+                            
+                        }
+                        
+                        Button(action: {
+                            toggleMascot()
+                        }, label: {
+                            Image("KimoVisual")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 105.getWidth())
+                                .scaleEffect(showDialogue ? 1.2 : 1)
+                        })
+                        .kimoButtonAccessibility(
+                            label: "Kimo maskot kecil",
+                            hint: "Ketuk dua kali untuk berinteraksi dengan Kimo",
+                            identifier: "breathing.kimoMascot"
+                        )
+                        .padding(.trailing, 32.getWidth())
+                        .padding(.top, 14.getHeight())
+                        .padding(.bottom, 253.getHeight())
+                        
+                        VStack {
+                            switch mark {
+                            case .mark:
+                                Image("ExclamationMark")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20.getWidth())
+                                    .padding(.trailing, 45.getWidth())
+                                    .scaleEffect(showDialogue ? 1.2 : 1)
+                                
+                            case .star:
+                                HStack {
+                                    Spacer()
+                                    Image("Star")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 45.getWidth())
+                                        .padding(.trailing, 14.getWidth())
+                                        .scaleEffect(showDialogue ? 1.2 : 1)
+                                }
+                                
+                            default:
+                                EmptyView()
+                            }
+                            
+                            Spacer()
+                                .frame(height: 303.getHeight())
+                        }
+                        .padding(0)
+                    }
                 }
             }
         }
@@ -88,26 +123,21 @@ struct KimoAskView: View {
     
     // MARK: - Mascot Functions
     private func toggleMascot() {
+        guard mark != .normal else {
+            self.showDialogue = false
+            AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
+            return
+        }
+        
         withAnimation(.easeInOut(duration: animationDuration)) {
             if isMascotTapped {
                 // Hide dialogue and reset mascot
                 showDialogue = false
-                kimoMascotScale = 1.0
                 isMascotTapped = false
             } else {
                 // Show dialogue and scale mascot
                 showDialogue = true
-                kimoMascotScale = 1.2
                 isMascotTapped = true
-                
-                // Auto-hide dialogue after 10 seconds
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                    withAnimation(.easeInOut(duration: animationDuration)) {
-                        showDialogue = false
-                        kimoMascotScale = 1.0
-                        isMascotTapped = false
-                    }
-                }
             }
         }
     }
@@ -116,23 +146,28 @@ struct KimoAskView: View {
     private var dialogue: some View {
         HStack(spacing: -2) {
             HStack {
-                Text(customDialogueText)
-                    .font(.app(.title3, family: .primary))
-                    .fontWeight(.regular)
-                    .foregroundColor(.black)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-            }
-            .frame(maxWidth: 300, alignment: .leading)
-            .padding(.horizontal, 27 * UIScreen.main.bounds.width / 1194)
-            .padding(.vertical, 30 * UIScreen.main.bounds.height / 834)
-            .background(ColorToken.corePinkDialogue.toColor())
+                    Text(customDialogueText)
+                        .font(.app(.callout, family: .primary))
+                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                }
+                .padding(.horizontal, 27.getWidth())
+                .padding(.vertical, 30.getHeight())
+                .background(ColorToken.corePinkDialogue.toColor())
+                .cornerRadius(28)
+                .frame(
+                    maxWidth: UIScreen.main.bounds.width * 0.5,
+                    alignment: .leading
+                )
+                .fixedSize(horizontal: true, vertical: false)
             
             Image(textDialogue)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 40.84 * UIScreen.main.bounds.width / 1194,
-                       height: 29.14 * UIScreen.main.bounds.height / 834)
+                .frame(width: 41.getWidth(), height: 29.getHeight())
                 .padding(.trailing, 60)
         }
     }
@@ -141,7 +176,7 @@ struct KimoAskView: View {
 #Preview {
     VStack(spacing: 20) {
         // Default dialogue
-        KimoAskView()
+//        KimoAskView()
         
 //        // Custom dialogue for story pages
 //        KimoAskView(dialogueText: "Ayo kita lanjutkan ceritanya!")
