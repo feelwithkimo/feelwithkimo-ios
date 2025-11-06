@@ -28,13 +28,14 @@ struct EmotionStoryView: View {
             
             VStack(alignment: .center, spacing: 0) {
                 HStack {
-                    Image("xmark")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80.getWidth())
-                        .onTapGesture {
-                            dismiss()
-                        }
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image("xmark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80.getWidth())
+                    })
                     
                     Spacer()
                     
@@ -57,6 +58,8 @@ struct EmotionStoryView: View {
                     
                      VStack(spacing: 0) {
                          Text("Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.")
+                             .font(.app(.title2, family: .primary))
+                             .fontWeight(.regular)
                              .frame(maxWidth: 500.getWidth())
                              .padding(.horizontal, 49.getWidth())
                              .padding(.vertical, 42.getHeight())

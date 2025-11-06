@@ -37,19 +37,20 @@ struct StoryView: View {
                     
                     HStack(spacing: 0) {
                         if viewModel.currentScene.nextScene.count > 1 || viewModel.currentScene.isEnd {
-                            Image("PreviousScene")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100.getWidth())
-                                .onTapGesture {
-                                    viewModel.goScene(to: -1, choice: 0)
-                                    accessibilityManager.announce("Kembali ke adegan sebelumnya")
-                                }
-                                .kimoButtonAccessibility(
-                                    label: "Adegan sebelumnya",
-                                    hint: "Ketuk dua kali untuk kembali ke adegan sebelumnya",
-                                    identifier: "story.previousButton"
-                                )
+                            Button(action: {
+                                viewModel.goScene(to: -1, choice: 0)
+                                accessibilityManager.announce("Kembali ke adegan sebelumnya")
+                            }, label: {
+                                Image("PreviousScene")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100.getWidth())
+                                    .kimoButtonAccessibility(
+                                        label: "Adegan sebelumnya",
+                                        hint: "Ketuk dua kali untuk kembali ke adegan sebelumnya",
+                                        identifier: "story.previousButton"
+                                    )
+                            })
                         } else {
                             Spacer()
                                 .frame(width: 100.getWidth())
@@ -78,25 +79,26 @@ struct StoryView: View {
                         
                         // Next Scene Button
                         if viewModel.currentScene.nextScene.count >= 1 && !viewModel.currentScene.isEnd {
-                            Image("NextScene")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100.getWidth())
-                                .onTapGesture {
-                                    guard !viewModel.currentScene.isEnd else {
-                                        accessibilityManager.announce("Cerita selesai. Kembali ke halaman sebelumnya.")
-                                        dismiss()
-                                        return
-                                    }
-                                    viewModel.goScene(to: 1, choice: 0)
-                                    accessibilityManager.announce("Melanjutkan ke adegan berikutnya")
+                            Button(action: {
+                                guard !viewModel.currentScene.isEnd else {
+                                    accessibilityManager.announce("Cerita selesai. Kembali ke halaman sebelumnya.")
+                                    dismiss()
+                                    return
                                 }
-                                .kimoButtonAccessibility(
-                                    label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
-                                    hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
-                                        "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
-                                    identifier: "story.nextButton"
-                                )
+                                viewModel.goScene(to: 1, choice: 0)
+                                accessibilityManager.announce("Melanjutkan ke adegan berikutnya")
+                            }, label: {
+                                Image("NextScene")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100.getWidth())
+                                    .kimoButtonAccessibility(
+                                        label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
+                                        hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
+                                            "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
+                                        identifier: "story.nextButton"
+                                    )
+                            })
                         } else if viewModel.currentScene.isEnd {
                             Spacer()
                                 .frame(width: 100.getWidth())
@@ -117,7 +119,9 @@ struct StoryView: View {
                     VStack {
                         if let question = viewModel.currentScene.question {
                             Text(question.question)
-                                .padding()
+                                .font(.app(.title2, family: .primary))
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 16)
                                 .frame(maxWidth: 0.5 * UIScreen.main.bounds.width)
                                 .background(ColorToken.backgroundMain.toColor())
                                 .foregroundStyle(ColorToken.textPrimary.toColor())
@@ -131,37 +135,25 @@ struct StoryView: View {
                             HStack(spacing: 5) {
                                 Spacer()
 
-                                Text(question.option[0])
-                                    .padding()
-                                    .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                    .background(ColorToken.backgroundCard.toColor())
-                                    .foregroundStyle(ColorToken.textPrimary.toColor())
-                                    .cornerRadius(10)
-                                    .onTapGesture {
-                                        viewModel.goScene(to: 1, choice: 0)
-                                        accessibilityManager.announce("Memilih: \(question.option[0])")
-                                    }
-                                    .kimoButtonAccessibility(
-                                        label: "Pilihan A: \(question.option[0])",
-                                        hint: "Ketuk dua kali untuk memilih jawaban ini",
-                                        identifier: "story.optionA"
-                                    )
-
-                                Text(question.option[1])
-                                    .padding()
-                                    .frame(width: 0.25 * UIScreen.main.bounds.width)
-                                    .background(ColorToken.backgroundCard.toColor())
-                                    .foregroundStyle(ColorToken.textPrimary.toColor())
-                                    .cornerRadius(10)
-                                    .onTapGesture {
-                                        viewModel.goScene(to: 1, choice: 1)
-                                        accessibilityManager.announce("Memilih: \(question.option[1])")
-                                    }
-                                    .kimoButtonAccessibility(
-                                        label: "Pilihan B: \(question.option[1])",
-                                        hint: "Ketuk dua kali untuk memilih jawaban ini",
-                                        identifier: "story.optionB"
-                                    )
+                                Button(action: {
+                                    viewModel.goScene(to: 1, choice: 0)
+                                    accessibilityManager.announce("Memilih: \(question.option[0])")
+                                }, label: {
+                                    KimoBubbleButtonPrimary(buttonLabel: question.option[0])
+                                        .padding(.trailing, 16.getWidth())
+                                })
+                                
+                                Button(action: {
+                                    viewModel.goScene(to: 1, choice: 1)
+                                    accessibilityManager.announce("Memilih: \(question.option[1])")
+                                }, label: {
+                                    KimoBubbleButtonPrimary(buttonLabel: question.option[1])
+                                        .kimoButtonAccessibility(
+                                            label: "Pilihan B: \(question.option[1])",
+                                            hint: "Ketuk dua kali untuk memilih jawaban ini",
+                                            identifier: "story.optionB"
+                                        )
+                                })
                                 
                                 Spacer()
                             }
@@ -173,28 +165,29 @@ struct StoryView: View {
             
             // Add KimoAskView overlay
             KimoAskView(dialogueText: viewModel.currentScene.kimoText,
-                        mark: viewModel.currentScene.kimoVisual,
-                        showDialogue: $viewModel.showDialogue,
-                        isMascotTapped: $viewModel.isTappedMascot)
+                mark: viewModel.currentScene.kimoVisual,
+                showDialogue: $viewModel.showDialogue,
+                isMascotTapped: $viewModel.isTappedMascot)
             
             VStack {
                 HStack {
-                    Image("xmark")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80.getWidth())
-                        .onTapGesture {
-                            dismiss()
-                        }
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image("xmark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80.getWidth())
+                    })
                     
-                        Spacer()
-                    
-                        KimoMuteButton(audioManager: audioManager)
-                            .kimoButtonAccessibility(
-                                label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
-                                hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
-                                identifier: "story.muteButton"
-                            )
+                    Spacer()
+                
+                    KimoMuteButton(audioManager: audioManager)
+                        .kimoButtonAccessibility(
+                            label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
+                            hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                            identifier: "story.muteButton"
+                        )
                 }
                 .padding(.horizontal, 57.getWidth())
                 .padding(.top, 50.getHeight())

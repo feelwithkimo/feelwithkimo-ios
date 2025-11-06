@@ -57,7 +57,7 @@ struct KimoAskView: View {
                         if showDialogue {
                             dialogue
                                 .padding(.top)
-                                .padding(.trailing, 130.getWidth())
+                                .padding(.trailing, 100.getWidth())
                                 .transition(
                                     .asymmetric(
                                         insertion: .move(edge: .trailing).combined(with: .opacity),
