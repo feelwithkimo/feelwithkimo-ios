@@ -45,6 +45,11 @@ struct StoryView: View {
                 questionView()
             }
             
+            if viewModel.currentScene.interactionType != .normal && viewModel.currentScene.interactionType != .storyBranching {
+                Color.black.opacity(0.8)
+                    .ignoresSafeArea()
+            }
+            
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
                     Button(action: {
