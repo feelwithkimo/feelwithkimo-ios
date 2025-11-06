@@ -70,10 +70,7 @@ struct KimoAskView: View {
                         Button(action: {
                             toggleMascot()
                         }, label: {
-                            Image("KimoVisual")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 105.getWidth())
+                            KimoImage(image: "KimoVisual", width: 105.getWidth())
                                 .scaleEffect(showDialogue ? 1.2 : 1)
                         })
                         .kimoButtonAccessibility(
@@ -88,20 +85,14 @@ struct KimoAskView: View {
                         VStack {
                             switch mark {
                             case .mark:
-                                Image("ExclamationMark")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20.getWidth())
+                                KimoImage(image: "ExclamationMark", width: 20.getWidth())
                                     .padding(.trailing, 45.getWidth())
                                     .scaleEffect(showDialogue ? 1.2 : 1)
                                 
                             case .star:
                                 HStack {
                                     Spacer()
-                                    Image("Star")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 45.getWidth())
+                                    KimoImage(image: "Star", width: 45.getWidth())
                                         .padding(.trailing, 14.getWidth())
                                         .scaleEffect(showDialogue ? 1.2 : 1)
                                 }

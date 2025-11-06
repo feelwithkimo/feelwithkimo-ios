@@ -16,10 +16,7 @@ struct CompletionPage: View {
             
             HStack {
                 HStack(spacing: 39) {
-                    Image("KimoTutorialAsset")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 512.getWidth())
+                    KimoImage(image: "KimoTutorialAsset", width: 512.getWidth())
                     
                     VStack(spacing: 0) {
                         Text(textDialogue)
@@ -30,11 +27,7 @@ struct CompletionPage: View {
                             .cornerRadius(30)
                         
                         HStack {
-                            Image("KimoDialogue")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 157.getWidth())
-                            
+                            KimoImage(image: "KimoDialogue", width: 157.getWidth())
                             Spacer()
                         }
                         

@@ -16,18 +16,12 @@ extension StoryView {
                 Spacer()
                 
                 HStack(spacing: 10) {
-                    Image("Kimo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 400.getWidth())
+                    KimoImage(image: "Kimo", width: 400.getWidth())
                     
                     VStack {
                         Spacer()
                         
-                        Image("Closing")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 594.getWidth())
+                        KimoImage(image: "Closing", width: 594.getWidth())
                     }
                     .padding(.bottom, 36.getHeight())
                 }
@@ -44,7 +38,7 @@ extension StoryView {
                                 .font(.app(.title1, family: .primary))
                         }
                         .padding()
-                        .background(ColorToken.grayscale40.toColor().opacity(0.8))
+                        .background(ColorToken.corePinkStory.toColor().opacity(0.8))
                         .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
                         .cornerRadius(50)
                     }
@@ -57,7 +51,7 @@ extension StoryView {
                                 .font(.app(.title1, family: .primary))
                         }
                         .padding()
-                        .background(ColorToken.grayscale40.toColor().opacity(0.8))
+                        .background(ColorToken.corePinkStory.toColor().opacity(0.8))
                         .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
                         .cornerRadius(50)
                     }

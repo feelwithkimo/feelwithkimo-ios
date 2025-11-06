@@ -49,8 +49,7 @@ struct IdentityView: View {
                     
                     VStack(alignment: .leading) {
                         Text("Nama Si Kecil:")
-//                            .font(.app(.title2 , family: .primary))
-                            .font(.title2)
+                            .font(.app(.title2, family: .primary))
                             .fontWeight(.bold)
                             .kimoTextAccessibility(
                                 label: "Nama si kecil",

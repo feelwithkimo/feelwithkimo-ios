@@ -147,7 +147,7 @@ internal class StoryViewModel: ObservableObject {
     }
 
     /// Function to next and previous scene of story
-    func goScene(to number: Int, choice: Int) {
+    func goScene(to number: Int, choice: Int = 0) {
         switch number {
         case 1:
             guard !self.currentScene.isEnd else { return }
@@ -162,10 +162,11 @@ internal class StoryViewModel: ObservableObject {
             self.isTappedMascot = false
             self.index += 1
             
+        // Previous Scene
         case -1:
             guard self.currentScene.nextScene.count > 1 else { return }
 
-            withAnimation(.easeInOut(duration: 1.5)) { self.currentScene = self.story.storyScene[self.currentScene.nextScene[0]]}
+            self.currentScene = self.story.storyScene[self.currentScene.nextScene[0]]
             self.showDialogue = false
             self.isTappedMascot = false
             self.index -= 1

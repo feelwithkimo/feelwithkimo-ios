@@ -40,10 +40,7 @@ struct EntryView: View {
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, geometry.size.height * 0.01)
                 
-                Image("Kimo-Pink-Wave")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.51)
+                KimoImage(image: "Kimo-Pink-Wave", width: geometry.size.width * 0.51)
                 
                 Text("Aku akan menemani kamu dan si kecil belajar mengenal perasaan lewat cerita dan permainan seru.")
                     .font(.app(.title1, family: .primary))
