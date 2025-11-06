@@ -28,12 +28,18 @@ struct BreathingModuleView: View {
                 completionView
             }
             
+            KimoAskView(dialogueText: viewModel.dialogueText,
+                        mark: .mark,
+                        showDialogue: $viewModel.showDialogue,
+                        isMascotTapped: $viewModel.isMascotTapped)
+                .offset(x: 20.getHeight(), y: 90.getWidth())
+
             // Back button overlay - top left
             VStack {
                 HStack {
-                    Button(action: { dismiss() }, label: {
-                        KimoBackButton()
-                    })
+                    KimoBackButton {
+                        dismiss()
+                    }
                     .padding(.leading, 57.getWidth())
                     .padding(.top, 50.getHeight())
 
@@ -43,6 +49,7 @@ struct BreathingModuleView: View {
                 Spacer()
             }
             .ignoresSafeArea(edges: .all)
+            
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {

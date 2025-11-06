@@ -24,7 +24,7 @@ final class VisionManager: NSObject, ObservableObject {
 
     // MARK: - Camera Configuration
     private func configureCamera() {
-        session.sessionPreset = .photo
+        session.sessionPreset = .high
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
               let input = try? AVCaptureDeviceInput(device: device),
               session.canAddInput(input)

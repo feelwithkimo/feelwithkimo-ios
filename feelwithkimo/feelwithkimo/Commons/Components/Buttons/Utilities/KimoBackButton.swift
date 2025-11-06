@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct KimoBackButton: View {
+    var action: (() -> Void)?
+    
     var body: some View {
         Image("Back")
             .resizable()
             .scaledToFit()
             .frame(maxWidth: 80.getWidth())
+            .onTapGesture {
+                action?()
+            }
             .kimoButtonAccessibility(
                 label: "Kembali",
                 hint: "Ketuk dua kali untuk kembali ke halaman sebelumnya",
