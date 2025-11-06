@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+struct KimoEllipseView2: View {
+    var color: Color
+    var height: CGFloat
+    var body: some View {
+        VStack {
+            Ellipse()
+                .trim(from: 0.5, to: 1)
+                .fill(color)
+                .frame(height: height.getHeight())
+        }
+    }
+}
+
+#Preview {
+    KimoEllipseView2(color: ColorToken.ellipseHome.toColor(), height: 674)
+}
+
 struct KimoEllipseView: View {
     var body: some View {
         GeometryReader { geometry in

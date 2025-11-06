@@ -25,7 +25,7 @@ struct HomeView: View {
                 VStack {
                     Spacer()
                     
-                    KimoEllipseView(color: ColorToken.ellipseHome.toColor(), height: CGFloat(viewModel.ellipseHeight))
+                    KimoEllipseView2(color: ColorToken.ellipseHome.toColor(), height: CGFloat(viewModel.ellipseHeight))
                         .offset(y: 360.getHeight())
                 }
                     
