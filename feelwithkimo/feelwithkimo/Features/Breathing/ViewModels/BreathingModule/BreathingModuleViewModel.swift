@@ -18,6 +18,7 @@ final class BreathingModuleViewModel: ObservableObject {
     @Published var cycleCount = 0
     @Published var isMascotTapped = false
     @Published var showCompletionView = false
+    @Published var showDialogue: Bool = false
     
     // MARK: - Private Properties
     private var timer: Timer?
@@ -36,6 +37,8 @@ final class BreathingModuleViewModel: ObservableObject {
     
     // MARK: - Completion Handler
     var onCompletion: (() -> Void)?
+    
+    let dialogueText = "Ayo latihan pernafasan bersama 4 kali tarik nafas, 4 kali tahan nafas dan 4 kali buang nafas!"
     
     // MARK: - Enum
     enum BreathingPhase: String, CaseIterable {

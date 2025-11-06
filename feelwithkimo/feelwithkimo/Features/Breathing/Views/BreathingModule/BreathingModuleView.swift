@@ -27,6 +27,12 @@ struct BreathingModuleView: View {
             if viewModel.showCompletionView {
                 completionView
             }
+            
+            KimoAskView(dialogueText: viewModel.dialogueText,
+                        mark: .mark,
+                        showDialogue: $viewModel.showDialogue,
+                        isMascotTapped: $viewModel.isMascotTapped)
+                .offset(x: 20.getHeight(), y: 90.getWidth())
         }
         .onAppear {
             viewModel.onCompletion = onCompletion

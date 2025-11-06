@@ -1,17 +1,12 @@
 //
-//  KimoProgressBar.swift
+//  ClapProgressBarView.swift
 //  feelwithkimo
 //
-//  Created by jonathan calvin sutrisna on 03/11/25.
+//  Created by jonathan calvin sutrisna on 06/11/25.
 //
 import SwiftUI
 
-/**
- * Komponen Progress Bar kustom yang meniru desain pada gambar.
- * Menggunakan ZStack dengan dua Capsule untuk track dan progress.
- * Disandingkan dengan Text dalam sebuah HStack.
- */
-struct KimoProgressBar: View {
+struct ClapProgressBarView: View {
     var value: Double
     
     var barHeight: CGFloat = 25.getHeight()

@@ -29,7 +29,7 @@ struct ClapGameView: View {
                         cameraContentView
                         
                         // MARK: - ProgressBar
-                        KimoProgressBar(value: viewModel.progress)
+                        ClapProgressBarView(value: viewModel.progress)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                             .padding(.top, 33.getHeight())
                             .padding(.horizontal, 181.getWidth())
@@ -38,9 +38,9 @@ struct ClapGameView: View {
                         skeletonPairView()
                     }
                 }
-                KimoAskView(dialogueText: viewModel.dialougeText,
+                KimoAskView(dialogueText: viewModel.dialogueText,
                             mark: .mark,
-                            showDialogue: $viewModel.showDialouge,
+                            showDialogue: $viewModel.showDialogue,
                             isMascotTapped: $viewModel.isMascotTapped)
                 .offset(x: 80.getHeight())
             }

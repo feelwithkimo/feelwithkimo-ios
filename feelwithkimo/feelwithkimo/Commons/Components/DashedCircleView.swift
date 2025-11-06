@@ -111,7 +111,7 @@ struct DashedCircleView_Previews: PreviewProvider {
             DashedCircleView(
                 type: .half(startAngle: .degrees(180)),
                 lineWidth: 4,
-                dash: [6,4],
+                dash: [6, 4],
                 strokeColor: .red,
                 size: CGSize(width: 100, height: 100),
                 clockwise: false
