@@ -50,6 +50,8 @@ final class ClapGameViewModel: ObservableObject {
             }
         }
     }
+    @Published var showDialouge: Bool = false
+    @Published var isMascotTapped: Bool = false
 
     // Properti komputasi untuk View agar lebih bersih
     var user1HandState: HandState { detectHandState(for: user1Hands) }
@@ -59,6 +61,7 @@ final class ClapGameViewModel: ObservableObject {
         Double(beatCount) / Double(totalClap)
     }
     let totalClap = 20
+    let dialougeText = "Lakukan tepuk tangan dengan cepat untuk mencapai super"
 
     // MARK: - Private Properties
     private let visionManager = VisionManager()

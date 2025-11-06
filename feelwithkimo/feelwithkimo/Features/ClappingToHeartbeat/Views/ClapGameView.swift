@@ -22,24 +22,31 @@ struct ClapGameView: View {
         VStack {
             headerView()
             
-            RoundedContainer {
-                ZStack {
-                    // MARK: - Content
-                    cameraContentView
-                    
-                    // MARK: - ProgressBar
-                    KimoProgressBar(value: viewModel.progress)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                        .padding(.top, 33.getHeight())
-                        .padding(.horizontal, 181.getWidth())
-                        .animation(.spring(duration: 0.5), value: viewModel.progress)
-                    
-                    skeletonPairView()
+            ZStack {
+                RoundedContainer {
+                    ZStack {
+                        // MARK: - Content
+                        cameraContentView
+                        
+                        // MARK: - ProgressBar
+                        KimoProgressBar(value: viewModel.progress)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                            .padding(.top, 33.getHeight())
+                            .padding(.horizontal, 181.getWidth())
+                            .animation(.spring(duration: 0.5), value: viewModel.progress)
+                        
+                        skeletonPairView()
+                    }
                 }
+                KimoAskView(dialogueText: viewModel.dialougeText,
+                            mark: .mark,
+                            showDialogue: $viewModel.showDialouge,
+                            isMascotTapped: $viewModel.isMascotTapped)
+                .offset(x: 80.getHeight())
             }
             .padding(.horizontal, 31.getWidth())
         }
-        .padding(.horizontal, 65.getWidth())
+        .padding(.horizontal, 65.getHeight())
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

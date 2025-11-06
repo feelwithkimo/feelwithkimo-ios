@@ -17,6 +17,7 @@ extension ClapGameView {
             Spacer()
             Text("Tepuk Tangan")
                 .font(.app(.largeTitle, family: .primary))
+                .foregroundStyle(ColorToken.corePrimary.toColor())
                 .kimoTextAccessibility(
                     label: "Permainan Tepuk Tangan",
                     identifier: "clapping.title",

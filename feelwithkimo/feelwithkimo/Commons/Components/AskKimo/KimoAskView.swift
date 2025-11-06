@@ -92,7 +92,7 @@ struct KimoAskView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20.getWidth())
-                                    .background(.blue)
+                                    .padding(.trailing, 45.getWidth())
                                     .scaleEffect(showDialogue ? 1.2 : 1)
                                 
                             case .star:
