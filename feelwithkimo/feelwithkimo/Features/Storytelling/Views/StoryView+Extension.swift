@@ -18,7 +18,7 @@ extension StoryView {
                         viewModel.goScene(to: -1, choice: 0)
                         accessibilityManager.announce("Kembali ke adegan sebelumnya")
                     }, label: {
-                        KimoImage(image: "PreviousScene", width: 100.getHeight())
+                        KimoImage(image: "PreviousScene", width: 100.getWidth())
                             .kimoButtonAccessibility(
                                 label: "Adegan sebelumnya",
                                 hint: "Ketuk dua kali untuk kembali ke adegan sebelumnya",
@@ -30,7 +30,7 @@ extension StoryView {
                         .frame(width: 100.getWidth())
                 }
                 
-                narationBox()
+                narrationBox()
                     .padding(.horizontal, 20.getWidth())
                 
                 // Next Scene Button
@@ -44,7 +44,7 @@ extension StoryView {
                         viewModel.goScene(to: 1, choice: 0)
                         accessibilityManager.announce("Melanjutkan ke adegan berikutnya")
                     }, label: {
-                        KimoImage(image: "NextScene", width: 100.getHeight())
+                        KimoImage(image: "NextScene", width: 100.getWidth())
                             .kimoButtonAccessibility(
                                 label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
                                 hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
@@ -62,7 +62,7 @@ extension StoryView {
         }
     }
     
-    func narationBox() -> some View {
+    func narrationBox() -> some View {
         RoundedRectangle(cornerRadius: 24)
             .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
@@ -169,7 +169,7 @@ extension StoryView {
                     .padding(.bottom, 10.getHeight())
                     .padding(.trailing, 19.getWidth())
 
-                KimoImage(image: "Kimo", width: 150.getHeight())
+                KimoImage(image: "Kimo", width: 150.getWidth())
                     .padding(.trailing, 79)
             }
             
@@ -193,9 +193,9 @@ extension StoryView {
             Spacer()
             
             HStack(spacing: 0) {
-                KimoImage(image: "Kimo", width: 150.getHeight())
-                    .padding(.top, 51.getWidth())
-                    .padding(.trailing, 9.getHeight())
+                KimoImage(image: "Kimo", width: 150.getWidth())
+                    .padding(.top, 51.getHeight())
+                    .padding(.trailing, 9.getWidth())
                 
                 KimoImage(image: "TextDialogueLeft", width: 59.getWidth())
                     .padding(.top, 71.getHeight())
@@ -248,7 +248,7 @@ extension StoryView {
             HStack(spacing: 0) {
                 KimoImage(image: "Kimo", width: 150.getWidth())
                     .padding(.top, 51.getHeight())
-                    .padding(.trailing, 9.getHeight())
+                    .padding(.trailing, 9.getWidth())
                 
                 KimoImage(image: "TextDialogueLeft", width: 59.getWidth())
                     .padding(.top, 71.getHeight())

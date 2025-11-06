@@ -12,7 +12,7 @@ struct KimoImage: View {
     var width: CGFloat
     var height: CGFloat?
     
-    init(image: String, width: CGFloat  = 1) {
+    init(image: String, width: CGFloat) {
         self.imagePath = image
         self.width = width
     }
