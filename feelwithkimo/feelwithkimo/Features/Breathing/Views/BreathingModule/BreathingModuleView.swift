@@ -33,7 +33,25 @@ struct BreathingModuleView: View {
                         showDialogue: $viewModel.showDialogue,
                         isMascotTapped: $viewModel.isMascotTapped)
                 .offset(x: 20.getHeight(), y: 90.getWidth())
+
+            // Back button overlay - top left
+            VStack {
+                HStack {
+                    KimoBackButton {
+                        dismiss()
+                    }
+                    .padding(.leading, 57.getWidth())
+                    .padding(.top, 50.getHeight())
+
+                    Spacer()
+                }
+                
+                Spacer()
+            }
+            .ignoresSafeArea(edges: .all)
+            
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.onCompletion = onCompletion
             // Announce screen when it appears
@@ -59,20 +77,20 @@ struct BreathingModuleView: View {
                 VStack {
                     Spacer()
                     
-                    HStack(alignment: .center, spacing: geometry.size.width * 0.05) {
+                    HStack(alignment: .center, spacing: 60.getWidth()) {
                         Text(viewModel.currentPhase.rawValue)
                             .font(Font(
                                 UIFont.appFont(
-                                    size: geometry.size.width * 0.06,
+                                    size: 72.getWidth(),
                                     family: .primary,
                                     weight: .bold
                                 )
                             ))
-                            .foregroundColor(ColorToken.textBreathing.toColor())
+                            .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .multilineTextAlignment(.leading)
                             .lineSpacing(0)
-                            .padding(.leading, geometry.size.width * 0.05)
-                            .padding(.top, geometry.safeAreaInsets.top + 100)
+                            .padding(.leading, 60.getWidth())
+                            .padding(.top, geometry.safeAreaInsets.top + 100.getHeight())
                             .kimoTextAccessibility(
                                 label: "Latihan Pernafasan Tarik Nafas",
                                 identifier: "breathing.title",
@@ -83,6 +101,7 @@ struct BreathingModuleView: View {
                     }
                     Spacer()
                 }
+                .padding(.bottom, 100.getWidth())
                 
                 // Timer circle - top right, fixed position
                 VStack {
@@ -94,24 +113,25 @@ struct BreathingModuleView: View {
                         ZStack {
                             Circle()
                                 .fill(ColorToken.backgroundBreathing.toColor())
-                                .frame(width: geometry.size.width * 0.12, 
-                                       height: geometry.size.width * 0.12)
+                                .frame(width: 143.getWidth(),
+                                       height: 143.getWidth())
                             
                             Text("\(viewModel.remainingTime) detik")
                                 .font(Font(
                                     UIFont.appFont(
-                                        size: geometry.size.width * 0.025,
+                                        size: 30.getWidth(),
                                         family: .primary,
                                         weight: .bold
                                     )
                                 ))
-                                .foregroundColor(ColorToken.textBreathing.toColor())
+                                .foregroundColor(ColorToken.backgroundSecondary.toColor())
                         }
-                        .padding(.trailing, geometry.size.width * 0.06)
-                        .padding(.top, geometry.safeAreaInsets.top + 120)
+                        .padding(.trailing, 72.getWidth())
+                        .padding(.top, geometry.safeAreaInsets.top + 120.getHeight())
                     }
                     Spacer()
                 }
+                .padding(.bottom, 100.getWidth())
                 .kimoTextGroupAccessibility(
                     combinedLabel: "Instruksi pernapasan: \(viewModel.currentPhase.rawValue). Waktu tersisa: \(viewModel.remainingTime) detik.",
                     identifier: "breathing.instruction",
@@ -136,7 +156,7 @@ struct BreathingModuleView: View {
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
                                     .padding(.vertical, 14)
-                                    .background(ColorToken.textBreathing.toColor())
+                                    .background(ColorToken.backgroundSecondary.toColor())
                                     .cornerRadius(30)
                             })
                             .kimoButtonAccessibility(
@@ -162,7 +182,7 @@ struct BreathingModuleView: View {
                                 }, label: {
                                     Text("Berhenti")
                                         .font(.app(.title1, family: .primary))
-                                        .foregroundColor(ColorToken.textBreathing.toColor())
+                                        .foregroundColor(ColorToken.backgroundSecondary.toColor())
                                         .padding(.horizontal, geometry.size.width * 0.035)
                                         .padding(.vertical, 14)
                                         .background(ColorToken.backgroundBreathing.toColor())
@@ -226,6 +246,27 @@ struct BreathingModuleView: View {
             // Semi-transparent background
             Color.black.opacity(0.6)
                 .ignoresSafeArea()
+            KimoDialogueView(
+                textDialogue: "Hore.. kamu berhasil tarik nafas",
+                buttonLayout: .horizontal([
+                    KimoDialogueButtonConfig(
+                        title: "Coba lagi",
+                        symbol: .arrowClockwise,
+                        style: .bubbleSecondary,
+                        action: {
+                            viewModel.restartBreathing()
+                        }
+                    ),
+                    KimoDialogueButtonConfig(
+                        title: "Lanjutkan",
+                        symbol: .chevronRight,
+                        style: .bubbleSecondary,
+                        action: {
+                            dismiss()
+                        }
+                    )
+                ])
+            )
             KimoDialogueView(
                 textDialogue: "Hore.. kamu berhasil tarik nafas",
                 buttonLayout: .horizontal([

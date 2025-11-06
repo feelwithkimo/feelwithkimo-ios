@@ -79,7 +79,7 @@ struct KimoDialogueButton: View {
             case .bubbleTertiary:
                 bubbleButtonContent(imageName: "KimoBubbleButtonTertiary", width: 253.getWidth())
             case .bubbleStretched:
-                bubbleButtonContent(imageName: "KimoBubbleButtonStretched", width: 447.getWidth())
+                bubbleButtonContent(imageName: "KimoBubbleButtonStretched", width: 442.getWidth())
             }
         }
         .buttonStyle(.plain)

@@ -1,21 +1,21 @@
 //
-//  KimoBubbleButtonStretched.swift
+//  KimoBubbleButtonPrimary.swift
 //  feelwithkimo
 //
-//  Created by Ferdinand Lunardy on 05/11/25.
+//  Created by Richard Sugiharto on 04/11/25.
 //
 
 import SwiftUI
 
-struct KimoBubbleButtonStretched: View {
-    var buttonLabel: String = "Menendang balok-baloknya"
+struct KimoBubbleButtonPrimary: View {
+    var buttonLabel: String = "Ayo Mulai!"
     
     var body: some View {
         ZStack {
-            Image("KimoBubbleButtonStretched")
+            Image("KimoBubbleButtonPrimary")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 442.getWidth(), height: 74.getHeight())
+                .frame(width: 253.getWidth(), height: 74.getHeight())
                 .padding(0)
             
             Text(buttonLabel)
@@ -23,7 +23,7 @@ struct KimoBubbleButtonStretched: View {
                 .foregroundStyle(ColorToken.textPrimary.toColor())
                 .padding(.bottom, 8.getHeight())
         }
-        .frame(maxWidth: 442.getWidth(), maxHeight: 74.getHeight())
+        .frame(maxWidth: 253.getWidth(), maxHeight: 74.getHeight())
         .clipShape(RoundedRectangle(cornerRadius: 100))
         .overlay(
                     RoundedRectangle(cornerRadius: 100)
@@ -48,5 +48,5 @@ struct KimoBubbleButtonStretched: View {
 }
 
 #Preview {
-    KimoBubbleButtonStretched()
+    KimoBubbleButtonPrimary()
 }

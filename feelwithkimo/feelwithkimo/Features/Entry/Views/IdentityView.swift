@@ -119,7 +119,7 @@ struct IdentityView: View {
                         viewModel.submitName()
                         accessibilityManager.announce("Nama panggilan berhasil disimpan.")
                     }, label: {
-                        KimoBubbleButton(buttonLabel: "Simpan")
+                        KimoBubbleButtonPrimary(buttonLabel: "Simpan")
                     })
                     .kimoButtonAccessibility(
                         label: viewModel.nicknameInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?

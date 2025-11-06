@@ -66,6 +66,9 @@ enum ColorToken {
     
     @ColorElement(light: UIColor.from("#2A213A"), dark: UIColor.from("#F5F1FA"))
     static var backgroundCard: UIColor
+    
+    @ColorElement(light: UIColor.from("#C0B4DF"), dark: UIColor.from("#C0B4DF"))
+    static var backgroundEntry: UIColor
 
     // MARK: - Text
     @ColorElement(light: UIColor.from("#FFFFFF"), dark: UIColor.from("#352E4A"))
@@ -73,9 +76,6 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#C4B8D9"), dark: UIColor.from("#6C6487"))
     static var textSecondary: UIColor
-    
-    @ColorElement(light: UIColor.from("#5E5573"), dark: UIColor.from("#5E5573"))
-    static var textBreathing: UIColor
     
     // MARK: - Status
     @ColorElement(light: UIColor.from("#CFC0BB"), dark: UIColor.from("#7C728D"))
@@ -124,4 +124,8 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#171725"), dark: UIColor.from("#171725"))
     static var grayscale100: UIColor
+    
+    // MARK: - Stroke Button
+    @ColorElement(light: UIColor.from("#DBDAF9"), dark: UIColor.from("#DBDAF9"))
+    static var strokeButton: UIColor
 }

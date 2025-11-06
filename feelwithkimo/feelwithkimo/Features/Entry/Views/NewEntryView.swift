@@ -1,5 +1,5 @@
 //
-//  EntryView.swift
+//  NewEntryView.swift
 //  feelwithkimo
 //
 //  Created by Ferdinand Lunardy on 05/11/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EntryView: View {
+struct NewEntryView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     
     var body: some View {
@@ -26,6 +26,7 @@ struct EntryView: View {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
         }
+        .dynamicTypeSize(.xSmall ... .large)
     }
     
     private func mainEntryView(geometry: GeometryProxy) -> some View {
@@ -84,5 +85,5 @@ struct EntryView: View {
 }
 
 #Preview {
-    EntryView()
+    NewEntryView()
 }
