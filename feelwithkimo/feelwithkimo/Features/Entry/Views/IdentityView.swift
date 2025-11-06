@@ -12,60 +12,109 @@ struct IdentityView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
 
     var body: some View {
-        if viewModel.identity == "" || viewModel.parentNickname == "" {
-            VStack {
-                titleView
-                
-                contentView
-                
-                submitButtonView
-                
-                Spacer()
-            }
-            .background(ColorToken.emotionSadness.toColor())
-            .onAppear {
-                // Announce screen when it appears
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    accessibilityManager.announceScreenChange("Halaman pengisian identitas")
+        GeometryReader { geometry in
+            if viewModel.identity == "" || viewModel.parentNickname == "" {
+                ZStack {
+                    // Background color
+                    ColorToken.emotionSadness.toColor()
+                        .ignoresSafeArea()
+                    
+                    // Ellipse decorations
+                    ellipseView(geometry: geometry)
+                    
+                    HStack(spacing: 0) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            titleView
+                            
+                            kimoMascotView
+                                .frame(width: 485.getWidth(), height: 470.getHeight())
+                                .offset(x: geometry.size.width * 0.035)
+                            
+                        }
+                        .padding(.leading, 59.getWidth())
+                        .zIndex(1)
+                        
+                        VStack(alignment: .trailing, spacing: 73) {
+                            
+                            Spacer()
+                            
+                            textFieldView
+                                .frame(maxWidth: 600.getWidth())
+                            
+                            submitButtonView
+                                .offset(x: -geometry.size.width * 0.002)
+                        }
+                        .padding(.trailing, 82.getWidth())
+                        .padding(.bottom, 70.getHeight())
+                    }
                 }
+                .onAppear {
+                    // Announce screen when it appears
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        accessibilityManager.announceScreenChange("Halaman pengisian identitas")
+                    }
+                }
+                .navigationBarBackButtonHidden(true)
+            } else {
+                HomeView()
             }
-            .navigationBarBackButtonHidden(true)
-        } else {
-            HomeView()
         }
     }
     
     private var titleView: some View {
-        Text("Kenalan Yuk!")
-            .font(Font(
-                UIFont.appFont(
-                    size: 104.getAdaptiveWidth(),
-                    family: .primary,
-                    weight: .bold
-                )
-            ))
-            .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-            .kimoTextAccessibility(
-                label: "Isi identitas",
-                identifier: "identity.parentTitle",
-                sortPriority: 1
-            )
-    }
-    
-    private var contentView: some View {
-        HStack(spacing: 120.getWidth()) {
-            kimoMascotView
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Kenalan")
+                .font(Font(
+                    UIFont.appFont(
+                        size: 104.getAdaptiveWidth(),
+                        family: .primary,
+                        weight: .bold
+                    )
+                ))
+                .foregroundStyle(ColorToken.backgroundSecondary.toColor())
             
-            textFieldView
+            Text("Yuk!")
+                .font(Font(
+                    UIFont.appFont(
+                        size: 104.getAdaptiveWidth(),
+                        family: .primary,
+                        weight: .bold
+                    )
+                ))
+                .foregroundStyle(ColorToken.backgroundSecondary.toColor())
         }
-        .padding(.horizontal, 82.getWidth())
-        .padding(.top, 91.getHeight())
-        .padding(.bottom, 49.getHeight())
+        .kimoTextAccessibility(
+            label: "Isi identitas",
+            identifier: "identity.parentTitle",
+            sortPriority: 1
+        )
     }
     
-    private var ellipseView: some View {
+    private func ellipseView(geometry: GeometryProxy) -> some View {
         ZStack {
+            // Top-left ellipse
             Ellipse()
+                .fill(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 651.getWidth(), height: 591.getHeight())
+                .offset(x: -geometry.size.width * 0.30, y: -geometry.size.height * 0.35)
+            
+            // Top-right ellipse
+            Ellipse()
+                .fill(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 651.getWidth(), height: 591.getHeight())
+                .offset(x: geometry.size.width * 0.35, y: -geometry.size.height * 0.5)
+            
+            // Bottom-left ellipse
+            Ellipse()
+                .fill(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 651.getWidth(), height: 591.getHeight())
+                .offset(x: -geometry.size.width * 0.225, y: geometry.size.height * 0.5)
+            
+            // Bottom-right ellipse
+            Ellipse()
+                .fill(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 500.getWidth(), height: 500.getHeight())
+                .offset(x: geometry.size.width * 0.35, y: geometry.size.height * 0.45)
         }
     }
     
@@ -81,71 +130,96 @@ struct IdentityView: View {
     }
     
     private var textFieldView: some View {
-        VStack(alignment: .leading) {
-            Text("Nama Si Kecil:")
-                .font(.app(.title2, family: .primary))
-                .fontWeight(.bold)
-                .kimoTextAccessibility(
-                    label: "Nama si kecil",
-                    identifier: "identity.nicknameChildLabel",
-                    sortPriority: 2
-                )
-            
-            KimoTextField(placeholder: "Misal: Lala", inputText: $viewModel.childNicknameInput)
-                .kimoAccessibility(
-                    label: "Kolom nama anak",
-                    hint: "Masukkan nama anak",
-                    traits: .isButton,
-                    identifier: "identity.nicknameChildField",
-                    sortPriority: 3
-                )
-            
-            Text(viewModel.errorMessageChild)
-                .font(.app(.callout, family: .primary))
-                .foregroundColor(viewModel.showErrorChild ? ColorToken.emotionAnger.toColor() : Color.clear)
-                .padding(.top, 7)
-                .kimoTextAccessibility(
-                    label: viewModel.showErrorChild ? viewModel.errorMessageChild : "",
-                    identifier: "identity.errorMessageChild",
-                    sortPriority: 4
-                )
-            
-            Text("Nama Panggilan untuk Orang Tua:")
-                .font(.app(.title2, family: .primary))
-                .fontWeight(.bold)
-                .kimoTextAccessibility(
-                    label: "Nama Panggilan untuk Orang Tua:",
-                    identifier: "identity.nicknameLabel",
-                    sortPriority: 5
-                )
-                .padding(.top, 12.getHeight())
-            
-            KimoTextField(placeholder: "Misal: Ibu / Ayah / Papa / Mama", inputText: $viewModel.nicknameInput)
-                .kimoAccessibility(
-                    label: "Kolom nama panggilan orang tua",
-                    hint: "Masukkan nama panggilan yang biasa digunakan anak untuk memanggil orang tua, contoh: Papa, Mama, Ayah, Ibu",
-                    traits: .isButton,
-                    identifier: "identity.nicknameField",
-                    sortPriority: 6
-                )
-            
-            Text(viewModel.errorMessageNickname)
-                .font(.app(.callout, family: .primary))
-                .foregroundColor(viewModel.showErrorNickname ? ColorToken.emotionAnger.toColor() : Color.clear)
-                .padding(.top, 7)
-                .kimoTextAccessibility(
-                    label: viewModel.showErrorNickname ? viewModel.errorMessageNickname : "",
-                    identifier: "identity.errorMessageNickname",
-                    sortPriority: 7
-                )
-        }
-        .padding(.horizontal, 30)
-        .padding(.vertical, 45)
-        .background(
+        ZStack {
+            // Background image
             Image("Iden-Rounded-Rect")
                 .resizable()
-                .scaledToFill()
-        )
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 100))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 100)
+                        .fill(
+                            Color.clear
+                                .shadow(.inner(
+                                    color: ColorToken.backgroundSecondary.toColor().opacity(0.5),
+                                    radius: 2.0,
+                                    x: 5,
+                                    y: -3
+                                ))
+                                .shadow(.drop(
+                                    color: ColorToken.backgroundSecondary.toColor().opacity(0.5),
+                                    radius: 20.0,
+                                    x: 0,
+                                    y: 4
+                                ))
+                        )
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 100))
+            
+            // Content
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Nama Panggilan untuk si Kecil:")
+                    .font(.app(.title2, family: .primary))
+                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                    .padding(.bottom, 8)
+                    .kimoTextAccessibility(
+                        label: "Nama si kecil",
+                        identifier: "identity.nicknameChildLabel",
+                        sortPriority: 2
+                    )
+                
+                KimoTextField(placeholder: "Misal: Lala", inputText: $viewModel.childNicknameInput)
+                    .kimoAccessibility(
+                        label: "Kolom nama anak",
+                        hint: "Masukkan nama anak",
+                        traits: .isButton,
+                        identifier: "identity.nicknameChildField",
+                        sortPriority: 3
+                    )
+                
+                Text(viewModel.errorMessageChild)
+                    .font(.app(.callout, family: .primary))
+                    .foregroundStyle(viewModel.showErrorChild ? ColorToken.emotionAnger.toColor() : Color.clear)
+                    .padding(.top, 4)
+                    .kimoTextAccessibility(
+                        label: viewModel.showErrorChild ? viewModel.errorMessageChild : "",
+                        identifier: "identity.errorMessageChild",
+                        sortPriority: 4
+                    )
+                
+                Text("Nama Panggilan untuk Orang Tua:")
+                    .font(.app(.title2, family: .primary))
+                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                    .padding(.bottom, 8)
+                    .kimoTextAccessibility(
+                        label: "Nama Panggilan untuk Orang Tua:",
+                        identifier: "identity.nicknameLabel",
+                        sortPriority: 5
+                    )
+                    .padding(.top, 8)
+                
+                KimoTextField(placeholder: "Misal: Ibu / Ayah / Papa / Mama", inputText: $viewModel.nicknameInput)
+                    .kimoAccessibility(
+                        label: "Kolom nama panggilan orang tua",
+                        hint: "Masukkan nama panggilan yang biasa digunakan anak untuk memanggil orang tua, contoh: Papa, Mama, Ayah, Ibu",
+                        traits: .isButton,
+                        identifier: "identity.nicknameField",
+                        sortPriority: 6
+                    )
+                
+                Text(viewModel.errorMessageNickname)
+                    .font(.app(.callout, family: .primary))
+                    .foregroundStyle(viewModel.showErrorNickname ? ColorToken.emotionAnger.toColor() : Color.clear)
+                    .padding(.top, 4)
+                    .kimoTextAccessibility(
+                        label: viewModel.showErrorNickname ? viewModel.errorMessageNickname : "",
+                        identifier: "identity.errorMessageNickname",
+                        sortPriority: 7
+                    )
+            }
+            .padding(.horizontal, 50.getWidth())
+            .padding(.vertical, 70.getHeight())
+        }
     }
     
     private var submitButtonView: some View {
@@ -167,7 +241,6 @@ struct IdentityView: View {
                 identifier: "identity.continueButton"
             )
         }
-        .padding(.horizontal, 82)
     }
 }
 
