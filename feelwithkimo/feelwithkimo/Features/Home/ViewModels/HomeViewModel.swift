@@ -17,9 +17,12 @@ internal class HomeViewModel: ObservableObject {
     @Published var emotions: [EmotionModel] = []
     @Published var selectedEmotion: EmotionModel?
     @Published var muted: Bool = false
+    @Published var navigateToEmotionTarget: EmotionModel?
     
     let ellipseHeight = 674
-
+    private var cardCenters: [AnyHashable: CGFloat] = [:]
+    private var screenCenterX: CGFloat = 0
+    
     // MARK: - Lifecycle
     init() {
         fetchData()
@@ -59,12 +62,25 @@ internal class HomeViewModel: ObservableObject {
 
     /// Update emosi terdekat berdasarkan posisi tengah layar
     func updateSelectedEmotion(screenCenterX: CGFloat, centers: [AnyHashable: CGFloat]) {
+        self.screenCenterX = screenCenterX
+        self.cardCenters = centers
+
         guard !centers.isEmpty else { return }
 
         if let (closestId, _) = centers.min(by: { abs($0.value - screenCenterX) < abs($1.value - screenCenterX) }),
            let matched = emotions.first(where: { AnyHashable($0.id) == closestId }) {
             selectEmotion(matched)
         }
+    }
+
+    func isEmotionCentered(_ emotion: EmotionModel) -> Bool {
+        guard let cardCenter = cardCenters[AnyHashable(emotion.id)] else { return false }
+        let distance = abs(cardCenter - screenCenterX)
+        return distance < 20
+    }
+    
+    func navigateToEmotion(_ emotion: EmotionModel) {
+        navigateToEmotionTarget = emotion
     }
 
     /// Scroll ke emosi yang dipilih

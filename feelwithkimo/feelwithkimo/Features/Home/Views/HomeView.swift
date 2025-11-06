@@ -15,46 +15,66 @@ struct HomeView: View {
     // MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            // MARK: - Header Section
             headerView
-            
             Spacer()
-            
-            // MARK: - Main Content
-            ZStack {
-                VStack {
-                    Spacer()
-                    
-                    KimoEllipseView2(color: ColorToken.ellipseHome.toColor(), height: CGFloat(viewModel.ellipseHeight))
-                        .offset(y: 360.getHeight())
-                }
-                    
-                VStack(alignment: .center, spacing: 40.getHeight()) {
-                    Text("Pilih Emosi!")
-                        .font(.app(size: 80, family: .primary, weight: .bold))
-                        .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-                        .kimoTextAccessibility(
-                            label: "Hari ini mau belajar emosi apa, ya?",
-                            identifier: "home.question",
-                            sortPriority: 2
-                        )
-                    
-                    emotionSelectionView
-                }
-                .padding(.top, 60.getHeight())
-                .padding(.bottom, 174.getHeight())
-            }
+            mainContent
         }
         .background(ColorToken.backgroundHome.toColor())
-        .onAppear {
-            // Announce screen when it appears
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                let userName = viewModel.currentUser?.name ?? "Teman"
-                accessibilityManager.announceScreenChange("Halaman utama aplikasi Kimo. Selamat datang, \(userName). Pilih emosi yang ingin dipelajari hari ini.")
-            }
-            AudioManager.shared.startBackgroundMusic()
-        }
+        .onAppear(perform: onAppear)
         .navigationBarBackButtonHidden(true)
+        .navigationDestination(
+            isPresented: Binding(
+                get: { viewModel.navigateToEmotionTarget != nil },
+                set: { if !$0 { viewModel.navigateToEmotionTarget = nil } }
+            ),
+            destination: {
+                if let emotion = viewModel.navigateToEmotionTarget {
+                    EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion))
+                }
+            }
+        )
+    }
+    
+    private var mainContent: some View {
+        ZStack {
+            ellipseBackground
+            emotionSelectionSection
+        }
+    }
+
+    private var ellipseBackground: some View {
+        VStack {
+            Spacer()
+            KimoEllipseView2(color: ColorToken.ellipseHome.toColor(), height: CGFloat(viewModel.ellipseHeight))
+                .offset(y: 360.getHeight())
+        }
+    }
+
+    private var emotionSelectionSection: some View {
+        VStack(alignment: .center, spacing: 40.getHeight()) {
+            Text("Pilih Emosi!")
+                .font(.app(size: 80, family: .primary, weight: .bold))
+                .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                .kimoTextAccessibility(
+                    label: "Hari ini mau belajar emosi apa, ya?",
+                    identifier: "home.question",
+                    sortPriority: 2
+                )
+
+            emotionSelectionView
+        }
+        .padding(.top, 60.getHeight())
+        .padding(.bottom, 174.getHeight())
+    }
+    
+    private func onAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let userName = viewModel.currentUser?.name ?? "Teman"
+            accessibilityManager.announceScreenChange(
+                "Halaman utama aplikasi Kimo. Selamat datang, \(userName). Pilih emosi yang ingin dipelajari hari ini."
+            )
+        }
+        AudioManager.shared.startBackgroundMusic()
     }
 }
 
@@ -100,39 +120,20 @@ private extension HomeView {
 
     var emotionSelectionView: some View {
         GeometryReader { outerGeo in
-            // screen center X in global coordinates
             let screenCenterX = outerGeo.frame(in: .global).midX
 
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 50.getWidth()) {
+                        Spacer()
+                            .frame(width: 250.getWidth())
+                        
                         ForEach(viewModel.emotions) { emotion in
-                            NavigationLink(destination: {
-                                EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion))
-                            }, label: {
-                                EmotionCard(
-                                    emotion: emotion,
-                                    isSelected: viewModel.selectedEmotion?.name == emotion.name
-                                )
-                                .id(emotion.id)
-                                // measure the card's center X and publish it via the preference key
-                                .background(
-                                    GeometryReader { geo in
-                                        Color.clear
-                                            .preference(
-                                                key: CardCenterPreferenceKey.self,
-                                                value: [AnyHashable(emotion.id): geo.frame(in: .global).midX]
-                                            )
-                                    }
-                                )
-                            })
-                            .kimoCardAccessibility(
-                                label: "Kartu emosi \(emotion.name) terpilih",
-                                isSelected: viewModel.selectedEmotion?.name == emotion.name,
-                                hint: "Ketuk dua kali untuk memilih emosi \(emotion.name) dan mulai belajar",
-                                identifier: "home.emotionCard.\(emotion.name.lowercased())"
-                            )
+                            emotionButton(for: emotion, proxy: proxy)
                         }
+                        
+                        Spacer()
+                            .frame(width: 250.getWidth())
                     }
                     .padding(.horizontal, 148.getWidth())
                 }
@@ -142,18 +143,9 @@ private extension HomeView {
                     traits: .allowsDirectInteraction,
                     identifier: "home.emotionScrollView"
                 )
-                // react to updates of all card centers and pick the one nearest to the screen center
                 .onPreferenceChange(CardCenterPreferenceKey.self) { centers in
                     viewModel.updateSelectedEmotion(screenCenterX: screenCenterX, centers: centers)
-                    
-                    // Announce selection change for accessibility
-                    if let selectedEmotion = viewModel.selectedEmotion {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            accessibilityManager.announce("Emosi \(selectedEmotion.name) terpilih")
-                        }
-                    }
                 }
-                // initial selection + centering: pick middle index if nothing selected yet
                 .onAppear {
                     viewModel.ensureInitialSelection()
                     DispatchQueue.main.async {
@@ -163,6 +155,40 @@ private extension HomeView {
             }
         }
         .frame(maxHeight: 400)
+    }
+
+    // MARK: - Separated Button Builder
+    @ViewBuilder
+    private func emotionButton(for emotion: EmotionModel, proxy: ScrollViewProxy) -> some View {
+        Button {
+            if viewModel.isEmotionCentered(emotion) {
+                viewModel.navigateToEmotion(emotion)
+            } else {
+                withAnimation {
+                    proxy.scrollTo(emotion.id, anchor: .center)
+                }
+            }
+        } label: {
+            EmotionCard(
+                emotion: emotion,
+                isSelected: viewModel.selectedEmotion?.name == emotion.name
+            )
+            .id(emotion.id)
+            .background(
+                GeometryReader { geo in
+                    Color.clear.preference(
+                        key: CardCenterPreferenceKey.self,
+                        value: [AnyHashable(emotion.id): geo.frame(in: .global).midX]
+                    )
+                }
+            )
+        }
+        .kimoCardAccessibility(
+            label: "Kartu emosi \(emotion.name) terpilih",
+            isSelected: viewModel.selectedEmotion?.name == emotion.name,
+            hint: "Ketuk dua kali untuk memilih emosi \(emotion.name) dan mulai belajar",
+            identifier: "home.emotionCard.\(emotion.name.lowercased())"
+        )
     }
 }
 
