@@ -26,6 +26,7 @@ struct EntryView: View {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
         }
+        .dynamicTypeSize(.xSmall ... .large)
     }
     
     private func mainEntryView(geometry: GeometryProxy) -> some View {
@@ -68,17 +69,14 @@ struct EntryView: View {
     
     private func mainBackgroundView(geometry: GeometryProxy) -> some View {
         ZStack(alignment: .bottomLeading) {
-            Ellipse()
-                .trim(from: 0.5, to: 1)
-                .fill(ColorToken.backgroundEntry.toColor().opacity(0.5))
-                .frame(width: geometry.size.width, height: geometry.size.height * 0.74)
-                .offset(y: geometry.size.height * 0.55)
+            KimoEllipseView()
+                .offset(y: geometry.size.height * 0.675)
             
             Image("KimoDefault")
                 .resizable()
                 .scaledToFit()
                 .frame(width: geometry.size.width * 0.587, height: geometry.size.height * 0.687)
-                .offset(x: geometry.size.width * 0.042, y: geometry.size.height * 0.18)
+                .offset(x: geometry.size.width * 0.042, y: geometry.size.height * 0.055)
         }
     }
 }

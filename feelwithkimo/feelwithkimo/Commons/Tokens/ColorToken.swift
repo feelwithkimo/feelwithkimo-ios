@@ -70,6 +70,9 @@ enum ColorToken {
     @ColorElement(light: UIColor.from("#C0B4DF"), dark: UIColor.from("#C0B4DF"))
     static var backgroundEntry: UIColor
 
+    @ColorElement(light: UIColor.from("#CDF0FF"), dark: UIColor.from("#CDF0FF"))
+    static var backgroundIdentity: UIColor
+    
     // MARK: - Text
     @ColorElement(light: UIColor.from("#FFFFFF"), dark: UIColor.from("#352E4A"))
     static var textPrimary: UIColor
