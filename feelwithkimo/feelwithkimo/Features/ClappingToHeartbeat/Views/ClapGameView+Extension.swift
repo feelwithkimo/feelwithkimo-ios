@@ -9,12 +9,15 @@ import SwiftUI
 
 // MARK: - Subviews
 extension ClapGameView {
-    var headerView: some View {
+    func headerView() -> some View {
         HStack {
+            KimoBackButton {
+                dismiss()
+            }
             Spacer()
-            Text("Clap the Hand")
+            Text("Tepuk Tangan")
                 .font(.app(.largeTitle, family: .primary))
-                .fontWeight(.bold)
+                .foregroundStyle(ColorToken.corePrimary.toColor())
                 .kimoTextAccessibility(
                     label: "Permainan Tepuk Tangan",
                     identifier: "clapping.title",
@@ -25,27 +28,135 @@ extension ClapGameView {
     }
 
     var cameraContentView: some View {
-        RoundedContainer {
-            ZStack {
-                CameraPreview(session: viewModel.avSession)
-                    .kimoAccessibility(
-                        label: "Kamera untuk deteksi tangan",
-                        hint: "Posisikan kedua tangan di depan kamera untuk bermain",
-                        traits: .allowsDirectInteraction,
-                        identifier: "clapping.cameraPreview"
-                    )
+        ZStack {
+            CameraPreview(session: viewModel.avSession)
+                .kimoAccessibility(
+                    label: "Kamera untuk deteksi tangan",
+                    hint: "Posisikan kedua tangan di depan kamera untuk bermain",
+                    traits: .allowsDirectInteraction,
+                    identifier: "clapping.cameraPreview"
+                )
 
-                // Debugging overlays
-                handDebugOverlays
-
-                // Visual feedback
-                clapFeedbackCircle
-
-                heartbeatView
-
-                // Buttons
-                controlButtons
+//            // Debugging overlays
+//            handDebugOverlays
+//
+//            // Visual feedback
+//            clapFeedbackCircle
+        }
+    }
+    
+    @ViewBuilder
+    func skeletonPairView() -> some View {
+        VStack {
+            Spacer()
+            HStack(alignment: .bottom, spacing: 40.getHeight()) {
+                parentSkeleton
+                    .alignmentGuide(.bottom) { dimension in dimension[.bottom] - 38.getWidth() }
+                kidSkeleton
             }
+            .offset(y: 190.getWidth())
+        }
+    }
+    
+    // MARK: - Completion View
+    func completionView(skip: Bool) -> some View {
+        ZStack {
+            // Semi-transparent background
+            Color.black.opacity(0.9)
+                .ignoresSafeArea()
+            
+            if skip {
+                KimoDialogueView(
+                    textDialogue: "Wah sepertinya kimo tidak melihat kamu tepuk tangan",
+                    buttonLayout: .horizontal([
+                        KimoDialogueButtonConfig(
+                            title: "Lewati",
+                            symbol: .chevronRight2,
+                            style: .bubbleSecondary,
+                            action: {
+                                dismiss()
+                                storyViewModel.goScene(to: 1, choice: 0)
+                            }
+                        ),
+                        KimoDialogueButtonConfig(
+                            title: "Coba lagi",
+                            symbol: .arrowClockwise,
+                            style: .bubbleSecondary,
+                            action: {
+                                viewModel.restart()
+                            }
+                        )
+                    ])
+                )
+            } else {
+                KimoDialogueView(
+                    textDialogue: "Hore Berhasil!!!!!!",
+                    buttonLayout: .horizontal([
+                        KimoDialogueButtonConfig(
+                            title: "Coba lagi",
+                            symbol: .arrowClockwise,
+                            style: .bubbleSecondary,
+                            action: {
+                                viewModel.restart()
+                            }
+                        ),
+                        KimoDialogueButtonConfig(
+                            title: "Lanjutkan",
+                            symbol: .chevronRight,
+                            style: .bubbleSecondary,
+                            action: {
+                                dismiss()
+                                storyViewModel.goScene(to: 1, choice: 0)
+                            }
+                        )
+                    ])
+                )
+            }
+            
+        }
+    }
+
+    private var parentSkeleton: some View {
+        VStack(spacing: 29.getWidth()) {
+            DashedCircleView(
+                type: .full,
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 266.getHeight(), height: 266.getHeight()),
+                clockwise: false
+            )
+            
+            DashedCircleView(
+                type: .half(startAngle: .degrees(180)),
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 400.getHeight(), height: 400.getHeight()),
+                clockwise: true
+            )
+        }
+    }
+
+    private var kidSkeleton: some View {
+        VStack(spacing: 24.getWidth()) {
+            DashedCircleView(
+                type: .full,
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 222.getHeight(), height: 222.getHeight()),
+                clockwise: false
+            )
+            
+            DashedCircleView(
+                type: .half(startAngle: .degrees(180)),
+                lineWidth: 5.getHeight(),
+                dash: [30.getHeight(), 30.getHeight()],
+                strokeColor: ColorToken.additionalColorsWhite.toColor(),
+                size: CGSize(width: 324.getHeight(), height: 324.getHeight()),
+                clockwise: true
+            )
         }
     }
 
@@ -92,52 +203,6 @@ extension ClapGameView {
                     )
             }
         }
-    }
-    
-    var heartbeatView: some View {
-        Group {
-            if viewModel.isHeartbeatActive {
-                HeartbeatView(bpm: 100, isClapping: .constant(viewModel.showClapFeedback)) {
-                    viewModel.onHeartbeat()
-                }
-                .heartbeatAccessibility(
-                    isActive: viewModel.isHeartbeatActive,
-                    bpm: 100
-                )
-            }
-        }
-    }
-
-    var controlButtons: some View {
-        VStack {
-            Spacer()
-            Button("▶️ Start Heartbeat") {
-                viewModel.startHeartbeat()
-                AccessibilityManager.announce("Detak jantung dimulai. Tepuk tangan mengikuti irama.")
-            }
-            .disabled(viewModel.isHeartbeatActive)
-            .padding(.bottom, 20)
-            .clappingAccessibility(
-                label: "Mulai Detak Jantung",
-                hint: viewModel.isHeartbeatActive ? "Detak jantung sudah aktif" : "Ketuk dua kali untuk memulai detak jantung dan permainan",
-                traits: .isButton,
-                identifier: "startButton"
-            )
-
-            Button("⏹ Stop") {
-                viewModel.stopHeartbeat()
-                AccessibilityManager.announce("Detak jantung berhenti. Permainan selesai.")
-            }
-            .disabled(!viewModel.isHeartbeatActive)
-            .padding(.bottom, 40)
-            .clappingAccessibility(
-                label: "Berhenti",
-                hint: !viewModel.isHeartbeatActive ? "Detak jantung sudah tidak aktif" : "Ketuk dua kali untuk menghentikan detak jantung dan permainan",
-                traits: .isButton,
-                identifier: "stopButton"
-            )
-        }
-        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
     }
     
     /// View untuk visualisasi garis penghubung dan titik tangan

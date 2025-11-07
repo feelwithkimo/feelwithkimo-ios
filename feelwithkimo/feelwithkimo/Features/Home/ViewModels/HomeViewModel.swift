@@ -17,7 +17,12 @@ internal class HomeViewModel: ObservableObject {
     @Published var emotions: [EmotionModel] = []
     @Published var selectedEmotion: EmotionModel?
     @Published var muted: Bool = false
-
+    @Published var navigateToEmotionTarget: EmotionModel?
+    
+    let ellipseHeight = 674
+    private var cardCenters: [AnyHashable: CGFloat] = [:]
+    private var screenCenterX: CGFloat = 0
+    
     // MARK: - Lifecycle
     init() {
         fetchData()
@@ -32,15 +37,17 @@ internal class HomeViewModel: ObservableObject {
 
         // Data dummy untuk daftar emosi
         self.emotions = [
-            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Anger", title: "Hi, aku marah",
+            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "Carousel-Senang", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Carousel-Marah", title: "Hi, aku marah",
                          description: "Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.", stories: []),
-            EmotionModel(id: UUID(), name: "Kaget", visualCharacterName: "figure.mind.and.body", emotionImage: "", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "", title: "", description: "", stories: [])
+            EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "Carousel-Sedih", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Takut", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Jijik", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Jijik", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Terkejut", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Terkejut", title: "", description: "", stories: []),
+            EmotionModel(id: UUID(), name: "Capek", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Capek", title: "", description: "", stories: [])
         ]
 
-        self.selectedEmotion = emotions.first(where: { $0.name == "Sedih" })
+        self.selectedEmotion = emotions.first(where: { $0.name == "Marah" })
     }
 
     // MARK: - Public Methods
@@ -55,12 +62,25 @@ internal class HomeViewModel: ObservableObject {
 
     /// Update emosi terdekat berdasarkan posisi tengah layar
     func updateSelectedEmotion(screenCenterX: CGFloat, centers: [AnyHashable: CGFloat]) {
+        self.screenCenterX = screenCenterX
+        self.cardCenters = centers
+
         guard !centers.isEmpty else { return }
 
         if let (closestId, _) = centers.min(by: { abs($0.value - screenCenterX) < abs($1.value - screenCenterX) }),
            let matched = emotions.first(where: { AnyHashable($0.id) == closestId }) {
             selectEmotion(matched)
         }
+    }
+
+    func isEmotionCentered(_ emotion: EmotionModel) -> Bool {
+        guard let cardCenter = cardCenters[AnyHashable(emotion.id)] else { return false }
+        let distance = abs(cardCenter - screenCenterX)
+        return distance < 20
+    }
+    
+    func navigateToEmotion(_ emotion: EmotionModel) {
+        navigateToEmotionTarget = emotion
     }
 
     /// Scroll ke emosi yang dipilih
@@ -92,7 +112,7 @@ internal class HomeViewModel: ObservableObject {
                 AudioManager.shared.startBackgroundMusic()
             } else {
                 self.muted = true
-                AudioManager.shared.stop()
+                AudioManager.shared.stopAll()
             }
         }
     }

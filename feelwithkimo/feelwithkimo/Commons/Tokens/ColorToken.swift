@@ -22,9 +22,15 @@ enum ColorToken {
     
     @ColorElement(light: UIColor.from("#F6F0FF"), dark: UIColor.from("#F6F0FF"))
     static var corePinkDialogue: UIColor
+    
+    @ColorElement(light: UIColor.from("#EFEAFF"), dark: UIColor.from("#EFEAFF"))
+    static var corePinkStory: UIColor
 
     @ColorElement(light: UIColor.from("#ACECC7"), dark: UIColor.from("#A1D8C5"))
     static var coreAccent: UIColor
+    
+    @ColorElement(light: UIColor.from("#C9B8E8"), dark: UIColor.from("#C9B8E8"))
+    static var coreLightPrimary: UIColor
 
     // MARK: - Emotion Colors
     @ColorElement(light: UIColor.from("#FFE680"), dark: UIColor.from("#FFDB4D"))
@@ -51,17 +57,35 @@ enum ColorToken {
     // MARK: - Background
     @ColorElement(light: UIColor.from("#1C1628"), dark: UIColor.from("#FFFDFB"))
     static var backgroundMain: UIColor
-
+    
+    @ColorElement(light: UIColor.from("5E5573"), dark: UIColor.from("#5E5573"))
+    static var backgroundSecondary: UIColor
+    
+    @ColorElement(light: UIColor.from("#E9E3F9"), dark: UIColor.from("#E9E3F9"))
+    static var backgroundBreathing: UIColor
+    
     @ColorElement(light: UIColor.from("#2A213A"), dark: UIColor.from("#F5F1FA"))
     static var backgroundCard: UIColor
+    
+    @ColorElement(light: UIColor.from("#C0B4DF"), dark: UIColor.from("#C0B4DF"))
+    static var backgroundEntry: UIColor
+    
+    @ColorElement(light: UIColor.from("#FFF5C9"), dark: UIColor.from("#FFF5C9"))
+    static var backgroundHome: UIColor
+    
+    @ColorElement(light: UIColor.from("#CEE5FA"), dark: UIColor.from("#CEE5FA"))
+    static var ellipseHome: UIColor
 
+    @ColorElement(light: UIColor.from("#CDF0FF"), dark: UIColor.from("#CDF0FF"))
+    static var backgroundIdentity: UIColor
+    
     // MARK: - Text
     @ColorElement(light: UIColor.from("#FFFFFF"), dark: UIColor.from("#352E4A"))
     static var textPrimary: UIColor
 
     @ColorElement(light: UIColor.from("#C4B8D9"), dark: UIColor.from("#6C6487"))
     static var textSecondary: UIColor
-
+    
     // MARK: - Status
     @ColorElement(light: UIColor.from("#CFC0BB"), dark: UIColor.from("#7C728D"))
     static var statusDisabled: UIColor
@@ -109,4 +133,8 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#171725"), dark: UIColor.from("#171725"))
     static var grayscale100: UIColor
+    
+    // MARK: - Stroke Button
+    @ColorElement(light: UIColor.from("#DBDAF9"), dark: UIColor.from("#DBDAF9"))
+    static var strokeButton: UIColor
 }

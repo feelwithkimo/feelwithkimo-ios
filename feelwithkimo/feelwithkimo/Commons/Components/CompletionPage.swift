@@ -16,25 +16,18 @@ struct CompletionPage: View {
             
             HStack {
                 HStack(spacing: 39) {
-                    Image("KimoEmotionStory")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 512 * UIScreen.main.bounds.width / 1194)
+                    KimoImage(image: "KimoTutorialAsset", width: 512.getWidth())
                     
                     VStack(spacing: 0) {
                         Text(textDialogue)
-                            .frame(maxWidth: 500 * UIScreen.main.bounds.width / 1194)
-                            .padding(.horizontal, 49 * UIScreen.main.bounds.width / 1194)
-                            .padding(.vertical, 42.5 * UIScreen.main.bounds.height / 834)
+                            .frame(maxWidth: 500.getWidth())
+                            .padding(.horizontal, 49.getWidth())
+                            .padding(.vertical, 42.getHeight())
                             .background(ColorToken.corePinkDialogue.toColor())
                             .cornerRadius(30)
                         
                         HStack {
-                            Image("KimoDialogue")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 157 * UIScreen.main.bounds.width / 1194)
-                            
+                            KimoImage(image: "KimoDialogue", width: 157.getWidth())
                             Spacer()
                         }
                         
@@ -50,7 +43,7 @@ struct CompletionPage: View {
                                     .font(.app(.title1, family: .primary))
                                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                             }
-                            .frame(maxWidth: 193 * UIScreen.main.bounds.width / 1194)
+                            .frame(maxWidth: 193.getWidth())
                             .padding(.horizontal, 23)
                             .padding(.vertical, 13)
                             .background(ColorToken.emotionSurprise.toColor())
@@ -67,7 +60,7 @@ struct CompletionPage: View {
                                     .font(.app(.title1, family: .primary))
                                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                             }
-                            .frame(maxWidth: 193 * UIScreen.main.bounds.width / 1194)
+                            .frame(maxWidth: 193.getWidth())
                             .padding(.horizontal, 23)
                             .padding(.vertical, 13)
                             .background(ColorToken.emotionSurprise.toColor())

@@ -13,10 +13,11 @@ struct KimoTextField: View {
     
     var body: some View {
         TextField(placeholder, text: $inputText)
+            .font(.app(.title2, family: .primary))
             .padding(.horizontal, 20)
             .padding(.vertical, 28)
             .background(
-                RoundedRectangle(cornerRadius: 50).fill(ColorToken.grayscale30.toColor())
+                RoundedRectangle(cornerRadius: 50).fill(ColorToken.corePinkDialogue.toColor())
             )
             .submitLabel(.done)
     }

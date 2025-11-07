@@ -10,24 +10,19 @@ import SwiftUI
 extension StoryView {
     func endSceneOverlay(dismiss: @escaping () -> Void, replay: @escaping () -> Void) -> some View {
         ZStack {
-            ColorToken.grayscale30.toColor().opacity(0.7)
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
             
             VStack {
                 Spacer()
                 
                 HStack(spacing: 10) {
-                    Image("Kimo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 400.getWidth())
+                    KimoImage(image: "Kimo", width: 400.getWidth())
                     
                     VStack {
                         Spacer()
                         
-                        Image("Closing")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 594.getWidth())
+                        KimoImage(image: "Closing", width: 594.getWidth())
                     }
                     .padding(.bottom, 36.getHeight())
                 }
@@ -39,11 +34,12 @@ extension StoryView {
                         HStack {
                             Image(systemName: "arrow.right.square")
                                 .font(.app(.title1, family: .primary))
+                            
                             Text("Keluar")
                                 .font(.app(.title1, family: .primary))
                         }
                         .padding()
-                        .background(ColorToken.grayscale40.toColor().opacity(0.8))
+                        .background(ColorToken.corePinkStory.toColor().opacity(0.8))
                         .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
                         .cornerRadius(50)
                     }
@@ -56,7 +52,7 @@ extension StoryView {
                                 .font(.app(.title1, family: .primary))
                         }
                         .padding()
-                        .background(ColorToken.grayscale40.toColor().opacity(0.8))
+                        .background(ColorToken.corePinkStory.toColor().opacity(0.8))
                         .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
                         .cornerRadius(50)
                     }

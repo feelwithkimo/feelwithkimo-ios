@@ -10,51 +10,57 @@ import Combine
 import SwiftUI
 
 struct ClapGameView: View {
-    // Cukup satu StateObject untuk ViewModel
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClapGameViewModel
-    @StateObject private var accessibilityManager = AccessibilityManager.shared
-
+    @ObservedObject var storyViewModel: StoryViewModel
     var onCompletion: (() -> Void)?
 
-    init(onCompletion: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: ClapGameViewModel(onCompletion: onCompletion))
+    init(onCompletion: @escaping () -> Void, storyViewModel: StoryViewModel) {
+        _viewModel = StateObject(wrappedValue: ClapGameViewModel(onCompletion: onCompletion, accessibilityManager: AccessibilityManager.shared))
+        _storyViewModel = ObservedObject(wrappedValue: storyViewModel)
     }
 
     var body: some View {
-        VStack {
-            // MARK: - Header
-            headerView
-
-            // MARK: - Progress Bar
-            ProgressBarView(currentStep: viewModel.beatCount)
-                .clappingProgressAccessibility(
-                    currentStep: viewModel.beatCount
-                )
-
-            // MARK: - Content
-            cameraContentView
+        ZStack {
+            VStack {
+                headerView()
+                
+                ZStack {
+                    RoundedContainer {
+                        ZStack {
+                            // MARK: - Content
+                            cameraContentView
+                            
+                            // MARK: - ProgressBar
+                            ClapProgressBarView(value: viewModel.progress)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                                .padding(.top, 33.getHeight())
+                                .padding(.horizontal, 181.getWidth())
+                                .animation(.spring(duration: 0.5), value: viewModel.progress)
+                            
+                            skeletonPairView()
+                        }
+                    }
+                    
+                    KimoAskView(dialogueText: viewModel.dialogueText,
+                                mark: .mark,
+                                showDialogue: $viewModel.showDialogue,
+                                isMascotTapped: $viewModel.isMascotTapped)
+                    .offset(x: 80.getHeight())
+                }
+                .padding(.horizontal, 31.getWidth())
+            }
+            
+            if viewModel.showCompletionView {
+                completionView(skip: viewModel.skip)
+            }
         }
-        .padding(40)
+        .navigationBarBackButtonHidden(true)
+        .padding(.horizontal, 65.getHeight())
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                accessibilityManager.announceScreenChange("Permainan tepuk tangan dimulai. Posisikan kedua tangan di depan kamera dan ikuti irama detak jantung.")
-            }
-        }
-        .onChange(of: viewModel.user1HandState) {
-            ClappingAccessibilityManager.announceHandDetection(handState: viewModel.user1HandState)
-        }
-        .onChange(of: viewModel.isHeartbeatActive) {
-            ClappingAccessibilityManager.announceHeartbeatStatus(isActive: viewModel.isHeartbeatActive)
-        }
-        .onChange(of: viewModel.showClapFeedback) {
-            if viewModel.showClapFeedback {
-                ClappingAccessibilityManager.announceClapFeedback(isSuccessful: viewModel.didClapSuccessfully)
-            }
-        }
-        .onChange(of: viewModel.beatCount) {
-            if viewModel.beatCount > 0 {
-                ClappingAccessibilityManager.announceGameProgress(currentStep: viewModel.beatCount)
+                viewModel.announceGameStart()
             }
         }
     }
