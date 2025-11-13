@@ -37,7 +37,7 @@ struct BlocksGameView: View {
     }
     
     private var shapesGuideCard: some View {
-        VStack(spacing: 0){
+        VStack(spacing: 2){
             
             // card title
             HStack {
@@ -75,8 +75,14 @@ struct BlocksGameView: View {
             .background(Color.white)
         }
         .frame(width: 546.getWidth())
-        .background(Color.white)
+        .background(ColorToken.backgroundSecondary.toColor())
         .cornerRadius(30.getHeight())
+        .overlay(
+            RoundedRectangle(cornerRadius: 30.getHeight())
+                .inset(by: -1)
+                .stroke(ColorToken.backgroundSecondary.toColor(), lineWidth: 2)
+        )
+        
     }
     
     private var shapesOutlineView: some View {
@@ -129,10 +135,17 @@ struct BlocksGameView: View {
         .padding(.vertical, 25.getHeight())
         .contentMargins(.horizontal, 60.getWidth())
         .background(
-            RoundedRectangle(cornerRadius: 50.getHeight(), style: .continuous)
-                .fill(ColorToken.emotionSadness.toColor())
+                ZStack {
+                    RoundedRectangle(cornerRadius: 60, style: .continuous)
+                        .fill(ColorToken.emotionSadnessAlt.toColor())
+                        .offset(y: -7.getHeight())
+
+                    RoundedRectangle(cornerRadius: 50, style: .continuous)
+                        .fill(ColorToken.emotionSadness.toColor())
+                }
                 .padding(.bottom, -50.getHeight())
-        )
+            )
+        .shadow(color: ColorToken.emotionSadness.toColor().opacity(0.2), radius: 20, x: 0, y: -15.getHeight())
     }
 }
 
