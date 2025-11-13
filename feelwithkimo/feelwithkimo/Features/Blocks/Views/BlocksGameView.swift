@@ -13,11 +13,14 @@ struct BlocksGameView: View {
             ColorToken.backgroundHome.toColor()
             VStack{
                 Spacer()
+                
                 shapesView
+                    .padding(.top, 44.getHeight())
+                    .padding(.bottom, 44.getHeight())
+                
                 Spacer()
-                Rectangle()
-                    .fill(ColorToken.backgroundHome.toColor())
-                    .frame(width: .infinity, height: 175.getHeight())
+                
+                bottomBar
             }
             VStack{
                 Spacer()
@@ -32,7 +35,6 @@ struct BlocksGameView: View {
             shapesGuideCard
             shapesOutlineView
         }
-        .padding(.vertical, 44.getHeight())
         .padding(.horizontal, 160.getWidth())
     }
     
@@ -122,18 +124,18 @@ struct BlocksGameView: View {
         HStack{
             Spacer()
             Circle()
+                .frame(width: 150, height: 150)
                 .padding(.horizontal, 30.getWidth())
             Circle()
+                .frame(width: 150, height: 150)
                 .padding(.horizontal, 30.getWidth())
             Circle()
-                .padding(.horizontal, 30.getWidth())
-            Circle()
+                .frame(width: 150, height: 150)
                 .padding(.horizontal, 30.getWidth())
             Spacer()
         }
         .frame(height: 150.getHeight())
-        .padding(.vertical, 25.getHeight())
-        .contentMargins(.horizontal, 60.getWidth())
+        .padding(.horizontal, 60.getWidth())
         .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: 60, style: .continuous)
@@ -145,7 +147,6 @@ struct BlocksGameView: View {
                 }
                 .padding(.bottom, -50.getHeight())
             )
-        .shadow(color: ColorToken.emotionSadness.toColor().opacity(0.2), radius: 20, x: 0, y: -15.getHeight())
     }
 }
 
