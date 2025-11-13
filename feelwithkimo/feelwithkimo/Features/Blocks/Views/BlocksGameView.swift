@@ -29,22 +29,29 @@ struct BlocksGameView: View {
     
     private var shapesView: some View {
         HStack{
-            shapesGuideView
+            shapesGuideCard
             shapesOutlineView
         }
         .padding(.vertical, 44.getHeight())
         .padding(.horizontal, 160.getWidth())
     }
     
-    private var shapesGuideView: some View {
-        VStack{
+    private var shapesGuideCard: some View {
+        VStack(spacing: 0){
+            
+            // card title
             HStack {
-                Text("Ayo kita buat\nbentuk ini!")
+                Text("Ayo kita buat bentuk ini!")
                     .font(.app(.largeTitle, family: .primary))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .multilineTextAlignment(.center)
             }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 83.getWidth())
+            .padding(.vertical, 13.getHeight())
             .background(ColorToken.coreAccent.toColor())
+            
+            // shapes in card
             VStack{
                 Rectangle()
                     .fill(Color.blue)
@@ -63,9 +70,12 @@ struct BlocksGameView: View {
             }
             .padding(.horizontal, 43.getWidth())
             .padding(.vertical, 23.getHeight())
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
             .background(Color.white)
         }
-        .padding(.horizontal, 43.getWidth())
+        .frame(width: 546.getWidth())
+        .background(Color.white)
         .cornerRadius(30.getHeight())
     }
     
