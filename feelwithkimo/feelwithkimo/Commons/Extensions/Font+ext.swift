@@ -25,7 +25,7 @@ extension Font {
         return .custom(font.fontName, size: size)
     }
     
-    static func customFont(size: CGFloat, family: UIFont.FontFamily = .primary) -> Font {
-        return Font.custom(family.rawValue, size: size)
+    static func customFont(size: CGFloat, family: UIFont.FontFamily = .primary, weight: UIFont.Weight) -> Font {
+        return Font.custom(UIFont.resolveFontName(for: family, weight: weight), size: size)
     }
 }

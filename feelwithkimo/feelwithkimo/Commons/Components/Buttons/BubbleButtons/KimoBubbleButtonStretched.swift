@@ -19,7 +19,7 @@ struct KimoBubbleButtonStretched: View {
                 .padding(0)
             
             Text(buttonLabel)
-                .font(.app(.title1, family: .primary))
+                .font(.customFont(size: 28, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.textPrimary.toColor())
                 .padding(.bottom, 8.getHeight())
         }

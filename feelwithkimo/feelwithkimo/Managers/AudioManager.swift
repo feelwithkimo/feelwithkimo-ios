@@ -70,12 +70,13 @@ final class AudioManager: NSObject, ObservableObject {
     // MARK: - Sound effects
 
     /// Play a one-off sound effect (stored so you can stop it early). Playing a new effect stops any previous effect.
-    func playSoundEffect(effectName: String, volume: Float = 1.0, loop: Bool = false) {
+    func playSoundEffect(effectName: String, volume: Float = 1.0, loop: Bool = false, soundExtension: String = "mp3") {
         // Stop existing effect (we only keep a single effect player in this manager)
         effectPlayer?.stop()
         effectPlayer = nil
+        print("Play Sound effect")
 
-        guard let url = Bundle.main.url(forResource: effectName, withExtension: "mp3")
+        guard let url = Bundle.main.url(forResource: effectName, withExtension: soundExtension)
                 ?? Bundle.main.url(forResource: effectName, withExtension: nil) else {
             if let dataAsset = NSDataAsset(name: effectName) {
                 startEffectFromData(dataAsset.data, fileTypeHint: AVFileType.mp3.rawValue, volume: volume, loop: loop)

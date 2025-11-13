@@ -37,18 +37,16 @@ struct EntryView: View {
                 Spacer()
                 
                 Text("Hai, aku")
-                    .font(.customFont(size: 34))
-                    .fontWeight(.bold)
+                    .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, geometry.size.height * 0.01)
                 
                 KimoImage(image: "Kimo-Pink-Wave", width: geometry.size.width * 0.51)
                 
                 Text("Aku akan menemani kamu dan si kecil belajar mengenal perasaan lewat cerita dan permainan seru.")
-                    .font(.customFont(size: 28))
-                    .fontWeight(.bold)
+                    .font(.customFont(size: 28, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-                    .frame(maxWidth: geometry.size.width * 0.5)
+                    .frame(maxWidth: 356.getWidth())
                     .multilineTextAlignment(.trailing)
                     .padding(.top, geometry.size.height * 0.006)
                 

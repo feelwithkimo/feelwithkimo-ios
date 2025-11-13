@@ -54,7 +54,7 @@ struct EmotionStoryView: View {
                      
                      VStack(spacing: 0) {
                          Text("Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.")
-                             .font(.app(.title2, family: .primary))
+                             .font(.customFont(size: 22, family: .primary, weight: .bold))
                              .fontWeight(.regular)
                              .frame(maxWidth: 500.getWidth())
                              .padding(.horizontal, 49.getWidth())
