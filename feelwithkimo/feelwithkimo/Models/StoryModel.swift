@@ -31,6 +31,7 @@ struct StorySceneModel: Decodable {
     var question: QuestionOption?
     var kimoVisual: KimoVisual?
     var interactionType: InteractionType?
+    var soundEffect: String?
 
     init(path: String,
          text: String,
@@ -39,7 +40,8 @@ struct StorySceneModel: Decodable {
          nextScene: [Int] = [],
          interactionType: InteractionType = .normal,
          kimoVisual: KimoVisual = .normal,
-         kimoText: String = "") {
+         kimoText: String = "",
+         sound: String? = nil) {
         self.path = path
         self.text = text
         self.isEnd = isEnd
@@ -49,6 +51,7 @@ struct StorySceneModel: Decodable {
         self.question = question
         self.kimoVisual = kimoVisual
         self.interactionType = interactionType
+        self.soundEffect = sound
     }
     
     enum CodingKeys: String, CodingKey {
@@ -59,7 +62,8 @@ struct StorySceneModel: Decodable {
              kimoText,
              question,
              interactionType,
-            isEnd
+             isEnd,
+             soundEffect
     }
 }
 

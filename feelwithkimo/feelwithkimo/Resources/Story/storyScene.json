@@ -17,7 +17,8 @@
     "kimoText": "Wah, sayang sekali!",
     "question": null,
     "interactionType": "normal",
-    "isEnd": false
+    "isEnd": false,
+    "soundEffect": "Whistle"
   },
   {
     "path": "Scene 3",

@@ -134,6 +134,10 @@ struct StoryView: View {
                 }
                 accessibilityManager.announce(announcement)
             }
+            
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
         }
     }
 }
