@@ -38,6 +38,9 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#9FD9F3"), dark: UIColor.from("#5CACD9"))
     static var emotionSadness: UIColor
+    
+    @ColorElement(light: UIColor.from("#45A6D2"), dark: UIColor.from("#45A6D2"))
+    static var emotionSadnessAlt: UIColor
 
     @ColorElement(light: UIColor.from("#FF4850"), dark: UIColor.from("#E03A3F"))
     static var emotionAnger: UIColor
