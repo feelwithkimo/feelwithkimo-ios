@@ -15,22 +15,22 @@ struct StoryModel: Identifiable {
     var storyScene: [StorySceneModel]
 }
 
-enum KimoVisual {
+enum KimoVisual: String, Decodable {
     case normal
-    case mark // Tanda seru
+    case mark
     case star
 }
 
-internal class StorySceneModel {
+struct StorySceneModel: Decodable {
     let path: String
     let text: String
     var isEnd: Bool
-    var question: QuestionOption?
     var nextScene: [Int]
-    var interactionType: InteractionType
+    var kimoText: String?
     
-    var kimoVisual: KimoVisual
-    var kimoText: String
+    var question: QuestionOption?
+    var kimoVisual: KimoVisual?
+    var interactionType: InteractionType?
 
     init(path: String,
          text: String,
@@ -43,15 +43,27 @@ internal class StorySceneModel {
         self.path = path
         self.text = text
         self.isEnd = isEnd
-        self.question = question
         self.nextScene = nextScene
-        self.interactionType = interactionType
-        self.kimoVisual = kimoVisual
         self.kimoText = kimoText
+        
+        self.question = question
+        self.kimoVisual = kimoVisual
+        self.interactionType = interactionType
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case path,
+             text,
+             nextScene,
+             kimoVisual,
+             kimoText,
+             question,
+             interactionType,
+            isEnd
     }
 }
 
-struct QuestionOption {
+struct QuestionOption: Decodable {
     let question: String
     let option: [String]
 }

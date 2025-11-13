@@ -47,8 +47,7 @@ extension StoryView {
                         KimoImage(image: "NextScene", width: 100.getWidth())
                             .kimoButtonAccessibility(
                                 label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
-                                hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
-                                    "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
+                                hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" : "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
                                 identifier: "story.nextButton"
                             )
                     })
@@ -212,7 +211,7 @@ extension StoryView {
                 .frame(maxWidth: 564)
                 .padding(.vertical, 24)
                 .padding(.horizontal, 15)
-                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                .background(ColorToken.corePinkDialogue.toColor())
                 .cornerRadius(20)
                 .padding(.trailing, 18)
                 .padding(.top, 71)
@@ -228,7 +227,7 @@ extension StoryView {
                         moveButton.toggle()
                     }
                 
-                KimoImage(image: "KimoVisual", width: 130.getWidth())
+                KimoImage(image: "KimoVisual", width: 105.getWidth())
                     .padding(.top, 45.getHeight())
                     .padding(.bottom, 71.getHeight())
                     .onTapGesture {
