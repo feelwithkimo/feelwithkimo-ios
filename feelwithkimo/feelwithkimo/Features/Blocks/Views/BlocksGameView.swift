@@ -147,6 +147,8 @@ struct BlocksGameView: View {
                 }
                 .padding(.bottom, -50.getHeight())
             )
+        .shadow(color: ColorToken.emotionSadness.toColor().opacity(0.2),
+                radius: 20, x: 0, y: -15.getHeight())
     }
 }
 
