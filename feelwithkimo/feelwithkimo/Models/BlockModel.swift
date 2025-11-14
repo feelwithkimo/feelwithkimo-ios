@@ -9,10 +9,15 @@ import Foundation
 import SwiftUI
 
 struct BlockModel: Identifiable, Equatable {
-    let id = UUID()
+    let id: UUID
     let type: ShapeType
     let color: Color
-    var isPlaced: Bool = false
+    
+    init(id: UUID = UUID(), type: ShapeType, color: Color) {
+        self.id = id
+        self.type = type
+        self.color = color
+    }
 }
 
 struct BlockPosition {
