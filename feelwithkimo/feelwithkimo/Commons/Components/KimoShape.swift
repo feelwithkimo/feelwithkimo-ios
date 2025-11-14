@@ -87,8 +87,12 @@ struct ArchShape: Shape {
     SquareShape()
 }
 
-#Preview("Rectangle") {
-    RectangleShape()
+#Preview("Rectangle (3:1)") {
+    RectangleShape(ratio: .ratio3to1)
+}
+
+#Preview("Rectangle (25:6)") {
+    RectangleShape(ratio: .ratio25to6)
 }
 
 #Preview("Triangle"){
