@@ -39,51 +39,51 @@ enum GameLevel: CaseIterable {
             return [
                 BlockPlacement(
                     block: BlockModel(type: .arch, color: ColorToken.additionalColorsLightPink.toColor()),
-                    position: CGPoint(x: 0.getWidth(), y: 260.getHeight()),
-                    size: CGSize(width: 320.getWidth(), height: 130.getHeight())
+                    position: CGPoint(x: 0, y: 260),
+                    size: CGSize(width: 320, height: 130)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .square, color: ColorToken.coreAccent.toColor()),
-                    position: CGPoint(x: 20.getWidth(), y: 120.getHeight()),
-                    size: CGSize(width: 120.getWidth(), height: 120.getHeight())
+                    position: CGPoint(x: 20, y: 120),
+                    size: CGSize(width: 120, height: 120)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .square, color: ColorToken.coreAccent.toColor()),
-                    position: CGPoint(x: 180.getWidth(), y: 120.getHeight()),
-                    size: CGSize(width: 120.getWidth(), height: 120.getHeight())
+                    position: CGPoint(x: 180, y: 120),
+                    size: CGSize(width: 120, height: 120)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .rectangle, color: ColorToken.additionalColorsDustyYellow.toColor()),
-                    position: CGPoint(x: 10.getWidth(), y: 0.getHeight()),
-                    size: CGSize(width: 300.getWidth(), height: 100.getHeight())
+                    position: CGPoint(x: 10, y: 0),
+                    size: CGSize(width: 300, height: 100)
                 )
             ]
         case .level2:
             return [
                 BlockPlacement(
                     block: BlockModel(type: .arch, color: ColorToken.additionalColorsLightPink.toColor()),
-                    position: CGPoint(x: 0.getWidth(), y: 307.getHeight()),
-                    size: CGSize(width: 100.getWidth(), height: 280.getHeight())
+                    position: CGPoint(x: 0, y: 307),
+                    size: CGSize(width: 100, height: 280)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .square, color: ColorToken.emotionSadness.toColor()),
-                    position: CGPoint(x: 33.getWidth(), y: 197.getHeight()),
-                    size: CGSize(width: 90.getWidth(), height: 90.getHeight())
+                    position: CGPoint(x: 33, y: 197),
+                    size: CGSize(width: 90, height: 90)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .square, color: ColorToken.emotionSadness.toColor()),
-                    position: CGPoint(x: 158.getWidth(), y: 197.getHeight()),
-                    size: CGSize(width: 90.getWidth(), height: 90.getHeight())
+                    position: CGPoint(x: 158, y: 197),
+                    size: CGSize(width: 90, height: 90)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .rectangle, color: ColorToken.additionalColorsDarkPink.toColor()),
-                    position: CGPoint(x: 15.getWidth(), y: 117.getHeight()),
-                    size: CGSize(width: 250.getWidth(), height: 60.getHeight())
+                    position: CGPoint(x: 15, y: 117),
+                    size: CGSize(width: 250, height: 60)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .triangle, color: ColorToken.additionalColorsDustyYellow.toColor()),
-                    position: CGPoint(x: 34.getWidth(), y: 0.getHeight()),
-                    size: CGSize(width: 212.getWidth(), height: 97.getHeight())
+                    position: CGPoint(x: 34, y: 0),
+                    size: CGSize(width: 212, height: 97)
                 )
             ]
         }
