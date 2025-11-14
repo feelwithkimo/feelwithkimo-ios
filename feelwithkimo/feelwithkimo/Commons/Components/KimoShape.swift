@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+func shape(for type: ShapeType) -> AnyShape {
+    switch type {
+    case .square:
+        return AnyShape(SquareShape())
+    case .rectangle:
+        return AnyShape(RectangleShape(ratio: .ratio3to1))
+    case .arch:
+        return AnyShape(ArchShape())
+    case .triangle:
+        return AnyShape(TriangleShape())
+    }
+}
+
 struct SquareShape: Shape {
     func path(in rect: CGRect) -> Path {
         let side = min(rect.width, rect.height)
