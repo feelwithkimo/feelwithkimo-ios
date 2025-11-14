@@ -93,14 +93,14 @@ struct CompletionCardView: View {
                     .shadow(color: ColorToken.backgroundSecondary.toColor().opacity(0.2), radius: 12, x: 0, y: 2)
                 }
                 .padding(.bottom, 50.getHeight())
-            }
+            }/
             
             // Elephant image - separate layer on top
             Image(elephantImage)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 340.getWidth(), height: 340.getHeight())
-                .offset(y: 20.getHeight()) // Adjust vertical position as needed
+                .frame(width: 460.getWidth(), height: 460.getHeight())
+                .offset(y: -50.getHeight()) // Adjust vertical position as needed
         }
         .frame(width: 700.getWidth(), height: 620.getHeight())
     }
