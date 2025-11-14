@@ -109,3 +109,10 @@ extension BlocksGameView {
                 radius: 20, x: 0, y: -15.getHeight())
     }
 }
+
+struct FramePreferenceKey: PreferenceKey {
+    static var defaultValue: [UUID: CGRect] = [:]
+    static func reduce(value: inout [UUID: CGRect], nextValue: () -> [UUID: CGRect]) {
+        value.merge(nextValue(), uniquingKeysWith: { $1 })
+    }
+}
