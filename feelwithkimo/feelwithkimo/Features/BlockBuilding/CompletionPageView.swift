@@ -11,6 +11,8 @@ struct CompletionPageView: View {
     var title: String = "Tahap 1 Selesai!!!"
     var primaryButtonLabel: String = "Coba lagi"
     var secondaryButtonLabel: String = "Lanjutkan"
+    var onPrimaryAction: (() -> Void)?
+    var onSecondaryAction: (() -> Void)?
     
     var body: some View {
         ZStack {
@@ -29,7 +31,9 @@ struct CompletionPageView: View {
                 title: title,
                 elephantImage: "KimoSenang",
                 primaryButtonLabel: primaryButtonLabel,
-                secondaryButtonLabel: secondaryButtonLabel
+                secondaryButtonLabel: secondaryButtonLabel,
+                onPrimaryAction: onPrimaryAction,
+                onSecondaryAction: onSecondaryAction
             )
         }
     }
