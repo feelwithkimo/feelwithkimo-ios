@@ -30,14 +30,6 @@ struct BlocksGameView: View {
         .ignoresSafeArea(edges: .all)
     }
     
-    private var shapesView: some View {
-        HStack{
-            shapesGuideCard
-            shapesOutlineView
-        }
-        .padding(.horizontal, 160.getWidth())
-    }
-    
     private var shapesGuideCard: some View {
         VStack(spacing: 2){
             
@@ -139,7 +131,7 @@ struct BlocksGameView: View {
         .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: 60, style: .continuous)
-                        .fill(ColorToken.emotionSadnessAlt.toColor())
+                        .fill(ColorToken.additionalColorsLightBlue.toColor())
                         .offset(y: -7.getHeight())
 
                     RoundedRectangle(cornerRadius: 50, style: .continuous)
