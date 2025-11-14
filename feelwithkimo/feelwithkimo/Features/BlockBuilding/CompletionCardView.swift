@@ -33,7 +33,7 @@ struct CompletionCardView: View {
                             ColorToken.coreAccent.toColor(),
                             style: StrokeStyle(
                                 lineWidth: 7,
-                                dash: [24, 16]
+                                dash: [40, 16]
                             )
                         )
                         .padding(20)
