@@ -63,7 +63,7 @@ enum GameLevel: CaseIterable {
                 BlockPlacement(
                     block: BlockModel(type: .arch, color: ColorToken.additionalColorsLightPink.toColor()),
                     position: CGPoint(x: 0, y: 307),
-                    size: CGSize(width: 100, height: 280)
+                    size: CGSize(width: 280, height: 100)
                 ),
                 BlockPlacement(
                     block: BlockModel(type: .square, color: ColorToken.emotionSadness.toColor()),
