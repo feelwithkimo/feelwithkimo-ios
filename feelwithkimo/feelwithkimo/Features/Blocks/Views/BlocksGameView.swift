@@ -11,13 +11,13 @@ struct BlocksGameView: View {
     var body: some View {
         ZStack{
             ColorToken.backgroundHome.toColor()
-            VStack{
+            VStack(alignment: .leading){
                 Spacer()
                 
                 shapesView
                     .padding(.top, 44.getHeight())
                     .padding(.bottom, 44.getHeight())
-                
+                    .padding(.leading, 252.getWidth())
                 Spacer()
                 
                 Rectangle()
@@ -25,6 +25,12 @@ struct BlocksGameView: View {
                     .frame(height: 150.getHeight())
                     .frame(width: .infinity)
             }
+            VStack(alignment: .leading) {
+                Image("LalaBlocks")
+                    .padding(.trailing, 1000.getWidth())
+            }
+            .frame(height: .infinity)
+            .frame(width: .infinity)
             VStack{
                 Spacer()
                 bottomBar(placements: GameLevel.level1.templatePlacements)
