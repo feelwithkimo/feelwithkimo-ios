@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+extension Shape {
+    func dashedStroke(color: Color, lineWidth: CGFloat = 2, dash: [CGFloat] = [6]) -> some View {
+        self.stroke(style: StrokeStyle(lineWidth: lineWidth, dash: dash))
+            .foregroundColor(color)
+    }
+}
+
 func shape(for type: ShapeType) -> AnyShape {
     switch type {
     case .square:
