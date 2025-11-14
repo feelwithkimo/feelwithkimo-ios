@@ -17,6 +17,21 @@ extension BlocksGameView {
         .padding(.horizontal, 160.getWidth())
     }
     
+    func renderBtmBarShapes(placements: [BlockPlacement]) -> some View {
+        return HStack(alignment: .center) {
+            ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
+                shape(for: placement.block.type)
+                    .fill(placement.block.color)
+                    .overlay(
+                        shape(for: placement.block.type)
+                            .stroke(ColorToken.additionalColorsBlack.toColor(), lineWidth: 2)
+                    )
+                    .frame(width: placement.size.width, height: placement.size.height)
+                    .padding(.horizontal, 30.getWidth())
+            }
+        }
+    }
+    
     func renderShapes(
         placements: [BlockPlacement],
         revealMode: Bool = false,
@@ -110,13 +125,13 @@ extension BlocksGameView {
         .cornerRadius(30.getHeight())
     }
     
-    var bottomBar: some View {
-        HStack{
-            Spacer()
-            Spacer()
+    func bottomBar(placements: [BlockPlacement]) -> some View {
+        HStack(alignment: .center){
+            renderBtmBarShapes(placements: placements)
         }
-        .frame(height: 150.getHeight())
         .padding(.horizontal, 60.getWidth())
+        .frame(height: 150.getHeight())
+        .frame(maxWidth: .infinity)
         .background(
             ZStack {
                 RoundedRectangle(cornerRadius: 60, style: .continuous)
@@ -131,7 +146,6 @@ extension BlocksGameView {
         .shadow(color: ColorToken.emotionSadness.toColor().opacity(0.2),
                 radius: 20, x: 0, y: -15.getHeight())
     }
-            
 }
 
 #Preview {
