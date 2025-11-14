@@ -19,7 +19,7 @@ struct BridgingPage<Destination: View>: View {
                     
                     VStack(spacing: 0) {
                         Text(textDialogue)
-                            .font(.app(.title3, family: .primary))
+                            .font(.customFont(size: 20, family: .primary, weight: .regular))
                             .frame(maxWidth: 500.getWidth())
                             .padding(.horizontal, 49.getWidth())
                             .padding(.vertical, 42.getHeight())
@@ -45,7 +45,7 @@ struct BridgingPage<Destination: View>: View {
                                         .frame(maxWidth: 28, maxHeight: 28)
                                     
                                     Text("Lanjutkan")
-                                        .font(.app(.title1, family: .primary))
+                                        .font(.customFont(size: 28, family: .primary, weight: .bold))
                                         .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                                     
                                 }

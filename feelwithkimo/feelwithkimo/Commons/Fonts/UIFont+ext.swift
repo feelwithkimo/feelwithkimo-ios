@@ -45,7 +45,7 @@ extension UIFont {
         return customFont
     }
     
-    private static func resolveFontName(for family: FontFamily, weight: UIFont.Weight) -> String {
+    static func resolveFontName(for family: FontFamily, weight: UIFont.Weight) -> String {
         switch (family, weight) {
         case (.primary, .regular): return "Quicksand-Regular"
         case (.primary, .semibold): return "Quicksand-SemiBold"

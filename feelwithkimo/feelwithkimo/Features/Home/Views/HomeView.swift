@@ -85,7 +85,7 @@ private extension HomeView {
         KimoHeaderView {
             HStack(spacing: 23) {
                 Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
-                    .font(.app(.largeTitle, family: .primary))
+                    .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .fontWeight(.bold)
                     .padding()
                     .kimoTextAccessibility(

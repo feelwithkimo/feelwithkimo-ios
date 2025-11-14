@@ -47,8 +47,7 @@ extension StoryView {
                         KimoImage(image: "NextScene", width: 100.getWidth())
                             .kimoButtonAccessibility(
                                 label: viewModel.currentScene.isEnd ? "Selesai" : "Adegan berikutnya",
-                                hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" :
-                                    "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
+                                hint: viewModel.currentScene.isEnd ? "Ketuk dua kali untuk mengakhiri cerita dan kembali" : "Ketuk dua kali untuk melanjutkan ke adegan berikutnya",
                                 identifier: "story.nextButton"
                             )
                     })
@@ -67,7 +66,7 @@ extension StoryView {
             .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
                 Text(viewModel.currentScene.text)
-                    .font(.app(.headline, family: .primary))
+                    .font(.customFont(size: 17, family: .primary, weight: .semibold))
                     .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                     .padding(.horizontal, 45.getWidth())
                     .padding(.vertical, 32.getHeight())
@@ -93,7 +92,7 @@ extension StoryView {
                 ZStack(alignment: .center) {
                     KimoImage(image: "OptionButton", width: 442.getWidth())
                     Text(title)
-                        .font(.app(.title1, family: .primary))
+                        .font(.customFont(size: 28, family: .primary, weight: .bold))
                         .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: 380.getWidth()) // keep text within bounds
@@ -112,7 +111,7 @@ extension StoryView {
                 
                 VStack(spacing: 0) {
                     Text("Wah, Lala marah sekali! Menurutmu di sini, apa yang sebaiknya Lala lakukan?")
-                        .font(.app(.title2, family: .primary))
+                        .font(.customFont(size: 22, family: .primary, weight: .bold))
                         .fontWeight(.regular)
                         .frame(maxWidth: 394.getWidth())
                         .padding(.horizontal, 30.getWidth())
@@ -203,11 +202,10 @@ extension StoryView {
                 // Text
                 VStack(alignment: .leading) {
                     Text("Klik ikon Kimo, ya!")
-                        .font(.app(.title3, family: .primary))
+                        .font(.customFont(size: 20, family: .primary, weight: .regular))
                     
                     Text("Kimo akan memberikan petunjuk saat si kecil butuh bantuan")
-                        .font(.app(.title3, family: .primary))
-                        .fontWeight(.regular)
+                        .font(.customFont(size: 20, family: .primary, weight: .regular))
                 }
                 .frame(maxWidth: 564)
                 .padding(.vertical, 24)
@@ -228,7 +226,7 @@ extension StoryView {
                         moveButton.toggle()
                     }
                 
-                KimoImage(image: "KimoVisual", width: 130.getWidth())
+                KimoImage(image: "KimoVisual", width: 105.getWidth())
                     .padding(.top, 45.getHeight())
                     .padding(.bottom, 71.getHeight())
                     .onTapGesture {
@@ -255,8 +253,7 @@ extension StoryView {
                 
                 // Text
                 Text("dan juga komentar seru untuk menemani si kecil sepanjang cerita!...")
-                    .font(.app(.title3, family: .primary))
-                    .fontWeight(.regular)
+                    .font(.customFont(size: 20, family: .primary, weight: .regular))
                     .frame(maxWidth: 564)
                     .padding(.vertical, 24)
                     .padding(.horizontal, 15)

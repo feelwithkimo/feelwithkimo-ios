@@ -159,7 +159,7 @@ struct IdentityView: View {
             // Content
             VStack(alignment: .leading, spacing: 0) {
                 Text("Nama Panggilan untuk si Kecil:")
-                    .font(.app(.title2, family: .primary))
+                    .font(.customFont(size: 22, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, 8)
                     .kimoTextAccessibility(
@@ -178,7 +178,7 @@ struct IdentityView: View {
                     )
                 
                 Text(viewModel.errorMessageChild)
-                    .font(.app(.callout, family: .primary))
+                    .font(.customFont(size: 16, family: .primary, weight: .regular))
                     .foregroundStyle(viewModel.showErrorChild ? ColorToken.emotionAnger.toColor() : Color.clear)
                     .padding(.top, 4)
                     .kimoTextAccessibility(
@@ -188,7 +188,7 @@ struct IdentityView: View {
                     )
                 
                 Text("Nama Panggilan untuk Orang Tua:")
-                    .font(.app(.title2, family: .primary))
+                    .font(.customFont(size: 22, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, 8)
                     .kimoTextAccessibility(
@@ -208,7 +208,7 @@ struct IdentityView: View {
                     )
                 
                 Text(viewModel.errorMessageNickname)
-                    .font(.app(.callout, family: .primary))
+                    .font(.customFont(size: 16, family: .primary, weight: .regular))
                     .foregroundStyle(viewModel.showErrorNickname ? ColorToken.emotionAnger.toColor() : Color.clear)
                     .padding(.top, 4)
                     .kimoTextAccessibility(

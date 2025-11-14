@@ -34,8 +34,8 @@ struct StoryView: View {
                 storySceneView()
                 
                 // Add KimoAskView overlay
-                KimoAskView(dialogueText: viewModel.currentScene.kimoText,
-                    mark: viewModel.currentScene.kimoVisual,
+                KimoAskView(dialogueText: viewModel.currentScene.kimoText ?? "",
+                            mark: viewModel.currentScene.kimoVisual ?? .normal,
                     showDialogue: $viewModel.showDialogue,
                     isMascotTapped: $viewModel.isTappedMascot)
             } else {
@@ -133,6 +133,10 @@ struct StoryView: View {
                     announcement += " dari cerita."
                 }
                 accessibilityManager.announce(announcement)
+            }
+            
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
             }
         }
     }

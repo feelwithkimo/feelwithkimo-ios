@@ -90,10 +90,10 @@ struct KimoDialogueButton: View {
         HStack(spacing: 12) {
             if let symbol = config.symbol {
                 Image(systemName: symbol.rawValue)
-                    .font(.app(.title1, family: .primary))
+                    .font(.customFont(size: 28, family: .primary, weight: .bold))
             }
             Text(config.title)
-                .font(.app(.title1, family: .primary))
+                .font(.customFont(size: 28, family: .primary, weight: .bold))
         }
         .foregroundStyle(Color(config.foregroundColor))
         .padding(.horizontal, 20)
@@ -114,10 +114,10 @@ struct KimoDialogueButton: View {
             HStack(spacing: 20) {
                 if let symbol = config.symbol {
                     Image(systemName: symbol.rawValue)
-                        .font(.app(.title1, family: .primary))
+                        .font(.customFont(size: 28, family: .primary, weight: .bold))
                 }
                 Text(config.title)
-                    .font(.app(.title1, family: .primary))
+                    .font(.customFont(size: 28, family: .primary, weight: .bold))
             }
             .foregroundStyle(ColorToken.textPrimary.toColor())
             .padding(.bottom, 8.getHeight())

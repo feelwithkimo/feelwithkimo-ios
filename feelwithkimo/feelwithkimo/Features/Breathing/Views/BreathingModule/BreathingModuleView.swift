@@ -157,7 +157,7 @@ struct BreathingModuleView: View {
                                 accessibilityManager.announce("Latihan pernapasan dimulai. Ikuti instruksi Kimo")
                             }, label: {
                                 Text("Mulai")
-                                    .font(.app(.title1, family: .primary))
+                                    .font(.customFont(size: 28, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
                                     .padding(.vertical, 14.getHeight())
@@ -172,8 +172,8 @@ struct BreathingModuleView: View {
                         } else {
                             HStack(spacing: 20.getWidth()) {
                                 // Cycle indicator - show when active
-                                Text("Latihan Tarik Nafas \(viewModel.cycleCount)/\(viewModel.maxCycles))")
-                                    .font(.app(.title2, family: .primary))
+                                Text("Latihan Tarik Nafas \(viewModel.cycleCount)/3")
+                                    .font(.customFont(size: 22, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
                                     .padding(.vertical, 16.getHeight())
@@ -186,7 +186,7 @@ struct BreathingModuleView: View {
                                     viewModel.stopBreathing()
                                 }, label: {
                                     Text("Berhenti")
-                                        .font(.app(.title1, family: .primary))
+                                        .font(.customFont(size: 28, family: .primary, weight: .bold))
                                         .foregroundColor(ColorToken.backgroundSecondary.toColor())
                                         .padding(.horizontal, geometry.size.width * 0.035)
                                         .padding(.vertical, 14.getHeight())
@@ -267,7 +267,8 @@ struct BreathingModuleView: View {
                         storyViewModel.goScene(to: 1, choice: 0)
                     }
                 )
-            ])
+            ]),
+            stageCompleted: "Stage 1 Completed"
         )
     }
 }

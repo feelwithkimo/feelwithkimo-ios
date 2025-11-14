@@ -16,7 +16,7 @@ struct NarrationCard: View {
             .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
                 Text(text)
-                    .font(.app(.headline, family: .primary))
+                    .font(.customFont(size: 17, family: .primary, weight: .semibold))
                     .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                     .padding(.horizontal, 24.getWidth())
                     .padding(.vertical, 16.getHeight())

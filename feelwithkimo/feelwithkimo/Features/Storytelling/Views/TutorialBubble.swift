@@ -11,11 +11,10 @@ struct TutorialBubble: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Bacakan cerita ini untuk si kecil, ya!")
-                .font(.app(.title3, family: .primary))
+                .font(.customFont(size: 20, family: .primary, weight: .regular))
             
             Text("Gunakan suara dan ekspresi supaya si kecil ikut merasakannya")
-                .font(.app(.title3, family: .primary))
-                .fontWeight(.regular)
+                .font(.customFont(size: 20, family: .primary, weight: .regular))
         }
         .padding(.vertical, 24.getHeight())
         .padding(.horizontal, 15.getWidth())

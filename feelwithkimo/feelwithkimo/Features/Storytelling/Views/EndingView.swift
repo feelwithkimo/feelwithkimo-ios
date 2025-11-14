@@ -33,10 +33,10 @@ extension StoryView {
                     Button(action: dismiss) {
                         HStack {
                             Image(systemName: "arrow.right.square")
-                                .font(.app(.title1, family: .primary))
+                                .font(.customFont(size: 28, family: .primary, weight: .bold))
                             
                             Text("Keluar")
-                                .font(.app(.title1, family: .primary))
+                                .font(.customFont(size: 28, family: .primary, weight: .bold))
                         }
                         .padding()
                         .background(ColorToken.corePinkStory.toColor().opacity(0.8))
@@ -47,9 +47,9 @@ extension StoryView {
                     Button(action: replay) {
                         HStack {
                             Image(systemName: "arrow.clockwise")
-                                .font(.app(.title1, family: .primary))
+                                .font(.customFont(size: 28, family: .primary, weight: .bold))
                             Text("Mulai Lagi")
-                                .font(.app(.title1, family: .primary))
+                                .font(.customFont(size: 28, family: .primary, weight: .bold))
                         }
                         .padding()
                         .background(ColorToken.corePinkStory.toColor().opacity(0.8))

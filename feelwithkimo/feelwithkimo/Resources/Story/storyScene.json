@@ -1,0 +1,236 @@
+[
+  {
+    "path": "Scene 1",
+    "text": "Pagi yang cerah, Lala sedang bermain balok warna-warni.",
+    "nextScene": [1],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 2",
+    "text": "Tiba-tiba… bruk! Lala menyenggol menaranya hingga jatuh! Balok-baloknya berhamburan ke mana-mana.",
+    "nextScene": [0, 2],
+    "kimoVisual": "star",
+    "kimoText": "Wah, sayang sekali!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "Whistle"
+  },
+  {
+    "path": "Scene 3",
+    "text": "Wajah Lala berubah! Pertama, matanya membesar, mulutnya menganga...",
+    "nextScene": [1, 3],
+    "kimoVisual": "star",
+    "kimoText": "Wah, Lala merasa kaget!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 4",
+    "text": "Lalu, pipi Lala memerah, alisnya mengerut, dan bibirnya manyun!",
+    "nextScene": [2, 4],
+    "kimoVisual": "star",
+    "kimoText": "Sekarang, Lala merasa kesal!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 5",
+    "text": "Awal-awal, Lala kaget. Kemudian, ia marah!",
+    "nextScene": [3, 5],
+    "kimoVisual": "star",
+    "kimoText": "Tadi itu adalah ekspresi Lala pas marah. Kalau ekspresimu pas marah gimana?",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 6",
+    "text": "Lala bangun perlahan...\n“Huuuuh! Kok jatuh sih! Aku udah susun lama-lama! Huuuh!” katanya keras-keras.",
+    "nextScene": [4, 6],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 6",
+    "text": "Lala bangun perlahan...\n“Huuuuh! Kok jatuh sih! Aku udah susun lama-lama! Huuuh!” katanya keras-keras.",
+    "nextScene": [5, 7, 21],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": {
+      "question": "Wah, Lala marah sekali! Menurutmu di sini, apa yang sebaiknya Lala lakukan?",
+      "option": ["Mengambek", "Minta bantuan Ibu"]
+    },
+    "interactionType": "storyBranching",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 7",
+    "text": "BRUK! Lala semakin ngambek! Ia memukul, melempar, dan menendang baloknya. Tapi… aah! Kakinya jadi sakit!",
+    "nextScene": [6, 8],
+    "kimoVisual": "star",
+    "kimoText": "Oh tidak! Kakinya Lala malah sakit… dan sekarang baloknya malah berantakan.",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 8",
+    "text": "Ibu masuk ke dalam kamar Lala. Ia berlutut sejajar dengan Lala. ‘Lala sayang, abis nendang-nendang, ya?’ tanya Ibu dengan suara lembut.",
+    "nextScene": [7, 9],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 9",
+    "text": "Lala mengangguk pelan.",
+    "nextScene": [8, 10],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 10",
+    "text": "\"Lala kenapa?\" tanya Ibu kepada Lala",
+    "nextScene": [9, 11],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 11",
+    "text": "\"Tadi Lala lagi nyusun balok... Udah tinggi, bu. Tapi, menaranya jatuh!\"",
+    "nextScene": [10, 12],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 12",
+    "text": "Ibu memeluk Lala dan berkata: \"Di saat ada sesuatu yang tidak sesuai dengan kemauan Lala, terus Lala cemberut... Itu namanya marah. Marah itu artinya tubuhmu sedang bilang, 'Aku nggak suka!'\"",
+    "nextScene": [11, 13],
+    "kimoVisual": "star",
+    "kimoText": "Wah, ternyata tubuh kita bisa memberi tahu perasaan kita!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 13",
+    "text": "“Kalau tubuh Lala bilang ‘aku nggak suka,’ yuk kita tenangkan dulu. Lala ikuti ibu, ya.” Ibu menarik napas panjang… “Haaa…” Lalu menghembuskannya,“Fuuuh…”",
+    "nextScene": [12, 14],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 14",
+    "text": "Lala menarik napas dalam… “Haaa… Fuuuh... Haaa... Fuuuh...” Wah, api di hati Lala perlahan mengecil! Sekarang dadanya lebih sejuk, seperti ditiup angin.",
+    "nextScene": [13, 15],
+    "kimoVisual": "star",
+    "kimoText": "Ketika Lala menarik napas pelan, api marahnya mengecil. Kira-kira kalau kita napas pelan juga… apa yang akan terjadi di tubuh kita ya? Yuk, coba bareng Kimo!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 14",
+    "text": "Lala menarik napas dalam… “Haaa… Fuuuh... Haaa... Fuuuh...” Wah, api di hati Lala perlahan mengecil! Sekarang dadanya lebih sejuk, seperti ditiup angin.",
+    "nextScene": [14, 16],
+    "kimoVisual": "star",
+    "kimoText": "Ketika Lala menarik napas pelan, api marahnya mengecil. Kira-kira kalau kita napas pelan juga… apa yang akan terjadi di tubuh kita ya? Yuk, coba bareng Kimo!",
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 15",
+    "text": "Ibu ”Nah, karena Lala udah merasa mendingan... Yuk, kita coba lagi. Sini, ibu bantu Lala susun ulang balok-baloknya.“",
+    "nextScene": [15, 17],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 16",
+    "text": "Lala dan ibu mengambil baloknya lagi. Pelan-pelan, mereka mulai membangun menara baru.",
+    "nextScene": [16, 18],
+    "kimoVisual": "star",
+    "kimoText": "Wah, Lala mulai kembali menyusun balok! Semangat, Lala! Aku yakin kamu bisa!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 17",
+    "text": "Dan… lihat! Menaranya bahkan menjadi lebih tinggi dari sebelumnya! Lala bertepuk tangan gembira, dan Ibu pun ikut. Yeay!",
+    "nextScene": [17, 19],
+    "kimoVisual": "star",
+    "kimoText": "Hore, Lala berhasil! Kalau senang, kita tepuk tepuk! Ayo, kita tepuk tangan bersama!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 17",
+    "text": "Dan… lihat! Menaranya bahkan menjadi lebih tinggi dari sebelumnya! Lala bertepuk tangan gembira, dan Ibu pun ikut. Yeay!",
+    "nextScene": [18, 20],
+    "kimoVisual": "star",
+    "kimoText": "Hore, Lala berhasil! Kalau senang, kita tepuk tepuk! Ayo, kita tepuk tangan bersama!",
+    "question": null,
+    "interactionType": "clapping",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 18",
+    "text": "Kadang kita bisa marah. Apalagi saat ada sesuatu yang tidak seperti yang kita mau. Yang penting… kita bisa belajar untuk menenangkan diri. Marahnya kita tiup-tiup! Fuh, fuh, fuh! Dan, coba lagi terus, pelan-pelan!",
+    "nextScene": [19, 21],
+    "kimoVisual": "star",
+    "kimoText": "Sekarang kita tahu, kalau suatu saat kamu marah lagi… kamu bisa tarik napas pelan seperti tadi! Yeay!",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": true
+  },
+  {
+    "path": "Scene 7_B",
+    "text": "Lala duduk dengan muka yang cemberut. Tangannya menyilang. ‘Ibuuu, ibuuuu!’ panggil Lala.",
+    "nextScene": [6, 22],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 8_B",
+    "text": "Ibu masuk ke dalam kamar Lala. Ia berlutut sejajar dengan Lala. “Lala sayang, abis memanggil ibu ya?“ tanya Ibu dengan suara lembut.",
+    "nextScene": [21, 9],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  }
+]
