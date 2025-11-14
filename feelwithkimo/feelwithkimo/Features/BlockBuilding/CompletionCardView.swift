@@ -44,18 +44,18 @@ struct CompletionCardView: View {
                 // Title bubble - positioned to overflow at top
                 ZStack {
                     // Shadow layer (flatter, more elongated)
-                    RoundedRectangle(cornerRadius: 50)
-                        .fill(ColorToken.coreAccent.toColor().opacity(0.3))
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(ColorToken.coreAccent.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
-                        .offset(y: 5)
+                        .offset(y: 12)
                     
                     // Main title background (flatter elongated rounded rectangle)
-                    RoundedRectangle(cornerRadius: 50)
-                        .fill(ColorToken.coreAccent.toColor())
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(ColorToken.emotionDisgusted.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
                     
                     Text(title)
-                        .font(.app(size: 40, family: .primary, weight: .bold))
+                        .font(.app(size: 50, family: .primary, weight: .bold))
                         .foregroundStyle(Color.white)
                 }
                 .offset(y: -34.getHeight()) // Half outside the card
@@ -93,7 +93,7 @@ struct CompletionCardView: View {
                     .shadow(color: ColorToken.backgroundSecondary.toColor().opacity(0.2), radius: 12, x: 0, y: 2)
                 }
                 .padding(.bottom, 50.getHeight())
-            }/
+            }
             
             // Elephant image - separate layer on top
             Image(elephantImage)
