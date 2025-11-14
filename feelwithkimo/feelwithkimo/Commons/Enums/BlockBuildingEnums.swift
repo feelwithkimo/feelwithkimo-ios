@@ -5,7 +5,7 @@
 //  Created by Aristo Yongka on 14/11/25.
 //
 
-enum GameFlowState {
+enum BlockBuildingEnums {
     case stage1
     case stage1Completed
     case stage2
