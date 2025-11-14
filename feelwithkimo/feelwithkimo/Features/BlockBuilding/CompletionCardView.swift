@@ -1,6 +1,6 @@
 //
 //  CompletionCardView.swift
-//  feelwithkimo
+//  Aristo Yongka
 //
 //  Created on 14/11/25.
 //

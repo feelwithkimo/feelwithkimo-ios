@@ -26,6 +26,10 @@ struct CompletionPageView: View {
             Color.black.opacity(0.7)
                 .ignoresSafeArea()
             
+            // Confetti effect layer
+            ConfettiView()
+                .ignoresSafeArea()
+            
             // Completion card
             CompletionCardView(
                 title: title,
@@ -40,5 +44,12 @@ struct CompletionPageView: View {
 }
 
 #Preview {
-    CompletionPageView()
+    CompletionPageView(
+        onPrimaryAction: {
+            print("Primary button tapped")
+        },
+        onSecondaryAction: {
+            print("Secondary button tapped")
+        }
+    )
 }
