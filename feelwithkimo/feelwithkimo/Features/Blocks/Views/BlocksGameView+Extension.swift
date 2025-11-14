@@ -12,9 +12,49 @@ extension BlocksGameView {
     var shapesView: some View {
         HStack{
             shapesGuideCard(blockPlacements: GameLevel.level1.templatePlacements)
-            shapesOutlineView
+            shapesOutlineView(blockPlacements:GameLevel.level1.templatePlacements)
         }
         .padding(.horizontal, 160.getWidth())
+    }
+    
+    func renderShapes(
+        placements: [BlockPlacement],
+        revealMode: Bool = false,
+        revealIndex: Int? = nil
+    ) -> some View {
+        let maxX = placements.map { $0.position.x + $0.size.width }.max() ?? 0
+        let maxY = placements.map { $0.position.y + $0.size.height }.max() ?? 0
+        
+        return ZStack(alignment: .topLeading) {
+            ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
+                
+                let isHint = revealMode && revealIndex == index
+                let isBeforeHint = revealMode && revealIndex != nil && index < revealIndex!
+                let isAfterHint = revealMode && revealIndex != nil && index > revealIndex!
+                
+                if !isAfterHint {
+                    if isHint {
+                        // hint: no fill, dashed stroke
+                        shape(for: placement.block.type)
+                            .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
+                            .foregroundColor(ColorToken.backgroundSecondary.toColor())
+                            .frame(width: placement.size.width, height: placement.size.height)
+                            .offset(x: placement.position.x, y: placement.position.y)
+                    } else {
+                        // solid block
+                        shape(for: placement.block.type)
+                            .fill(placement.block.color)
+                            .overlay(
+                                shape(for: placement.block.type)
+                                    .stroke(ColorToken.additionalColorsBlack.toColor(), lineWidth: 2)
+                            )
+                            .frame(width: placement.size.width, height: placement.size.height)
+                            .offset(x: placement.position.x, y: placement.position.y)
+                    }
+                }
+            }
+        }
+        .frame(width: maxX, height: maxY, alignment: .topLeading)
     }
     
     func shapesGuideCard(blockPlacements: [BlockPlacement]) -> some View {
@@ -37,19 +77,7 @@ extension BlocksGameView {
             .background(ColorToken.coreAccent.toColor())
             
             VStack{
-                ZStack(alignment: .topLeading) {
-                    ForEach(placements, id: \.block.id) { placement in
-                        shape(for: placement.block.type)
-                            .fill(placement.block.color)
-                            .stroke(ColorToken.additionalColorsBlack.toColor(), lineWidth: 2)
-                            .frame(width: placement.size.width, height: placement.size.height)
-                            .offset(
-                                x: placement.position.x,
-                                y: placement.position.y
-                            )
-                    }
-                }
-                .frame(width: maxX, height: maxY, alignment: .topLeading)
+                renderShapes(placements: placements)
             }
             .frame(width: 546.getWidth(), height: maxY, alignment: .center)
             .padding(23.getHeight())
@@ -65,34 +93,18 @@ extension BlocksGameView {
         )
     }
     
-    var shapesOutlineView: some View {
-        VStack{
-            HStack {
-                Text("Ayo kita buat\nbentuk ini!")
-                    .font(.app(.largeTitle, family: .primary))
-                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-                    .multilineTextAlignment(.center)
-            }
-            .background(ColorToken.coreAccent.toColor())
+    func shapesOutlineView(blockPlacements: [BlockPlacement]) -> some View {
+        return VStack(alignment: .center){
+            Spacer()
             VStack{
-                Rectangle()
-                    .fill(Color.blue)
-                    .frame(width: 150, height: 100)
-                HStack{
-                    Rectangle()
-                        .fill(Color.blue)
-                        .frame(width: 150, height: 100)
-                    Rectangle()
-                        .fill(Color.blue)
-                        .frame(width: 150, height: 100)
-                }
-                Rectangle()
-                    .fill(Color.blue)
-                    .frame(width: 150, height: 100)
+                renderShapes(
+                    placements: blockPlacements,
+                    revealMode: true,
+                    revealIndex: 2
+                )
             }
             .padding(.horizontal, 43.getWidth())
             .padding(.vertical, 23.getHeight())
-            .background(Color.white)
         }
         .padding(.horizontal, 43.getWidth())
         .cornerRadius(30.getHeight())
@@ -211,7 +223,7 @@ extension BlocksGameView {
 }
 
 #Preview {
-    BlocksGameView().shapesGuideCard(blockPlacements: GameLevel.level1.templatePlacements)
+    BlocksGameView().shapesGuideCard(blockPlacements: GameLevel.level2.templatePlacements)
 }
 
 #Preview("Blocks Game View") {
