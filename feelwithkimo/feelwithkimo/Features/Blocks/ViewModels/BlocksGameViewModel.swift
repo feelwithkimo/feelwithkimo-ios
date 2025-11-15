@@ -14,6 +14,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var placedMap: [Int: BlockModel] = [:]
     @Published var templateFrames: [Int: CGRect] = [:]
     @Published var bottomFrames: [UUID: CGRect] = [:]
+    @Published var templatePositions: [(shapeType: ShapeType, point: CGPoint)] = []
     
     var snapRadius: CGFloat = 60
     
@@ -36,36 +37,64 @@ final class BlocksGameViewModel: ObservableObject {
     }
     
     /// location must be in the same coordinate space as templateFrames (we'll use "blocksGame")
-    func handleDragEnd(block: BlockModel, at location: CGPoint) -> Int? {
-        // consider only template slots with same type and empty
-        var bestIndex: Int?
+    func handleDragEnd(block: BlockModel, at location: CGPoint) -> Bool {
+        //        var bestIndex: Int?
         var bestDist = CGFloat.infinity
+        var position = CGPoint.zero
         
-        for (index, frame) in templateFrames {
-            guard placedMap[index] == nil else { continue } // skip occupied
-            let templateType = level.templatePlacements[index].block.type
-            guard templateType == block.type else { continue }
-            let center = CGPoint(x: frame.midX, y: frame.midY)
+        //        for (index, center) in templatePositions {
+        //            // skip occupied
+        //            guard placedMap[index] == nil else { continue }
+        //            // only same shape
+        //            let templateType = level.templatePlacements[index].block.type
+        //            guard templateType == block.type else { continue }
+        //
+        //            let dx = center.x - location.x
+        //            let dy = center.y - location.y
+        //            let dist = hypot(dx, dy)
+        //
+        //            if dist < bestDist {
+        //                bestDist = dist
+        //                bestIndex = index
+        //            }
+        //        }
+        
+        for (shapeType, center) in templatePositions {
+            guard shapeType == block.type else { continue }
+            
             let dx = center.x - location.x
             let dy = center.y - location.y
             let dist = hypot(dx, dy)
+            
             if dist < bestDist {
                 bestDist = dist
-                bestIndex = index
+                position = center
             }
+            
+            print(shapeType, center)
+            print(location)
         }
         
-        if let best = bestIndex, bestDist <= snapRadius {
-            // place block
-            placedMap[best] = block
-            // remove from bottomBlocks (by id)
+        //        if let best = bestIndex, bestDist <= snapRadius {
+        //            placedMap[best] = block
+        //            if let idx = bottomBlocks.firstIndex(where: { $0.id == block.id }) {
+        //                bottomBlocks.remove(at: idx)
+        //            }
+        //            return best
+        //        } else {
+        //            return nil
+        //        }
+        
+        if bestDist <= snapRadius {
             if let idx = bottomBlocks.firstIndex(where: { $0.id == block.id }) {
                 bottomBlocks.remove(at: idx)
             }
-            return best
-        } else {
-            return nil
+            templatePositions.removeAll {
+                $0.point == position
+            }
+            return true
         }
+        return false
     }
     
 }

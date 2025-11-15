@@ -34,16 +34,7 @@ extension BlocksGameView {
                     .contentShape(Rectangle())
                     .offset(currentDragBlock?.id == block.id ? dragTranslation : .zero)
                     .zIndex(currentDragBlock?.id == block.id ? 100 : 0)
-                    .background(
-                        GeometryReader { geo in
-                            Color.clear
-                                .preference(
-                                    key: FramePreferenceKey.self,
-                                    value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
-                                )
-                        }
-                        .allowsHitTesting(false)
-                    )
+                    .background( GeometryReader { geo in Color.clear .preference( key: FramePreferenceKey.self, value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))] ) } .onPreferenceChange(FramePreferenceKey.self) { prefs in for (id, frame) in prefs { viewModel.bottomFrames[id] = frame } } .allowsHitTesting(false) )
                     .gesture(
                         DragGesture()
                             .onChanged { g in
@@ -60,7 +51,7 @@ extension BlocksGameView {
                                     let startCenter = CGPoint(x: bottomFrame.midX, y: bottomFrame.midY)
                                     let endPoint = CGPoint(x: startCenter.x + g.translation.width,
                                                            y: startCenter.y + g.translation.height)
-                                    if viewModel.handleDragEnd(block: dragging, at: endPoint) != nil {
+                                    if viewModel.handleDragEnd(block: dragging, at: endPoint) {
                                         withAnimation(.spring()) {
                                             currentDragBlock = nil
                                             dragTranslation = .zero
@@ -107,6 +98,11 @@ extension BlocksGameView {
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .frame(width: placement.size.width, height: placement.size.height)
                             .offset(x: placement.position.x, y: placement.position.y)
+                            .readPosition { frame in
+                                viewModel.templatePositions.append(
+                                    (shapeType: placement.block.type, point: frame.origin)
+                                )
+                            }
                     } else {
                         // solid block
                         shape(for: placement.block.type)
@@ -214,50 +210,23 @@ struct BottomFramePreferenceKey: PreferenceKey {
     }
 }
 
+struct ViewPositionKey: PreferenceKey {
+    static var defaultValue: CGRect = .zero
+    static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
+        value = nextValue()
+    }
+}
 
-struct DraggableBlock: View {
-    @ObservedObject var viewModel: BlocksGameViewModel
-    
-    let block: BlockModel
-    
-    @State private var dragOffset: CGSize = .zero
-    @State private var isDragging = false
-    
-    let containerCoordinateSpace: CoordinateSpace
-    var placedIndex: Int? = nil
-    
-    var body: some View {
-        let shapeView = shape(for: block.type)
-            .fill(block.color)
-            .overlay(shape(for: block.type).stroke(ColorToken.additionalColorsBlack.toColor(), lineWidth: 2))
-        
-        Group {
-            if let placedIdx = placedIndex, let frame = viewModel.templateFrames[placedIdx] {
-                shapeView
-                    .frame(width: frame.width, height: frame.height)
-                    .position(x: frame.midX, y: frame.midY)
-                    .animation(.spring(), value: viewModel.templateFrames)
-            } else {
-                shapeView
-                    .frame(width: 90, height: 90)
-                    .offset(dragOffset)
-                    .gesture(
-                        DragGesture()
-                            .onChanged { g in
-                                isDragging = true
-                                dragOffset = g.translation
-                            }
-                            .onEnded { g in
-                                isDragging = false
-                                
-                                if let window = UIApplication.shared.windows.first {
-                                    
-                                }
-                                
-                            }
-                    )
+extension View {
+    func readPosition(_ onChange: @escaping (CGRect) -> Void) -> some View {
+        background(
+            GeometryReader { proxy in
+                Color.clear
+                    .preference(key: ViewPositionKey.self,
+                                value: proxy.frame(in: .global))
             }
-        }
+        )
+        .onPreferenceChange(ViewPositionKey.self, perform: onChange)
     }
 }
 
