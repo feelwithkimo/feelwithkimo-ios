@@ -40,7 +40,7 @@ final class BlocksGameViewModel: ObservableObject {
     func handleDragEnd(block: BlockModel, at location: CGPoint) -> Bool {
         //        var bestIndex: Int?
         var bestDist = CGFloat.infinity
-        var position = CGPoint.zero
+        var positionOfOutline = CGPoint.zero
         
         //        for (index, center) in templatePositions {
         //            // skip occupied
@@ -59,22 +59,6 @@ final class BlocksGameViewModel: ObservableObject {
         //            }
         //        }
         
-        for (shapeType, center) in templatePositions {
-            guard shapeType == block.type else { continue }
-            
-            let dx = center.x - location.x
-            let dy = center.y - location.y
-            let dist = hypot(dx, dy)
-            
-            if dist < bestDist {
-                bestDist = dist
-                position = center
-            }
-            
-            print(shapeType, center)
-            print(location)
-        }
-        
         //        if let best = bestIndex, bestDist <= snapRadius {
         //            placedMap[best] = block
         //            if let idx = bottomBlocks.firstIndex(where: { $0.id == block.id }) {
@@ -84,13 +68,33 @@ final class BlocksGameViewModel: ObservableObject {
         //        } else {
         //            return nil
         //        }
+        print("location drag: ", location)
+        print("===")
+        for (shapeType, center) in templatePositions {
+            guard shapeType == block.type else { continue }
+            
+            let dx = center.x - location.x
+            let dy = center.y - location.y
+            let dist = hypot(dx, dy)
+            
+            if dist < bestDist {
+                bestDist = dist
+                positionOfOutline = center
+            }
+            
+            print(shapeType, center)
+        }
+        print("-------")
+        print("Best Dist: ", bestDist)
         
         if bestDist <= snapRadius {
             if let idx = bottomBlocks.firstIndex(where: { $0.id == block.id }) {
                 bottomBlocks.remove(at: idx)
             }
+            
+            print("PositionOfOutline yang dibuang: ", positionOfOutline)
             templatePositions.removeAll {
-                $0.point == position
+                $0.point == positionOfOutline
             }
             return true
         }

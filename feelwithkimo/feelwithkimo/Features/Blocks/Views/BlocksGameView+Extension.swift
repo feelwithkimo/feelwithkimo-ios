@@ -10,11 +10,13 @@ import SwiftUI
 extension BlocksGameView {
     
     var shapesView: some View {
-        HStack{
+        HStack(spacing: 82.getWidth()) {
             shapesGuideCard(blockPlacements: GameLevel.level1.templatePlacements)
-            shapesOutlineView(blockPlacements:GameLevel.level1.templatePlacements)
+            shapesOutlineView(blockPlacements: GameLevel.level1.templatePlacements)
         }
-        .padding(.horizontal, 160.getWidth())
+        .padding(.vertical, 44.getHeight())
+        .padding(.leading, 252.getWidth())
+        .border(.cyan)
     }
     
     func renderBtmBarShapes(placements: [BlockPlacement]) -> some View {
@@ -34,7 +36,18 @@ extension BlocksGameView {
                     .contentShape(Rectangle())
                     .offset(currentDragBlock?.id == block.id ? dragTranslation : .zero)
                     .zIndex(currentDragBlock?.id == block.id ? 100 : 0)
-                    .background( GeometryReader { geo in Color.clear .preference( key: FramePreferenceKey.self, value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))] ) } .onPreferenceChange(FramePreferenceKey.self) { prefs in for (id, frame) in prefs { viewModel.bottomFrames[id] = frame } } .allowsHitTesting(false) )
+                    .background(
+                        GeometryReader { geo in
+                            Color.clear .preference(
+                                key: FramePreferenceKey.self,
+                                value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
+                            )
+                        }
+                        .onPreferenceChange(FramePreferenceKey.self) { prefs in
+                            for (id, frame) in prefs {
+                                viewModel.bottomFrames[id] = frame
+                            }
+                        } .allowsHitTesting(false) )
                     .gesture(
                         DragGesture()
                             .onChanged { g in
@@ -87,8 +100,8 @@ extension BlocksGameView {
             ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
                 
                 let isHint = revealMode && revealIndex == index
-                let isBeforeHint = revealMode && revealIndex != nil && index < revealIndex!
-                let isAfterHint = revealMode && revealIndex != nil && index > revealIndex!
+                let isBeforeHint = revealMode && revealIndex != nil && index < revealIndex ?? -1
+                let isAfterHint = revealMode && revealIndex != nil && index > revealIndex ?? -1
                 
                 if !isAfterHint {
                     if isHint {
@@ -99,8 +112,13 @@ extension BlocksGameView {
                             .frame(width: placement.size.width, height: placement.size.height)
                             .offset(x: placement.position.x, y: placement.position.y)
                             .readPosition { frame in
+                                print(placement.block.type, frame.origin)
+                                print("Adjustment from placement: ", placement.position.x, placement.position.y)
+                                let finalX = frame.origin.x + placement.position.x + placement.size.width/2
+                                let finalY = frame.origin.y + placement.position.y + placement.size.height/2
+                                print("FInalX & finalY: ", finalX, finalY)
                                 viewModel.templatePositions.append(
-                                    (shapeType: placement.block.type, point: frame.origin)
+                                    (shapeType: placement.block.type, point: CGPoint(x: finalX, y: finalY))
                                 )
                             }
                     } else {
@@ -118,6 +136,11 @@ extension BlocksGameView {
             }
         }
         .frame(width: maxX, height: maxY, alignment: .topLeading)
+        .border(.red)
+        .readPosition { frame in
+            print("rendering renderShapes()")
+            print(frame.origin)
+        }
     }
     
     func shapesGuideCard(blockPlacements: [BlockPlacement]) -> some View {
@@ -157,20 +180,19 @@ extension BlocksGameView {
     }
     
     func shapesOutlineView(blockPlacements: [BlockPlacement]) -> some View {
-        return VStack(alignment: .center){
+        return VStack(alignment: .center) {
             Spacer()
-            VStack{
+            VStack {
                 renderShapes(
                     placements: blockPlacements,
                     revealMode: true,
                     revealIndex: 2
                 )
             }
-            .padding(.horizontal, 43.getWidth())
-            .padding(.vertical, 23.getHeight())
+//            .padding(.horizontal, 43.getWidth())
+//            .padding(.vertical, 23.getHeight())
+            .border(.black)
         }
-        .padding(.horizontal, 43.getWidth())
-        .cornerRadius(30.getHeight())
     }
     
     func bottomBar(placements: [BlockPlacement]) -> some View {

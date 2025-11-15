@@ -14,18 +14,16 @@ struct BlocksGameView: View {
     
     @State var currentDragBlock: BlockModel?
     @State var dragTranslation: CGSize = .zero
-    @State var dragStartLocationInGame: CGPoint? = nil
+    @State var dragStartLocationInGame: CGPoint?
     
     var body: some View {
-        ZStack{
+        ZStack {
             ColorToken.backgroundHome.toColor()
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Spacer()
                 
                 shapesView
-                    .padding(.top, 44.getHeight())
-                    .padding(.bottom, 44.getHeight())
-                    .padding(.leading, 252.getWidth())
+
                 Spacer()
                 
                 Rectangle()
