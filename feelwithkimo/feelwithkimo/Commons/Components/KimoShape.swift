@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+private func isInvalid(_ rect: CGRect) -> Bool {
+    rect.width <= 0 || rect.height <= 0 || rect.width.isNaN || rect.height.isNaN
+}
+
 extension Shape {
     func dashedStroke(color: Color, lineWidth: CGFloat = 2, dash: [CGFloat] = [6]) -> some View {
         self.stroke(style: StrokeStyle(lineWidth: lineWidth, dash: dash))
@@ -29,32 +33,38 @@ func shape(for type: ShapeType) -> AnyShape {
 
 struct SquareShape: Shape {
     func path(in rect: CGRect) -> Path {
+        if isInvalid(rect) { return Path() }
+
         let side = min(rect.width, rect.height)
         let offsetX = (rect.width - side) / 2
         let offsetY = (rect.height - side) / 2
-        
+
         var p = Path()
         p.addRect(
-            CGRect(x: rect.minX + offsetX,
-                   y: rect.minY + offsetY,
-                   width: side,
-                   height: side)
+            CGRect(
+                x: rect.minX + offsetX,
+                y: rect.minY + offsetY,
+                width: side,
+                height: side
+            )
         )
         return p
     }
 }
 
 struct RectangleShape: Shape {
-    let ratio: RectangleRatio 
+    let ratio: RectangleRatio
     
     func path(in rect: CGRect) -> Path {
+        if isInvalid(rect) { return Path() }
+
         let aspect = ratio.value
         
-        var width = rect.width
+        var width = max(rect.width, 1)
         var height = width / aspect
         
         if height > rect.height {
-            height = rect.height
+            height = max(rect.height, 1)
             width = height * aspect
         }
         
@@ -62,13 +72,15 @@ struct RectangleShape: Shape {
         let y = rect.midY - height / 2
         
         var p = Path()
-        p.addRect(.init(x: x, y: y, width: width, height: height))
+        p.addRect(CGRect(x: x, y: y, width: width, height: height))
         return p
     }
 }
 
 struct TriangleShape: Shape {
     func path(in rect: CGRect) -> Path {
+        if isInvalid(rect) { return Path() }
+
         var p = Path()
         p.move(to: CGPoint(x: rect.midX, y: rect.minY))
         p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
@@ -80,11 +92,12 @@ struct TriangleShape: Shape {
 
 struct ArchShape: Shape {
     func path(in rect: CGRect) -> Path {
+        if isInvalid(rect) { return Path() }
+
         var p = Path()
-        
         p.addRect(rect)
         
-        let diameter = rect.height
+        let diameter = max(rect.height, 1)
         let radius = diameter / 2
         
         let center = CGPoint(x: rect.midX, y: rect.maxY)
