@@ -43,11 +43,11 @@ extension BlocksGameView {
                                 value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
                             )
                         }
-                        .onPreferenceChange(FramePreferenceKey.self) { prefs in
-                            for (id, frame) in prefs {
-                                viewModel.bottomFrames[id] = frame
-                            }
-                        } .allowsHitTesting(false) )
+                            .onPreferenceChange(FramePreferenceKey.self) { prefs in
+                                for (id, frame) in prefs {
+                                    viewModel.bottomFrames[id] = frame
+                                }
+                            } .allowsHitTesting(false) )
                     .gesture(
                         DragGesture()
                             .onChanged { g in
@@ -112,14 +112,20 @@ extension BlocksGameView {
                             .frame(width: placement.size.width, height: placement.size.height)
                             .offset(x: placement.position.x, y: placement.position.y)
                             .readPosition { frame in
-                                print(placement.block.type, frame.origin)
-                                print("Adjustment from placement: ", placement.position.x, placement.position.y)
-                                let finalX = frame.origin.x + placement.position.x + placement.size.width/2
-                                let finalY = frame.origin.y + placement.position.y + placement.size.height/2
-                                print("FInalX & finalY: ", finalX, finalY)
-                                viewModel.templatePositions.append(
-                                    (shapeType: placement.block.type, point: CGPoint(x: finalX, y: finalY))
-                                )
+                                //                                print(placement.block.type, frame.origin)
+                                //                                print("Adjustment from placement: ", placement.position.x, placement.position.y)
+                                let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
+                                let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
+                                
+                                // ALWAYS insert the center
+                                if index < viewModel.templatePositions.count {
+                                    viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
+                                } else {
+                                    viewModel.templatePositions.append(
+                                        (shapeType: placement.block.type,
+                                         point: CGPoint(x: finalX, y: finalY))
+                                    )
+                                }
                             }
                     } else {
                         // solid block
@@ -186,11 +192,11 @@ extension BlocksGameView {
                 renderShapes(
                     placements: blockPlacements,
                     revealMode: true,
-                    revealIndex: 2
+                    revealIndex: viewModel.revealIndex
                 )
             }
-//            .padding(.horizontal, 43.getWidth())
-//            .padding(.vertical, 23.getHeight())
+            //            .padding(.horizontal, 43.getWidth())
+            //            .padding(.vertical, 23.getHeight())
             .border(.black)
         }
     }

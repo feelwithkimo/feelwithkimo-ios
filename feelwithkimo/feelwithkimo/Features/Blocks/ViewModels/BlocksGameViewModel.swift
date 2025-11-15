@@ -15,6 +15,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var templateFrames: [Int: CGRect] = [:]
     @Published var bottomFrames: [UUID: CGRect] = [:]
     @Published var templatePositions: [(shapeType: ShapeType, point: CGPoint)] = []
+    @Published var revealIndex: Int = 0
     
     var snapRadius: CGFloat = 60
     
@@ -34,6 +35,14 @@ final class BlocksGameViewModel: ObservableObject {
     
     func isPlaced(_ id: UUID) -> Bool {
         return placedMap.values.contains { $0.id == id }
+    }
+    
+    func advanceReveal() {
+        self.revealIndex += 1
+        
+        if (self.revealIndex > level.templatePlacements.count) {
+            self.revealIndex = 0
+        }
     }
     
     /// location must be in the same coordinate space as templateFrames (we'll use "blocksGame")
@@ -96,6 +105,12 @@ final class BlocksGameViewModel: ObservableObject {
             templatePositions.removeAll {
                 $0.point == positionOfOutline
             }
+            
+            DispatchQueue.main.async {
+                self.advanceReveal()
+                print("reveal index:", self.revealIndex)
+            }
+            
             return true
         }
         return false
