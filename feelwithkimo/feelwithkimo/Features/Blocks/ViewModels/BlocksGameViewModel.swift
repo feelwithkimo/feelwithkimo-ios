@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class BlocksGameViewModel: ObservableObject {
-    @Published var level: GameLevel = GameLevel.level1
+    @Published var level: GameLevel = GameLevel.level2
     @Published var bottomBlocks: [BlockModel] = []
     @Published var placedMap: [Int: BlockModel] = [:]
     @Published var templateFrames: [Int: CGRect] = [:]
@@ -20,7 +20,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var snapTarget: CGPoint? = nil
     @Published var snappingBlockId: UUID? = nil
     
-    var snapRadius: CGFloat = 60
+    var snapRadius: CGFloat = 150
     
     var blockSizes: [UUID: CGSize] {
         Dictionary(
@@ -31,6 +31,7 @@ final class BlocksGameViewModel: ObservableObject {
     }
     
     init(level: GameLevel) {
+        self.level = level
         bottomBlocks = level.templatePlacements.map { placement in
             BlockModel(id: placement.block.id, type: placement.block.type, color: placement.block.color)
         }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BlocksGameView: View {
-    @StateObject var viewModel = BlocksGameViewModel(level: .level1)
+    @StateObject var viewModel = BlocksGameViewModel(level: .level2)
     
     let gameCoordinateSpaceName = "blocksGame"
     
@@ -71,7 +71,7 @@ struct BlocksGameView: View {
         .ignoresSafeArea(edges: .all)
         .onPreferenceChange(FramePreferenceKey.self) { pref in
             var indexToFrame: [Int: CGRect] = [:]
-            for (i, placement) in GameLevel.level1.templatePlacements.enumerated() {
+            for (i, placement) in viewModel.level.templatePlacements.enumerated() {
                 if let frame = pref[placement.block.id] {
                     indexToFrame[i] = frame
                 }

@@ -11,8 +11,8 @@ extension BlocksGameView {
     
     var shapesView: some View {
         HStack(spacing: 82.getWidth()) {
-            shapesGuideCard(blockPlacements: GameLevel.level1.templatePlacements)
-            shapesOutlineView(blockPlacements: GameLevel.level1.templatePlacements)
+            shapesGuideCard(blockPlacements: viewModel.level.templatePlacements)
+            shapesOutlineView(blockPlacements: viewModel.level.templatePlacements)
         }
         .padding(.vertical, 44.getHeight())
         .padding(.leading, 252.getWidth())
