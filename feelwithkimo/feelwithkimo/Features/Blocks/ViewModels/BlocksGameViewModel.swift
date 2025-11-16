@@ -20,6 +20,11 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var snapTarget: CGPoint?
     @Published var snappingBlockId: UUID?
     
+    @Published var currentDragBlock: BlockModel?
+    @Published var dragTranslation: CGSize = .zero
+    @Published var dragStartLocationInGame: CGPoint?
+    @Published var burstLocation: CGPoint?
+    
     var snapRadius: CGFloat = 150
     
     var blockSizes: [UUID: CGSize] {

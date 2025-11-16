@@ -12,12 +12,6 @@ struct BlocksGameView: View {
     
     let gameCoordinateSpaceName = "blocksGame"
     
-    @State var currentDragBlock: BlockModel?
-    @State var dragTranslation: CGSize = .zero
-    @State var dragStartLocationInGame: CGPoint?
-    
-    @State var burstLocation: CGPoint?
-    
     var body: some View {
         ZStack {
             ColorToken.backgroundHome.toColor()
@@ -79,7 +73,7 @@ struct BlocksGameView: View {
         }
         .overlay(
             Group {
-                if let loc = burstLocation {
+                if let loc = viewModel.burstLocation {
                     StarBurstView(center: loc)
                 }
             }

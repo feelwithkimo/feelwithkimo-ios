@@ -34,8 +34,8 @@ extension BlocksGameView {
                     .padding(.horizontal, 30.getWidth())
                     .contentShape(Rectangle())
                     .offset({
-                        if currentDragBlock?.id == block.id {
-                            return dragTranslation
+                        if viewModel.currentDragBlock?.id == block.id {
+                            return viewModel.dragTranslation
                         }
                         
                         if viewModel.snappingBlockId == block.id,
@@ -50,7 +50,7 @@ extension BlocksGameView {
                         return .zero
                     }())
                     .animation(.spring(), value: viewModel.snappingBlockId)
-                    .zIndex(currentDragBlock?.id == block.id ? 100 : 0)
+                    .zIndex(viewModel.currentDragBlock?.id == block.id ? 100 : 0)
                     .background(
                         GeometryReader { geo in
                             Color.clear .preference(
@@ -77,13 +77,13 @@ extension BlocksGameView {
     func dragGesture(block: BlockModel) -> some Gesture {
         DragGesture()
             .onChanged { geo in
-                if currentDragBlock == nil {
-                    currentDragBlock = block
+                if viewModel.currentDragBlock == nil {
+                    viewModel.currentDragBlock = block
                 }
-                dragTranslation = geo.translation
+                viewModel.dragTranslation = geo.translation
             }
             .onEnded { geo in
-                guard let dragging = currentDragBlock else { return }
+                guard let dragging = viewModel.currentDragBlock else { return }
                 
                 // get bottom frame for this dragging item (in same coordinate space)
                 if let bottomFrame = viewModel.bottomFrames[dragging.id] {
@@ -92,22 +92,22 @@ extension BlocksGameView {
                                            y: startCenter.y + geo.translation.height)
                     if viewModel.handleDragEnd(block: dragging, at: endPoint) {
                         withAnimation(.spring()) {
-                            currentDragBlock = nil
-                            dragTranslation = .zero
+                            viewModel.currentDragBlock = nil
+                            viewModel.dragTranslation = .zero
                         }
                         
                         showStarBurst(at: endPoint)
                     } else {
                         withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
-                            currentDragBlock = nil
-                            dragTranslation = .zero
+                            viewModel.currentDragBlock = nil
+                            viewModel.dragTranslation = .zero
                         }
                     }
                 } else {
                     // bottom frame not known yet
                     withAnimation(.spring()) {
-                        currentDragBlock = nil
-                        dragTranslation = .zero
+                        viewModel.currentDragBlock = nil
+                        viewModel.dragTranslation = .zero
                     }
                 }
             }
@@ -243,10 +243,10 @@ extension BlocksGameView {
     }
     
     func showStarBurst(at point: CGPoint) {
-        burstLocation = point
+        viewModel.burstLocation = point
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            burstLocation = nil
+            viewModel.burstLocation = nil
         }
     }
 }
