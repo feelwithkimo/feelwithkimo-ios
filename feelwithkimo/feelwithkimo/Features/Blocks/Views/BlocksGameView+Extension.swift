@@ -38,16 +38,16 @@ extension BlocksGameView {
                         if currentDragBlock?.id == block.id {
                             return dragTranslation
                         }
-
+                        
                         if viewModel.snappingBlockId == block.id,
                            let target = viewModel.snapTarget,
                            let myFrame = viewModel.bottomFrames[block.id] {
-
+                            
                             let dx = target.x - myFrame.midX + 20.getHeight()
                             let dy = target.y - myFrame.midY
                             return CGSize(width: dx, height: dy)
                         }
-
+                        
                         return .zero
                     }())
                     .animation(.spring(), value: viewModel.snappingBlockId)
@@ -85,6 +85,8 @@ extension BlocksGameView {
                                             currentDragBlock = nil
                                             dragTranslation = .zero
                                         }
+                                        
+                                        showStarBurst(at: endPoint)
                                     } else {
                                         withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
                                             currentDragBlock = nil
@@ -237,6 +239,14 @@ extension BlocksGameView {
         )
         .shadow(color: ColorToken.emotionSadness.toColor().opacity(0.2),
                 radius: 20, x: 0, y: -15.getHeight())
+    }
+    
+    func showStarBurst(at point: CGPoint) {
+        burstLocation = point
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            burstLocation = nil
+        }
     }
 }
 
