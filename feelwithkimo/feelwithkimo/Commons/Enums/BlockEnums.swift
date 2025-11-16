@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+// MARK: - Game State Management
+enum BlockBuildingState {
+    case stage1
+    case stage1Completed
+    case stage2
+    case stage2Completed
+}
+
+// MARK: - Shape Types
 enum ShapeType: String {
     case rectangle, square, arch, triangle
 }
@@ -23,12 +32,14 @@ enum RectangleRatio {
     }
 }
 
+// MARK: - Block Placement
 struct BlockPlacement {
     let block: BlockModel
     let position: CGPoint
     let size: CGSize
 }
 
+// MARK: - Game Levels
 enum GameLevel: CaseIterable {
     case level1, level2
 

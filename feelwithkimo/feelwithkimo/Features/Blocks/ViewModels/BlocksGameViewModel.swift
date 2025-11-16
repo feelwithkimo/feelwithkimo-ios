@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class BlocksGameViewModel: ObservableObject {
-    @Published var level: GameLevel = GameLevel.level2
+    @Published var level: GameLevel
     @Published var bottomBlocks: [BlockModel] = []
     @Published var placedMap: [Int: BlockModel] = [:]
     @Published var templateFrames: [Int: CGRect] = [:]
@@ -26,6 +26,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var burstLocation: CGPoint?
     
     var snapRadius: CGFloat = 150
+    var onComplete: (() -> Void)?
     
     var blockSizes: [UUID: CGSize] {
         Dictionary(
@@ -35,8 +36,14 @@ final class BlocksGameViewModel: ObservableObject {
         )
     }
     
-    init(level: GameLevel) {
+    // Check if game is complete
+    var isGameComplete: Bool {
+        return bottomBlocks.isEmpty
+    }
+    
+    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
         self.level = level
+        self.onComplete = onComplete
         bottomBlocks = level.templatePlacements.map { placement in
             BlockModel(id: placement.block.id, type: placement.block.type, color: placement.block.color)
         }
@@ -69,7 +76,6 @@ final class BlocksGameViewModel: ObservableObject {
                 bestDist = dist
                 positionOfOutline = center
             }
-            
         }
         
         if bestDist <= snapRadius {
@@ -86,6 +92,14 @@ final class BlocksGameViewModel: ObservableObject {
                 self.templatePositions.removeAll { $0.point == positionOfOutline }
                 
                 self.advanceReveal()
+                
+                // Check if game is complete after snap animation
+                if self.isGameComplete {
+                    // Delay to show the final placement before completion
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.onComplete?()
+                    }
+                }
             }
             
             return true
@@ -114,6 +128,4 @@ final class BlocksGameViewModel: ObservableObject {
             bottomFrames = pref
         }
     }
-    
-    
 }

@@ -273,9 +273,9 @@ struct ViewPositionKey: PreferenceKey {
 }
 
 #Preview {
-    BlocksGameView().shapesGuideCard(blockPlacements: GameLevel.level2.templatePlacements)
+    BlocksGameView(level: .level2).shapesGuideCard(blockPlacements: GameLevel.level2.templatePlacements)
 }
 
 #Preview("Blocks Game View") {
-    BlocksGameView()
+    BlocksGameView(level: .level1)
 }

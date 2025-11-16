@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct BlocksGameView: View {
-    @StateObject var viewModel = BlocksGameViewModel(level: .level2)
+    @StateObject var viewModel: BlocksGameViewModel
     
     let gameCoordinateSpaceName = "blocksGame"
+    
+    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
+        _viewModel = StateObject(wrappedValue: BlocksGameViewModel(level: level, onComplete: onComplete))
+    }
     
     var body: some View {
         ZStack {
@@ -82,5 +86,5 @@ struct BlocksGameView: View {
 }
 
 #Preview {
-    BlocksGameView()
+    BlocksGameView(level: .level1)
 }

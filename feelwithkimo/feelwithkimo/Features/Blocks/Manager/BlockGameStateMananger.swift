@@ -1,5 +1,5 @@
 //
-//  BlockBuildingStateMananger.swift
+//  BlockGameStateManager.swift
 //  feelwithkimo
 //
 //  Created by Aristo Yongka on 14/11/25.
@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct BlockBuildingStateManager: View {
-    @State private var currentState: BlockBuildingEnums = .stage1
+struct BlockGameStateManager: View {
+    @State private var currentState: BlockBuildingState = .stage1
     
     var body: some View {
         ZStack {
             switch currentState {
             case .stage1:
-                // TODO: Replace with your actual GameStage1View
-                GameStage1View(onComplete: {
+                BlocksGameView(level: .level1, onComplete: {
                     currentState = .stage1Completed
                 })
                 
@@ -35,24 +34,22 @@ struct BlockBuildingStateManager: View {
                 )
                 
             case .stage2:
-                // TODO: Replace with your actual GameStage2View
-                GameStage2View(onComplete: {
+                BlocksGameView(level: .level2, onComplete: {
                     currentState = .stage2Completed
                 })
                 
             case .stage2Completed:
                 CompletionPageView(
                     title: "Hore Berhasil!!!",
-                    primaryButtonLabel: "Main Lagi",
-                    secondaryButtonLabel: "Selesai",
+                    primaryButtonLabel: "Coba Lagi",
+                    secondaryButtonLabel: "Lanjutkan",
                     onPrimaryAction: {
-                        // Restart from stage 1
-                        currentState = .stage1
+                        // Retry stage 2
+                        currentState = .stage2
                     },
                     onSecondaryAction: {
-                        // Exit game or go to home
-                        // Handle game completion
-                        handleGameCompletion()
+                        // Void for now - will be implemented later
+                        print("Stage 2 completed - Lanjutkan button pressed")
                     }
                 )
             }
@@ -60,11 +57,8 @@ struct BlockBuildingStateManager: View {
         .transition(.opacity)
         .animation(.easeInOut(duration: 0.3), value: currentState)
     }
-    
-    // MARK: - Helper Methods
-    private func handleGameCompletion() {
-        // TODO: Implement game completion logic
-        // e.g., navigate to home, save progress, show rewards, etc.
-        print("Game completed!")
-    }
+}
+
+#Preview {
+    BlockGameStateManager()
 }
