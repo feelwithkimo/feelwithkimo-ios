@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BlockGameStateManager: View {
     @State private var currentState: BlockBuildingState = .stage1
+    @State private var gameResetKey: Int = 0  // Key to force game reset
     
     var body: some View {
         ZStack {
@@ -18,11 +19,13 @@ struct BlockGameStateManager: View {
                 BlocksGameView(level: .level1, onComplete: {
                     currentState = .stage1Completed
                 })
+                .id("level1-\(gameResetKey)")  // Force recreate when key changes
                 
             case .stage2, .stage2Completed:
                 BlocksGameView(level: .level2, onComplete: {
                     currentState = .stage2Completed
                 })
+                .id("level2-\(gameResetKey)")  // Force recreate when key changes
             }
             
             // Overlay completion pages on top when needed
@@ -32,12 +35,18 @@ struct BlockGameStateManager: View {
                     primaryButtonLabel: "Coba lagi",
                     secondaryButtonLabel: "Lanjutkan",
                     onPrimaryAction: {
-                        // Retry stage 1
+                        // Retry stage 1 - reset state first, then increment key
                         currentState = .stage1
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            gameResetKey += 1
+                        }
                     },
                     onSecondaryAction: {
-                        // Continue to stage 2
+                        // Continue to stage 2 - reset state first, then increment key
                         currentState = .stage2
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            gameResetKey += 1
+                        }
                     },
                     background: {
                         EmptyView()
@@ -52,8 +61,11 @@ struct BlockGameStateManager: View {
                     primaryButtonLabel: "Coba Lagi",
                     secondaryButtonLabel: "Lanjutkan",
                     onPrimaryAction: {
-                        // Retry stage 2
+                        // Retry stage 2 - reset state first, then increment key
                         currentState = .stage2
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            gameResetKey += 1
+                        }
                     },
                     onSecondaryAction: {
                         // Void for now - will be implemented later

@@ -95,10 +95,8 @@ final class BlocksGameViewModel: ObservableObject {
                 
                 // Check if game is complete after snap animation
                 if self.isGameComplete {
-                    // Delay to show the final placement before completion
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.onComplete?()
-                    }
+                    // Show completion page immediately after the last block snaps
+                    self.onComplete?()
                 }
             }
             
