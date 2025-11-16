@@ -79,9 +79,10 @@ struct CompletionPageView: View {
             showTitle = true
         }
         
-        // 5. Bounce in elephant with scale (0.6s)
+        // 5. Bounce in elephant with scale (0.6s) + Play sound
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             showElephant = true
+            AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
         }
         
         // 6. Slide up buttons from bottom (0.8s)

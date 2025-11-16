@@ -110,3 +110,9 @@ struct CompletionCardView: View {
     CompletionCardView()
         .background(ColorToken.backgroundMain.toColor())
 }
+
+
+// Todo:
+// - music
+// - refactor
+// - font
