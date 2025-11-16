@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct CompletionPageView: View {
+struct CompletionPageView<Background: View>: View {
     var title: String = "Tahap 1 Selesai!!!"
     var primaryButtonLabel: String = "Coba lagi"
     var secondaryButtonLabel: String = "Lanjutkan"
     var onPrimaryAction: (() -> Void)?
     var onSecondaryAction: (() -> Void)?
+    var background: () -> Background
     
     @State private var showOverlay = false
     @State private var showConfetti = false
@@ -23,11 +24,8 @@ struct CompletionPageView: View {
     
     var body: some View {
         ZStack {
-            // Background image
-            Image("Scene 17")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
+            // Background view (the game itself)
+            background()
             
             // Black overlay with fade in animation
             Color.black.opacity(showOverlay ? 0.7 : 0)
@@ -212,6 +210,9 @@ struct AnimatedCompletionCard: View {
         },
         onSecondaryAction: {
             print("Secondary button tapped")
+        },
+        background: {
+            BlocksGameView(level: .level1)
         }
     )
 }
