@@ -57,16 +57,24 @@ struct CompletionPageView<Background: View>: View {
     }
     
     private func startAnimationSequence() {
-        // Everything appears immediately - instant!
+        // 1. Show overlay and confetti immediately
         showOverlay = true
         showConfetti = true
-        showCard = true
-        showTitle = true
-        showElephant = true
-        showButtons = true
         
-        // Play elephant sound immediately
-        AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
+        // 2. Show card with all elements after 0.3s delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation {
+                self.showCard = true
+                self.showTitle = true
+                self.showElephant = true
+                self.showButtons = true
+            }
+            
+            // 3. Play elephant sound when elephant appears (after the 0.3s delay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
+            }
+        }
     }
 }
 
@@ -116,7 +124,7 @@ struct AnimatedCompletionCard: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(ColorToken.coreAccent.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
-                        .offset(y: 10)
+                        .offset(y: 12)
                     
                     // Main title background (flatter elongated rounded rectangle)
                     RoundedRectangle(cornerRadius: 20)
@@ -124,7 +132,7 @@ struct AnimatedCompletionCard: View {
                         .frame(width: 520.getWidth(), height: 68.getHeight())
                     
                     Text(title)
-                        .font(.app(size: 50, family: .primary, weight: .bold))
+                        .font(Font(UIFont.appFont(size: 50, family: .primary, weight: .bold)))
                         .foregroundStyle(Color.white)
                 }
                 .offset(y: showTitle ? -34.getHeight() : -200.getHeight())
