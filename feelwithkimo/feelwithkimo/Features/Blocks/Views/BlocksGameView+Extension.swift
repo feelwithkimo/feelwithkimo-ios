@@ -86,7 +86,7 @@ extension BlocksGameView {
                                             dragTranslation = .zero
                                         }
                                     } else {
-                                        withAnimation(.spring()) {
+                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
                                             currentDragBlock = nil
                                             dragTranslation = .zero
                                         }
