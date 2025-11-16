@@ -30,7 +30,7 @@ struct CompletionPageView<Background: View>: View {
             // Black overlay with fade in animation
             Color.black.opacity(showOverlay ? 0.7 : 0)
                 .ignoresSafeArea()
-                .animation(.easeIn(duration: 0.3), value: showOverlay)
+                .animation(.easeIn(duration: 0.2), value: showOverlay)
             
             // Confetti effect layer - appears early
             if showConfetti {
@@ -57,36 +57,16 @@ struct CompletionPageView<Background: View>: View {
     }
     
     private func startAnimationSequence() {
-        // 1. Fade in overlay (0.0s)
-        withAnimation {
-            showOverlay = true
-        }
+        // Everything appears immediately - instant!
+        showOverlay = true
+        showConfetti = true
+        showCard = true
+        showTitle = true
+        showElephant = true
+        showButtons = true
         
-        // 2. Show confetti ribbons (0.15s) - slightly earlier
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            showConfetti = true
-        }
-        
-        // 3. Pop in card with bounce (0.25s) - slightly earlier
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            showCard = true
-        }
-        
-        // 4. Slide in title from top (0.4s) - earlier
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            showTitle = true
-        }
-        
-        // 5. Bounce in elephant with scale (0.45s) - much earlier, almost with title
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
-            showElephant = true
-            AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
-        }
-        
-        // 6. Slide up buttons from bottom (0.65s) - earlier
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-            showButtons = true
-        }
+        // Play elephant sound immediately
+        AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
     }
 }
 
@@ -126,30 +106,30 @@ struct AnimatedCompletionCard: View {
                 )
                 .scaleEffect(showCard ? 1.0 : 0.3)
                 .opacity(showCard ? 1 : 0)
-                .animation(.spring(response: 0.5, dampingFraction: 0.7, blendDuration: 0), value: showCard)
+                .animation(.spring(response: 0.35, dampingFraction: 0.75, blendDuration: 0), value: showCard)
             
             // Title and Buttons Layer
             VStack(spacing: 0) {
                 // Title bubble - slides from top with bounce
                 ZStack {
-                    // Shadow layer
-                    RoundedRectangle(cornerRadius: 50)
+                    // Shadow layer (flatter, more elongated)
+                    RoundedRectangle(cornerRadius: 20)
                         .fill(ColorToken.coreAccent.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
-                        .offset(y: 5)
+                        .offset(y: 10)
                     
-                    // Main title background
-                    RoundedRectangle(cornerRadius: 50)
-                        .fill(ColorToken.coreAccent.toColor())
+                    // Main title background (flatter elongated rounded rectangle)
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(ColorToken.emotionDisgusted.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
                     
                     Text(title)
-                        .font(.app(size: 40, family: .primary, weight: .bold))
+                        .font(.app(size: 50, family: .primary, weight: .bold))
                         .foregroundStyle(Color.white)
                 }
                 .offset(y: showTitle ? -34.getHeight() : -200.getHeight())
                 .opacity(showTitle ? 1 : 0)
-                .animation(.spring(response: 0.45, dampingFraction: 0.75), value: showTitle)
+                .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showTitle)
                 
                 Spacer()
                 
@@ -197,7 +177,7 @@ struct AnimatedCompletionCard: View {
                 .scaleEffect(showElephant ? 1.0 : 0)
                 .offset(y: showElephant ? -50.getHeight() : 50.getHeight())
                 .opacity(showElephant ? 1 : 0)
-                .animation(.spring(response: 0.5, dampingFraction: 0.65), value: showElephant)
+                .animation(.spring(response: 0.4, dampingFraction: 0.7), value: showElephant)
         }
         .frame(width: 700.getWidth(), height: 620.getHeight())
     }
