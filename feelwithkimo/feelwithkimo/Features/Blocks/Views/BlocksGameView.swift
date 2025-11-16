@@ -41,7 +41,7 @@ struct BlocksGameView: View {
             .frame(maxWidth: .infinity)
             
             ZStack {
-                ForEach(Array(viewModel.level.templatePlacements.enumerated()), id: \.offset) { index, template in
+                ForEach(Array(viewModel.level.templatePlacements.enumerated()), id: \.offset) { index, _ in
                     if let placed = viewModel.placedMap[index] {
                         if let frame = viewModel.templateFrames[index] {
                             shape(for: placed.type)
@@ -55,7 +55,7 @@ struct BlocksGameView: View {
                 }
             }
             
-            VStack{
+            VStack {
                 Spacer()
                 bottomBar(
                         placements: viewModel.bottomBlocks.map { block in
@@ -69,9 +69,9 @@ struct BlocksGameView: View {
         .ignoresSafeArea(edges: .all)
         .onPreferenceChange(FramePreferenceKey.self) { pref in
             var indexToFrame: [Int: CGRect] = [:]
-            for (i, placement) in viewModel.level.templatePlacements.enumerated() {
+            for (idx, placement) in viewModel.level.templatePlacements.enumerated() {
                 if let frame = pref[placement.block.id] {
-                    indexToFrame[i] = frame
+                    indexToFrame[idx] = frame
                 }
             }
             if indexToFrame != viewModel.templateFrames {

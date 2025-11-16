@@ -20,7 +20,7 @@ extension BlocksGameView {
     
     func renderBtmBarShapes(placements: [BlockPlacement]) -> some View {
         return HStack(alignment: .center) {
-            ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
+            ForEach(Array(placements.enumerated()), id: \.element.block.id) { _, placement in
                 
                 let block = placement.block
                 

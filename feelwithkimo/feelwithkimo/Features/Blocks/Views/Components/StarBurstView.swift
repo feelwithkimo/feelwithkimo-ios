@@ -24,14 +24,14 @@ struct StarBurstView: View {
     
     var body: some View {
         ZStack {
-            ForEach(particles) { p in
+            ForEach(particles) { particle in
                 Image(systemName: "sparkle")
                     .resizable()
-                    .frame(width: size * p.scale, height: size * p.scale)
+                    .frame(width: size * particle.scale, height: size * particle.scale)
                     .foregroundColor(ColorToken.emotionJoy.toColor())
-                    .opacity(p.opacity)
-                    .rotationEffect(.degrees(p.rotation))
-                    .position(x: p.positionX, y: p.positionY)
+                    .opacity(particle.opacity)
+                    .rotationEffect(.degrees(particle.rotation))
+                    .position(x: particle.positionX, y: particle.positionY)
             }
         }
         .onAppear { animate() }
@@ -49,12 +49,12 @@ struct StarBurstView: View {
         }
 
         withAnimation(.easeOut(duration: 0.8)) {
-            for i in particles.indices {
-                particles[i].positionX += CGFloat.random(in: -120...120)
-                particles[i].positionY += CGFloat.random(in: -120...120)
-                particles[i].scale = CGFloat.random(in: 0.3...0.7)
-                particles[i].opacity = 0
-                particles[i].rotation += Double.random(in: -90...90)
+            for idx in particles.indices {
+                particles[idx].positionX += CGFloat.random(in: -120...120)
+                particles[idx].positionY += CGFloat.random(in: -120...120)
+                particles[idx].scale = CGFloat.random(in: 0.3...0.7)
+                particles[idx].opacity = 0
+                particles[idx].rotation += Double.random(in: -90...90)
             }
         }
     }

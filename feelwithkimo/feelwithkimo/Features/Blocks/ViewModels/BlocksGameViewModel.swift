@@ -44,7 +44,7 @@ final class BlocksGameViewModel: ObservableObject {
     func advanceReveal() {
         self.revealIndex += 1
         
-        if (self.revealIndex > level.templatePlacements.count) {
+        if self.revealIndex > level.templatePlacements.count {
             self.revealIndex = 0
         }
     }
@@ -56,9 +56,9 @@ final class BlocksGameViewModel: ObservableObject {
         for (shapeType, center) in templatePositions {
             guard shapeType == block.type else { continue }
             
-            let dx = center.x - location.x
-            let dy = center.y - location.y
-            let dist = hypot(dx, dy)
+            let deltaX = center.x - location.x
+            let deltaY = center.y - location.y
+            let dist = hypot(deltaX, deltaY)
             
             if dist < bestDist {
                 bestDist = dist

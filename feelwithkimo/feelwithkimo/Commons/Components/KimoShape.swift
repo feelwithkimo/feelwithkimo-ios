@@ -68,12 +68,12 @@ struct RectangleShape: Shape {
             width = height * aspect
         }
         
-        let x = rect.midX - width / 2
-        let y = rect.midY - height / 2
+        let positionX = rect.midX - width / 2
+        let positionY = rect.midY - height / 2
         
-        var p = Path()
-        p.addRect(CGRect(x: x, y: y, width: width, height: height))
-        return p
+        var path = Path()
+        path.addRect(CGRect(x: positionX, y: positionY, width: width, height: height))
+        return path
     }
 }
 
@@ -94,8 +94,8 @@ struct ArchShape: Shape {
     func path(in rect: CGRect) -> Path {
         if isInvalid(rect) { return Path() }
 
-        var p = Path()
-        p.addRect(rect)
+        var path = Path()
+        path.addRect(rect)
         
         let diameter = max(rect.height, 1)
         let radius = diameter / 2
@@ -112,7 +112,7 @@ struct ArchShape: Shape {
         var cutout = Path()
         cutout.addEllipse(in: circleRect)
         
-        return p.subtracting(cutout)
+        return path.subtracting(cutout)
     }
 }
 
