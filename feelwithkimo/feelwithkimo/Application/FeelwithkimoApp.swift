@@ -13,7 +13,7 @@ struct FeelwithkimoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            BlockGameStateManager()
+            EntryView()
                 .dynamicTypeSize(.xSmall ... .large)
         }
     }
