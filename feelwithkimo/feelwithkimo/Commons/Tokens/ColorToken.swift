@@ -38,7 +38,7 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#9FD9F3"), dark: UIColor.from("#5CACD9"))
     static var emotionSadness: UIColor
-
+    
     @ColorElement(light: UIColor.from("#FF4850"), dark: UIColor.from("#E03A3F"))
     static var emotionAnger: UIColor
 
@@ -102,6 +102,18 @@ enum ColorToken {
 
     @ColorElement(light: UIColor.from("#000000"), dark: UIColor.from("#FFFFFF"))
     static var additionalColorsBlack: UIColor
+    
+    @ColorElement(light: UIColor.from("#45A6D2"), dark: UIColor.from("#45A6D2"))
+    static var additionalColorsLightBlue: UIColor
+    
+    @ColorElement(light: UIColor.from("#EEB5CD"), dark: UIColor.from("#EEB5CD"))
+    static var additionalColorsLightPink: UIColor
+    
+    @ColorElement(light: UIColor.from("#DB7396"), dark: UIColor.from("#DB7396"))
+    static var additionalColorsDarkPink: UIColor
+    
+    @ColorElement(light: UIColor.from("#FADB5C"), dark: UIColor.from("#FADB5C"))
+    static var additionalColorsDustyYellow: UIColor
 
     // MARK: - Grayscale Colors
     @ColorElement(light: UIColor.from("#FDFDFD"), dark: UIColor.from("#FDFDFD"))
