@@ -16,7 +16,6 @@ extension BlocksGameView {
         }
         .padding(.vertical, 44.getHeight())
         .padding(.leading, 252.getWidth())
-        .border(.cyan)
     }
     
     func renderBtmBarShapes(placements: [BlockPlacement]) -> some View {
@@ -160,7 +159,6 @@ extension BlocksGameView {
             }
         }
         .frame(width: maxX, height: maxY, alignment: .topLeading)
-        .border(.red)
         .readPosition { frame in
             print("rendering renderShapes()")
             print(frame.origin)
@@ -215,16 +213,16 @@ extension BlocksGameView {
             }
             //            .padding(.horizontal, 43.getWidth())
             //            .padding(.vertical, 23.getHeight())
-            .border(.black)
         }
     }
     
     func bottomBar(placements: [BlockPlacement]) -> some View {
-        HStack(alignment: .center){
+        HStack(alignment: .center, spacing: 0) {
             renderBtmBarShapes(placements: placements)
         }
         .padding(.horizontal, 60.getWidth())
-        .frame(height: 150.getHeight())
+        .padding(.vertical, 20.getHeight())
+        .frame(minHeight: 150.getHeight())
         .frame(maxWidth: .infinity)
         .background(
             ZStack {
