@@ -17,8 +17,8 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var templatePositions: [(shapeType: ShapeType, point: CGPoint)] = []
     @Published var revealIndex: Int = 0
     
-    @Published var snapTarget: CGPoint? = nil
-    @Published var snappingBlockId: UUID? = nil
+    @Published var snapTarget: CGPoint?
+    @Published var snappingBlockId: UUID?
     
     var snapRadius: CGFloat = 150
     

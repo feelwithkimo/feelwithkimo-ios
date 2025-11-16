@@ -39,8 +39,8 @@ struct SquareShape: Shape {
         let offsetX = (rect.width - side) / 2
         let offsetY = (rect.height - side) / 2
 
-        var p = Path()
-        p.addRect(
+        var path = Path()
+        path.addRect(
             CGRect(
                 x: rect.minX + offsetX,
                 y: rect.minY + offsetY,
@@ -48,7 +48,7 @@ struct SquareShape: Shape {
                 height: side
             )
         )
-        return p
+        return path
     }
 }
 

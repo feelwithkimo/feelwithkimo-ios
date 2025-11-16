@@ -33,7 +33,6 @@ struct BlocksGameView: View {
                     .frame(height: 150.getHeight())
                     .frame(maxWidth: .infinity)
             }
-            // TODO: resolve lala padding positino
             VStack(alignment: .leading) {
                 Image("LalaBlocks")
                     .padding(.trailing, 1000.getWidth())

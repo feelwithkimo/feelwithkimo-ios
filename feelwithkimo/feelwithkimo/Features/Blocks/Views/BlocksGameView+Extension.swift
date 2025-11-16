@@ -42,9 +42,9 @@ extension BlocksGameView {
                            let target = viewModel.snapTarget,
                            let myFrame = viewModel.bottomFrames[block.id] {
                             
-                            let dx = target.x - myFrame.midX + 20.getHeight()
-                            let dy = target.y - myFrame.midY
-                            return CGSize(width: dx, height: dy)
+                            let deltaX = target.x - myFrame.midX + 20.getHeight()
+                            let deltaY = target.y - myFrame.midY
+                            return CGSize(width: deltaX, height: deltaY)
                         }
                         
                         return .zero
@@ -58,51 +58,57 @@ extension BlocksGameView {
                                 value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
                             )
                         }
-                            .onPreferenceChange(FramePreferenceKey.self) { prefs in
-                                for (id, frame) in prefs {
-                                    viewModel.bottomFrames[id] = frame
-                                }
-                            } .allowsHitTesting(false) )
+                        .onPreferenceChange(FramePreferenceKey.self) { prefs in
+                            for (id, frame) in prefs {
+                                viewModel.bottomFrames[id] = frame
+                            }
+                        }
+                        .allowsHitTesting(false)
+                    )
                     .gesture(
-                        DragGesture()
-                            .onChanged { g in
-                                if currentDragBlock == nil {
-                                    currentDragBlock = block
-                                }
-                                dragTranslation = g.translation
-                            }
-                            .onEnded { g in
-                                guard let dragging = currentDragBlock else { return }
-                                
-                                // get bottom frame for this dragging item (in same coordinate space)
-                                if let bottomFrame = viewModel.bottomFrames[dragging.id] {
-                                    let startCenter = CGPoint(x: bottomFrame.midX, y: bottomFrame.midY)
-                                    let endPoint = CGPoint(x: startCenter.x + g.translation.width,
-                                                           y: startCenter.y + g.translation.height)
-                                    if viewModel.handleDragEnd(block: dragging, at: endPoint) {
-                                        withAnimation(.spring()) {
-                                            currentDragBlock = nil
-                                            dragTranslation = .zero
-                                        }
-                                        
-                                        showStarBurst(at: endPoint)
-                                    } else {
-                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
-                                            currentDragBlock = nil
-                                            dragTranslation = .zero
-                                        }
-                                    }
-                                } else {
-                                    // bottom frame not known yet
-                                    withAnimation(.spring()) {
-                                        currentDragBlock = nil
-                                        dragTranslation = .zero
-                                    }
-                                }
-                            }
+                        dragGesture(block: block)
                     )
             }
         }
+    }
+    
+    func dragGesture(block: BlockModel) -> some Gesture {
+        DragGesture()
+            .onChanged { geo in
+                if currentDragBlock == nil {
+                    currentDragBlock = block
+                }
+                dragTranslation = geo.translation
+            }
+            .onEnded { geo in
+                guard let dragging = currentDragBlock else { return }
+                
+                // get bottom frame for this dragging item (in same coordinate space)
+                if let bottomFrame = viewModel.bottomFrames[dragging.id] {
+                    let startCenter = CGPoint(x: bottomFrame.midX, y: bottomFrame.midY)
+                    let endPoint = CGPoint(x: startCenter.x + geo.translation.width,
+                                           y: startCenter.y + geo.translation.height)
+                    if viewModel.handleDragEnd(block: dragging, at: endPoint) {
+                        withAnimation(.spring()) {
+                            currentDragBlock = nil
+                            dragTranslation = .zero
+                        }
+                        
+                        showStarBurst(at: endPoint)
+                    } else {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
+                            currentDragBlock = nil
+                            dragTranslation = .zero
+                        }
+                    }
+                } else {
+                    // bottom frame not known yet
+                    withAnimation(.spring()) {
+                        currentDragBlock = nil
+                        dragTranslation = .zero
+                    }
+                }
+            }
     }
     
     func renderShapes(
@@ -117,7 +123,6 @@ extension BlocksGameView {
             ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
                 
                 let isHint = revealMode && revealIndex == index
-                let isBeforeHint = revealMode && revealIndex != nil && index < revealIndex ?? -1
                 let isAfterHint = revealMode && revealIndex != nil && index > revealIndex ?? -1
                 
                 if !isAfterHint {
@@ -165,10 +170,9 @@ extension BlocksGameView {
     
     func shapesGuideCard(blockPlacements: [BlockPlacement]) -> some View {
         let placements: [BlockPlacement] = blockPlacements
-        let maxX = placements.map { $0.position.x + $0.size.width }.max() ?? 0
         let maxY = placements.map { $0.position.y + $0.size.height }.max() ?? 0
         
-        return VStack(spacing: 2){
+        return VStack(spacing: 2) {
             
             // card title
             HStack {
@@ -183,7 +187,7 @@ extension BlocksGameView {
             .background(ColorToken.coreAccent.toColor())
             
             // card shapes content
-            VStack{
+            VStack {
                 renderShapes(placements: placements)
             }
             .frame(width: 546.getWidth(), height: maxY, alignment: .center)

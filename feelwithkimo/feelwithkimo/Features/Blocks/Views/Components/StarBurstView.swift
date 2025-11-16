@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StarParticle: Identifiable {
     let id = UUID()
-    var x: CGFloat
-    var y: CGFloat
+    var positionX: CGFloat
+    var positionY: CGFloat
     var scale: CGFloat
     var opacity: Double
     var rotation: Double
@@ -31,7 +31,7 @@ struct StarBurstView: View {
                     .foregroundColor(ColorToken.emotionJoy.toColor())
                     .opacity(p.opacity)
                     .rotationEffect(.degrees(p.rotation))
-                    .position(x: p.x, y: p.y)
+                    .position(x: p.positionX, y: p.positionY)
             }
         }
         .onAppear { animate() }
@@ -40,8 +40,8 @@ struct StarBurstView: View {
     func animate() {
         particles = (0..<count).map { _ in
             StarParticle(
-                x: center.x,
-                y: center.y,
+                positionX: center.x,
+                positionY: center.y,
                 scale: 0.2,
                 opacity: 1,
                 rotation: Double.random(in: 0...360)
@@ -50,8 +50,8 @@ struct StarBurstView: View {
 
         withAnimation(.easeOut(duration: 0.8)) {
             for i in particles.indices {
-                particles[i].x += CGFloat.random(in: -120...120)
-                particles[i].y += CGFloat.random(in: -120...120)
+                particles[i].positionX += CGFloat.random(in: -120...120)
+                particles[i].positionY += CGFloat.random(in: -120...120)
                 particles[i].scale = CGFloat.random(in: 0.3...0.7)
                 particles[i].opacity = 0
                 particles[i].rotation += Double.random(in: -90...90)
