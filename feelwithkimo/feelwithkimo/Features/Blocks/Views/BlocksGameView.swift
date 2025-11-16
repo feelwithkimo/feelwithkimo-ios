@@ -68,19 +68,13 @@ struct BlocksGameView: View {
         .coordinateSpace(name: gameCoordinateSpaceName)
         .ignoresSafeArea(edges: .all)
         .onPreferenceChange(FramePreferenceKey.self) { pref in
-            var indexToFrame: [Int: CGRect] = [:]
-            for (idx, placement) in viewModel.level.templatePlacements.enumerated() {
-                if let frame = pref[placement.block.id] {
-                    indexToFrame[idx] = frame
-                }
-            }
-            if indexToFrame != viewModel.templateFrames {
-                viewModel.templateFrames = indexToFrame
+            Task { @MainActor in
+                viewModel.updateTemplateFrames(from: pref)
             }
         }
         .onPreferenceChange(BottomFramePreferenceKey.self) { pref in
-            if pref != viewModel.bottomFrames {
-                viewModel.bottomFrames = pref
+            Task { @MainActor in
+                viewModel.updateBottomFrames(from: pref)
             }
         }
         .overlay(

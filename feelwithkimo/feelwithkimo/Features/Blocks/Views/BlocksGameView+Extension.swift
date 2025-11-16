@@ -58,12 +58,14 @@ extension BlocksGameView {
                                 value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
                             )
                         }
-                        .onPreferenceChange(FramePreferenceKey.self) { prefs in
-                            for (id, frame) in prefs {
-                                viewModel.bottomFrames[id] = frame
+                            .onPreferenceChange(FramePreferenceKey.self) { prefs in
+                                Task { @MainActor in
+                                    for (id, frame) in prefs {
+                                        viewModel.bottomFrames[id] = frame
+                                    }
+                                }
                             }
-                        }
-                        .allowsHitTesting(false)
+                            .allowsHitTesting(false)
                     )
                     .gesture(
                         dragGesture(block: block)

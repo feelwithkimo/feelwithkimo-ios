@@ -88,4 +88,27 @@ final class BlocksGameViewModel: ObservableObject {
         return false
     }
     
+    @MainActor
+    func updateTemplateFrames(from pref: [UUID: CGRect]) {
+        var dict: [Int: CGRect] = [:]
+
+        for (idx, placement) in level.templatePlacements.enumerated() {
+            if let frame = pref[placement.block.id] {
+                dict[idx] = frame
+            }
+        }
+
+        if dict != templateFrames {
+            templateFrames = dict
+        }
+    }
+
+    @MainActor
+    func updateBottomFrames(from pref: [UUID: CGRect]) {
+        if pref != bottomFrames {
+            bottomFrames = pref
+        }
+    }
+    
+    
 }
