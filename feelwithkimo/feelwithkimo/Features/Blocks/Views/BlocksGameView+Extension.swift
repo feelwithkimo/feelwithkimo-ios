@@ -34,7 +34,23 @@ extension BlocksGameView {
                     .frame(width: placement.size.width, height: placement.size.height)
                     .padding(.horizontal, 30.getWidth())
                     .contentShape(Rectangle())
-                    .offset(currentDragBlock?.id == block.id ? dragTranslation : .zero)
+                    .offset({
+                        if currentDragBlock?.id == block.id {
+                            return dragTranslation
+                        }
+
+                        if viewModel.snappingBlockId == block.id,
+                           let target = viewModel.snapTarget,
+                           let myFrame = viewModel.bottomFrames[block.id] {
+
+                            let dx = target.x - myFrame.midX + 20.getHeight()
+                            let dy = target.y - myFrame.midY
+                            return CGSize(width: dx, height: dy)
+                        }
+
+                        return .zero
+                    }())
+                    .animation(.spring(), value: viewModel.snappingBlockId)
                     .zIndex(currentDragBlock?.id == block.id ? 100 : 0)
                     .background(
                         GeometryReader { geo in

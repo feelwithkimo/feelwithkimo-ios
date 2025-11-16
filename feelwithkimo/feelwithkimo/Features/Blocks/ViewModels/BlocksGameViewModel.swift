@@ -17,6 +17,9 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var templatePositions: [(shapeType: ShapeType, point: CGPoint)] = []
     @Published var revealIndex: Int = 0
     
+    @Published var snapTarget: CGPoint? = nil
+    @Published var snappingBlockId: UUID? = nil
+    
     var snapRadius: CGFloat = 60
     
     var blockSizes: [UUID: CGSize] {
@@ -97,19 +100,22 @@ final class BlocksGameViewModel: ObservableObject {
         print("Best Dist: ", bestDist)
         
         if bestDist <= snapRadius {
-            if let idx = bottomBlocks.firstIndex(where: { $0.id == block.id }) {
-                bottomBlocks.remove(at: idx)
-            }
-            
-            print("PositionOfOutline yang dibuang: ", positionOfOutline)
-            templatePositions.removeAll {
-                $0.point == positionOfOutline
-            }
-            
             DispatchQueue.main.async {
-                self.advanceReveal()
-                print("reveal index:", self.revealIndex)
-            }
+                    self.snappingBlockId = block.id
+                    self.snapTarget = positionOfOutline
+                }
+
+                // Delay removal so animation can show
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    if let idx = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
+                        self.bottomBlocks.remove(at: idx)
+                    }
+
+                    // Remove outline
+                    self.templatePositions.removeAll { $0.point == positionOfOutline }
+
+                    self.advanceReveal()
+                }
             
             return true
         }
