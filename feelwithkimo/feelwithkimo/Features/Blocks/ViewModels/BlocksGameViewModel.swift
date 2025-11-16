@@ -49,40 +49,10 @@ final class BlocksGameViewModel: ObservableObject {
         }
     }
     
-    /// location must be in the same coordinate space as templateFrames (we'll use "blocksGame")
     func handleDragEnd(block: BlockModel, at location: CGPoint) -> Bool {
-        //        var bestIndex: Int?
         var bestDist = CGFloat.infinity
         var positionOfOutline = CGPoint.zero
         
-        //        for (index, center) in templatePositions {
-        //            // skip occupied
-        //            guard placedMap[index] == nil else { continue }
-        //            // only same shape
-        //            let templateType = level.templatePlacements[index].block.type
-        //            guard templateType == block.type else { continue }
-        //
-        //            let dx = center.x - location.x
-        //            let dy = center.y - location.y
-        //            let dist = hypot(dx, dy)
-        //
-        //            if dist < bestDist {
-        //                bestDist = dist
-        //                bestIndex = index
-        //            }
-        //        }
-        
-        //        if let best = bestIndex, bestDist <= snapRadius {
-        //            placedMap[best] = block
-        //            if let idx = bottomBlocks.firstIndex(where: { $0.id == block.id }) {
-        //                bottomBlocks.remove(at: idx)
-        //            }
-        //            return best
-        //        } else {
-        //            return nil
-        //        }
-        print("location drag: ", location)
-        print("===")
         for (shapeType, center) in templatePositions {
             guard shapeType == block.type else { continue }
             
@@ -95,28 +65,23 @@ final class BlocksGameViewModel: ObservableObject {
                 positionOfOutline = center
             }
             
-            print(shapeType, center)
         }
-        print("-------")
-        print("Best Dist: ", bestDist)
         
         if bestDist <= snapRadius {
             DispatchQueue.main.async {
-                    self.snappingBlockId = block.id
-                    self.snapTarget = positionOfOutline
+                self.snappingBlockId = block.id
+                self.snapTarget = positionOfOutline
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                if let idx = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
+                    self.bottomBlocks.remove(at: idx)
                 }
-
-                // Delay removal so animation can show
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    if let idx = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
-                        self.bottomBlocks.remove(at: idx)
-                    }
-
-                    // Remove outline
-                    self.templatePositions.removeAll { $0.point == positionOfOutline }
-
-                    self.advanceReveal()
-                }
+                
+                self.templatePositions.removeAll { $0.point == positionOfOutline }
+                
+                self.advanceReveal()
+            }
             
             return true
         }

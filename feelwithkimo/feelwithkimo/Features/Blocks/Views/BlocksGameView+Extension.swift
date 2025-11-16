@@ -93,7 +93,7 @@ extension BlocksGameView {
                                         }
                                     }
                                 } else {
-                                    // bottom frame not known yet — reset
+                                    // bottom frame not known yet
                                     withAnimation(.spring()) {
                                         currentDragBlock = nil
                                         dragTranslation = .zero
@@ -122,19 +122,17 @@ extension BlocksGameView {
                 
                 if !isAfterHint {
                     if isHint {
-                        // hint: no fill, dashed stroke
+                        // no fill, dashed stroke
                         shape(for: placement.block.type)
                             .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .frame(width: placement.size.width, height: placement.size.height)
                             .offset(x: placement.position.x, y: placement.position.y)
                             .readPosition { frame in
-                                //                                print(placement.block.type, frame.origin)
-                                //                                print("Adjustment from placement: ", placement.position.x, placement.position.y)
                                 let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
                                 let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
                                 
-                                // ALWAYS insert the center
+                                // insert center
                                 if index < viewModel.templatePositions.count {
                                     viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
                                 } else {
@@ -184,6 +182,7 @@ extension BlocksGameView {
             .padding(.vertical, 13.getHeight())
             .background(ColorToken.coreAccent.toColor())
             
+            // card shapes content
             VStack{
                 renderShapes(placements: placements)
             }
@@ -211,8 +210,6 @@ extension BlocksGameView {
                     revealIndex: viewModel.revealIndex
                 )
             }
-            //            .padding(.horizontal, 43.getWidth())
-            //            .padding(.vertical, 23.getHeight())
         }
     }
     

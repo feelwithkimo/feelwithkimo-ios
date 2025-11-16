@@ -44,7 +44,6 @@ struct BlocksGameView: View {
             ZStack {
                 ForEach(Array(viewModel.level.templatePlacements.enumerated()), id: \.offset) { index, template in
                     if let placed = viewModel.placedMap[index] {
-                        // show placed block at the template frame when it's available
                         if let frame = viewModel.templateFrames[index] {
                             shape(for: placed.type)
                                 .fill(placed.color)
