@@ -1,19 +1,18 @@
-//
-//  CompletionPageView.swift
-//  feelwithkimo
-//
-//  Created on 14/11/25.
-//
+///
+///  CompletionPageView.swift
+///  feelwithkimo
+///
+///  Created on 14/11/25.
+///
 
 import SwiftUI
 
-struct CompletionPageView<Background: View>: View {
+struct CompletionPageView: View {
     var title: String = "Tahap 1 Selesai!!!"
     var primaryButtonLabel: String = "Coba lagi"
     var secondaryButtonLabel: String = "Lanjutkan"
     var onPrimaryAction: (() -> Void)?
     var onSecondaryAction: (() -> Void)?
-    var background: () -> Background
     
     @State private var showOverlay = false
     @State private var showConfetti = false
@@ -24,9 +23,6 @@ struct CompletionPageView<Background: View>: View {
     
     var body: some View {
         ZStack {
-            /// Background view (the game itself)
-            background()
-            
             /// Black overlay with fade in animation
             Color.black.opacity(showOverlay ? 0.7 : 0)
                 .ignoresSafeArea()
@@ -192,15 +188,18 @@ struct AnimatedCompletionCard: View {
 }
 
 #Preview {
-    CompletionPageView(
-        onPrimaryAction: {
-            print("Primary button tapped")
-        },
-        onSecondaryAction: {
-            print("Secondary button tapped")
-        },
-        background: {
-            BlocksGameView(level: .level1)
-        }
-    )
+    ZStack {
+        /// Simulate game background
+        BlocksGameView(level: .level1)
+        
+        /// Overlay the completion page
+        CompletionPageView(
+            onPrimaryAction: {
+                print("Primary button tapped")
+            },
+            onSecondaryAction: {
+                print("Secondary button tapped")
+            }
+        )
+    }
 }

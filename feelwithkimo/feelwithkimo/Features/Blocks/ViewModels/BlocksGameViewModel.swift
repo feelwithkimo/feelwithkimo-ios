@@ -95,10 +95,8 @@ final class BlocksGameViewModel: ObservableObject {
                 
                 /// Check if game is complete after snap animation
                 if self.isGameComplete {
-                    /// Show completion page after starburst finishes (1 second)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.onComplete?()
-                    }
+                    /// Show completion page immediately
+                    self.onComplete?()
                 }
             }
             

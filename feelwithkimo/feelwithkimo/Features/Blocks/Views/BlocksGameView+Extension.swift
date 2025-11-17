@@ -96,7 +96,10 @@ extension BlocksGameView {
                             viewModel.dragTranslation = .zero
                         }
                         
-                        showStarBurst(at: endPoint)
+                        /// Only show starburst if game is not complete yet
+                        if !viewModel.isGameComplete {
+                            showStarBurst(at: endPoint)
+                        }
                     } else {
                         withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
                             viewModel.currentDragBlock = nil

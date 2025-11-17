@@ -63,7 +63,7 @@ struct ConfettiView: View {
     
     private func startConfetti(in size: CGSize) {
         // Create confetti pieces with varied starting positions
-        confettiPieces = (0..<confettiCount).map { i in
+        confettiPieces = (0..<confettiCount).map { _ in
             let startX = CGFloat.random(in: 0...size.width)
             let startY = CGFloat.random(in: -200...(-20))
             
@@ -83,6 +83,7 @@ struct ConfettiView: View {
         animateConfetti(in: size)
     }
     
+    // swiftlint:disable identifier_name
     private func animateConfetti(in size: CGSize) {
         for i in confettiPieces.indices {
             let delay = Double.random(in: 0...1.5)
@@ -138,6 +139,7 @@ struct ConfettiView: View {
             }
         }
     }
+    // swiftlint:enable identifier_name
     
     private func addContinuousConfetti(in size: CGSize) {
         // Add extra bursts at intervals
@@ -213,6 +215,7 @@ enum ConfettiShapeType: CaseIterable {
     case heart
 }
 
+// swiftlint:disable identifier_name
 struct ConfettiShape: Shape {
     let shape: ConfettiShapeType
     
@@ -305,6 +308,7 @@ struct ConfettiShape: Shape {
         return path
     }
 }
+// swiftlint:enable identifier_name
 
 #Preview {
     ZStack {

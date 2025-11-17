@@ -1,5 +1,5 @@
 ///
-///  BlockGameStateManager.swift
+///  BlockGameStageView.swift
 ///  feelwithkimo
 ///
 ///  Created by Aristo Yongka on 14/11/25.
@@ -47,9 +47,6 @@ struct BlockGameStageView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             gameResetKey += 1
                         }
-                    },
-                    background: {
-                        EmptyView()
                     }
                 )
                 .transition(.opacity)
@@ -70,9 +67,6 @@ struct BlockGameStageView: View {
                     onSecondaryAction: {
                         /// Void for now - will be implemented later
                         print("Stage 2 completed - Lanjutkan button pressed")
-                    },
-                    background: {
-                        EmptyView()
                     }
                 )
                 .transition(.opacity)
