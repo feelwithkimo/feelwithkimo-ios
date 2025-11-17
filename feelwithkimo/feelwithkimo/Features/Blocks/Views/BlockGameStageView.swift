@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct BlockGameStageView: View {
+    @Environment(\.dismiss) var dismiss
     @State private var currentState: BlockBuildingState = .stage1
     @State private var gameResetKey: Int = 0  /// Key to force game reset
+    var onCompletion: (() -> Void)?
     
     var body: some View {
         ZStack {
@@ -68,8 +70,8 @@ struct BlockGameStageView: View {
                         }
                     },
                     onSecondaryAction: {
-                        /// Void for now - will be implemented later
-                        print("Stage 2 completed - Lanjutkan button pressed")
+                        dismiss()
+                        onCompletion?()
                     },
                     background: {
                         EmptyView()

@@ -47,7 +47,7 @@
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "breathing",
+    "interactionType": "blockGame",
     "isEnd": false
   },
   {

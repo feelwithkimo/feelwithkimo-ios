@@ -21,6 +21,7 @@ internal class StoryViewModel: ObservableObject {
     )
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
+    @Published var hasCompletedBlockGame: Bool = false
     @Published var tutorialStep: Int = 1
     
     @Published var showDialogue: Bool = false
@@ -101,6 +102,12 @@ internal class StoryViewModel: ObservableObject {
         goScene(to: 1, choice: 0)
     }
     
+    /// Mark block game as completed
+    func completeBlockGame() {
+        hasCompletedBlockGame = true
+        goScene(to: 1, choice: 0)
+    }
+    
     func nextTutorial() {
         guard self.tutorialStep < 1 else {
             DispatchQueue.main.async {
@@ -121,6 +128,7 @@ internal class StoryViewModel: ObservableObject {
             self.currentScene = self.story.storyScene[0]
             self.hasCompletedBreathing = false
             self.hasCompletedClapping = false
+            self.hasCompletedBlockGame = false
         }
     }
 }
