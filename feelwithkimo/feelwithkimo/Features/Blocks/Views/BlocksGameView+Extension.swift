@@ -9,6 +9,25 @@ import SwiftUI
 
 extension BlocksGameView {
     
+    func renderShapesBar() -> some View {
+        Rectangle()
+            .foregroundStyle(ColorToken.corePinkDialogue.toColor())
+            .frame(width: 300.getWidth(), height: 658.getHeight())
+            .cornerRadius(26.71)
+            .overlay(
+                RoundedRectangle(cornerRadius: 26.71)
+                    .stroke(ColorToken.additionalColorsLightBlue.toColor(), lineWidth: 6)
+            )
+    }
+    
+    func renderShapesOutline() -> some View {
+        Rectangle()
+            .frame(width: 422.getWidth(), height: 692.getHeight())
+            .foregroundStyle(ColorToken.corePinkDialogue.toColor())
+            .cornerRadius(30)
+            .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+    }
+    
     var shapesView: some View {
         HStack(spacing: 82.getWidth()) {
             shapesGuideCard(blockPlacements: viewModel.level.templatePlacements)
@@ -270,10 +289,6 @@ struct ViewPositionKey: PreferenceKey {
     static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
         value = nextValue()
     }
-}
-
-#Preview {
-    BlocksGameView(level: .level2).shapesGuideCard(blockPlacements: GameLevel.level2.templatePlacements)
 }
 
 #Preview("Blocks Game View") {
