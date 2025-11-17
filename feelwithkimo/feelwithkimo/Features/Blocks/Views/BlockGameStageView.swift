@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BlockGameStateManager: View {
+struct BlockGameStageView: View {
     @State private var currentState: BlockBuildingState = .stage1
     @State private var gameResetKey: Int = 0  // Key to force game reset
     
@@ -83,5 +83,5 @@ struct BlockGameStateManager: View {
 }
 
 #Preview {
-    BlockGameStateManager()
+    BlockGameStageView()
 }
