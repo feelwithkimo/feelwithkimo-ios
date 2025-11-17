@@ -20,7 +20,9 @@ struct HomeView: View {
             mainContent
         }
         .background(ColorToken.backgroundHome.toColor())
-        .onAppear(perform: onAppear)
+        .onAppear {
+            AudioManager.shared.startBackgroundMusic(assetName: "backsong")
+        }
         .navigationBarBackButtonHidden(true)
         .navigationDestination(
             isPresented: Binding(
@@ -29,7 +31,7 @@ struct HomeView: View {
             ),
             destination: {
                 if let emotion = viewModel.navigateToEmotionTarget {
-                    EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion))
+                    EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion, path: emotion.id))
                 }
             }
         )
@@ -74,7 +76,6 @@ struct HomeView: View {
                 "Halaman utama aplikasi Kimo. Selamat datang, \(userName). Pilih emosi yang ingin dipelajari hari ini."
             )
         }
-        AudioManager.shared.startBackgroundMusic()
     }
 }
 
@@ -85,7 +86,7 @@ private extension HomeView {
         KimoHeaderView {
             HStack(spacing: 23) {
                 Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
-                    .font(.app(.largeTitle, family: .primary))
+                    .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .fontWeight(.bold)
                     .padding()
                     .kimoTextAccessibility(
@@ -171,7 +172,7 @@ private extension HomeView {
         } label: {
             EmotionCard(
                 emotion: emotion,
-                isSelected: viewModel.selectedEmotion?.name == emotion.name
+                isSelected: viewModel.selectedEmotion?.title == emotion.title
             )
             .id(emotion.id)
             .background(
@@ -184,10 +185,10 @@ private extension HomeView {
             )
         }
         .kimoCardAccessibility(
-            label: "Kartu emosi \(emotion.name) terpilih",
-            isSelected: viewModel.selectedEmotion?.name == emotion.name,
-            hint: "Ketuk dua kali untuk memilih emosi \(emotion.name) dan mulai belajar",
-            identifier: "home.emotionCard.\(emotion.name.lowercased())"
+            label: "Kartu cerita \(emotion.title) terpilih",
+            isSelected: viewModel.selectedEmotion?.title == emotion.title,
+            hint: "Ketuk dua kali untuk memilih \(emotion.title) dan mulai belajar",
+            identifier: "home.emotionCard.\(emotion.title.lowercased())"
         )
     }
 }

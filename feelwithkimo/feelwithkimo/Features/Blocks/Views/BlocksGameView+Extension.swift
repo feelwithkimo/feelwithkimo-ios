@@ -1,9 +1,9 @@
-//
-//  BlocksGameView+ext.swift
-//  feelwithkimo
-//
-//  Created by Adeline Charlotte Augustinne on 14/11/25.
-//
+///
+///  BlocksGameView+ext.swift
+///  feelwithkimo
+///
+///  Created by Adeline Charlotte Augustinne on 14/11/25.
+///
 
 import SwiftUI
 
@@ -85,7 +85,7 @@ extension BlocksGameView {
             .onEnded { geo in
                 guard let dragging = viewModel.currentDragBlock else { return }
                 
-                // get bottom frame for this dragging item (in same coordinate space)
+                /// get bottom frame for this dragging item (in same coordinate space)
                 if let bottomFrame = viewModel.bottomFrames[dragging.id] {
                     let startCenter = CGPoint(x: bottomFrame.midX, y: bottomFrame.midY)
                     let endPoint = CGPoint(x: startCenter.x + geo.translation.width,
@@ -104,7 +104,7 @@ extension BlocksGameView {
                         }
                     }
                 } else {
-                    // bottom frame not known yet
+                    /// bottom frame not known yet
                     withAnimation(.spring()) {
                         viewModel.currentDragBlock = nil
                         viewModel.dragTranslation = .zero
@@ -129,7 +129,7 @@ extension BlocksGameView {
                 
                 if !isAfterHint {
                     if isHint {
-                        // no fill, dashed stroke
+                        /// no fill, dashed stroke
                         shape(for: placement.block.type)
                             .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
@@ -139,7 +139,7 @@ extension BlocksGameView {
                                 let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
                                 let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
                                 
-                                // insert center
+                                /// insert center
                                 if index < viewModel.templatePositions.count {
                                     viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
                                 } else {
@@ -150,7 +150,7 @@ extension BlocksGameView {
                                 }
                             }
                     } else {
-                        // solid block
+                        /// solid block
                         shape(for: placement.block.type)
                             .fill(placement.block.color)
                             .overlay(
@@ -176,10 +176,10 @@ extension BlocksGameView {
         
         return VStack(spacing: 2) {
             
-            // card title
+            /// card title
             HStack {
                 Text("Ayo kita buat bentuk ini!")
-                    .font(.app(.largeTitle, family: .primary))
+                    .font(UIFont.appFont(forTextStyle: .largeTitle, family: .primary).toFont(relativeTo: .largeTitle))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .multilineTextAlignment(.center)
             }
@@ -188,7 +188,7 @@ extension BlocksGameView {
             .padding(.vertical, 13.getHeight())
             .background(ColorToken.coreAccent.toColor())
             
-            // card shapes content
+            /// card shapes content
             VStack {
                 renderShapes(placements: placements)
             }
@@ -273,9 +273,9 @@ struct ViewPositionKey: PreferenceKey {
 }
 
 #Preview {
-    BlocksGameView().shapesGuideCard(blockPlacements: GameLevel.level2.templatePlacements)
+    BlocksGameView(level: .level2).shapesGuideCard(blockPlacements: GameLevel.level2.templatePlacements)
 }
 
 #Preview("Blocks Game View") {
-    BlocksGameView()
+    BlocksGameView(level: .level1)
 }

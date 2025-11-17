@@ -1,0 +1,206 @@
+[
+  {
+    "path": "Scene 1",
+    "text": "Perkenalkan ini adalah Lala, dia sedang berada di sekolah KIMO",
+    "nextScene": [1],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 2",
+    "text": "Kalau ini ibu guru Tina, dia itu gurunya Lala loh... ",
+    "nextScene": [0, 2],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": ""
+  },
+  {
+    "path": "Scene 3",
+    "text": "Nah, kalau yang ini Jack, dia itu temannya Lala",
+    "nextScene": [1, 3],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 4",
+    "text": "Di suatu pagi yang cerah, Lala sedang menyusun balok.",
+    "nextScene": [2, 4],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 4",
+    "text": "Ayo bantu Lala membangun balok!!",
+    "nextScene": [3, 5],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 5",
+    "text": "Yey! Lala sudah mau selesai nih menyusun baloknya.",
+    "nextScene": [4, 6],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 5",
+    "text": "Tiba-tiba Jack datang dan menendang balok Lala.",
+    "nextScene": [5, 7],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 6",
+    "text": "Oh tidak! Jack baru saja menendang menara balok Lala yang indah, dan semuanya runtuh!",
+    "nextScene": [6, 8],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "scaffolding",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 6",
+    "text": "Menurutmu, bagaimana perasaan Lala saat ini?",
+    "nextScene": [7, 9, 9],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": {
+      "question": "Menurutmu, bagaimana perasaan Lala saat ini?",
+      "option": ["Senang", "Marah"]
+    },
+    "interactionType": "storyBranching",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 7",
+    "text": "Bu guru datang ke Lala dan berkata, “Lala, apa yang terjadi?”",
+    "nextScene": [8, 10],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 8",
+    "text": "Lala menceritakan apa yang Jack lakukan.",
+    "nextScene": [9, 11],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 9",
+    "text": "Lala..., Wajar kok kalau kamu merasa sesuatu waktu ada hal yang nggak enak. Itu tandanya kamu sedang punya perasaan Lala, dan itu nggak apa-apa.",
+    "nextScene": [10, 12],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 10",
+    "text": "\"Ayo ikut gerakan ibu!\", kata Bu guru. \"Baik, Bu\", jawab Lala.",
+    "nextScene": [11, 13],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 10",
+    "text": "\"Ayo ikut gerakan ibu!\", kata Bu guru. \"Baik, Bu\", jawab Lala.",
+    "nextScene": [12, 14],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 11",
+    "text": "\"Sekarang, Lala gimana?\", tanya Bu guru.\n\"Aku jadi lebih tenang, Bu.\", jawab Lala.",
+    "nextScene": [13, 15],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 12",
+    "text": "\"Ayo kita coba lagi susun baloknya\", ajak Bu guru. \"Mau Bu!\" jawab Lala.",
+    "nextScene": [14, 16],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 13",
+    "text": "Ayo kita buat bentuk ini!",
+    "nextScene": [15, 17],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 14",
+    "text": "\"Hore! Menaranya sudah jadi, La!\" kata Bu Guru dengan gembira.\n\"Terima kasih, Bu. Lala kagum sekali dengan menaranya\" jawab Lala sambil menatap dengan senang.",
+    "nextScene": [16, 18],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 15",
+    "text": "Ayo kita tepuk tangan bersama bu guru dan Lala!",
+    "nextScene": [17, 19],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 16",
+    "text": "Ending kesimpulan",
+    "nextScene": [18],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": true
+  },
+]

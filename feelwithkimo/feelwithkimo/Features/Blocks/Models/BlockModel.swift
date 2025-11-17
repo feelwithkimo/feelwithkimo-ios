@@ -1,9 +1,9 @@
-//
-//  BlockModel.swift
-//  feelwithkimo
-//
-//  Created by Adeline Charlotte Augustinne on 14/11/25.
-//
+///
+///  BlockModel.swift
+///  feelwithkimo
+///
+///  Created by Adeline Charlotte Augustinne on 14/11/25.
+///
 
 import Foundation
 import SwiftUI

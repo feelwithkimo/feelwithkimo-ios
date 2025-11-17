@@ -1,9 +1,9 @@
-//
-//  StarParticle.swift
-//  feelwithkimo
-//
-//  Created by Adeline Charlotte Augustinne on 16/11/25.
-//
+///
+///  StarParticle.swift
+///  feelwithkimo
+///
+///  Created by Adeline Charlotte Augustinne on 16/11/25.
+///
 
 import SwiftUI
 

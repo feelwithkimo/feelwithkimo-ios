@@ -24,41 +24,48 @@ struct KimoDialogueView: View {
                 action: { print("Continue tapped") }
             )
         ])
+    var stageCompleted: String?
     
     var body: some View {
-        HStack(spacing: 39) {
-            Image(kimoDialogueIcon)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 512 * UIScreen.main.bounds.width / 1194)
-            
-            VStack(spacing: 0) {
-                Text(textDialogue)
-                    .font(.app(.title3, family: .primary))
-                    .fontWeight(.regular)
-                    .foregroundStyle(.black)
-                    .frame(maxWidth: 500 * UIScreen.main.bounds.width / 1194)
-                    .padding(.horizontal, 49 * UIScreen.main.bounds.width / 1194)
-                    .padding(.vertical, 42.5 * UIScreen.main.bounds.height / 834)
-                    .background(ColorToken.corePinkDialogue.toColor())
-                    .cornerRadius(30)
-                
-                HStack {
-                    Image(textDialogueTriangle)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: 157 * UIScreen.main.bounds.width / 1194)
-                    
-                    Spacer()
-                }
-                
-                KimoDialogueButtonsView(layout: buttonLayout)
+        VStack {
+            if let stage = stageCompleted {
+                Text(stage)
+                    .font(.customFont(size: 34, family: .primary, weight: .bold))
             }
+            
+            HStack(spacing: 39) {
+                Image(kimoDialogueIcon)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 512 * UIScreen.main.bounds.width / 1194)
+                
+                VStack(spacing: 0) {
+                    Text(textDialogue)
+                        .font(.customFont(size: 20, family: .primary, weight: .bold))
+                        .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
+                        .frame(maxWidth: 500 * UIScreen.main.bounds.width / 1194)
+                        .padding(.horizontal, 49 * UIScreen.main.bounds.width / 1194)
+                        .padding(.vertical, 42.5 * UIScreen.main.bounds.height / 834)
+                        .background(ColorToken.corePinkDialogue.toColor())
+                        .cornerRadius(30)
+                    
+                    HStack {
+                        Image(textDialogueTriangle)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 157 * UIScreen.main.bounds.width / 1194)
+                        
+                        Spacer()
+                    }
+                    
+                    KimoDialogueButtonsView(layout: buttonLayout)
+                }
+            }
+            .padding(.top, 53)
+            .padding(.horizontal, 72)
+            .ignoresSafeArea()
+            .navigationBarBackButtonHidden(true)
         }
-        .padding(.top, 53)
-        .padding(.horizontal, 72)
-        .ignoresSafeArea()
-        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -83,37 +90,38 @@ struct KimoDialogueView: View {
                     action: { print("Continue tapped") }
                 )
             ])
+//            stageCompleted: "Stage 1 Completed"
         )
         
         // Preview with bubble secondary buttons with SF Symbols (like in image)
-        KimoDialogueView(
-            textDialogue: "Hore, berhasil!!!",
-            buttonLayout: .horizontal([
-                KimoDialogueButtonConfig(
-                    title: "Coba lagi",
-                    symbol: .arrowClockwise,
-                    style: .bubbleSecondary,
-                    action: { print("Bubble secondary try again tapped") }
-                ),
-                KimoDialogueButtonConfig(
-                    title: "Lanjutkan",
-                    symbol: .chevronRight,
-                    style: .bubbleSecondary,
-                    action: { print("Bubble secondary continue tapped") }
-                )
-            ])
-        )
-        
-        // Preview with bubble primary button
-        KimoDialogueView(
-            textDialogue: "Yuk, kita mulai petualangan bersama Kimo!",
-            buttonLayout: .single(
-                KimoDialogueButtonConfig(
-                    title: "Ayo Mulai!",
-                    style: .bubblePrimary,
-                    action: { print("Bubble primary tapped") }
-                )
-            )
-        )
+//        KimoDialogueView(
+//            textDialogue: "Hore, berhasil!!!",
+//            buttonLayout: .horizontal([
+//                KimoDialogueButtonConfig(
+//                    title: "Coba lagi",
+//                    symbol: .arrowClockwise,
+//                    style: .bubbleSecondary,
+//                    action: { print("Bubble secondary try again tapped") }
+//                ),
+//                KimoDialogueButtonConfig(
+//                    title: "Lanjutkan",
+//                    symbol: .chevronRight,
+//                    style: .bubbleSecondary,
+//                    action: { print("Bubble secondary continue tapped") }
+//                )
+//            ])
+//        )
+//        
+//        // Preview with bubble primary button
+//        KimoDialogueView(
+//            textDialogue: "Yuk, kita mulai petualangan bersama Kimo!",
+//            buttonLayout: .single(
+//                KimoDialogueButtonConfig(
+//                    title: "Ayo Mulai!",
+//                    style: .bubblePrimary,
+//                    action: { print("Bubble primary tapped") }
+//                )
+//            )
+//        )
     }
 }
