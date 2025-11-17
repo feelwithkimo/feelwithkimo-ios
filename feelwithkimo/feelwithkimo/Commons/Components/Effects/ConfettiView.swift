@@ -10,7 +10,8 @@ import Lottie
 
 struct ConfettiView: View {
     var body: some View {
-        Text("Hello, Woirld!")
+        LottieView(animation: .named("Confetti.lottie"))
+            .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
     }
 }
 
