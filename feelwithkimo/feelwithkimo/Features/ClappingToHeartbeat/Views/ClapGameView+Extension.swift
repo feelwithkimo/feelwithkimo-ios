@@ -90,7 +90,7 @@ extension ClapGameView {
                 )
             } else {
                 KimoDialogueView(
-                    textDialogue: "Hore Berhasil!!!!!!",
+                    textDialogue: "Hore Berhasil !",
                     buttonLayout: .horizontal([
                         KimoDialogueButtonConfig(
                             title: "Coba lagi",
