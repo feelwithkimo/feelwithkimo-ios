@@ -25,12 +25,6 @@ struct BreathingModuleView: View {
             // Main breathing view
             mainBreathingView
             
-            KimoAskView(dialogueText: viewModel.dialogueText,
-                        mark: .mark,
-                        showDialogue: $viewModel.showDialogue,
-                        isMascotTapped: $viewModel.isMascotTapped)
-                .offset(x: 20.getWidth(), y: 90.getHeight())
-            
             // Completion overlay
             if viewModel.showCompletionView {
                 Color.black.opacity(0.6)

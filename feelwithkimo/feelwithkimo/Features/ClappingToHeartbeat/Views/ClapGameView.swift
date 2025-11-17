@@ -41,12 +41,6 @@ struct ClapGameView: View {
                             skeletonPairView()
                         }
                     }
-                    
-                    KimoAskView(dialogueText: viewModel.dialogueText,
-                                mark: .mark,
-                                showDialogue: $viewModel.showDialogue,
-                                isMascotTapped: $viewModel.isMascotTapped)
-                    .offset(x: 80.getHeight())
                 }
                 .padding(.horizontal, 31.getWidth())
             }
