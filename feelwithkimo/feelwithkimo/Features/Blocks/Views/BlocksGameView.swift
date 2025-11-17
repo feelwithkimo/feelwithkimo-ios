@@ -30,7 +30,13 @@ struct BlocksGameView: View {
                         Spacer()
                         HStack(alignment: .top) {
                             Rectangle()
+                                .foregroundStyle(ColorToken.corePinkDialogue.toColor())
                                 .frame(width: 300.getWidth(), height: 658.getHeight())
+                                .cornerRadius(26.71)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 26.71)
+                                        .stroke(ColorToken.additionalColorsLightBlue.toColor(), lineWidth: 6)
+                                )
                             Spacer()
                             Divider()
                                 .overlay(
@@ -43,6 +49,10 @@ struct BlocksGameView: View {
                             Spacer()
                             Rectangle()
                                 .frame(width: 422.getWidth(), height: 692.getHeight())
+                                .foregroundStyle(ColorToken.corePinkDialogue.toColor())
+                                .cornerRadius(30)
+                                .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+
                         }
                         .frame(width: 854.getWidth())
                     }
