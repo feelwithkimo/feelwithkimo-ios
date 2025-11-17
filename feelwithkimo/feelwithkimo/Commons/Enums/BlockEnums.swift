@@ -1,9 +1,9 @@
-//
-//  BlockEnums.swift
-//  feelwithkimo
-//
-//  Created by Adeline Charlotte Augustinne on 14/11/25.
-//
+///
+///  BlockEnums.swift
+///  feelwithkimo
+///
+///  Created by Adeline Charlotte Augustinne on 14/11/25.
+///
 
 import SwiftUI
 

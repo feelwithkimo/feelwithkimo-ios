@@ -1,9 +1,9 @@
-//
-//  BlocksGameView.swift
-//  feelwithkimo
-//
-//  Created by Adeline Charlotte Augustinne on 13/11/25.
-//
+///
+///  BlocksGameView.swift
+///  feelwithkimo
+///
+///  Created by Adeline Charlotte Augustinne on 13/11/25.
+///
 
 import SwiftUI
 

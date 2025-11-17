@@ -1,9 +1,9 @@
-//
-//  BlocksGameViewModel.swift
-//  feelwithkimo
-//
-//  Created by Adeline Charlotte Augustinne on 13/11/25.
-//
+///
+///  BlocksGameViewModel.swift
+///  feelwithkimo
+///
+///  Created by Adeline Charlotte Augustinne on 13/11/25.
+///
 
 import SwiftUI
 
@@ -36,7 +36,7 @@ final class BlocksGameViewModel: ObservableObject {
         )
     }
     
-    // Check if game is complete
+    /// Check if game is complete
     var isGameComplete: Bool {
         return bottomBlocks.isEmpty
     }
@@ -93,9 +93,9 @@ final class BlocksGameViewModel: ObservableObject {
                 
                 self.advanceReveal()
                 
-                // Check if game is complete after snap animation
+                /// Check if game is complete after snap animation
                 if self.isGameComplete {
-                    // Show completion page after starburst finishes (1 second)
+                    /// Show completion page after starburst finishes (1 second)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         self.onComplete?()
                     }
