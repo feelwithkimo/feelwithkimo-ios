@@ -18,7 +18,36 @@ struct BlocksGameView: View {
     
     var body: some View {
         ZStack {
-            ColorToken.backgroundHome.toColor()
+            ColorToken.emotionSadness.toColor()
+            
+            Circle()
+                .foregroundStyle(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 651.getWidth(), height: 591.getHeight())
+                .padding(.bottom, 540.getHeight())
+                .padding(.trailing, 636.getWidth())
+                .opacity(0.5)
+            
+            Circle()
+                .foregroundStyle(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 651.getWidth(), height: 591.getHeight())
+                .padding(.bottom, 711.getHeight())
+                .padding(.leading, 743.getWidth())
+                .opacity(0.5)
+            
+            Circle()
+                .foregroundStyle(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 651.getWidth(), height: 591.getHeight())
+                .padding(.top, 772.getHeight())
+                .padding(.trailing, 555.getWidth())
+                .opacity(0.5)
+            
+            Circle()
+                .foregroundStyle(ColorToken.backgroundIdentity.toColor())
+                .frame(width: 500.getWidth(), height: 500.getHeight())
+                .padding(.top, 733.getHeight())
+                .padding(.leading, 751.getWidth())
+                .opacity(0.5)
+            
             VStack(alignment: .leading) {
                 Spacer()
                 
