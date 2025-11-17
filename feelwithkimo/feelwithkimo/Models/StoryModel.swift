@@ -7,30 +7,32 @@
 
 import Foundation
 
-struct StoryModel: Identifiable {
-    let id: UUID
+struct StoryModel: Decodable {
+    let id: String
     let name: String
     let thumbnail: String
     let description: String
+    let backsong: String
     var storyScene: [StorySceneModel]
 }
 
-enum KimoVisual {
+enum KimoVisual: String, Decodable {
     case normal
-    case mark // Tanda seru
+    case mark
     case star
 }
 
-internal class StorySceneModel {
+struct StorySceneModel: Decodable {
     let path: String
     let text: String
     var isEnd: Bool
-    var question: QuestionOption?
     var nextScene: [Int]
-    var interactionType: InteractionType
+    var kimoText: String?
     
-    var kimoVisual: KimoVisual
-    var kimoText: String
+    var question: QuestionOption?
+    var kimoVisual: KimoVisual?
+    var interactionType: InteractionType?
+    var soundEffect: String?
 
     init(path: String,
          text: String,
@@ -39,19 +41,34 @@ internal class StorySceneModel {
          nextScene: [Int] = [],
          interactionType: InteractionType = .normal,
          kimoVisual: KimoVisual = .normal,
-         kimoText: String = "") {
+         kimoText: String = "",
+         sound: String? = nil) {
         self.path = path
         self.text = text
         self.isEnd = isEnd
-        self.question = question
         self.nextScene = nextScene
-        self.interactionType = interactionType
-        self.kimoVisual = kimoVisual
         self.kimoText = kimoText
+        
+        self.question = question
+        self.kimoVisual = kimoVisual
+        self.interactionType = interactionType
+        self.soundEffect = sound
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case path,
+             text,
+             nextScene,
+             kimoVisual,
+             kimoText,
+             question,
+             interactionType,
+             isEnd,
+             soundEffect
     }
 }
 
-struct QuestionOption {
+struct QuestionOption: Decodable {
     let question: String
     let option: [String]
 }

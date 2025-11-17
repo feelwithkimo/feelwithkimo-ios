@@ -11,7 +11,7 @@ struct StoryView: View {
     @AppStorage("hasSeenTutorial") var seenTutorial = false
     @Environment(\.dismiss) var dismiss
     @ObservedObject private var audioManager = AudioManager.shared
-    @StateObject var viewModel: StoryViewModel = StoryViewModel()
+    @StateObject var viewModel: StoryViewModel
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
 
@@ -34,10 +34,10 @@ struct StoryView: View {
                 storySceneView()
                 
                 // Add KimoAskView overlay
-                KimoAskView(dialogueText: viewModel.currentScene.kimoText,
-                    mark: viewModel.currentScene.kimoVisual,
-                    showDialogue: $viewModel.showDialogue,
-                    isMascotTapped: $viewModel.isTappedMascot)
+//                KimoAskView(dialogueText: viewModel.currentScene.kimoText ?? "",
+//                            mark: viewModel.currentScene.kimoVisual ?? .normal,
+//                    showDialogue: $viewModel.showDialogue,
+//                    isMascotTapped: $viewModel.isTappedMascot)
             } else {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
@@ -134,6 +134,13 @@ struct StoryView: View {
                 }
                 accessibilityManager.announce(announcement)
             }
+            
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
+        }
+        .onAppear {
+            audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
         }
     }
 }

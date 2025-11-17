@@ -27,17 +27,15 @@ struct EmotionCard: View {
     // MARK: - Body
     var body: some View {
         VStack {
-            Image(emotion.emotionImage)
-                .resizable()
-                .scaledToFit()
-                .frame(width: capsuleWidth)
+            KimoImage(image: emotion.image, width: capsuleWidth.getWidth())
+            
             Spacer(minLength: spacerHeight)
         }
         .kimoCardAccessibility(
-            label: "Kartu emosi \(emotion.name)\(isSelected ? ", terpilih" : "")",
+            label: "Cerita \(emotion.title)\(isSelected ? ", terpilih" : "")",
             isSelected: isSelected,
-            hint: "Ketuk dua kali untuk memilih emosi \(emotion.name)",
-            identifier: "emotionCard.\(emotion.name.lowercased())"
+            hint: "Ketuk dua kali untuk memilih cerita \(emotion.title)",
+            identifier: "emotionCard.\(emotion.title.lowercased())"
         )
     }
 }

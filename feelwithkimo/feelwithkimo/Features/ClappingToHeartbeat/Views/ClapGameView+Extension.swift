@@ -16,7 +16,7 @@ extension ClapGameView {
             }
             Spacer()
             Text("Tepuk Tangan")
-                .font(.app(.largeTitle, family: .primary))
+                .font(.customFont(size: 34, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.corePrimary.toColor())
                 .kimoTextAccessibility(
                     label: "Permainan Tepuk Tangan",
@@ -250,7 +250,7 @@ extension ClapGameView {
                             .foregroundStyle(ColorToken.grayscale40.toColor())
                             .padding(.bottom, 8)
                         Text("No Hands Detected")
-                            .font(.app(.headline, family: .primary))
+                            .font(.customFont(size: 17, family: .primary, weight: .semibold))
                             .foregroundStyle(ColorToken.grayscale100.toColor())
                     }
                     .transition(.opacity)
@@ -262,7 +262,7 @@ extension ClapGameView {
                             .foregroundStyle(.yellow.opacity(0.8))
                             .padding(.bottom, 8)
                         Text("One Hand Detected")
-                            .font(.app(.headline, family: .primary))
+                            .font(.customFont(size: 17, family: .primary, weight: .semibold))
                             .foregroundStyle(.yellow)
                     }
                     .transition(.opacity)
@@ -274,7 +274,7 @@ extension ClapGameView {
                             .foregroundStyle(.green.opacity(0.9))
                             .padding(.bottom, 8)
                         Text("Both Hands Detected")
-                            .font(.app(.headline, family: .primary))
+                            .font(.customFont(size: 17, family: .primary, weight: .semibold))
                             .foregroundStyle(.green)
                     }
                     .transition(.opacity)

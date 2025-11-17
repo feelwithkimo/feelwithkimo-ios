@@ -36,18 +36,21 @@ internal class HomeViewModel: ObservableObject {
         self.currentUser = UserModel(id: UUID(), name: identity)
 
         // Data dummy untuk daftar emosi
+//        self.emotions = [
+//            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "Carousel-Senang", title: "", description: "", stories: []),
+//            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Carousel-Marah", title: "Hi, aku marah",
+//                         description: "Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.", stories: []),
+//            EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "Carousel-Sedih", title: "", description: "", stories: []),
+//            EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Takut", title: "", description: "", stories: []),
+//            EmotionModel(id: UUID(), name: "Jijik", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Jijik", title: "", description: "", stories: []),
+//            EmotionModel(id: UUID(), name: "Terkejut", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Terkejut", title: "", description: "", stories: []),
+//            EmotionModel(id: UUID(), name: "Capek", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Capek", title: "", description: "", stories: [])
+//        ]
         self.emotions = [
-            EmotionModel(id: UUID(), name: "Senang", visualCharacterName: "face.smiling", emotionImage: "Carousel-Senang", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Marah", visualCharacterName: "face.dashed", emotionImage: "Carousel-Marah", title: "Hi, aku marah",
-                         description: "Aku gampang kesal kalau sesuatu tidak adil, tapi belajar menarik napas dan bicara baik-baik.", stories: []),
-            EmotionModel(id: UUID(), name: "Sedih", visualCharacterName: "sad", emotionImage: "Carousel-Sedih", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Takut", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Takut", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Jijik", visualCharacterName: "figure.walk.motion", emotionImage: "Carousel-Jijik", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Terkejut", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Terkejut", title: "", description: "", stories: []),
-            EmotionModel(id: UUID(), name: "Capek", visualCharacterName: "figure.mind.and.body", emotionImage: "Carousel-Capek", title: "", description: "", stories: [])
+            EmotionModel(id: "Balok", title: "Bermain Balok", description: "", image: "Balok", stories: [])
         ]
-
-        self.selectedEmotion = emotions.first(where: { $0.name == "Marah" })
+        
+        self.selectedEmotion = emotions.first(where: { $0.id == "Balok" })
     }
 
     // MARK: - Public Methods
@@ -101,7 +104,7 @@ internal class HomeViewModel: ObservableObject {
 
     /// Buat destination view untuk NavigationLink
     func makeEmotionStoryView(for emotion: EmotionModel) -> some View {
-        EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion))
+        EmotionStoryView(viewModel: EmotionStoryViewModel(emotion: emotion, path: emotion.id))
     }
     
     /// Buat lagu di home
@@ -109,7 +112,7 @@ internal class HomeViewModel: ObservableObject {
         DispatchQueue.main.async {
             if self.muted {
                 self.muted = false
-                AudioManager.shared.startBackgroundMusic()
+                AudioManager.shared.startBackgroundMusic(assetName: "newBacksong")
             } else {
                 self.muted = true
                 AudioManager.shared.stopAll()

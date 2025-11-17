@@ -7,12 +7,10 @@
 
 import Foundation
 
-struct EmotionModel: Identifiable {
-    let id: UUID
-    let name: String
-    let visualCharacterName: String
-    let emotionImage: String
+struct EmotionModel: Decodable, Identifiable {
+    let id: String
     let title: String
     let description: String
+    let image: String
     var stories: [StoryModel]
 }

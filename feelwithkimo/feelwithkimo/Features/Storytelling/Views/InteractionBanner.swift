@@ -32,6 +32,15 @@ struct InteractionBanner: View {
                     identifier: "story.clappingButton"
                 )
             }
+        
+        case .scaffolding:
+            BridgingPage<EmptyView>(
+                textDialogue: viewModel.currentScene.text,
+                destination: nil,
+                action: {
+                    viewModel.goScene(to: 1)
+                }
+            )
             
         default:
             EmptyView()

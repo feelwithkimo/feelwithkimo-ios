@@ -13,7 +13,7 @@ struct KimoTextField: View {
     
     var body: some View {
         TextField(placeholder, text: $inputText)
-            .font(.app(.title2, family: .primary))
+            .font(.customFont(size: 22, family: .primary, weight: .bold))
             .padding(.horizontal, 20)
             .padding(.vertical, 28)
             .background(

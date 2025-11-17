@@ -138,7 +138,7 @@ struct KimoAskView: View {
         HStack(spacing: -2) {
             HStack {
                     Text(customDialogueText)
-                        .font(.app(.callout, family: .primary))
+                        .font(.customFont(size: 16, family: .primary, weight: .regular))
                         .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
