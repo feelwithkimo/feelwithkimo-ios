@@ -32,12 +32,6 @@ struct StoryView: View {
             
             if viewModel.currentScene.question == nil {
                 storySceneView()
-                
-                // Add KimoAskView overlay
-//                KimoAskView(dialogueText: viewModel.currentScene.kimoText ?? "",
-//                            mark: viewModel.currentScene.kimoVisual ?? .normal,
-//                    showDialogue: $viewModel.showDialogue,
-//                    isMascotTapped: $viewModel.isTappedMascot)
             } else {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
