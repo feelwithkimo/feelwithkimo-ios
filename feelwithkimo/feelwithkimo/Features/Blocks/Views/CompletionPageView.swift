@@ -30,7 +30,7 @@ struct CompletionPageView: View {
             
             /// Confetti effect layer - appears early
             if showConfetti {
-                ConfettiView()
+                ConfettiOldView()
                     .transition(.opacity)
             }
             
