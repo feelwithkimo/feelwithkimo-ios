@@ -24,21 +24,21 @@ struct CompletionPageView<Background: View>: View {
     
     var body: some View {
         ZStack {
-            // Background view (the game itself)
+            /// Background view (the game itself)
             background()
             
-            // Black overlay with fade in animation
+            /// Black overlay with fade in animation
             Color.black.opacity(showOverlay ? 0.7 : 0)
                 .ignoresSafeArea()
                 .animation(.easeIn(duration: 0.2), value: showOverlay)
             
-            // Confetti effect layer - appears early
+            /// Confetti effect layer - appears early
             if showConfetti {
                 ConfettiView()
                     .transition(.opacity)
             }
             
-            // Completion card with animated components
+            /// Completion card with animated components
             AnimatedCompletionCard(
                 title: title,
                 primaryButtonLabel: primaryButtonLabel,
@@ -57,11 +57,11 @@ struct CompletionPageView<Background: View>: View {
     }
     
     private func startAnimationSequence() {
-        // 1. Show overlay and confetti immediately
+        /// 1. Show overlay and confetti immediately
         showOverlay = true
         showConfetti = true
         
-        // 2. Show card with all elements after 0.3s delay
+        /// 2. Show card with all elements after 0.3s delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             withAnimation {
                 self.showCard = true
@@ -70,7 +70,7 @@ struct CompletionPageView<Background: View>: View {
                 self.showButtons = true
             }
             
-            // 3. Play elephant sound when elephant appears (after the 0.3s delay)
+            /// 3. Play elephant sound when elephant appears (after the 0.3s delay)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 AudioManager.shared.playSoundEffect(effectName: "ElephantSoundEffect")
             }
@@ -93,7 +93,7 @@ struct AnimatedCompletionCard: View {
     
     var body: some View {
         ZStack {
-            // White background card with borders - pops in with bounce
+            /// White background card with borders - pops in with bounce
             RoundedRectangle(cornerRadius: 30)
                 .fill(Color.white)
                 .frame(width: 700.getWidth(), height: 620.getHeight())
@@ -116,17 +116,17 @@ struct AnimatedCompletionCard: View {
                 .opacity(showCard ? 1 : 0)
                 .animation(.spring(response: 0.35, dampingFraction: 0.75, blendDuration: 0), value: showCard)
             
-            // Title and Buttons Layer
+            /// Title and Buttons Layer
             VStack(spacing: 0) {
-                // Title bubble - slides from top with bounce
+                /// Title bubble - slides from top with bounce
                 ZStack {
-                    // Shadow layer (flatter, more elongated)
+                    /// Shadow layer (flatter, more elongated)
                     RoundedRectangle(cornerRadius: 20)
                         .fill(ColorToken.coreAccent.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
                         .offset(y: 12)
                     
-                    // Main title background (flatter elongated rounded rectangle)
+                    /// Main title background (flatter elongated rounded rectangle)
                     RoundedRectangle(cornerRadius: 20)
                         .fill(ColorToken.emotionDisgusted.toColor())
                         .frame(width: 520.getWidth(), height: 68.getHeight())
@@ -141,9 +141,9 @@ struct AnimatedCompletionCard: View {
                 
                 Spacer()
                 
-                // Buttons - slide from bottom with fade
+                /// Buttons - slide from bottom with fade
                 HStack(spacing: 24.getWidth()) {
-                    // Primary button
+                    /// Primary button
                     KimoDialogueButton(
                         config: KimoDialogueButtonConfig(
                             title: primaryButtonLabel,
@@ -157,7 +157,7 @@ struct AnimatedCompletionCard: View {
                     .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
                     .shadow(color: ColorToken.backgroundSecondary.toColor().opacity(0.2), radius: 12, x: 0, y: 2)
                     
-                    // Secondary button
+                    /// Secondary button
                     KimoDialogueButton(
                         config: KimoDialogueButtonConfig(
                             title: secondaryButtonLabel,
@@ -177,7 +177,7 @@ struct AnimatedCompletionCard: View {
                 .padding(.bottom, 50.getHeight())
             }
             
-            // Elephant image - bounces in with scale and slight jump
+            /// Elephant image - bounces in with scale and slight jump
             Image("KimoSenang")
                 .resizable()
                 .scaledToFit()
