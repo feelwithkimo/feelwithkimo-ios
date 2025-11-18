@@ -45,7 +45,11 @@ final class BlocksGameViewModel: ObservableObject {
         self.level = level
         self.onComplete = onComplete
         bottomBlocks = level.templatePlacements.map { placement in
-            BlockModel(id: placement.block.id, type: placement.block.type, color: placement.block.color)
+            BlockModel(
+                id: placement.block.id,
+                type: placement.block.type,
+                baseColor: placement.block.baseColor,
+                strokeColor: placement.block.strokeColor)
         }
     }
     
