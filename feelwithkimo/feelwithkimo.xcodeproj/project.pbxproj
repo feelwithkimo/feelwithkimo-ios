@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B5FA10AB2ECB29D30064DBE8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B5FA10AA2ECB29D30064DBE8 /* Lottie */; };
-		B5FA10AD2ECB29D30064DBE8 /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = B5FA10AC2ECB29D30064DBE8 /* Lottie-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5FA10AB2ECB29D30064DBE8 /* Lottie in Frameworks */,
-				B5FA10AD2ECB29D30064DBE8 /* Lottie-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +85,6 @@
 			name = feelwithkimo;
 			packageProductDependencies = (
 				B5FA10AA2ECB29D30064DBE8 /* Lottie */,
-				B5FA10AC2ECB29D30064DBE8 /* Lottie-Dynamic */,
 			);
 			productName = feelwithkimo;
 			productReference = ABD50B9E2E9D558100237461 /* feelwithkimo.app */;
@@ -422,11 +419,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B5FA10A92ECB29D30064DBE8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		B5FA10AC2ECB29D30064DBE8 /* Lottie-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B5FA10A92ECB29D30064DBE8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = "Lottie-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

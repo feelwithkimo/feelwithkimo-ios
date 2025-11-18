@@ -10,7 +10,7 @@ import Lottie
 
 struct ConfettiView: View {
     var body: some View {
-        LottieView(animation: .named("Confetti.lottie"))
+        LottieView(animation: .named("ConfettiLottie.json"))
             .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
     }
 }
