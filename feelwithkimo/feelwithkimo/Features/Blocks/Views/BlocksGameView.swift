@@ -60,7 +60,10 @@ struct BlocksGameView: View {
             
             if viewModel.isPaused {
                 BlocksGamePauseView(
-                    onReset: { print("yay reset") },
+                    onReset: {
+                        viewModel.resetGame()
+                        viewModel.onPausePressed()
+                    },
                     onHome: { print("yay home") },
                     onResume: viewModel.onPausePressed
                 )
