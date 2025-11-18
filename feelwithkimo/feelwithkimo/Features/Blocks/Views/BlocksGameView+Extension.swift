@@ -74,7 +74,7 @@ extension BlocksGameView {
     
     func renderDraggableShapes(placements: [BlockPlacement?]) -> some View {
         VStack(alignment: .center) {
-            ForEach(Array(placements.enumerated()), id: \.offset) { index, placement in
+            ForEach(Array(placements.enumerated()), id: \.offset) { _, placement in
                 if let placement {
                     DraggableBlockView(
                         placement: placement,
@@ -121,7 +121,6 @@ extension BlocksGameView {
                 .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
 
             VStack(alignment: .center, spacing: 30.getHeight()) {
-
                 renderShapes(
                     placements: viewModel.level.templatePlacements,
                     revealMode: true,
@@ -147,7 +146,6 @@ extension BlocksGameView {
         }
         .frame(width: 422.getWidth(), height: 692.getHeight())
     }
-
     
     func dragGesture(block: BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>> {
         DragGesture()
