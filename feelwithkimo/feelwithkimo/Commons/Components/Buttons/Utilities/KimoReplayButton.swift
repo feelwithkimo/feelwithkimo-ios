@@ -11,7 +11,7 @@ struct KimoReplayButton: View {
     var body: some View {
         Image("Replay")
             .resizable()
-            .frame(maxWidth: 80, maxHeight: 80)
+            .frame(width: 80, height: 80)
             .kimoButtonAccessibility(
                 label: "Ulangi",
                 hint: "Ulangi permainan",

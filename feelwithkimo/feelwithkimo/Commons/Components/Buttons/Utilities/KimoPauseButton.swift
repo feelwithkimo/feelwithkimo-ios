@@ -11,7 +11,7 @@ struct KimoPauseButton: View {
     var body: some View {
         Image("Pause")
             .resizable()
-            .frame(maxWidth: 100, maxHeight: 80)
+            .frame(width: 100, height: 80)
             .kimoButtonAccessibility(
                 label: "Berhenti",
                 hint: "Hentikan permainan sebentar",

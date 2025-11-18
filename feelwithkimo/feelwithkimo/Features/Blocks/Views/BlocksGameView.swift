@@ -23,7 +23,6 @@ struct BlocksGameView: View {
                 KimoReplayButton()
                 KimoPauseButton()
             }
-            
             VStack {
                 ZStack(alignment: .topLeading) {
                     HStack {
@@ -54,6 +53,7 @@ struct BlocksGameView: View {
                 }
             }
         }
+        .padding(.vertical, 44.getHeight())
         .padding(.horizontal, 55.getWidth())
         .background(
             ZStack {
