@@ -9,6 +9,79 @@ import SwiftUI
 
 extension BlocksGameView {
     
+    func solidBlockView(_ placement: BlockPlacement) -> some View {
+        shape(for: placement.block.type)
+            .fill(placement.block.baseColor)
+            .overlay(
+                shape(for: placement.block.type)
+                    .stroke(placement.block.strokeColor, lineWidth: 2)
+            )
+            .frame(width: placement.size.width, height: placement.size.height)
+            .offset(x: placement.position.x, y: placement.position.y)
+    }
+    
+    func hintBlockView(_ placement: BlockPlacement, index: Int) -> some View {
+        shape(for: placement.block.type)
+            .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
+            .foregroundColor(ColorToken.backgroundSecondary.toColor())
+            .frame(width: placement.size.width, height: placement.size.height)
+            .offset(x: placement.position.x, y: placement.position.y)
+            .readPosition { frame in
+                let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
+                let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
+                
+                if index < viewModel.templatePositions.count {
+                    viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
+                } else {
+                    print("templatePosition ", placement.block.type, finalX, finalY)
+                    viewModel.templatePositions.append(
+                        (shapeType: placement.block.type,
+                         point: CGPoint(x: finalX, y: finalY))
+                    )
+                }
+            }
+    }
+    
+    func renderShapes(
+        placements: [BlockPlacement],
+        revealMode: Bool = false,
+        revealIndex: Int? = nil
+    ) -> some View {
+        let maxX = placements.map { $0.position.x + $0.size.width }.max() ?? 0
+        let maxY = placements.map { $0.position.y + $0.size.height }.max() ?? 0
+        
+        return ZStack(alignment: .topLeading) {
+            ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
+                
+                let isHint = revealMode && revealIndex == index
+                let isAfterHint = revealMode && revealIndex != nil && index > (revealIndex ?? -1)
+                
+                if !isAfterHint {
+                    if isHint {
+                        hintBlockView(placement, index: index)
+                    } else {
+                        solidBlockView(placement)
+                    }
+                }
+            }
+        }
+        .frame(width: maxX, height: maxY, alignment: .topLeading)
+    }
+    
+    func renderDraggableShapes(placements: [BlockPlacement]) -> some View {
+        VStack(alignment: .center) {
+            ForEach(placements, id: \.block.id) { placement in
+                DraggableBlockView(
+                    placement: placement,
+                    block: placement.block,
+                    viewModel: viewModel,
+                    gameCoordinateSpaceName: gameCoordinateSpaceName,
+                    dragGesture: dragGesture
+                )
+            }
+        }
+    }
+    
     func renderShapesBar() -> some View {
         VStack {
             renderDraggableShapes(placements: viewModel.bottomBlocks.map { block in
@@ -45,89 +118,6 @@ extension BlocksGameView {
         }
     }
     
-    struct DraggableBlockView: View {
-        let placement: BlockPlacement
-        let block: BlockModel
-        let viewModel: BlocksGameViewModel
-        let gameCoordinateSpaceName: String
-        let dragGesture: (BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>>
-        private var currentScale: CGFloat {
-            viewModel.currentDragBlock?.id == block.id ? 1.0 : 0.8
-        }
-        
-        var body: some View {
-            shape(for: block.type)
-                .fill(block.baseColor)
-                .overlay(
-                    shape(for: block.type)
-                        .stroke(block.strokeColor, lineWidth: 2)
-                )
-                .frame(width: placement.size.width, height: placement.size.height)
-                .contentShape(Rectangle())
-                .offset(currentOffset)
-                .animation(.spring(), value: viewModel.snappingBlockId)
-                .zIndex(viewModel.currentDragBlock?.id == block.id ? 100 : 0)
-                .background(frameReader)
-                .gesture(dragGesture(block))
-                .scaleEffect(currentScale)
-                .animation(.spring(response: 0.3, dampingFraction: 0.7),
-                           value: viewModel.currentDragBlock?.id)
-        }
-        
-        // MARK: - Extracted offset computation
-        private var currentOffset: CGSize {
-            if viewModel.currentDragBlock?.id == block.id {
-                return viewModel.dragTranslation
-            }
-            
-            if viewModel.snappingBlockId == block.id,
-               let target = viewModel.snapTarget,
-               let myFrame = viewModel.bottomFrames[block.id] {
-                
-                print("myFrame mids: ", myFrame.midX, myFrame.midY)
-                
-                let deltaX = target.x - myFrame.midX / 2
-                let deltaY = target.y - myFrame.midY
-
-                return CGSize(width: deltaX, height: deltaY)
-            }
-            
-            return .zero
-        }
-        
-        // MARK: - Extracted frame reader
-        private var frameReader: some View {
-            GeometryReader { geo in
-                Color.clear.preference(
-                    key: FramePreferenceKey.self,
-                    value: [block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
-                )
-            }
-            .onPreferenceChange(FramePreferenceKey.self) { prefs in
-                Task { @MainActor in
-                    for (id, frame) in prefs {
-                        viewModel.bottomFrames[id] = frame
-                    }
-                }
-            }
-            .allowsHitTesting(false)
-        }
-    }
-    
-    func renderDraggableShapes(placements: [BlockPlacement]) -> some View {
-        VStack(alignment: .center) {
-            ForEach(placements, id: \.block.id) { placement in
-                DraggableBlockView(
-                    placement: placement,
-                    block: placement.block,
-                    viewModel: viewModel,
-                    gameCoordinateSpaceName: gameCoordinateSpaceName,
-                    dragGesture: dragGesture
-                )
-            }
-        }
-    }
-    
     func dragGesture(block: BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>> {
         DragGesture()
             .onChanged { geo in
@@ -139,7 +129,7 @@ extension BlocksGameView {
             .onEnded { geo in
                 guard let dragging = viewModel.currentDragBlock else { return }
                 
-                /// get bottom frame for this dragging item (in same coordinate space)
+                // get bottom frame for this dragging item (in same coordinate space)
                 if let bottomFrame = viewModel.bottomFrames[dragging.id] {
                     let startCenter = CGPoint(x: bottomFrame.midX, y: bottomFrame.midY)
                     let endPoint = CGPoint(x: startCenter.x + geo.translation.width,
@@ -158,86 +148,13 @@ extension BlocksGameView {
                         }
                     }
                 } else {
-                    /// bottom frame not known yet
+                    // bottom frame not known yet
                     withAnimation(.spring()) {
                         viewModel.currentDragBlock = nil
                         viewModel.dragTranslation = .zero
                     }
                 }
             }
-    }
-    
-    func hintBlockView(_ placement: BlockPlacement, index: Int) -> some View {
-        shape(for: placement.block.type)
-            .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
-            .foregroundColor(ColorToken.backgroundSecondary.toColor())
-            .frame(width: placement.size.width, height: placement.size.height)
-            .offset(x: placement.position.x, y: placement.position.y)
-            .readPosition { frame in
-                let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
-                let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
-                
-                if index < viewModel.templatePositions.count {
-                    viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
-                } else {
-                    print("templatePosition ", placement.block.type, finalX, finalY)
-                    viewModel.templatePositions.append(
-                        (shapeType: placement.block.type,
-                         point: CGPoint(x: finalX, y: finalY))
-                    )
-                }
-            }
-    }
-    
-    func solidBlockView(_ placement: BlockPlacement) -> some View {
-        shape(for: placement.block.type)
-            .fill(placement.block.baseColor)
-            .overlay(
-                shape(for: placement.block.type)
-                    .stroke(placement.block.strokeColor, lineWidth: 2)
-            )
-            .frame(width: placement.size.width, height: placement.size.height)
-            .offset(x: placement.position.x, y: placement.position.y)
-    }
-    
-    func renderShapes(
-        placements: [BlockPlacement],
-        revealMode: Bool = false,
-        revealIndex: Int? = nil
-    ) -> some View {
-        let maxX = placements.map { $0.position.x + $0.size.width }.max() ?? 0
-        let maxY = placements.map { $0.position.y + $0.size.height }.max() ?? 0
-        
-        return ZStack(alignment: .topLeading) {
-            ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
-                
-                let isHint = revealMode && revealIndex == index
-                let isAfterHint = revealMode && revealIndex != nil && index > (revealIndex ?? -1)
-                
-                if !isAfterHint {
-                    if isHint {
-                        hintBlockView(placement, index: index)
-                    } else {
-                        solidBlockView(placement)
-                    }
-                }
-            }
-        }
-        .frame(width: maxX, height: maxY, alignment: .topLeading)
-//        .border(.red)
-    }
-    
-    func shapesOutlineView(blockPlacements: [BlockPlacement]) -> some View {
-        return VStack(alignment: .center) {
-            Spacer()
-            VStack {
-                renderShapes(
-                    placements: blockPlacements,
-                    revealMode: true,
-                    revealIndex: viewModel.revealIndex
-                )
-            }
-        }
     }
     
     func showStarBurst(at point: CGPoint) {
