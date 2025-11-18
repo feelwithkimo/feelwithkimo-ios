@@ -28,12 +28,6 @@ struct CompletionPageView: View {
                 .ignoresSafeArea()
                 .animation(.easeIn(duration: 0.2), value: showOverlay)
             
-            /// Confetti effect layer - appears early
-            if showConfetti {
-                ConfettiOldView()
-                    .transition(.opacity)
-            }
-            
             /// Completion card with animated components
             AnimatedCompletionCard(
                 title: title,
@@ -46,6 +40,14 @@ struct CompletionPageView: View {
                 showElephant: showElephant,
                 showButtons: showButtons
             )
+            
+            /// Confetti effect layer - on top of everything
+            if showConfetti {
+                ConfettiView()
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+                    .transition(.opacity)
+            }
         }
         .onAppear {
             startAnimationSequence()
