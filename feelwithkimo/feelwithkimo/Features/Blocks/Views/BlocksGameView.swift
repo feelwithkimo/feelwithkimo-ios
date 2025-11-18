@@ -17,45 +17,55 @@ struct BlocksGameView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 18.getHeight()) {
-            HStack(spacing: 18.getWidth()) {
-                Spacer()
-                KimoReplayButton(action: viewModel.resetGame)
-                    .frame(width: 80, height: 80)
-                KimoPauseButton()
-            }
-            VStack {
-                ZStack(alignment: .topLeading) {
-                    HStack {
-                        Spacer()
-                        HStack(alignment: .top) {
-                            renderShapesBar()
-                                .zIndex(100)
-
+        ZStack {
+            VStack(alignment: .center, spacing: 18.getHeight()) {
+                HStack(spacing: 18.getWidth()) {
+                    Spacer()
+                    KimoReplayButton(action: viewModel.resetGame)
+                        .frame(width: 80, height: 80)
+                    KimoPauseButton(action: viewModel.onPausePressed)
+                }
+                VStack {
+                    ZStack(alignment: .topLeading) {
+                        HStack {
                             Spacer()
-                            Divider()
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(style: StrokeStyle(lineWidth: 4,
-                                                                   dash: [25]))
-                                        .foregroundColor(ColorToken.backgroundSecondary.toColor())
-                                )
-                                .frame(height: 658.getHeight())
-                            Spacer()
-                            renderShapesOutline()
+                            HStack(alignment: .top) {
+                                renderShapesBar()
+                                    .zIndex(100)
+                                
+                                Spacer()
+                                Divider()
+                                    .overlay(
+                                        Rectangle()
+                                            .stroke(style: StrokeStyle(lineWidth: 4,
+                                                                       dash: [25]))
+                                            .foregroundColor(ColorToken.backgroundSecondary.toColor())
+                                    )
+                                    .frame(height: 658.getHeight())
+                                Spacer()
+                                renderShapesOutline()
+                            }
+                            .frame(width: 854.getWidth())
                         }
-                        .frame(width: 854.getWidth())
+                        Image("LalaBlocks")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 276.getWidth())
+                            .padding(.top, 150.getHeight())
                     }
-                    Image("LalaBlocks")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 276.getWidth())
-                        .padding(.top, 150.getHeight())
                 }
             }
+            .padding(.vertical, 44.getHeight())
+            .padding(.horizontal, 55.getWidth())
+            
+            if viewModel.isPaused {
+                BlocksGamePauseView(
+                    onReset: { print("yay reset") },
+                    onHome: { print("yay home") },
+                    onResume: viewModel.onPausePressed
+                )
+            }
         }
-        .padding(.vertical, 44.getHeight())
-        .padding(.horizontal, 55.getWidth())
         .background(
             ZStack {
                 ColorToken.emotionSadness.toColor()

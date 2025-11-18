@@ -25,6 +25,8 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var dragStartLocationInGame: CGPoint?
     @Published var burstLocation: CGPoint?
     
+    @Published var isPaused: Bool = false
+    
     var snapRadius: CGFloat = 150
     var onComplete: (() -> Void)?
     
@@ -51,6 +53,10 @@ final class BlocksGameViewModel: ObservableObject {
                 baseColor: placement.block.baseColor,
                 strokeColor: placement.block.strokeColor)
         }
+    }
+    
+    func onPausePressed() {
+        isPaused = !isPaused
     }
     
     func isPlaced(_ id: UUID) -> Bool {
