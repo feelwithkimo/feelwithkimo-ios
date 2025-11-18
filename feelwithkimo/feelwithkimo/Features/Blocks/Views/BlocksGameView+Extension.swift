@@ -33,7 +33,6 @@ extension BlocksGameView {
                 if index < viewModel.templatePositions.count {
                     viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
                 } else {
-                    print("templatePosition ", placement.block.type, finalX, finalY)
                     viewModel.templatePositions.append(
                         (shapeType: placement.block.type,
                          point: CGPoint(x: finalX, y: finalY))
