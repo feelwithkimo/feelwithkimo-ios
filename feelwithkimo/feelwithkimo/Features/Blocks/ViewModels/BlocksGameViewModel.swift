@@ -75,8 +75,9 @@ final class BlocksGameViewModel: ObservableObject {
         templateFrames = [:]
         bottomFrames = [:]
         
-        templatePositions = level.templatePlacements.map {
-            ($0.block.type, $0.position)
+        templatePositions.removeAll()        
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
         }
         
         bottomBlocks = level.templatePlacements.map { placement in
@@ -110,7 +111,7 @@ final class BlocksGameViewModel: ObservableObject {
             let deltaX = center.x - location.x
             let deltaY = center.y - location.y
             let dist = hypot(deltaX, deltaY)
-                        
+            
             if dist < bestDist {
                 bestDist = dist
                 positionOfOutline = center
@@ -152,18 +153,18 @@ final class BlocksGameViewModel: ObservableObject {
     @MainActor
     func updateTemplateFrames(from pref: [UUID: CGRect]) {
         var dict: [Int: CGRect] = [:]
-
+        
         for (idx, placement) in level.templatePlacements.enumerated() {
             if let frame = pref[placement.block.id] {
                 dict[idx] = frame
             }
         }
-
+        
         if dict != templateFrames {
             templateFrames = dict
         }
     }
-
+    
     @MainActor
     func updateBottomFrames(from pref: [UUID: CGRect]) {
         if pref != bottomFrames {
