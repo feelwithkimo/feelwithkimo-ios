@@ -44,9 +44,7 @@ struct DraggableBlockView: View {
         if viewModel.snappingBlockId == block.id,
            let target = viewModel.snapTarget,
            let myFrame = viewModel.bottomFrames[block.id] {
-            
-            print("myFrame mids: ", myFrame.midX, myFrame.midY)
-            
+                        
             let deltaX = target.x - myFrame.midX / 2
             let deltaY = target.y - myFrame.midY
 
