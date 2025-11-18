@@ -55,6 +55,9 @@ extension BlocksGameView {
         let viewModel: BlocksGameViewModel
         let gameCoordinateSpaceName: String
         let dragGesture: (BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>>
+        private var currentScale: CGFloat {
+            viewModel.currentDragBlock?.id == block.id ? 1.0 : 0.8
+        }
 
         var body: some View {
             shape(for: block.type)
@@ -71,6 +74,9 @@ extension BlocksGameView {
                 .zIndex(viewModel.currentDragBlock?.id == block.id ? 100 : 0)
                 .background(frameReader)
                 .gesture(dragGesture(block))
+                .scaleEffect(currentScale)
+                .animation(.spring(response: 0.3, dampingFraction: 0.7),
+                           value: viewModel.currentDragBlock?.id)
         }
 
         // MARK: - Extracted offset computation
