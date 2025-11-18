@@ -11,7 +11,10 @@ extension BlocksGameView {
     
     func renderShapesBar() -> some View {
         VStack {
-            renderDraggableShapes(placements: viewModel.level.templatePlacements)
+            renderDraggableShapes(placements: viewModel.bottomBlocks.map { block in
+                let size = viewModel.blockSizes[block.id] ?? CGSize(width: 120, height: 120)
+                return BlockPlacement(block: block, position: .zero, size: size)
+            })
         }
         .frame(width: 300.getWidth(), height: 658.getHeight())
         .background {
@@ -27,7 +30,11 @@ extension BlocksGameView {
     
     func renderShapesOutline() -> some View {
         VStack {
-            
+            renderShapes(
+                placements: viewModel.level.templatePlacements,
+                revealMode: true,
+                revealIndex: viewModel.revealIndex
+            )
         }
         .frame(width: 422.getWidth(), height: 692.getHeight())
         .background {
@@ -58,7 +65,7 @@ extension BlocksGameView {
         private var currentScale: CGFloat {
             viewModel.currentDragBlock?.id == block.id ? 1.0 : 0.8
         }
-
+        
         var body: some View {
             shape(for: block.type)
                 .fill(block.baseColor)
@@ -78,25 +85,25 @@ extension BlocksGameView {
                 .animation(.spring(response: 0.3, dampingFraction: 0.7),
                            value: viewModel.currentDragBlock?.id)
         }
-
+        
         // MARK: - Extracted offset computation
         private var currentOffset: CGSize {
             if viewModel.currentDragBlock?.id == block.id {
                 return viewModel.dragTranslation
             }
-
+            
             if viewModel.snappingBlockId == block.id,
                let target = viewModel.snapTarget,
                let myFrame = viewModel.bottomFrames[block.id] {
-
+                
                 let deltaX = target.x - myFrame.midX + 20.getHeight()
                 let deltaY = target.y - myFrame.midY
                 return CGSize(width: deltaX, height: deltaY)
             }
-
+            
             return .zero
         }
-
+        
         // MARK: - Extracted frame reader
         private var frameReader: some View {
             GeometryReader { geo in
