@@ -67,12 +67,9 @@ struct BlockGameStageView: View {
                         }
                     },
                     onSecondaryAction: {
-                        /// Void for now - will be implemented later
-                        print("Stage 2 completed - Lanjutkan button pressed")
+                        dismiss()
+                        onCompletion?()
                     },
-                    background: {
-                        EmptyView()
-                    }
                 )
                 .transition(.opacity)
             }
