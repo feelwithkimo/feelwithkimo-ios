@@ -22,7 +22,12 @@ extension BlocksGameView {
     
     func hintBlockView(_ placement: BlockPlacement, index: Int) -> some View {
         shape(for: placement.block.type)
-            .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
+            .fill(placement.block.baseColor.opacity(0.3)) 
+            .overlay(
+                shape(for: placement.block.type)
+                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
+                    .foregroundColor(ColorToken.backgroundSecondary.toColor())
+            )
             .foregroundColor(ColorToken.backgroundSecondary.toColor())
             .frame(width: placement.size.width, height: placement.size.height)
             .offset(x: placement.position.x, y: placement.position.y)
