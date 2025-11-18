@@ -32,12 +32,6 @@ struct StoryView: View {
             
             if viewModel.currentScene.question == nil {
                 storySceneView()
-                
-                // Add KimoAskView overlay
-//                KimoAskView(dialogueText: viewModel.currentScene.kimoText ?? "",
-//                            mark: viewModel.currentScene.kimoVisual ?? .normal,
-//                    showDialogue: $viewModel.showDialogue,
-//                    isMascotTapped: $viewModel.isTappedMascot)
             } else {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
@@ -45,7 +39,9 @@ struct StoryView: View {
                 questionView()
             }
             
-            if viewModel.currentScene.interactionType != .normal && viewModel.currentScene.interactionType != .storyBranching {
+            if viewModel.currentScene.interactionType != .normal &&
+                viewModel.currentScene.interactionType != .storyBranching &&
+                viewModel.currentScene.interactionType != .scaffoldingOption {
                 Color.black.opacity(0.8)
                     .ignoresSafeArea()
             }

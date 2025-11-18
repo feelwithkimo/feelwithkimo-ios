@@ -64,23 +64,11 @@ struct IdentityView: View {
     private var titleView: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Kenalan")
-                .font(Font(
-                    UIFont.appFont(
-                        size: 104.getAdaptiveWidth(),
-                        family: .primary,
-                        weight: .bold
-                    )
-                ))
+                .font(.customFont(size: 104, weight: .bold))
                 .foregroundStyle(ColorToken.backgroundSecondary.toColor())
             
             Text("Yuk!")
-                .font(Font(
-                    UIFont.appFont(
-                        size: 104.getAdaptiveWidth(),
-                        family: .primary,
-                        weight: .bold
-                    )
-                ))
+                .font(.customFont(size: 104, weight: .bold))
                 .foregroundStyle(ColorToken.backgroundSecondary.toColor())
         }
         .kimoTextAccessibility(

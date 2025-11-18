@@ -130,7 +130,7 @@ struct AnimatedCompletionCard: View {
                         .frame(width: 520.getWidth(), height: 68.getHeight())
                     
                     Text(title)
-                        .font(Font(UIFont.appFont(size: 50, family: .primary, weight: .bold)))
+                        .font(.customFont(size: 60, weight: .bold))
                         .foregroundStyle(Color.white)
                 }
                 .offset(y: showTitle ? -34.getHeight() : -200.getHeight())

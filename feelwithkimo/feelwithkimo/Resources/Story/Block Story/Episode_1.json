@@ -47,7 +47,7 @@
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "breathing",
+    "interactionType": "blockGame",
     "isEnd": false
   },
   {
@@ -61,14 +61,15 @@
     "isEnd": false
   },
   {
-    "path": "Scene 5",
+    "path": "Scene 6",
     "text": "Tiba-tiba Jack datang dan menendang balok Lala.",
     "nextScene": [5, 7],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
     "interactionType": "normal",
-    "isEnd": false
+    "isEnd": false,
+    "soundEffect": "HardPop"
   },
   {
     "path": "Scene 6",
@@ -90,7 +91,7 @@
       "question": "Menurutmu, bagaimana perasaan Lala saat ini?",
       "option": ["Senang", "Marah"]
     },
-    "interactionType": "storyBranching",
+    "interactionType": "scaffoldingOption",
     "isEnd": false
   },
   {
@@ -164,17 +165,17 @@
     "isEnd": false
   },
   {
-    "path": "Scene 13",
+    "path": "Scene 12",
     "text": "Ayo kita buat bentuk ini!",
     "nextScene": [15, 17],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "breathing",
+    "interactionType": "blockGame",
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 13",
     "text": "\"Hore! Menaranya sudah jadi, La!\" kata Bu Guru dengan gembira.\n\"Terima kasih, Bu. Lala kagum sekali dengan menaranya\" jawab Lala sambil menatap dengan senang.",
     "nextScene": [16, 18],
     "kimoVisual": "star",
@@ -184,18 +185,18 @@
     "isEnd": false
   },
   {
-    "path": "Scene 15",
+    "path": "Scene 13",
     "text": "Ayo kita tepuk tangan bersama bu guru dan Lala!",
     "nextScene": [17, 19],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
-    "interactionType": "breathing",
+    "interactionType": "clapping",
     "isEnd": false
   },
   {
-    "path": "Scene 16",
-    "text": "Ending kesimpulan",
+    "path": "Scene 14",
+    "text": "Ayo kita tepuk tangan bersama bu guru dan Lala!",
     "nextScene": [18],
     "kimoVisual": "star",
     "kimoText": "",

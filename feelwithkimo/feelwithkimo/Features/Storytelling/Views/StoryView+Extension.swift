@@ -84,13 +84,15 @@ extension StoryView {
     }
     
     private struct OptionChoiceButton: View {
+        let buttonImage: String
+        let buttonImageSize: Int
         let title: String
         let action: () -> Void
 
         var body: some View {
             Button(action: action) {
                 ZStack(alignment: .center) {
-                    KimoImage(image: "OptionButton", width: 442.getWidth())
+                    KimoImage(image: buttonImage, width: buttonImageSize.getWidth())
                     Text(title)
                         .font(.customFont(size: 28, family: .primary, weight: .bold))
                         .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
@@ -110,7 +112,7 @@ extension StoryView {
                     .padding(.trailing, 29.getWidth())
                 
                 VStack(spacing: 0) {
-                    Text("Wah, Lala marah sekali! Menurutmu di sini, apa yang sebaiknya Lala lakukan?")
+                    Text(viewModel.currentScene.text)
                         .font(.customFont(size: 22, family: .primary, weight: .bold))
                         .fontWeight(.regular)
                         .frame(maxWidth: 394.getWidth())
@@ -123,27 +125,48 @@ extension StoryView {
                         KimoImage(image: "KimoDialogue", width: 157.getWidth())
                         Spacer()
                     }
+                    
+                    if let question = viewModel.currentScene.question, viewModel.currentScene.interactionType == .scaffoldingOption {
+                        HStack {
+                            Spacer()
+                            
+                            OptionChoiceButton(buttonImage: "Kimo\(question.option[0])", buttonImageSize: 157, title: "") {
+                                viewModel.goScene(to: 1, choice: 0)
+                                accessibilityManager.announce("Memilih: \(question.option[0])")
+                            }
+                            
+                            Spacer()
+                            
+                            OptionChoiceButton(buttonImage: "Kimo\(question.option[1])", buttonImageSize: 157, title: "") {
+                                viewModel.goScene(to: 1, choice: 0)
+                                accessibilityManager.announce("Memilih: \(question.option[1])")
+                            }
+                            Spacer()
+                        }
+                    }
                 }
             }
             
-            HStack(spacing: 0) {
-                Button(action: {
-                    viewModel.goScene(to: -1)
-                }, label: {
-                    KimoImage(image: "PreviousScene", width: 100.getWidth())
-                        .padding(.trailing, 37.getWidth())
-                })
+            if viewModel.currentScene.interactionType == .storyBranching {
+                HStack(spacing: 0) {
+                    Button(action: {
+                        viewModel.goScene(to: -1)
+                    }, label: {
+                        KimoImage(image: "PreviousScene", width: 100.getWidth())
+                            .padding(.trailing, 37.getWidth())
+                    })
 
-                if let question = viewModel.currentScene.question {
-                    OptionChoiceButton(title: question.option[0]) {
-                        viewModel.goScene(to: 1, choice: 0)
-                        accessibilityManager.announce("Memilih: \(question.option[0])")
-                    }
-                    .padding(.trailing, 50.getWidth())
+                    if let question = viewModel.currentScene.question {
+                        OptionChoiceButton(buttonImage: "OptionButton", buttonImageSize: 442, title: question.option[0]) {
+                            viewModel.goScene(to: 1, choice: 0)
+                            accessibilityManager.announce("Memilih: \(question.option[0])")
+                        }
+                        .padding(.trailing, 50.getWidth())
 
-                    OptionChoiceButton(title: question.option[1]) {
-                        viewModel.goScene(to: 1, choice: 1)
-                        accessibilityManager.announce("Memilih: \(question.option[1])")
+                        OptionChoiceButton(buttonImage: "OptionButton", buttonImageSize: 442, title: question.option[1]) {
+                            viewModel.goScene(to: 1, choice: 1)
+                            accessibilityManager.announce("Memilih: \(question.option[1])")
+                        }
                     }
                 }
             }

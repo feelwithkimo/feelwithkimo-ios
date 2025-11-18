@@ -182,7 +182,7 @@ extension BlocksGameView {
             /// card title
             HStack {
                 Text("Ayo kita buat bentuk ini!")
-                    .font(UIFont.appFont(forTextStyle: .largeTitle, family: .primary).toFont(relativeTo: .largeTitle))
+                    .font(.customFont(size: 34, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .multilineTextAlignment(.center)
             }
