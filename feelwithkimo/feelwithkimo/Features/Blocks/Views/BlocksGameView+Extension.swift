@@ -22,7 +22,7 @@ extension BlocksGameView {
     
     func hintBlockView(_ placement: BlockPlacement, index: Int) -> some View {
         shape(for: placement.block.type)
-            .fill(placement.block.baseColor.opacity(0.3)) 
+            .fill(placement.block.baseColor.opacity(0.3))
             .overlay(
                 shape(for: placement.block.type)
                     .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
@@ -112,21 +112,42 @@ extension BlocksGameView {
     }
     
     func renderShapesOutline() -> some View {
-        VStack {
-            renderShapes(
-                placements: viewModel.level.templatePlacements,
-                revealMode: true,
-                revealIndex: viewModel.revealIndex
-            )
-        }
-        .frame(width: 422.getWidth(), height: 692.getHeight())
-        .background {
+        let prevLevel = GameLevel.allCases.filter { $0 != viewModel.level }
+        
+        return ZStack {
             Rectangle()
                 .foregroundStyle(ColorToken.corePinkDialogue.toColor())
                 .cornerRadius(30)
                 .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+
+            VStack(alignment: .center, spacing: 30.getHeight()) {
+
+                renderShapes(
+                    placements: viewModel.level.templatePlacements,
+                    revealMode: true,
+                    revealIndex: viewModel.revealIndex
+                )
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                
+                if viewModel.level != GameLevel.level1 {
+                    Divider()
+                        .overlay(
+                            Rectangle()
+                                .stroke(style: StrokeStyle(lineWidth: 4, dash: [25]))
+                                .foregroundColor(ColorToken.backgroundSecondary.toColor())
+                        )
+                        .frame(width: 300.getWidth())
+
+                    renderShapes(placements: prevLevel[0].templatePlacements)
+                        .frame(height: 150)
+                        .clipped()
+                }
+            }
+            .padding()
         }
+        .frame(width: 422.getWidth(), height: 692.getHeight())
     }
+
     
     func dragGesture(block: BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>> {
         DragGesture()
@@ -190,6 +211,10 @@ struct ViewPositionKey: PreferenceKey {
     }
 }
 
-#Preview("Blocks Game View") {
+#Preview("Blocks Game View (Lv. 1)") {
     BlocksGameView(level: .level1)
+}
+
+#Preview("Blocks Game View (Lv. 2)") {
+    BlocksGameView(level: .level2)
 }
