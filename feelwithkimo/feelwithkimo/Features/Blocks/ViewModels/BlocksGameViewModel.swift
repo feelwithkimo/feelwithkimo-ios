@@ -125,8 +125,13 @@ final class BlocksGameViewModel: ObservableObject {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                if let idx = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
-                    self.bottomBlocks.remove(at: idx)
+                if let index = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
+                    self.bottomBlocks[index] = BlockModel(
+                        id: self.bottomBlocks[index].id,
+                        type: self.bottomBlocks[index].type,
+                        baseColor: Color.clear,
+                        strokeColor: Color.clear
+                    )
                 }
                 
                 self.templatePositions.removeAll { $0.point == positionOfOutline }

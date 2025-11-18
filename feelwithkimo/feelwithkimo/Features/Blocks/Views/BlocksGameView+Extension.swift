@@ -68,16 +68,22 @@ extension BlocksGameView {
         .frame(width: maxX, height: maxY, alignment: .topLeading)
     }
     
-    func renderDraggableShapes(placements: [BlockPlacement]) -> some View {
+    func renderDraggableShapes(placements: [BlockPlacement?]) -> some View {
         VStack(alignment: .center) {
-            ForEach(placements, id: \.block.id) { placement in
-                DraggableBlockView(
-                    placement: placement,
-                    block: placement.block,
-                    viewModel: viewModel,
-                    gameCoordinateSpaceName: gameCoordinateSpaceName,
-                    dragGesture: dragGesture
-                )
+            ForEach(Array(placements.enumerated()), id: \.offset) { index, placement in
+                if let placement {
+                    DraggableBlockView(
+                        placement: placement,
+                        block: placement.block,
+                        viewModel: viewModel,
+                        gameCoordinateSpaceName: gameCoordinateSpaceName,
+                        dragGesture: dragGesture
+                    )
+                    .frame(width: placement.size.width, height: placement.size.height)
+                } else {
+                    Color.clear
+                        .frame(width: 120, height: 120)
+                }
             }
         }
     }
