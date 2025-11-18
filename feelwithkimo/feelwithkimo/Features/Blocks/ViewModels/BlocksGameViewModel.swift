@@ -75,7 +75,7 @@ final class BlocksGameViewModel: ObservableObject {
             let deltaX = center.x - location.x
             let deltaY = center.y - location.y
             let dist = hypot(deltaX, deltaY)
-            
+                        
             if dist < bestDist {
                 bestDist = dist
                 positionOfOutline = center

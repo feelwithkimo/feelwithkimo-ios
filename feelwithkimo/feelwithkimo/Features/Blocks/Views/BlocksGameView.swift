@@ -94,7 +94,7 @@ struct BlocksGameView: View {
                 viewModel.updateTemplateFrames(from: pref)
             }
         }
-        .onPreferenceChange(BottomFramePreferenceKey.self) { pref in
+        .onPreferenceChange(FramePreferenceKey.self) { pref in
             Task { @MainActor in
                 viewModel.updateBottomFrames(from: pref)
             }

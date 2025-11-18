@@ -84,8 +84,11 @@ extension BlocksGameView {
                let target = viewModel.snapTarget,
                let myFrame = viewModel.bottomFrames[block.id] {
                 
-                let deltaX = target.x - myFrame.midX
+                print("myFrame mids: ", myFrame.midX, myFrame.midY)
+                
+                let deltaX = target.x - myFrame.midX / 2
                 let deltaY = target.y - myFrame.midY
+
                 return CGSize(width: deltaX, height: deltaY)
             }
             
@@ -177,6 +180,7 @@ extension BlocksGameView {
                 if index < viewModel.templatePositions.count {
                     viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
                 } else {
+                    print("templatePosition ", placement.block.type, finalX, finalY)
                     viewModel.templatePositions.append(
                         (shapeType: placement.block.type,
                          point: CGPoint(x: finalX, y: finalY))
@@ -220,6 +224,7 @@ extension BlocksGameView {
             }
         }
         .frame(width: maxX, height: maxY, alignment: .topLeading)
+//        .border(.red)
     }
     
     func shapesOutlineView(blockPlacements: [BlockPlacement]) -> some View {
@@ -245,13 +250,6 @@ extension BlocksGameView {
 }
 
 struct FramePreferenceKey: PreferenceKey {
-    static var defaultValue: [UUID: CGRect] = [:]
-    static func reduce(value: inout [UUID: CGRect], nextValue: () -> [UUID: CGRect]) {
-        value.merge(nextValue(), uniquingKeysWith: { $1 })
-    }
-}
-
-struct BottomFramePreferenceKey: PreferenceKey {
     static var defaultValue: [UUID: CGRect] = [:]
     static func reduce(value: inout [UUID: CGRect], nextValue: () -> [UUID: CGRect]) {
         value.merge(nextValue(), uniquingKeysWith: { $1 })
