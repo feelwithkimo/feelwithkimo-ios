@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A mute button for controlling background music
 struct KimoMuteButton: View {
-    let isLarge: Bool = false
+    var isLarge: Bool = false
     
     @ObservedObject var audioManager: AudioManager
     var body: some View {
