@@ -1,21 +1,20 @@
 //
-//  KimoReplayButton.swift
+//  KimoResumeButton.swift
 //  feelwithkimo
 //
-//  Created by Adeline Charlotte Augustinne on 17/11/25.
+//  Created by Adeline Charlotte Augustinne on 18/11/25.
 //
 
 import SwiftUI
 
-struct KimoReplayButton: View {
-    var isLarge: Bool = false
+struct KimoResumeButton: View {
     var action: (() -> Void)?
     
     var body: some View {
         Button(action: {
             action?()
         }, label: {
-            KimoImage(image: "Replay", width: isLarge ? 120.getWidth() : 80.getWidth())
+            KimoImage(image: "Resume", width: 120.getWidth())
                 .kimoButtonAccessibility(
                     label: "Kembali",
                     hint: "Ketuk dua kali untuk kembali ke halaman sebelumnya",
@@ -25,10 +24,6 @@ struct KimoReplayButton: View {
     }
 }
 
-#Preview("Kimo Replay Button Small") {
-    KimoReplayButton()
-}
-
-#Preview ("Kimo Replay Button Large"){
-    KimoReplayButton(isLarge: true)
+#Preview {
+    KimoResumeButton()
 }
