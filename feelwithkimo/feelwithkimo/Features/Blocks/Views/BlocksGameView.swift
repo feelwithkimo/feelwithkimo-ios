@@ -30,6 +30,7 @@ struct BlocksGameView: View {
                         Spacer()
                         HStack(alignment: .top) {
                             renderShapesBar()
+                                .zIndex(100)
                             Spacer()
                             Divider()
                                 .overlay(
