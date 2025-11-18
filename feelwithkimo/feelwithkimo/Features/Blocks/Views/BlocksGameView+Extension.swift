@@ -10,23 +10,35 @@ import SwiftUI
 extension BlocksGameView {
     
     func renderShapesBar() -> some View {
-        Rectangle()
-            .foregroundStyle(ColorToken.corePinkDialogue.toColor())
-            .frame(width: 300.getWidth(), height: 658.getHeight())
-            .cornerRadius(26.71)
-            .overlay(
-                RoundedRectangle(cornerRadius: 26.71)
-                    .stroke(ColorToken.additionalColorsLightBlue.toColor(), lineWidth: 6)
-            )
+        VStack {
+            renderDraggableShapes(placements: viewModel.level.templatePlacements)
+        }
+        .frame(width: 300.getWidth(), height: 658.getHeight())
+        .background {
+            Rectangle()
+                .foregroundStyle(ColorToken.corePinkDialogue.toColor())
+                .cornerRadius(26.71)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 26.71)
+                        .stroke(ColorToken.additionalColorsLightBlue.toColor(), lineWidth: 6)
+                )
+        }
     }
     
     func renderShapesOutline() -> some View {
-        Rectangle()
-            .frame(width: 422.getWidth(), height: 692.getHeight())
-            .foregroundStyle(ColorToken.corePinkDialogue.toColor())
-            .cornerRadius(30)
-            .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+        VStack {
+            
+        }
+        .frame(width: 422.getWidth(), height: 692.getHeight())
+        .background {
+            Rectangle()
+                .foregroundStyle(ColorToken.corePinkDialogue.toColor())
+                .cornerRadius(30)
+                .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+        }
     }
+    
+    // TODO: old functions
     
     var shapesView: some View {
         HStack(spacing: 82.getWidth()) {
@@ -37,63 +49,82 @@ extension BlocksGameView {
         .padding(.leading, 252.getWidth())
     }
     
-    func renderBtmBarShapes(placements: [BlockPlacement]) -> some View {
-        return HStack(alignment: .center) {
-            ForEach(Array(placements.enumerated()), id: \.element.block.id) { _, placement in
-                
-                let block = placement.block
-                
-                shape(for: placement.block.type)
-                    .fill(placement.block.color)
-                    .overlay(
-                        shape(for: placement.block.type)
-                            .stroke(ColorToken.additionalColorsBlack.toColor(), lineWidth: 2)
-                    )
-                    .frame(width: placement.size.width, height: placement.size.height)
-                    .padding(.horizontal, 30.getWidth())
-                    .contentShape(Rectangle())
-                    .offset({
-                        if viewModel.currentDragBlock?.id == block.id {
-                            return viewModel.dragTranslation
-                        }
-                        
-                        if viewModel.snappingBlockId == block.id,
-                           let target = viewModel.snapTarget,
-                           let myFrame = viewModel.bottomFrames[block.id] {
-                            
-                            let deltaX = target.x - myFrame.midX + 20.getHeight()
-                            let deltaY = target.y - myFrame.midY
-                            return CGSize(width: deltaX, height: deltaY)
-                        }
-                        
-                        return .zero
-                    }())
-                    .animation(.spring(), value: viewModel.snappingBlockId)
-                    .zIndex(viewModel.currentDragBlock?.id == block.id ? 100 : 0)
-                    .background(
-                        GeometryReader { geo in
-                            Color.clear .preference(
-                                key: FramePreferenceKey.self,
-                                value: [placement.block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
-                            )
-                        }
-                            .onPreferenceChange(FramePreferenceKey.self) { prefs in
-                                Task { @MainActor in
-                                    for (id, frame) in prefs {
-                                        viewModel.bottomFrames[id] = frame
-                                    }
-                                }
-                            }
-                            .allowsHitTesting(false)
-                    )
-                    .gesture(
-                        dragGesture(block: block)
-                    )
+    struct DraggableBlockView: View {
+        let placement: BlockPlacement
+        let block: BlockModel
+        let viewModel: BlocksGameViewModel
+        let gameCoordinateSpaceName: String
+        let dragGesture: (BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>>
+
+        var body: some View {
+            shape(for: block.type)
+                .fill(block.baseColor)
+                .overlay(
+                    shape(for: block.type)
+                        .stroke(block.strokeColor, lineWidth: 2)
+                )
+                .frame(width: placement.size.width, height: placement.size.height)
+                .padding(.horizontal, 30.getWidth())
+                .contentShape(Rectangle())
+                .offset(currentOffset)
+                .animation(.spring(), value: viewModel.snappingBlockId)
+                .zIndex(viewModel.currentDragBlock?.id == block.id ? 100 : 0)
+                .background(frameReader)
+                .gesture(dragGesture(block))
+        }
+
+        // MARK: - Extracted offset computation
+        private var currentOffset: CGSize {
+            if viewModel.currentDragBlock?.id == block.id {
+                return viewModel.dragTranslation
+            }
+
+            if viewModel.snappingBlockId == block.id,
+               let target = viewModel.snapTarget,
+               let myFrame = viewModel.bottomFrames[block.id] {
+
+                let deltaX = target.x - myFrame.midX + 20.getHeight()
+                let deltaY = target.y - myFrame.midY
+                return CGSize(width: deltaX, height: deltaY)
+            }
+
+            return .zero
+        }
+
+        // MARK: - Extracted frame reader
+        private var frameReader: some View {
+            GeometryReader { geo in
+                Color.clear.preference(
+                    key: FramePreferenceKey.self,
+                    value: [block.id: geo.frame(in: .named(gameCoordinateSpaceName))]
+                )
+            }
+            .onPreferenceChange(FramePreferenceKey.self) { prefs in
+                Task { @MainActor in
+                    for (id, frame) in prefs {
+                        viewModel.bottomFrames[id] = frame
+                    }
+                }
+            }
+            .allowsHitTesting(false)
+        }
+    }
+    
+    func renderDraggableShapes(placements: [BlockPlacement]) -> some View {
+        VStack(alignment: .center) {
+            ForEach(placements, id: \.block.id) { placement in
+                DraggableBlockView(
+                    placement: placement,
+                    block: placement.block,
+                    viewModel: viewModel,
+                    gameCoordinateSpaceName: gameCoordinateSpaceName,
+                    dragGesture: dragGesture
+                )
             }
         }
     }
     
-    func dragGesture(block: BlockModel) -> some Gesture {
+    func dragGesture(block: BlockModel) -> _EndedGesture<_ChangedGesture<DragGesture>> {
         DragGesture()
             .onChanged { geo in
                 if viewModel.currentDragBlock == nil {
@@ -132,6 +163,38 @@ extension BlocksGameView {
             }
     }
     
+    func hintBlockView(_ placement: BlockPlacement, index: Int) -> some View {
+        shape(for: placement.block.type)
+            .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
+            .foregroundColor(ColorToken.backgroundSecondary.toColor())
+            .frame(width: placement.size.width, height: placement.size.height)
+            .offset(x: placement.position.x, y: placement.position.y)
+            .readPosition { frame in
+                let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
+                let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
+                
+                if index < viewModel.templatePositions.count {
+                    viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
+                } else {
+                    viewModel.templatePositions.append(
+                        (shapeType: placement.block.type,
+                         point: CGPoint(x: finalX, y: finalY))
+                    )
+                }
+            }
+    }
+    
+    func solidBlockView(_ placement: BlockPlacement) -> some View {
+        shape(for: placement.block.type)
+            .fill(placement.block.baseColor)
+            .overlay(
+                shape(for: placement.block.type)
+                    .stroke(placement.block.strokeColor, lineWidth: 2)
+            )
+            .frame(width: placement.size.width, height: placement.size.height)
+            .offset(x: placement.position.x, y: placement.position.y)
+    }
+    
     func renderShapes(
         placements: [BlockPlacement],
         revealMode: Bool = false,
@@ -144,49 +207,18 @@ extension BlocksGameView {
             ForEach(Array(placements.enumerated()), id: \.element.block.id) { index, placement in
                 
                 let isHint = revealMode && revealIndex == index
-                let isAfterHint = revealMode && revealIndex != nil && index > revealIndex ?? -1
+                let isAfterHint = revealMode && revealIndex != nil && index > (revealIndex ?? -1)
                 
                 if !isAfterHint {
                     if isHint {
-                        /// no fill, dashed stroke
-                        shape(for: placement.block.type)
-                            .stroke(style: StrokeStyle(lineWidth: 2, dash: [25]))
-                            .foregroundColor(ColorToken.backgroundSecondary.toColor())
-                            .frame(width: placement.size.width, height: placement.size.height)
-                            .offset(x: placement.position.x, y: placement.position.y)
-                            .readPosition { frame in
-                                let finalX = frame.origin.x + placement.position.x + placement.size.width / 2
-                                let finalY = frame.origin.y + placement.position.y + placement.size.height / 2
-                                
-                                /// insert center
-                                if index < viewModel.templatePositions.count {
-                                    viewModel.templatePositions[index].point = CGPoint(x: finalX, y: finalY)
-                                } else {
-                                    viewModel.templatePositions.append(
-                                        (shapeType: placement.block.type,
-                                         point: CGPoint(x: finalX, y: finalY))
-                                    )
-                                }
-                            }
+                        hintBlockView(placement, index: index)
                     } else {
-                        /// solid block
-                        shape(for: placement.block.type)
-                            .fill(placement.block.color)
-                            .overlay(
-                                shape(for: placement.block.type)
-                                    .stroke(ColorToken.additionalColorsBlack.toColor(), lineWidth: 2)
-                            )
-                            .frame(width: placement.size.width, height: placement.size.height)
-                            .offset(x: placement.position.x, y: placement.position.y)
+                        solidBlockView(placement)
                     }
                 }
             }
         }
         .frame(width: maxX, height: maxY, alignment: .topLeading)
-        .readPosition { frame in
-            print("rendering renderShapes()")
-            print(frame.origin)
-        }
     }
     
     func shapesGuideCard(blockPlacements: [BlockPlacement]) -> some View {
@@ -240,7 +272,7 @@ extension BlocksGameView {
     
     func bottomBar(placements: [BlockPlacement]) -> some View {
         HStack(alignment: .center, spacing: 0) {
-            renderBtmBarShapes(placements: placements)
+            renderDraggableShapes(placements: placements)
         }
         .padding(.horizontal, 60.getWidth())
         .padding(.vertical, 20.getHeight())
