@@ -45,17 +45,6 @@ extension BlocksGameView {
         }
     }
     
-    // TODO: old functions
-    
-    var shapesView: some View {
-        HStack(spacing: 82.getWidth()) {
-            shapesGuideCard(blockPlacements: viewModel.level.templatePlacements)
-            shapesOutlineView(blockPlacements: viewModel.level.templatePlacements)
-        }
-        .padding(.vertical, 44.getHeight())
-        .padding(.leading, 252.getWidth())
-    }
-    
     struct DraggableBlockView: View {
         let placement: BlockPlacement
         let block: BlockModel
@@ -74,7 +63,6 @@ extension BlocksGameView {
                         .stroke(block.strokeColor, lineWidth: 2)
                 )
                 .frame(width: placement.size.width, height: placement.size.height)
-                .padding(.horizontal, 30.getWidth())
                 .contentShape(Rectangle())
                 .offset(currentOffset)
                 .animation(.spring(), value: viewModel.snappingBlockId)
@@ -96,7 +84,7 @@ extension BlocksGameView {
                let target = viewModel.snapTarget,
                let myFrame = viewModel.bottomFrames[block.id] {
                 
-                let deltaX = target.x - myFrame.midX + 20.getHeight()
+                let deltaX = target.x - myFrame.midX
                 let deltaY = target.y - myFrame.midY
                 return CGSize(width: deltaX, height: deltaY)
             }
@@ -234,42 +222,6 @@ extension BlocksGameView {
         .frame(width: maxX, height: maxY, alignment: .topLeading)
     }
     
-    func shapesGuideCard(blockPlacements: [BlockPlacement]) -> some View {
-        let placements: [BlockPlacement] = blockPlacements
-        let maxY = placements.map { $0.position.y + $0.size.height }.max() ?? 0
-        
-        return VStack(spacing: 2) {
-            
-            /// card title
-            HStack {
-                Text("Ayo kita buat bentuk ini!")
-                    .font(.customFont(size: 34, weight: .bold))
-                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-                    .multilineTextAlignment(.center)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 83.getWidth())
-            .padding(.vertical, 13.getHeight())
-            .background(ColorToken.coreAccent.toColor())
-            
-            /// card shapes content
-            VStack {
-                renderShapes(placements: placements)
-            }
-            .frame(width: 546.getWidth(), height: maxY, alignment: .center)
-            .padding(23.getHeight())
-            .background(Color.white)
-        }
-        .frame(width: 546.getWidth())
-        .background(ColorToken.backgroundSecondary.toColor())
-        .cornerRadius(30.getHeight())
-        .overlay(
-            RoundedRectangle(cornerRadius: 30.getHeight())
-                .inset(by: -1)
-                .stroke(ColorToken.backgroundSecondary.toColor(), lineWidth: 2)
-        )
-    }
-    
     func shapesOutlineView(blockPlacements: [BlockPlacement]) -> some View {
         return VStack(alignment: .center) {
             Spacer()
@@ -281,29 +233,6 @@ extension BlocksGameView {
                 )
             }
         }
-    }
-    
-    func bottomBar(placements: [BlockPlacement]) -> some View {
-        HStack(alignment: .center, spacing: 0) {
-            renderDraggableShapes(placements: placements)
-        }
-        .padding(.horizontal, 60.getWidth())
-        .padding(.vertical, 20.getHeight())
-        .frame(minHeight: 150.getHeight())
-        .frame(maxWidth: .infinity)
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 60, style: .continuous)
-                    .fill(ColorToken.additionalColorsLightBlue.toColor())
-                    .offset(y: -7.getHeight())
-                
-                RoundedRectangle(cornerRadius: 50, style: .continuous)
-                    .fill(ColorToken.emotionSadness.toColor())
-            }
-                .padding(.bottom, -50.getHeight())
-        )
-        .shadow(color: ColorToken.emotionSadness.toColor().opacity(0.2),
-                radius: 20, x: 0, y: -15.getHeight())
     }
     
     func showStarBurst(at point: CGPoint) {
