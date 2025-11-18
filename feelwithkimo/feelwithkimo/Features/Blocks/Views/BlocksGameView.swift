@@ -31,6 +31,7 @@ struct BlocksGameView: View {
                         HStack(alignment: .top) {
                             renderShapesBar()
                                 .zIndex(100)
+
                             Spacer()
                             Divider()
                                 .overlay(
@@ -86,6 +87,13 @@ struct BlocksGameView: View {
                     .padding(.leading, 751.getWidth())
                     .opacity(0.5)
             })
+        .overlay(
+            Group {
+                if let loc = viewModel.burstLocation {
+                    StarBurstView(center: loc)
+                }
+            }
+        )
         
         //            VStack(alignment: .leading) {
         //                Spacer()
@@ -143,13 +151,6 @@ struct BlocksGameView: View {
         //                viewModel.updateBottomFrames(from: pref)
         //            }
         //        }
-        //        .overlay(
-        //            Group {
-        //                if let loc = viewModel.burstLocation {
-        //                    StarBurstView(center: loc)
-        //                }
-        //            }
-        //        )
     }
 }
 
