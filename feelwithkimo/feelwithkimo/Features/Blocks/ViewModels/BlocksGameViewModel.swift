@@ -65,6 +65,36 @@ final class BlocksGameViewModel: ObservableObject {
         }
     }
     
+    func resetGame() {
+        placedMap = [:]
+        templateFrames = [:]
+        bottomFrames = [:]
+        
+        templatePositions = level.templatePlacements.map {
+            ($0.block.type, $0.position)
+        }
+        
+        bottomBlocks = level.templatePlacements.map { placement in
+            BlockModel(
+                id: placement.block.id,
+                type: placement.block.type,
+                baseColor: placement.block.baseColor,
+                strokeColor: placement.block.strokeColor
+            )
+        }
+        
+        revealIndex = 0
+        
+        snapTarget = nil
+        snappingBlockId = nil
+        
+        currentDragBlock = nil
+        dragTranslation = .zero
+        dragStartLocationInGame = nil
+        
+        burstLocation = nil
+    }
+    
     func handleDragEnd(block: BlockModel, at location: CGPoint) -> Bool {
         var bestDist = CGFloat.infinity
         var positionOfOutline = CGPoint.zero

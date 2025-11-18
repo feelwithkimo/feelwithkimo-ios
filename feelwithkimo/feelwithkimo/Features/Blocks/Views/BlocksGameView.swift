@@ -21,6 +21,9 @@ struct BlocksGameView: View {
             HStack(spacing: 18.getWidth()) {
                 Spacer()
                 KimoReplayButton()
+                    .onTapGesture {
+                        viewModel.resetGame()
+                    }
                 KimoPauseButton()
             }
             VStack {
