@@ -21,6 +21,7 @@ struct BlocksGamePauseView: View {
                     KimoHomeButton(isLarge: true, action: onHome)
                     KimoResumeButton(isLarge: true, action: onResume)
                 }
+                
                 HStack {
                     KimoReplayButton(isLarge: true, action: onReset)
                     KimoMuteButton(isLarge: true, audioManager: AudioManager.shared)
