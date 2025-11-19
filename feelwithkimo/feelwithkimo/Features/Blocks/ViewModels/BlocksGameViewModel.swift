@@ -27,6 +27,9 @@ final class BlocksGameViewModel: ObservableObject {
     
     @Published var isPaused: Bool = false
     
+    @Published var showIdleOverlay: Bool = false
+    let idleTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
+        
     var snapRadius: CGFloat = 150
     var onComplete: (() -> Void)?
     
@@ -148,6 +151,17 @@ final class BlocksGameViewModel: ObservableObject {
             return true
         }
         return false
+    }
+    
+    func handleIdleTick() {
+        guard currentDragBlock == nil else { return }
+        guard !isPaused else { return }
+
+        showIdleOverlay = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.showIdleOverlay = false
+        }
     }
     
     @MainActor
