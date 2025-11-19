@@ -69,7 +69,7 @@ struct BlockGameStageView: View {
                     onSecondaryAction: {
                         dismiss()
                         onCompletion?()
-                    },
+                    }
                 )
                 .transition(.opacity)
             }

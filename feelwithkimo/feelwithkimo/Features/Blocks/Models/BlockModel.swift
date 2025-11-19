@@ -11,12 +11,14 @@ import SwiftUI
 struct BlockModel: Identifiable, Equatable {
     let id: UUID
     let type: ShapeType
-    let color: Color
+    let baseColor: Color
+    let strokeColor: Color
     
-    init(id: UUID = UUID(), type: ShapeType, color: Color) {
+    init(id: UUID = UUID(), type: ShapeType, baseColor: Color, strokeColor: Color) {
         self.id = id
         self.type = type
-        self.color = color
+        self.baseColor = baseColor
+        self.strokeColor = strokeColor
     }
 }
 
