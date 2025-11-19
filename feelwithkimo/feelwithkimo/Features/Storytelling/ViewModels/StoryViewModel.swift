@@ -22,6 +22,7 @@ internal class StoryViewModel: ObservableObject {
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
     @Published var hasCompletedBlockGame: Bool = false
+    @Published var currentBlockGamePhase: Int = 1  // Track which phase should be played
     @Published var tutorialStep: Int = 1
     
     @Published var showDialogue: Bool = false
@@ -102,10 +103,16 @@ internal class StoryViewModel: ObservableObject {
         goScene(to: 1, choice: 0)
     }
     
-    /// Mark block game as completed
-    func completeBlockGame() {
-        hasCompletedBlockGame = true
+    /// Mark block game phase as completed and advance to next scene
+    func completeBlockGamePhase() {
+        // Increment phase after completing current phase
+        currentBlockGamePhase += 1
         goScene(to: 1, choice: 0)
+    }
+    
+    /// Legacy function for compatibility - redirects to completeBlockGamePhase
+    func completeBlockGame() {
+        completeBlockGamePhase()
     }
     
     func nextTutorial() {
@@ -129,6 +136,7 @@ internal class StoryViewModel: ObservableObject {
             self.hasCompletedBreathing = false
             self.hasCompletedClapping = false
             self.hasCompletedBlockGame = false
+            self.currentBlockGamePhase = 1  // Reset to phase 1 when replaying
         }
     }
 }

@@ -33,6 +33,7 @@ struct BlocksGameView: View {
             VStack(alignment: .center, spacing: 18.getHeight()) {
                 HStack(spacing: 18.getWidth()) {
                     Spacer()
+                    
                     KimoReplayButton(action: viewModel.resetGame)
                         .frame(width: 80, height: 80)
                     KimoPauseButton(action: viewModel.onPausePressed)
@@ -59,9 +60,8 @@ struct BlocksGameView: View {
                             }
                             .frame(width: 854.getWidth())
                         }
+                        
                         riveViewModel.view()
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
                             .frame(width: 276.getWidth())
                             .padding(.top, 150.getHeight())
                     }
@@ -147,6 +147,7 @@ struct BlocksGameView: View {
         .onDisappear {
             viewModel.stopLoop()
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

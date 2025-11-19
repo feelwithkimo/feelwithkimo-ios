@@ -61,7 +61,6 @@ extension ClapGameView {
     // MARK: - Completion View
     func completionView(skip: Bool) -> some View {
         ZStack {
-            // Semi-transparent background
             Color.black.opacity(0.9)
                 .ignoresSafeArea()
             
@@ -112,7 +111,6 @@ extension ClapGameView {
                     ])
                 )
             }
-            
         }
     }
 
