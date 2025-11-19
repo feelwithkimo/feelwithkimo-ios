@@ -48,7 +48,9 @@ struct StoryView: View {
                 questionView()
             }
             
-            if viewModel.currentScene.interactionType != .normal && viewModel.currentScene.interactionType != .storyBranching {
+            if viewModel.currentScene.interactionType != .normal &&
+                viewModel.currentScene.interactionType != .storyBranching &&
+                viewModel.currentScene.interactionType != .scaffoldingOption {
                 Color.black.opacity(0.8)
                     .ignoresSafeArea()
             }

@@ -12,5 +12,6 @@ enum InteractionType: String, Decodable {
     case facialExpressions
     case storyBranching
     case scaffolding
+    case scaffoldingOption
     case blockGame
 }

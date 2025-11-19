@@ -91,7 +91,7 @@
       "question": "Menurutmu, bagaimana perasaan Lala saat ini?",
       "option": ["Senang", "Marah"]
     },
-    "interactionType": "storyBranching",
+    "interactionType": "scaffoldingOption",
     "isEnd": false
   },
   {
