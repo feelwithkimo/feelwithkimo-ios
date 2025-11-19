@@ -12,6 +12,7 @@ struct BlockGameStageView: View {
     @State private var currentState: BlockBuildingState = .stage1
     @State private var gameResetKey: Int = 0  /// Key to force game reset
     var onCompletion: (() -> Void)?
+    @ObservedObject var storyViewModel: StoryViewModel
     
     var body: some View {
         ZStack {
@@ -45,10 +46,12 @@ struct BlockGameStageView: View {
                     },
                     onSecondaryAction: {
                         /// Continue to stage 2 - reset state first, then increment key
-                        currentState = .stage2
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            gameResetKey += 1
-                        }
+//                        currentState = .stage2
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                            gameResetKey += 1
+//                        }
+                        dismiss()
+                        storyViewModel.goScene(to: 1)
                     }
                 )
                 .transition(.opacity)
@@ -78,6 +81,6 @@ struct BlockGameStageView: View {
     }
 }
 
-#Preview {
-    BlockGameStageView()
-}
+//#Preview {
+//    BlockGameStageView()
+//}

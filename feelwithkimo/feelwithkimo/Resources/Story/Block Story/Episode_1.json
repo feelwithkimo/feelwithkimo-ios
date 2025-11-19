@@ -1,7 +1,7 @@
 [
   {
     "path": "Scene 1",
-    "text": "Perkenalkan ini adalah Lala, dia sedang berada di sekolah KIMO",
+    "text": "Perkenalkan ini adalah Lala, dia sedang berada di sekolah KIMO.",
     "nextScene": [1],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -22,7 +22,7 @@
   },
   {
     "path": "Scene 3",
-    "text": "Nah, kalau yang ini Jack, dia itu temannya Lala",
+    "text": "Nah, kalau yang ini Jack, dia itu temannya Lala.",
     "nextScene": [1, 3],
     "kimoVisual": "star",
     "kimoText": "",
@@ -48,6 +48,16 @@
     "kimoText": "",
     "question": null,
     "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 5",
+    "text": "Wah, baloknya sudah jadi setengah nih.",
+    "nextScene": [4, 6],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
     "isEnd": false
   },
   {

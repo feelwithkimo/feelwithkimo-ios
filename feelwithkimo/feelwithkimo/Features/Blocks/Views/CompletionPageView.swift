@@ -14,6 +14,7 @@ struct CompletionPageView: View {
     var onPrimaryAction: (() -> Void)?
     var onSecondaryAction: (() -> Void)?
     
+    @Environment(\.dismiss) var dismiss
     @State private var showOverlay = false
     @State private var showConfetti = false
     @State private var showCard = false
