@@ -104,7 +104,6 @@ struct BlocksGameAnimationView: View {
     }
 }
 
-
 #Preview() {
     BlocksGameAnimationView()
 }

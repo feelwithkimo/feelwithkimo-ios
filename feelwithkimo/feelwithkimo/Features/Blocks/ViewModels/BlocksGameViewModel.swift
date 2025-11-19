@@ -6,6 +6,7 @@
 ///
 
 import SwiftUI
+import RiveRuntime
 
 @MainActor
 final class BlocksGameViewModel: ObservableObject {
@@ -28,7 +29,11 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var isPaused: Bool = false
     
     @Published var showIdleOverlay: Bool = false
+    
     let idleTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
+    
+    private let riveViewModel: RiveViewModel
+    private var timer: Timer?
         
     var snapRadius: CGFloat = 150
     var onComplete: (() -> Void)?
@@ -51,9 +56,10 @@ final class BlocksGameViewModel: ObservableObject {
         return isCompleted
     }
     
-    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
+    init(level: GameLevel, onComplete: (() -> Void)? = nil, riveViewModel: RiveViewModel) {
         self.level = level
         self.onComplete = onComplete
+        self.riveViewModel = riveViewModel
         bottomBlocks = level.templatePlacements.map { placement in
             BlockModel(
                 id: placement.block.id,
@@ -190,5 +196,31 @@ final class BlocksGameViewModel: ObservableObject {
         if pref != bottomFrames {
             bottomFrames = pref
         }
+    }
+    
+    func startLoop() {
+        stopLoop()
+
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.doLidSequence()
+            }
+        }
+        timer?.tolerance = 0.1
+    }
+
+    func stopLoop() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    @MainActor
+    private func doLidSequence() {
+        riveViewModel.triggerInput("doLidDown")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.riveViewModel.triggerInput("doLidUp")
+        }
+        
     }
 }

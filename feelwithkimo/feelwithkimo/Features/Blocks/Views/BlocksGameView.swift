@@ -6,14 +6,26 @@
 ///
 
 import SwiftUI
+import RiveRuntime
 
 struct BlocksGameView: View {
     @StateObject var viewModel: BlocksGameViewModel
+    // TODO: refactor to environtment model
+    @StateObject private var riveViewModel: RiveViewModel
     
     let gameCoordinateSpaceName = "blocksGame"
     
     init(level: GameLevel, onComplete: (() -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: BlocksGameViewModel(level: level, onComplete: onComplete))
+        let rive = RiveViewModel(fileName: "LalaInBlockGame")
+
+        _riveViewModel = StateObject(wrappedValue: rive)
+        _viewModel = StateObject(
+            wrappedValue: BlocksGameViewModel(
+                level: level,
+                onComplete: onComplete,
+                riveViewModel: rive
+            )
+        )
     }
     
     var body: some View {
@@ -47,9 +59,9 @@ struct BlocksGameView: View {
                             }
                             .frame(width: 854.getWidth())
                         }
-                        Image("LalaBlocks")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                        riveViewModel.view()
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
                             .frame(width: 276.getWidth())
                             .padding(.top, 150.getHeight())
                     }
@@ -130,6 +142,10 @@ struct BlocksGameView: View {
         }
         .onAppear {
             AudioManager.shared.startBackgroundMusic(assetName: "BlockSong")
+            viewModel.startLoop()
+        }
+        .onDisappear {
+            viewModel.stopLoop()
         }
     }
 }
