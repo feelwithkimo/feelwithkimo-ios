@@ -148,7 +148,7 @@ final class BlocksGameViewModel: ObservableObject {
                 self.advanceReveal()
                 
                 if self.isGameComplete {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         self.onComplete?()
                     }
                 }

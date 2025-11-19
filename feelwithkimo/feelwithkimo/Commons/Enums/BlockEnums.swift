@@ -51,8 +51,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.additionalColorsLightPink.toColor(),
                             strokeColor: ColorToken.additionalColorsDarkPink.toColor()
                         ),
-                    position: CGPoint(x: 0, y: 260),
-                    size: CGSize(width: 320, height: 130)
+                    position: CGPoint(x: 0.getWidth(), y: 260.getHeight()),
+                    size: CGSize(width: 320.getWidth(), height: 130.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -62,8 +62,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.coreAccent.toColor(),
                             strokeColor: ColorToken.emotionDisgusted.toColor()
                         ),
-                    position: CGPoint(x: 20, y: 120),
-                    size: CGSize(width: 120, height: 120)
+                    position: CGPoint(x: 20, y: 120.getHeight()),
+                    size: CGSize(width: 120.getWidth(), height: 120.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -73,8 +73,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.coreAccent.toColor(),
                             strokeColor: ColorToken.emotionDisgusted.toColor()
                         ),
-                    position: CGPoint(x: 180, y: 120),
-                    size: CGSize(width: 120, height: 120)
+                    position: CGPoint(x: 180.getWidth(), y: 120.getHeight()),
+                    size: CGSize(width: 120.getWidth(), height: 120.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -84,8 +84,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.backgroundIdentity.toColor(),
                             strokeColor: ColorToken.additionalColorsLightBlue.toColor()
                         ),
-                    position: CGPoint(x: 10, y: 0),
-                    size: CGSize(width: 300, height: 100)
+                    position: CGPoint(x: 10.getWidth(), y: 0.getHeight()),
+                    size: CGSize(width: 300.getWidth(), height: 100.getHeight())
                 )
             ]
         case .level2:
@@ -98,8 +98,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.additionalColorsLightPink.toColor(),
                             strokeColor: ColorToken.additionalColorsDarkPink.toColor()
                         ),
-                    position: CGPoint(x: 0, y: 307),
-                    size: CGSize(width: 280, height: 100)
+                    position: CGPoint(x: 0.getWidth(), y: 307.getHeight()),
+                    size: CGSize(width: 280.getWidth(), height: 100.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -109,8 +109,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.coreAccent.toColor(),
                             strokeColor: ColorToken.emotionDisgusted.toColor()
                         ),
-                    position: CGPoint(x: 33, y: 197),
-                    size: CGSize(width: 90, height: 90)
+                    position: CGPoint(x: 33.getWidth(), y: 197.getHeight()),
+                    size: CGSize(width: 90.getWidth(), height: 90.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -120,8 +120,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.coreAccent.toColor(),
                             strokeColor: ColorToken.emotionDisgusted.toColor()
                         ),
-                    position: CGPoint(x: 158, y: 197),
-                    size: CGSize(width: 90, height: 90)
+                    position: CGPoint(x: 158.getWidth(), y: 197.getHeight()),
+                    size: CGSize(width: 90.getWidth(), height: 90.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -131,8 +131,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.backgroundIdentity.toColor(),
                             strokeColor: ColorToken.additionalColorsLightBlue.toColor()
                         ),
-                    position: CGPoint(x: 15, y: 117),
-                    size: CGSize(width: 250, height: 60)
+                    position: CGPoint(x: 15.getWidth(), y: 117.getHeight()),
+                    size: CGSize(width: 250.getWidth(), height: 60.getHeight())
                 ),
                 BlockPlacement(
                     block:
@@ -142,8 +142,8 @@ enum GameLevel: CaseIterable {
                             baseColor: ColorToken.backgroundEntry.toColor(),
                             strokeColor: ColorToken.backgroundSecondary.toColor()
                         ),
-                    position: CGPoint(x: 34, y: 0),
-                    size: CGSize(width: 212, height: 97)
+                    position: CGPoint(x: 34.getWidth(), y: 0.getHeight()),
+                    size: CGSize(width: 212.getWidth(), height: 97.getHeight())
                 )
             ]
         }
