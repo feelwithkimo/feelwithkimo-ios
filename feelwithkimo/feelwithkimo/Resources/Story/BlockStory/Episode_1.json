@@ -62,7 +62,7 @@
   },
   {
     "path": "Scene 4",
-    "text": "Ayo buat menaranya makin tinggi!",
+    "text": "Ayo buat menaranya makin tinggi",
     "nextScene": [5, 7],
     "kimoVisual": "star",
     "kimoText": "",

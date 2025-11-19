@@ -105,8 +105,10 @@ extension StoryView {
             Spacer()
             
             HStack(spacing: 0) {
-                KimoImage(image: "KimoStoryBranching", width: 504.getWidth())
-                    .padding(.trailing, 29.getWidth())
+                KimoImage(image: "KimoScaffolding", width: 0.65 * UIScreen.main.bounds.width)
+                    .frame(height: 750.getHeight())
+                    .padding(.trailing, 8.getWidth())
+                    .offset(y: 30.getHeight())
                 
                 VStack(spacing: 0) {
                     Text(viewModel.currentScene.text)
@@ -127,21 +129,23 @@ extension StoryView {
                         HStack {
                             Spacer()
                             
-                            OptionChoiceButton(buttonImage: "Kimo\(question.option[0])", buttonImageSize: 157, title: "") {
+                            OptionChoiceButton(buttonImage: question.option[1], buttonImageSize: 150, title: "") {
+                                viewModel.goScene(to: 1, choice: 0)
+                                accessibilityManager.announce("Memilih: \(question.option[1])")
+                            }
+                            
+                            Spacer()
+                            
+                            OptionChoiceButton(buttonImage: question.option[0], buttonImageSize: 150, title: "") {
                                 viewModel.goScene(to: 1, choice: 0)
                                 accessibilityManager.announce("Memilih: \(question.option[0])")
                             }
                             
                             Spacer()
-                            
-                            OptionChoiceButton(buttonImage: "Kimo\(question.option[1])", buttonImageSize: 157, title: "") {
-                                viewModel.goScene(to: 1, choice: 0)
-                                accessibilityManager.announce("Memilih: \(question.option[1])")
-                            }
-                            Spacer()
                         }
                     }
                 }
+                .padding(.trailing, 55.getWidth())
             }
             
             if viewModel.currentScene.interactionType == .storyBranching {
@@ -166,10 +170,9 @@ extension StoryView {
                         }
                     }
                 }
+                .padding(.trailing, 55.getWidth())
             }
         }
-        .padding(.bottom, 50.getHeight())
-        .padding(.horizontal, 57.getWidth())
     }
 }
 
