@@ -6,6 +6,7 @@
 ///
 
 import SwiftUI
+import RiveRuntime
 
 @MainActor
 final class BlocksGameViewModel: ObservableObject {
@@ -25,6 +26,15 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var dragStartLocationInGame: CGPoint?
     @Published var burstLocation: CGPoint?
     
+    @Published var isPaused: Bool = false
+    
+    @Published var showIdleOverlay: Bool = false
+    
+    let idleTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
+    
+    private let riveViewModel: RiveViewModel
+    private var timer: Timer?
+        
     var snapRadius: CGFloat = 150
     var onComplete: (() -> Void)?
     
@@ -36,17 +46,31 @@ final class BlocksGameViewModel: ObservableObject {
         )
     }
     
-    /// Check if game is complete
     var isGameComplete: Bool {
-        return bottomBlocks.isEmpty
+        var isCompleted = true
+        bottomBlocks.forEach { block in
+            if block.baseColor != .clear {
+                isCompleted = false
+            }
+        }
+        return isCompleted
     }
     
-    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
+    init(level: GameLevel, onComplete: (() -> Void)? = nil, riveViewModel: RiveViewModel) {
         self.level = level
         self.onComplete = onComplete
+        self.riveViewModel = riveViewModel
         bottomBlocks = level.templatePlacements.map { placement in
-            BlockModel(id: placement.block.id, type: placement.block.type, color: placement.block.color)
+            BlockModel(
+                id: placement.block.id,
+                type: placement.block.type,
+                baseColor: placement.block.baseColor,
+                strokeColor: placement.block.strokeColor)
         }
+    }
+    
+    func onPausePressed() {
+        isPaused = !isPaused
     }
     
     func isPlaced(_ id: UUID) -> Bool {
@@ -59,6 +83,37 @@ final class BlocksGameViewModel: ObservableObject {
         if self.revealIndex > level.templatePlacements.count {
             self.revealIndex = 0
         }
+    }
+    
+    func resetGame() {
+        placedMap = [:]
+        templateFrames = [:]
+        bottomFrames = [:]
+        
+        templatePositions.removeAll()        
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
+        
+        bottomBlocks = level.templatePlacements.map { placement in
+            BlockModel(
+                id: placement.block.id,
+                type: placement.block.type,
+                baseColor: placement.block.baseColor,
+                strokeColor: placement.block.strokeColor
+            )
+        }
+        
+        revealIndex = 0
+        
+        snapTarget = nil
+        snappingBlockId = nil
+        
+        currentDragBlock = nil
+        dragTranslation = .zero
+        dragStartLocationInGame = nil
+        
+        burstLocation = nil
     }
     
     func handleDragEnd(block: BlockModel, at location: CGPoint) -> Bool {
@@ -85,18 +140,23 @@ final class BlocksGameViewModel: ObservableObject {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                if let idx = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
-                    self.bottomBlocks.remove(at: idx)
+                if let index = self.bottomBlocks.firstIndex(where: { $0.id == block.id }) {
+                    self.bottomBlocks[index] = BlockModel(
+                        id: self.bottomBlocks[index].id,
+                        type: self.bottomBlocks[index].type,
+                        baseColor: Color.clear,
+                        strokeColor: Color.clear
+                    )
                 }
-                
+                                
                 self.templatePositions.removeAll { $0.point == positionOfOutline }
                 
                 self.advanceReveal()
                 
-                /// Check if game is complete after snap animation
                 if self.isGameComplete {
-                    /// Show completion page immediately
-                    self.onComplete?()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.onComplete?()
+                    }
                 }
             }
             
@@ -105,25 +165,62 @@ final class BlocksGameViewModel: ObservableObject {
         return false
     }
     
+    func handleIdleTick() {
+        guard currentDragBlock == nil else { return }
+        guard !isPaused else { return }
+
+        showIdleOverlay = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.showIdleOverlay = false
+        }
+    }
+    
     @MainActor
     func updateTemplateFrames(from pref: [UUID: CGRect]) {
         var dict: [Int: CGRect] = [:]
-
+        
         for (idx, placement) in level.templatePlacements.enumerated() {
             if let frame = pref[placement.block.id] {
                 dict[idx] = frame
             }
         }
-
+        
         if dict != templateFrames {
             templateFrames = dict
         }
     }
-
+    
     @MainActor
     func updateBottomFrames(from pref: [UUID: CGRect]) {
         if pref != bottomFrames {
             bottomFrames = pref
         }
+    }
+    
+    func startLoop() {
+        stopLoop()
+
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.doLidSequence()
+            }
+        }
+        timer?.tolerance = 0.1
+    }
+
+    func stopLoop() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    @MainActor
+    private func doLidSequence() {
+        riveViewModel.triggerInput("doLidDown")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.riveViewModel.triggerInput("doLidUp")
+        }
+        
     }
 }
