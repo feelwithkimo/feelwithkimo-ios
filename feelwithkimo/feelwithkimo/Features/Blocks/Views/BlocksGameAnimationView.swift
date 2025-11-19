@@ -57,8 +57,11 @@ struct BlocksGameAnimationView: View {
     let start = CGPoint(x: 440, y: 323)
     let end   = CGPoint(x: 842, y: 418)
     let control = CGPoint(x: 650, y: 250)
-    
-    let holdDuration: Double = 0.3
+
+    let fadeInDuration = 0.3
+    let moveDuration   = 1.3
+    let holdDuration   = 0.3
+    let fadeOutDuration = 0.3
 
     var body: some View {
         ZStack {
@@ -81,24 +84,26 @@ struct BlocksGameAnimationView: View {
             visible = false
             animate = false
 
-            withAnimation(.easeIn(duration: 0.3)) {
+it            withAnimation(.easeIn(duration: fadeInDuration)) {
                 visible = true
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.easeOut(duration: 1.3)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + fadeInDuration) {
+                withAnimation(.easeOut(duration: moveDuration)) {
                     animate = true
                 }
+            }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 + 1.3 + holdDuration) {
-                    withAnimation(.easeOut(duration: 0.3)) {
-                        visible = false
-                    }
+            let totalDelay = fadeInDuration + moveDuration + holdDuration
+            DispatchQueue.main.asyncAfter(deadline: .now() + totalDelay) {
+                withAnimation(.easeOut(duration: fadeOutDuration)) {
+                    visible = false
                 }
             }
         }
     }
 }
+
 
 #Preview() {
     BlocksGameAnimationView()
