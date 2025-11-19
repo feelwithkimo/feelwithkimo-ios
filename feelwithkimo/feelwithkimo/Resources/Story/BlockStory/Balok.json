@@ -11,14 +11,6 @@
             "description": "Deskripsi episode 1",
             "backsong": "Backsong_1",
             "storyScene": []
-        },
-        {
-            "id": "Episode_2",
-            "name": "Episode 2",
-            "thumbnail": "Episode_1",
-            "description": "Deskripsi episode 2",
-            "backsong": "Song_2",
-            "storyScene": []
         }
     ]
 }

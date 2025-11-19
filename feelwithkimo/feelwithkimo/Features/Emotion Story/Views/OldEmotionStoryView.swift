@@ -13,7 +13,7 @@ struct OldEmotionStoryView: View {
     @StateObject var viewModel: EmotionStoryViewModel
     @StateObject private var accessibilityManager = AccessibilityManager.shared
     @State private var navigateToStory = false
-    
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RiveRuntime
 
 struct StoryView: View {
     @AppStorage("hasSeenTutorial") var seenTutorial = false
@@ -15,6 +16,8 @@ struct StoryView: View {
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
 
+    @State private var charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+
     var body: some View {
         ZStack {
             Image(viewModel.currentScene.path)
@@ -22,13 +25,19 @@ struct StoryView: View {
                 .frame(maxHeight: .infinity)
                 .clipped()
                 .ignoresSafeArea()
-                .id(viewModel.index)
+                .id(viewModel.currentScene.path)
                 .modifier(FadeContentTransition())
                 .kimoImageAccessibility(
                     label: "Gambar cerita adegan \(viewModel.index + 1)",
                     isDecorative: false,
                     identifier: "story.scene.\(viewModel.index)"
                 )
+            
+            if viewModel.currentScene.path == "Scene 6" {
+                RiveViewModel(fileName: "JackMove").view()
+                    .frame(width: 232.getWidth())
+                    .position(charPos)
+            }
             
             if viewModel.currentScene.question == nil {
                 storySceneView()
@@ -75,9 +84,11 @@ struct StoryView: View {
             if !viewModel.hasSeenTutor {
                 ColorToken.additionalColorsBlack.toColor().opacity(0.6)
                     .ignoresSafeArea()
+                    .onTapGesture(perform: viewModel.nextTutorial)
                 
                 switch viewModel.tutorialStep {
                 case 1: firstTutorialView()
+                        .onTapGesture(perform: viewModel.nextTutorial)
                 case 2: secondTutorialView()
                 case 3: thirdTutorialView()
                 default: EmptyView()
@@ -113,11 +124,25 @@ struct StoryView: View {
                 
                 accessibilityManager.announceScreenChange(announcement)
             }
+            
+            audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onChange(of: viewModel.index) {
             // Announce scene changes
+            if viewModel.index == 8 {
+                charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    
+                    withAnimation(.easeInOut(duration: 2)) {
+                        // compute a target using container size, so it's responsive
+                        charPos = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.55)
+                    }
+                }
+            }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 var announcement = "Adegan \(viewModel.index + 1)"
                 
@@ -131,12 +156,21 @@ struct StoryView: View {
                 accessibilityManager.announce(announcement)
             }
             
-            if let sound = viewModel.currentScene.soundEffect {
-                audioManager.playSoundEffect(effectName: sound)
+            if viewModel.index == 8 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        viewModel.currentScene.path = "Scene 6_2"
+
+                        if let sound = viewModel.currentScene.soundEffect {
+                            audioManager.playSoundEffect(effectName: sound)
+                        }
+                    }
+                }
             }
-        }
-        .onAppear {
-            audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
+            
+//            if let sound = viewModel.currentScene.soundEffect  {
+//                audioManager.playSoundEffect(effectName: sound)
+//            }
         }
     }
 }

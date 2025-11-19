@@ -23,7 +23,7 @@ enum KimoVisual: String, Decodable {
 }
 
 struct StorySceneModel: Decodable {
-    let path: String
+    var path: String
     let text: String
     var isEnd: Bool
     var nextScene: [Int]

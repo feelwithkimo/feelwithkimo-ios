@@ -66,15 +66,12 @@ extension StoryView {
             .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
                 Text(viewModel.currentScene.text)
-                    .font(.customFont(size: 17, family: .primary, weight: .semibold))
+                    .font(.customFont(size: 22, family: .primary, weight: .bold))
                     .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                    .padding(.horizontal, 45.getWidth())
-                    .padding(.vertical, 32.getHeight())
+                    .padding(.horizontal, 24.getWidth())
+                    .padding(.vertical, 16.getHeight())
                     .multilineTextAlignment(.center)
-                    .kimoTextAccessibility(
-                        label: "Narasi: \(viewModel.currentScene.text)",
-                        identifier: "story.narration.text"
-                    ),
+                    .kimoTextAccessibility(label: "Narasi: \(viewModel.currentScene.text)", identifier: "story.narration.text"),
                 alignment: .center
             )
             .frame(
@@ -205,7 +202,17 @@ extension StoryView {
                 .onAppear {
                     moveButton.toggle()
                 }
-            NarrationCard(text: viewModel.currentScene.text, onTap: viewModel.nextTutorial)
+            
+            ZStack {
+                Image("Outline")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 877.getWidth(), height: 155.getHeight())
+                    .padding(.horizontal, 159.getWidth())
+                    .padding(.top, 11.getHeight())
+                
+                NarrationCard(text: viewModel.currentScene.text)
+            }
         }
         .padding(.bottom, 50.getHeight())
     }
