@@ -161,7 +161,7 @@ struct StoryView: View {
             }
             
             if viewModel.index == 8 {
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         viewModel.currentScene.path = "Scene 6_2"
                     }
