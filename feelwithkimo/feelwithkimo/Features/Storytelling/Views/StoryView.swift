@@ -126,6 +126,10 @@ struct StoryView: View {
             }
             
             audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
+            
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -157,20 +161,16 @@ struct StoryView: View {
             }
             
             if viewModel.index == 8 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         viewModel.currentScene.path = "Scene 6_2"
-
-                        if let sound = viewModel.currentScene.soundEffect {
-                            audioManager.playSoundEffect(effectName: sound)
-                        }
                     }
                 }
             }
             
-//            if let sound = viewModel.currentScene.soundEffect  {
-//                audioManager.playSoundEffect(effectName: sound)
-//            }
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
         }
     }
 }

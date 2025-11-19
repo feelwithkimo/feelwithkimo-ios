@@ -7,7 +7,8 @@
     "kimoText": null,
     "question": null,
     "interactionType": "normal",
-    "isEnd": false
+    "isEnd": false,
+    "soundEffect": "LalaSound"
   },
   {
     "path": "Scene 2",
@@ -18,7 +19,7 @@
     "question": null,
     "interactionType": "normal",
     "isEnd": false,
-    "soundEffect": ""
+    "soundEffect": "TinaSound"
   },
   {
     "path": "Scene 3",
@@ -28,7 +29,8 @@
     "kimoText": "",
     "question": null,
     "interactionType": "normal",
-    "isEnd": false
+    "isEnd": false,
+    "soundEffect": "JackSound"
   },
   {
     "path": "Scene 4",

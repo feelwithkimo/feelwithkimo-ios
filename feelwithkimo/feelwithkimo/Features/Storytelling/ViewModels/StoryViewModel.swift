@@ -28,7 +28,7 @@ internal class StoryViewModel: ObservableObject {
     @Published var showDialogue: Bool = false
     var isTappedMascot: Bool = false
 
-    lazy var story: StoryModel = StoryModel(
+    var story: StoryModel = StoryModel(
         id: "Episode_1",
         name: "Story Angry 1",
         thumbnail: "Thumbnail 1",
