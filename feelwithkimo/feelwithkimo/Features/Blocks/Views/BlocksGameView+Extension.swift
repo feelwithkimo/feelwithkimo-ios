@@ -127,6 +127,7 @@ extension BlocksGameView {
                     revealIndex: viewModel.revealIndex
                 )
                 .frame(maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, viewModel.level == GameLevel.level1 ? 63.getHeight() : 0)
                 
                 if viewModel.level != GameLevel.level1 {
                     Divider()

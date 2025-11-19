@@ -42,7 +42,13 @@ final class BlocksGameViewModel: ObservableObject {
     }
     
     var isGameComplete: Bool {
-        return bottomBlocks.isEmpty
+        var isCompleted = true
+        bottomBlocks.forEach { block in
+            if block.baseColor != .clear {
+                isCompleted = false
+            }
+        }
+        return isCompleted
     }
     
     init(level: GameLevel, onComplete: (() -> Void)? = nil) {
@@ -136,7 +142,7 @@ final class BlocksGameViewModel: ObservableObject {
                         strokeColor: Color.clear
                     )
                 }
-                
+                                
                 self.templatePositions.removeAll { $0.point == positionOfOutline }
                 
                 self.advanceReveal()

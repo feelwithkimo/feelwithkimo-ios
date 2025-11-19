@@ -84,7 +84,7 @@ struct BlocksGameAnimationView: View {
             visible = false
             animate = false
 
-it            withAnimation(.easeIn(duration: fadeInDuration)) {
+            withAnimation(.easeIn(duration: fadeInDuration)) {
                 visible = true
             }
 
