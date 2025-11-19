@@ -115,11 +115,19 @@ struct BlocksGameView: View {
         }
         .overlay(
             Group {
-                if let loc = viewModel.burstLocation {
-                    StarBurstView(center: loc)
+                    if viewModel.showIdleOverlay {
+                        BlocksGameAnimationView()
+                            .transition(.opacity)
+                    }
+
+                    if let loc = viewModel.burstLocation {
+                        StarBurstView(center: loc)
+                    }
                 }
-            }
         )
+        .onReceive(viewModel.idleTimer) { _ in
+            viewModel.handleIdleTick()
+        }
         .onAppear {
             AudioManager.shared.startBackgroundMusic(assetName: "BlockSong")
         }
