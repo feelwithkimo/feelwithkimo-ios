@@ -34,8 +34,15 @@ struct InteractionBanner: View {
             }
             
         case .blockGame:
-            BridgingPage(textDialogue: "Mulai bermain") {
-                BlockGameStageView(onCompletion: viewModel.completeBlockGame, storyViewModel: viewModel)
+            let currentPhase = viewModel.currentBlockGamePhase
+            BridgingPage(textDialogue: viewModel.currentScene.text) {
+                BlockGameStageView(
+                    phase: currentPhase,
+                    onCompletion: {
+                        viewModel.completeBlockGamePhase()
+                    },
+                    storyViewModel: viewModel
+                )
                 .kimoNavigationAccessibility(
                     label: "Mulai Bermain Membangun Balok",
                     hint: "Tekan dan Geser balok dengan bentuk yang sesuai",
