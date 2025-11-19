@@ -45,13 +45,10 @@ struct BlockGameStageView: View {
                         }
                     },
                     onSecondaryAction: {
-                        /// Continue to stage 2 - reset state first, then increment key
-//                        currentState = .stage2
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                            gameResetKey += 1
-//                        }
+                        /// Complete stage 1 and return to story
+                        /// This will trigger the story to show the next scene
                         dismiss()
-                        storyViewModel.goScene(to: 1)
+                        onCompletion?()
                     }
                 )
                 .transition(.opacity)
@@ -70,6 +67,7 @@ struct BlockGameStageView: View {
                         }
                     },
                     onSecondaryAction: {
+                        /// Complete stage 2 and return to story
                         dismiss()
                         onCompletion?()
                     },
@@ -80,7 +78,3 @@ struct BlockGameStageView: View {
         .animation(.easeInOut(duration: 0.3), value: currentState)
     }
 }
-
-//#Preview {
-//    BlockGameStageView()
-//}

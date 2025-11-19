@@ -61,9 +61,19 @@
     "isEnd": false
   },
   {
+    "path": "Scene 4",
+    "text": "Ayo buat menaranya makin tinggi!",
+    "nextScene": [5, 7],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
     "path": "Scene 5",
     "text": "Yey! Lala sudah mau selesai nih menyusun baloknya.",
-    "nextScene": [4, 6],
+    "nextScene": [6, 8],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
@@ -73,7 +83,7 @@
   {
     "path": "Scene 6",
     "text": "Tiba-tiba Jack datang dan menendang balok Lala.",
-    "nextScene": [5, 7],
+    "nextScene": [7, 9],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
@@ -84,7 +94,7 @@
   {
     "path": "Scene 6",
     "text": "Oh tidak! Jack baru saja menendang menara balok Lala yang indah, dan semuanya runtuh!",
-    "nextScene": [6, 8],
+    "nextScene": [8, 10],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
@@ -213,7 +223,7 @@
     "question": null,
     "interactionType": "normal",
     "isEnd": true
-  },
+  }
 ]
 
 // TODO: - Change the image assets
