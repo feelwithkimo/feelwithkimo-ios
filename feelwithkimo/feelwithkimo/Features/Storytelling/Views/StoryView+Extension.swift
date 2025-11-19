@@ -180,6 +180,11 @@ extension StoryView {
 extension StoryView {
     func firstTutorialView() -> some View {
         VStack(alignment: .center) {
+            Text("Ketuk bagian mana pun di layar untuk lanjut")
+                .font(.customFont(size: 28, weight: .bold))
+                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                .padding(.top, 60.getHeight())
+
             Spacer()
             
             HStack(alignment: .bottom, spacing: 0) {

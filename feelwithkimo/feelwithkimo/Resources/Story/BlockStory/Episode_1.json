@@ -41,8 +41,8 @@
     "isEnd": false
   },
   {
-    "path": "Scene 4",
-    "text": "Ayo bantu Lala membangun balok!!",
+    "path": "Scene 4_2",
+    "text": "Ayo bantu Lala membangun balok !",
     "nextScene": [3, 5],
     "kimoVisual": "star",
     "kimoText": "",

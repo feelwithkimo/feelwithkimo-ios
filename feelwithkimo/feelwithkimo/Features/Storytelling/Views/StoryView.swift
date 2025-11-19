@@ -42,7 +42,7 @@ struct StoryView: View {
             if viewModel.currentScene.question == nil {
                 storySceneView()
             } else {
-                Color.black.opacity(0.5)
+                Color.black.opacity(0.8)
                     .ignoresSafeArea()
 
                 questionView()
@@ -82,7 +82,7 @@ struct StoryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
             if !viewModel.hasSeenTutor {
-                ColorToken.additionalColorsBlack.toColor().opacity(0.6)
+                ColorToken.additionalColorsBlack.toColor().opacity(0.8)
                     .ignoresSafeArea()
                     .onTapGesture(perform: viewModel.nextTutorial)
                 
