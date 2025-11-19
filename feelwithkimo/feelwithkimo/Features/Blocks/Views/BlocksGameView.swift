@@ -120,6 +120,9 @@ struct BlocksGameView: View {
                 }
             }
         )
+        .onAppear {
+            AudioManager.shared.startBackgroundMusic(assetName: "BlockSong")
+        }
     }
 }
 
