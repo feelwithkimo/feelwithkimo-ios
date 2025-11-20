@@ -27,6 +27,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var burstLocation: CGPoint?
     
     @Published var isPaused: Bool = false
+    @Published var resetCounter: Int = 0
     
     @Published var showIdleOverlay: Bool = false
     
@@ -93,6 +94,9 @@ final class BlocksGameViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.objectWillChange.send()
         }
+        
+        // to force UI refresh
+        resetCounter += 1
         
         bottomBlocks = level.templatePlacements.map { placement in
             BlockModel(
