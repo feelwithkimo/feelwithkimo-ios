@@ -27,6 +27,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var burstLocation: CGPoint?
     
     @Published var isPaused: Bool = false
+    @Published var resetCounter: Int = 0
     
     @Published var showIdleOverlay: Bool = false
     
@@ -35,7 +36,6 @@ final class BlocksGameViewModel: ObservableObject {
     private let riveViewModel: RiveViewModel
     private var timer: Timer?
         
-    var snapRadius: CGFloat = 150
     var onComplete: (() -> Void)?
     
     var blockSizes: [UUID: CGSize] {
@@ -90,10 +90,13 @@ final class BlocksGameViewModel: ObservableObject {
         templateFrames = [:]
         bottomFrames = [:]
         
-        templatePositions.removeAll()        
+        templatePositions.removeAll()
         DispatchQueue.main.async {
             self.objectWillChange.send()
         }
+        
+        // to force UI refresh
+        resetCounter += 1
         
         bottomBlocks = level.templatePlacements.map { placement in
             BlockModel(
@@ -120,6 +123,9 @@ final class BlocksGameViewModel: ObservableObject {
         var bestDist = CGFloat.infinity
         var positionOfOutline = CGPoint.zero
         
+        let blockSize = blockSizes[block.id] ?? .zero
+        let dynamicSnapRadius = min(blockSize.width, blockSize.height) / 2 + 20.getHeight()
+        
         for (shapeType, center) in templatePositions {
             guard shapeType == block.type else { continue }
             
@@ -133,7 +139,7 @@ final class BlocksGameViewModel: ObservableObject {
             }
         }
         
-        if bestDist <= snapRadius {
+        if bestDist <= dynamicSnapRadius {
             DispatchQueue.main.async {
                 self.snappingBlockId = block.id
                 self.snapTarget = positionOfOutline
