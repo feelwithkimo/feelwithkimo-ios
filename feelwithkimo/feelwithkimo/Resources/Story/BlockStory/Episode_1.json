@@ -64,7 +64,7 @@
   },
   {
     "path": "Scene 4",
-    "text": "Ayo buat menaranya makin tinggi",
+    "text": "Ayo buat menaranya makin tinggi!",
     "nextScene": [5, 7],
     "kimoVisual": "star",
     "kimoText": "",
@@ -178,8 +178,18 @@
   },
   {
     "path": "Scene 12",
-    "text": "Ayo kita buat bentuk ini!",
+    "text": "Ayo kita buat ulang menara baloknya!",
     "nextScene": [16, 18],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 12",
+    "text": "Ayo buat menaranya makin tinggi!",
+    "nextScene": [17, 19],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
@@ -189,7 +199,7 @@
   {
     "path": "Scene 13",
     "text": "\"Hore! Menaranya sudah jadi, La!\" kata Bu Guru dengan gembira.\n\"Terima kasih, Bu. Lala kagum sekali dengan menaranya\" jawab Lala sambil menatap dengan senang.",
-    "nextScene": [17, 19],
+    "nextScene": [18, 20],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
@@ -199,7 +209,7 @@
   {
     "path": "Scene 13",
     "text": "Ayo kita tepuk tangan bersama bu guru dan Lala!",
-    "nextScene": [18, 20],
+    "nextScene": [19, 21],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
@@ -209,7 +219,7 @@
   {
     "path": "Scene 14",
     "text": "Ayo kita tepuk tangan bersama bu guru dan Lala!",
-    "nextScene": [19],
+    "nextScene": [20],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
