@@ -9,14 +9,13 @@ import SwiftUI
 
 struct NarrationCard: View {
     let text: String
-    let onTap: () -> Void
 
     var body: some View {
         RoundedRectangle(cornerRadius: 24)
             .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
                 Text(text)
-                    .font(.customFont(size: 17, family: .primary, weight: .semibold))
+                    .font(.customFont(size: 22, family: .primary, weight: .bold))
                     .foregroundColor(ColorToken.additionalColorsBlack.toColor())
                     .padding(.horizontal, 24.getWidth())
                     .padding(.vertical, 16.getHeight())
@@ -30,6 +29,5 @@ struct NarrationCard: View {
             )
             .padding(.horizontal, 177.getWidth())
             .padding(.top, 11.getHeight())
-            .onTapGesture(perform: onTap)
     }
 }

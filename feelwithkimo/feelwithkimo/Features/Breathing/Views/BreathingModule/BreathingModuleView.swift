@@ -14,6 +14,8 @@ struct BreathingModuleView: View {
     @Environment(\.dismiss) var dismiss
     var onCompletion: (() -> Void)?
     
+    @State var showTutorial: Bool = false
+    
     // MARK: - Public Initializer
     public init(onCompletion: (() -> Void)? = nil, storyViewModel: StoryViewModel) {
         self.onCompletion = onCompletion
@@ -27,7 +29,7 @@ struct BreathingModuleView: View {
             
             // Completion overlay
             if viewModel.showCompletionView {
-                Color.black.opacity(0.6)
+                Color.black.opacity(0.8)
                     .ignoresSafeArea()
                 
                 completionView
@@ -39,16 +41,34 @@ struct BreathingModuleView: View {
                     KimoBackButton {
                         dismiss()
                     }
-                    .padding(.leading, 57.getWidth())
-                    .padding(.top, 50.getHeight())
 
                     Spacer()
+                    
+                    Button(action: {
+                        showTutorial = true
+                    }, label: {
+                        Image(systemName: "questionmark.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80.getWidth(), height: 80.getHeight())
+                            .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
+                    })
                 }
-                
+                .padding(.horizontal, 55.getWidth())
+                .padding(.top, 50.getHeight())
+
                 Spacer()
             }
             .ignoresSafeArea(edges: .all)
             
+            if showTutorial {
+                TutorialPage(textDialogue:
+                "Ikuti instruksi 'Tarik Nafas', 'Tahan Nafas', dan 'Buang Nafas' sambil menirukan Kimo." +
+                " Jangan lupa sesuaikan ritmemu dengan timer di kanan. Buang napas perlahan lewat mulut, ya!")
+                .onTapGesture {
+                    showTutorial = false
+                }
+            }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {

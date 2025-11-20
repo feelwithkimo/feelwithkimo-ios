@@ -66,15 +66,12 @@ extension StoryView {
             .fill(ColorToken.additionalColorsWhite.toColor())
             .overlay(
                 Text(viewModel.currentScene.text)
-                    .font(.customFont(size: 17, family: .primary, weight: .semibold))
+                    .font(.customFont(size: 22, family: .primary, weight: .bold))
                     .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                    .padding(.horizontal, 45.getWidth())
-                    .padding(.vertical, 32.getHeight())
+                    .padding(.horizontal, 24.getWidth())
+                    .padding(.vertical, 16.getHeight())
                     .multilineTextAlignment(.center)
-                    .kimoTextAccessibility(
-                        label: "Narasi: \(viewModel.currentScene.text)",
-                        identifier: "story.narration.text"
-                    ),
+                    .kimoTextAccessibility(label: "Narasi: \(viewModel.currentScene.text)", identifier: "story.narration.text"),
                 alignment: .center
             )
             .frame(
@@ -108,8 +105,10 @@ extension StoryView {
             Spacer()
             
             HStack(spacing: 0) {
-                KimoImage(image: "KimoStoryBranching", width: 504.getWidth())
-                    .padding(.trailing, 29.getWidth())
+                KimoImage(image: "KimoScaffolding", width: 0.65 * UIScreen.main.bounds.width)
+                    .frame(height: 750.getHeight())
+                    .padding(.trailing, 8.getWidth())
+                    .offset(y: 30.getHeight())
                 
                 VStack(spacing: 0) {
                     Text(viewModel.currentScene.text)
@@ -130,21 +129,23 @@ extension StoryView {
                         HStack {
                             Spacer()
                             
-                            OptionChoiceButton(buttonImage: "Kimo\(question.option[0])", buttonImageSize: 157, title: "") {
+                            OptionChoiceButton(buttonImage: question.option[1], buttonImageSize: 150, title: "") {
+                                viewModel.goScene(to: 1, choice: 0)
+                                accessibilityManager.announce("Memilih: \(question.option[1])")
+                            }
+                            
+                            Spacer()
+                            
+                            OptionChoiceButton(buttonImage: question.option[0], buttonImageSize: 150, title: "") {
                                 viewModel.goScene(to: 1, choice: 0)
                                 accessibilityManager.announce("Memilih: \(question.option[0])")
                             }
                             
                             Spacer()
-                            
-                            OptionChoiceButton(buttonImage: "Kimo\(question.option[1])", buttonImageSize: 157, title: "") {
-                                viewModel.goScene(to: 1, choice: 0)
-                                accessibilityManager.announce("Memilih: \(question.option[1])")
-                            }
-                            Spacer()
                         }
                     }
                 }
+                .padding(.trailing, 55.getWidth())
             }
             
             if viewModel.currentScene.interactionType == .storyBranching {
@@ -169,10 +170,9 @@ extension StoryView {
                         }
                     }
                 }
+                .padding(.trailing, 55.getWidth())
             }
         }
-        .padding(.bottom, 50.getHeight())
-        .padding(.horizontal, 57.getWidth())
     }
 }
 
@@ -180,6 +180,11 @@ extension StoryView {
 extension StoryView {
     func firstTutorialView() -> some View {
         VStack(alignment: .center) {
+            Text("Ketuk bagian mana pun di layar untuk lanjut")
+                .font(.customFont(size: 28, weight: .bold))
+                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                .padding(.top, 60.getHeight())
+
             Spacer()
             
             HStack(alignment: .bottom, spacing: 0) {
@@ -205,7 +210,17 @@ extension StoryView {
                 .onAppear {
                     moveButton.toggle()
                 }
-            NarrationCard(text: viewModel.currentScene.text, onTap: viewModel.nextTutorial)
+            
+            ZStack {
+                Image("Outline")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 877.getWidth(), height: 155.getHeight())
+                    .padding(.horizontal, 159.getWidth())
+                    .padding(.top, 11.getHeight())
+                
+                NarrationCard(text: viewModel.currentScene.text)
+            }
         }
         .padding(.bottom, 50.getHeight())
     }

@@ -21,14 +21,15 @@ internal class StoryViewModel: ObservableObject {
     )
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
-    @Published var hasCompletedBlockGame: Bool = false
+    /// Highest phase for the block game. When exceeded, it wraps back to 1.
+    private let maxBlockGamePhase: Int = 2
     @Published var currentBlockGamePhase: Int = 1  // Track which phase should be played
     @Published var tutorialStep: Int = 1
     
     @Published var showDialogue: Bool = false
     var isTappedMascot: Bool = false
 
-    lazy var story: StoryModel = StoryModel(
+    var story: StoryModel = StoryModel(
         id: "Episode_1",
         name: "Story Angry 1",
         thumbnail: "Thumbnail 1",
@@ -105,8 +106,12 @@ internal class StoryViewModel: ObservableObject {
     
     /// Mark block game phase as completed and advance to next scene
     func completeBlockGamePhase() {
-        // Increment phase after completing current phase
-        currentBlockGamePhase += 1
+        // Advance phase: 1 -> 2, and 2 -> 1 (wrap)
+        if currentBlockGamePhase >= maxBlockGamePhase {
+            currentBlockGamePhase = 1
+        } else {
+            currentBlockGamePhase += 1
+        }
         goScene(to: 1, choice: 0)
     }
     
@@ -135,8 +140,8 @@ internal class StoryViewModel: ObservableObject {
             self.currentScene = self.story.storyScene[0]
             self.hasCompletedBreathing = false
             self.hasCompletedClapping = false
-            self.hasCompletedBlockGame = false
             self.currentBlockGamePhase = 1  // Reset to phase 1 when replaying
         }
     }
 }
+

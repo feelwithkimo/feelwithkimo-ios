@@ -14,7 +14,9 @@ extension ClapGameView {
             KimoBackButton {
                 dismiss()
             }
+            
             Spacer()
+            
             Text("Tepuk Tangan")
                 .font(.customFont(size: 34, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.corePrimary.toColor())
@@ -24,6 +26,16 @@ extension ClapGameView {
                     sortPriority: 1
                 )
             Spacer()
+            
+            Button(action: {
+                viewModel.showTutorial = true
+            }, label: {
+                Image(systemName: "questionmark.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80.getWidth(), height: 80.getHeight())
+                    .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
+            })
         }
     }
 
