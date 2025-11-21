@@ -75,59 +75,41 @@ extension ClapGameView {
     
     // MARK: - Completion View
     func completionView(skip: Bool) -> some View {
-        ZStack {
-            Color.black.opacity(0.9)
-                .ignoresSafeArea()
-            
             if skip {
-                KimoDialogueView(
-                    textDialogue: "Wah sepertinya kimo tidak melihat kamu tepuk tangan",
-                    buttonLayout: .horizontal([
-                        KimoDialogueButtonConfig(
-                            title: "Lewati",
-                            symbol: .chevronRight2,
-                            style: .bubbleSecondary,
-                            action: {
-                                dismiss()
-                                storyViewModel.goScene(to: 1, choice: 0)
-                            }
-                        ),
-                        KimoDialogueButtonConfig(
-                            title: "Coba lagi",
-                            symbol: .arrowClockwise,
-                            style: .bubbleSecondary,
-                            action: {
-                                viewModel.restart()
-                            }
-                        )
-                    ])
+                CompletionPageView(
+                    title: "Kimo kayaknya belum lihat kamu tepuk tangan nih",
+                    primaryButtonLabel: "Lewati",
+                    secondaryButtonLabel: "Coba Lagi",
+                    primaryButtonSymbol: .chevronRight2,
+                    secondaryButtonSymbol: .arrowClockwise,
+                    onPrimaryAction: {
+                        dismiss()
+                        storyViewModel.goScene(to: 1, choice: 0)
+                    },
+                    onSecondaryAction: {
+                        viewModel.restart()
+                    }
                 )
+                .transition(.opacity)
             } else {
-                KimoDialogueView(
-                    textDialogue: "Hore Berhasil !",
-                    buttonLayout: .horizontal([
-                        KimoDialogueButtonConfig(
-                            title: "Coba lagi",
-                            symbol: .arrowClockwise,
-                            style: .bubbleSecondary,
-                            action: {
-                                viewModel.restart()
-                            }
-                        ),
-                        KimoDialogueButtonConfig(
-                            title: "Lanjutkan",
-                            symbol: .chevronRight,
-                            style: .bubbleSecondary,
-                            action: {
-                                dismiss()
-                                storyViewModel.goScene(to: 1, choice: 0)
-                            }
-                        )
-                    ])
+                CompletionPageView(
+                    title: "Hore Berhasil !",
+                    primaryButtonLabel: "Coba Lagi",
+                    secondaryButtonLabel: "Lanjutkan",
+                    primaryButtonSymbol: .arrowClockwise,
+                    secondaryButtonSymbol: .chevronRight,
+                    onPrimaryAction: {
+                        viewModel.restart()
+                    },
+                    onSecondaryAction: {
+                        dismiss()
+                        storyViewModel.goScene(to: 1, choice: 0)
+                    }
                 )
+                .transition(.opacity)
             }
-        }
     }
+
 
     private var parentSkeleton: some View {
         VStack(spacing: 29.getWidth()) {

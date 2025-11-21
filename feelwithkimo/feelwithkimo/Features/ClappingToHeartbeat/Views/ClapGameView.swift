@@ -52,7 +52,6 @@ struct ClapGameView: View {
 
             if viewModel.showCompletionView {
                 completionView(skip: viewModel.skip)
-                    .padding(.horizontal, 55.getWidth())
             }
             
             if viewModel.showTutorial {

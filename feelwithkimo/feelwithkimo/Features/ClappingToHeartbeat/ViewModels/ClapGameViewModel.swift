@@ -98,6 +98,7 @@ final class ClapGameViewModel: ObservableObject {
     func restart() {
         self.beatCount = 0
         self.showCompletionView = false
+        self.resetSkipTimer()
     }
 
     // MARK: - Private Logic
