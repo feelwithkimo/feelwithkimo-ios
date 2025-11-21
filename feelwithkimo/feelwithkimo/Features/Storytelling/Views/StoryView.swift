@@ -16,7 +16,16 @@ struct StoryView: View {
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
 
-    @State private var charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+    @State private var jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+    
+    @StateObject private var lalaRive = RiveViewModel(
+        fileName: "LalaBlocksMove",
+        stateMachineName: "State Machine 1",
+        autoPlay: true
+    )
+    private let lalaBlocksPos = CGPoint(x: 488.getWidth(), y: 305.getHeight())
+    private let lalaBlockFrame = CGPoint(x: 257.getWidth(), y: 307.getHeight())
+
 
     var body: some View {
         ZStack {
@@ -33,10 +42,16 @@ struct StoryView: View {
                     identifier: "story.scene.\(viewModel.index)"
                 )
             
+            if viewModel.currentScene.path == "Scene 4" || viewModel.currentScene.path == "Scene 5" {
+                lalaRive.view()
+                    .frame(width: lalaBlockFrame.x, height: lalaBlockFrame.y)
+                    .position(lalaBlocksPos)
+            }
+            
             if viewModel.currentScene.path == "Scene 6" {
                 RiveViewModel(fileName: "JackMove").view()
                     .frame(width: 232.getWidth())
-                    .position(charPos)
+                    .position(jackPos)
             }
             
             if viewModel.currentScene.question == nil {
@@ -101,6 +116,7 @@ struct StoryView: View {
             }
         }
         .onAppear {
+            
             // Announce story scene information
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 var announcement = "Cerita dimulai. Adegan \(viewModel.index + 1)"
@@ -128,15 +144,23 @@ struct StoryView: View {
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onChange(of: viewModel.index) {
+            
+            if viewModel.index == 3 || viewModel.index == 4 || viewModel.index == 5 {
+                    if viewModel.currentScene.path == "Scene 3" || viewModel.currentScene.path == "Scene 4" || viewModel.currentScene.path == "Scene 5" {
+                        lalaRive.setBool("blinking", to: true)
+                        lalaRive.trigger("hand moving")
+                    }
+                }
+
             // Announce scene changes
             if viewModel.index == 6 {
-                charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+                jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     
                     withAnimation(.easeInOut(duration: 2)) {
                         // compute a target using container size, so it's responsive
-                        charPos = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.55)
+                        jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.55)
                     }
                 }
             }
@@ -170,6 +194,16 @@ struct StoryView: View {
 //                audioManager.playSoundEffect(effectName: sound)
 //            }
         }
+    }
+}
+
+extension RiveViewModel {
+    func setBool(_ name: String, to value: Bool) {
+        setInput(name, value: value)
+    }
+
+    func trigger(_ name: String) {
+        triggerInput(name)
     }
 }
 
