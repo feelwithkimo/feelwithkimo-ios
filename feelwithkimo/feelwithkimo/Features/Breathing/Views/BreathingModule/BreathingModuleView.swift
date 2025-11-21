@@ -97,7 +97,7 @@ struct BreathingModuleView: View {
                     Spacer()
                     
                     HStack(alignment: .center, spacing: 60.getWidth()) {
-                        Text(viewModel.currentPhase.rawValue)
+                        Text(viewModel.currentPhase.localizedText)
                             .font(.customFont(size: 72, weight: .bold))
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .multilineTextAlignment(.leading)
@@ -129,7 +129,7 @@ struct BreathingModuleView: View {
                                 .frame(width: 143.getWidth(),
                                        height: 143.getWidth())
                             
-                            Text("\(viewModel.remainingTime) detik")
+                            Text("\(viewModel.remainingTime) " + ((Locale.current.language.languageCode?.identifier ?? "") == "en" ? "second" : "detik"))
                                 .font(.customFont(size: 30, weight: .bold))
                                 .foregroundColor(ColorToken.backgroundSecondary.toColor())
                         }
@@ -174,7 +174,7 @@ struct BreathingModuleView: View {
                         } else {
                             HStack(spacing: 20.getWidth()) {
                                 // Cycle indicator - show when active
-                                Text("Latihan Tarik Nafas \(viewModel.cycleCount)/3")
+                                Text((Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Breathing Practice " : "Latihan Tarik Nafas ") + "\(viewModel.cycleCount) / 3")
                                     .font(.customFont(size: 22, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
@@ -250,10 +250,14 @@ struct BreathingModuleView: View {
     // MARK: - Completion View
     private var completionView: some View {
         KimoDialogueView(
-            textDialogue: "Hore.. kamu berhasil tarik nafas",
+            textDialogue: Locale.current.language.languageCode?.identifier ?? "" == "en" ?
+                "Hooray… you managed to breathe" :
+                "Hore.. kamu berhasil tarik nafas",
             buttonLayout: .horizontal([
                 KimoDialogueButtonConfig(
-                    title: "Coba lagi",
+                    title: Locale.current.language.languageCode?.identifier ?? "" == "en" ?
+                        "Try again" :
+                        "Coba lagi",
                     symbol: .arrowClockwise,
                     style: .bubbleSecondary,
                     action: {
@@ -261,7 +265,9 @@ struct BreathingModuleView: View {
                     }
                 ),
                 KimoDialogueButtonConfig(
-                    title: "Lanjutkan",
+                    title: Locale.current.language.languageCode?.identifier ?? "" == "en" ?
+                        "Continue" :
+                        "Lanjutkan",
                     symbol: .chevronRight,
                     style: .bubbleSecondary,
                     action: {
@@ -269,8 +275,7 @@ struct BreathingModuleView: View {
                         storyViewModel.goScene(to: 1, choice: 0)
                     }
                 )
-            ]),
-            stageCompleted: "Stage 1 Completed"
+            ])
         )
     }
 }

@@ -17,7 +17,6 @@ extension StoryView {
                 HStack(spacing: 39) {
                     KimoImage(image: "KimoTutorialAsset", width: 400.getWidth())
 
-                    // Dialogue bubble
                     VStack(spacing: 0) {
                         Text(textDialogue)
                             .frame(maxWidth: 500.getWidth(), alignment: .leading)

@@ -16,7 +16,7 @@ struct TutorialPage: View {
                 .ignoresSafeArea()
             
             VStack(alignment: .center) {
-                Text("Ketuk bagian mana pun di layar untuk lanjut.")
+                Text("Ketuk bagian mana pun di layar untuk lanjut")
                     .font(.customFont(size: 28, weight: .bold))
                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                     .padding(.top, 60.getHeight())

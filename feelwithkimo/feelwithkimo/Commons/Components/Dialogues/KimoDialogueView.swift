@@ -90,7 +90,6 @@ struct KimoDialogueView: View {
                     action: { print("Continue tapped") }
                 )
             ])
-//            stageCompleted: "Stage 1 Completed"
         )
         
         // Preview with bubble secondary buttons with SF Symbols (like in image)

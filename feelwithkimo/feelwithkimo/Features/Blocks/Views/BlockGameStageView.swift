@@ -21,7 +21,11 @@ struct BlockGameStageView: View {
     }
     
     var completionTitle: String {
-        return phase == 1 ? "Tahap 1 Selesai!!!" : "Hore Berhasil!!!"
+        if Locale.current.language.languageCode?.identifier ?? "" == "en" {
+            return phase == 1 ? "Stage Complete" : "Hooray !!!"
+        } else {
+            return phase == 1 ? "Tahap 1 Selesai!!!" : "Hore Berhasil!!!"
+        }
     }
     
     var body: some View {
@@ -36,8 +40,8 @@ struct BlockGameStageView: View {
             if showCompletion {
                 CompletionPageView(
                     title: completionTitle,
-                    primaryButtonLabel: "Coba lagi",
-                    secondaryButtonLabel: "Lanjutkan",
+                    primaryButtonLabel: Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Try again" : "Coba lagi",
+                    secondaryButtonLabel: Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Continue" : "Lanjutkan",
                     onPrimaryAction: {
                         /// Retry current phase
                         showCompletion = false

@@ -50,6 +50,18 @@ final class BreathingModuleViewModel: ObservableObject {
             return 4.0 // 4 seconds for each phase
         }
         
+        var localizedText: String {
+            let isEnglish = (Locale.current.language.languageCode?.identifier ?? "") == "en"
+            switch self {
+            case .inhale:
+                return isEnglish ? "Inhale" : "Tarik\nNafas"
+            case .hold:
+                return isEnglish ? "Hold" : "Tahan\nNafas"
+            case .exhale:
+                return isEnglish ? "Exhale" : "Buang\nNafas"
+            }
+        }
+        
         var imageName: String {
             switch self {
             case .inhale:

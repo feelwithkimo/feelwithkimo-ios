@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct KimoBubbleButtonTertiary: View {
-    var buttonLabel: String = "Ayo Mulai"
-    
+    var buttonLabel: String = ((Locale.current.language.languageCode?.identifier ?? "") == "en") ? "Let's Start" : "Ayo Mulai"
+
     var body: some View {
         ZStack {
             Image("KimoBubbleButtonTertiary")

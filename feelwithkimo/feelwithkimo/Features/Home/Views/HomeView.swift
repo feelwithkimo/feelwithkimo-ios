@@ -85,7 +85,7 @@ private extension HomeView {
     var headerView: some View {
         KimoHeaderView {
             HStack(spacing: 23) {
-                Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
+                Text("Hi, " + "\(viewModel.currentUser?.name ?? "Guest")!")
                     .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .fontWeight(.bold)
                     .padding()
