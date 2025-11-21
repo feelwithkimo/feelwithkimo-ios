@@ -38,7 +38,7 @@ struct BreathingModuleTutorialView: View {
                             )
                         }
                         (Text(
-                            "Menurut Dokter Weil,")
+                            "Menurut Dokter Weil, ")
                             .font(.customFont(size: 17, family: .primary, weight: .bold))
                          +
                          Text("latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya.")
