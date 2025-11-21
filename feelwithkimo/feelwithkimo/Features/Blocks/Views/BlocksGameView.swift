@@ -12,10 +12,12 @@ struct BlocksGameView: View {
     @StateObject var viewModel: BlocksGameViewModel
     // TODO: refactor to environtment model
     @StateObject private var riveViewModel: RiveViewModel
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var storyViewModel: StoryViewModel
     
     let gameCoordinateSpaceName = "blocksGame"
     
-    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
+    init(level: GameLevel, onComplete: (() -> Void)? = nil, storyViewModel: StoryViewModel) {
         let rive = RiveViewModel(fileName: "LalaInBlockGame")
 
         _riveViewModel = StateObject(wrappedValue: rive)
@@ -26,6 +28,8 @@ struct BlocksGameView: View {
                 riveViewModel: rive
             )
         )
+
+        self.storyViewModel = storyViewModel
     }
     
     var body: some View {
@@ -38,6 +42,7 @@ struct BlocksGameView: View {
                         .frame(width: 80, height: 80)
                     KimoPauseButton(action: viewModel.onPausePressed)
                 }
+                
                 VStack {
                     ZStack(alignment: .topLeading) {
                         HStack {
@@ -77,7 +82,10 @@ struct BlocksGameView: View {
                         viewModel.resetGame()
                         viewModel.onPausePressed()
                     },
-                    onHome: { print("yay home") },
+                    onHome: {
+                        self.storyViewModel.quitStory = true
+                        dismiss()
+                    },
                     onResume: viewModel.onPausePressed
                 )
             }
@@ -150,8 +158,4 @@ struct BlocksGameView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-}
-
-#Preview {
-    BlocksGameView(level: .level1)
 }

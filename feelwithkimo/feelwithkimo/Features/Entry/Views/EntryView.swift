@@ -15,7 +15,6 @@ struct EntryView: View {
             GeometryReader { geometry in
                 ZStack {
                     mainBackgroundView(geometry: geometry)
-                    
                     mainEntryView(geometry: geometry)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -23,7 +22,6 @@ struct EntryView: View {
             }
         }
         .onAppear {
-            // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
@@ -64,7 +62,7 @@ struct EntryView: View {
             .offset(y: -geometry.size.height * 0.096)
         }
     }
-    
+
     private func mainBackgroundView(geometry: GeometryProxy) -> some View {
         ZStack(alignment: .bottomLeading) {
             KimoEllipseView()

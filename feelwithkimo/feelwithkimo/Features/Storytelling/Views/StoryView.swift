@@ -9,13 +9,11 @@ import SwiftUI
 import RiveRuntime
 
 struct StoryView: View {
-    @AppStorage("hasSeenTutorial") var seenTutorial = false
     @Environment(\.dismiss) var dismiss
     @ObservedObject private var audioManager = AudioManager.shared
     @StateObject var viewModel: StoryViewModel
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
-
     @State private var charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
 
     var body: some View {
@@ -80,25 +78,12 @@ struct StoryView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            
-            if !viewModel.hasSeenTutor {
-                ColorToken.additionalColorsBlack.toColor().opacity(0.8)
-                    .ignoresSafeArea()
-                    .onTapGesture(perform: viewModel.nextTutorial)
-                
-                switch viewModel.tutorialStep {
-                case 1: firstTutorialView()
-                        .onTapGesture(perform: viewModel.nextTutorial)
-                case 2: secondTutorialView()
-                case 3: thirdTutorialView()
-                default: EmptyView()
-                }
-            }
           
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
                     dismiss: { dismiss() },
-                    replay: { viewModel.replayStory() }
+                    replay: { viewModel.replayStory() },
+                    textDialogue: viewModel.currentScene.text
                 )
             }
         }
@@ -133,6 +118,9 @@ struct StoryView: View {
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onChange(of: viewModel.quitStory) {
+            dismiss()
+        }
         .onChange(of: viewModel.index) {
             // Announce scene changes
             if viewModel.index == 8 {
@@ -165,11 +153,11 @@ struct StoryView: View {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         viewModel.currentScene.path = "Scene 6_2"
                     }
+                    
+                    audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
                 }
-            }
-            
-            if let sound = viewModel.currentScene.soundEffect {
-                audioManager.playSoundEffect(effectName: sound)
+            } else {
+                audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
         }
     }
