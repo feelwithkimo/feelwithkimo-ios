@@ -56,7 +56,7 @@ extension StoryView {
                         .frame(width: 100.getWidth())
                 }
             }
-            .padding(.bottom, 50.getHeight())
+            .padding(.bottom, 49.getHeight())
             .padding(.horizontal, 57.getWidth())
         }
     }
@@ -94,7 +94,7 @@ extension StoryView {
                         .font(.customFont(size: 28, family: .primary, weight: .bold))
                         .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                         .multilineTextAlignment(.center)
-                        .frame(maxWidth: 380.getWidth()) // keep text within bounds
+                        .frame(maxWidth: 380.getWidth())
                 }
             }
         }
@@ -267,9 +267,6 @@ extension StoryView {
                 KimoImage(image: "KimoVisual", width: 105.getWidth())
                     .padding(.top, 45.getHeight())
                     .padding(.bottom, 71.getHeight())
-                    .onTapGesture {
-                        viewModel.nextTutorial()
-                    }
             }
             .padding(.bottom, 175.getHeight())
         }
@@ -313,9 +310,6 @@ extension StoryView {
                 
                 KimoImage(image: "KimoVisual", width: 105.getWidth())
                     .padding(.bottom, 71.getHeight())
-                    .onTapGesture {
-                        viewModel.nextTutorial()
-                    }
             }
             .padding(.bottom, 175.getHeight())
         }

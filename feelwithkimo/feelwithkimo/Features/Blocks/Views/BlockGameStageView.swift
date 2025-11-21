@@ -29,7 +29,7 @@ struct BlockGameStageView: View {
             /// Show the game view
             BlocksGameView(level: currentLevel, onComplete: {
                 showCompletion = true
-            })
+            }, storyViewModel: storyViewModel)
             .id("level\(phase)-\(gameResetKey)")
             
             /// Overlay completion page when game is complete
