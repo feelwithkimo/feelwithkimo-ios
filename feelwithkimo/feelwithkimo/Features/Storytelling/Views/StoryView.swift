@@ -23,9 +23,8 @@ struct StoryView: View {
         stateMachineName: "State Machine 1",
         autoPlay: true
     )
-    private let lalaBlocksPos = CGPoint(x: 488.getWidth(), y: 305.getHeight())
+    private let lalaBlocksPos = CGPoint(x: 522.getWidth(), y: 305.getHeight())
     private let lalaBlockFrame = CGPoint(x: 257.getWidth(), y: 307.getHeight())
-
 
     var body: some View {
         ZStack {
@@ -42,10 +41,13 @@ struct StoryView: View {
                     identifier: "story.scene.\(viewModel.index)"
                 )
             
-            if viewModel.currentScene.path == "Scene 4" || viewModel.currentScene.path == "Scene 5" {
-                lalaRive.view()
-                    .frame(width: lalaBlockFrame.x, height: lalaBlockFrame.y)
-                    .position(lalaBlocksPos)
+            ZStack(alignment: .topLeading) {
+                Color.clear
+                if viewModel.currentScene.path == "Scene 4" || viewModel.currentScene.path == "Scene 5" {
+                    lalaRive.view()
+                        .frame(width: lalaBlockFrame.x, height: lalaBlockFrame.y)
+                        .offset(x: lalaBlocksPos.x, y: lalaBlocksPos.y)
+                }
             }
             
             if viewModel.currentScene.path == "Scene 6" {
