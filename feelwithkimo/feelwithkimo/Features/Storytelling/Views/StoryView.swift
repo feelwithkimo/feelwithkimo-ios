@@ -15,7 +15,7 @@ struct StoryView: View {
     @StateObject var viewModel: StoryViewModel
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
-
+    
     @State private var jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
     
     @StateObject private var lalaRive = RiveViewModel(
@@ -25,7 +25,7 @@ struct StoryView: View {
     )
     private let lalaBlocksPos = CGPoint(x: 522.getWidth(), y: 305.getHeight())
     private let lalaBlockFrame = CGPoint(x: 257.getWidth(), y: 307.getHeight())
-
+    
     var body: some View {
         ZStack {
             Image(viewModel.currentScene.path)
@@ -61,7 +61,7 @@ struct StoryView: View {
             } else {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
-
+                
                 questionView()
             }
             
@@ -81,7 +81,7 @@ struct StoryView: View {
                     })
                     
                     Spacer()
-                
+                    
                     KimoMuteButton(audioManager: audioManager)
                         .kimoButtonAccessibility(
                             label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
@@ -109,7 +109,7 @@ struct StoryView: View {
                 default: EmptyView()
                 }
             }
-          
+            
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
                     dismiss: { dismiss() },
@@ -148,16 +148,22 @@ struct StoryView: View {
         .onChange(of: viewModel.index) {
             
             if viewModel.index == 3 || viewModel.index == 4 || viewModel.index == 5 {
-                    if viewModel.currentScene.path == "Scene 3" || viewModel.currentScene.path == "Scene 4" || viewModel.currentScene.path == "Scene 5" {
-                        lalaRive.setBool("blinking", to: true)
-                        lalaRive.trigger("hand moving")
+                if viewModel.currentScene.path == "Scene 3" || viewModel.currentScene.path == "Scene 4" || viewModel.currentScene.path == "Scene 5" {
+                    Task { while true {
+                        if let blinking = lalaRive.boolInput(named: "blinking") {
+                            lalaRive.setInput("blinking", value: !blinking.value())
+                        }
+                        try? await Task.sleep(nanoseconds: 1_500_000_000)
                     }
+                    }
+                    lalaRive.trigger("hand moving")
                 }
-
+            }
+            
             // Announce scene changes
             if viewModel.index == 6 {
                 jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
-
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     
                     withAnimation(.easeInOut(duration: 2)) {
@@ -166,7 +172,7 @@ struct StoryView: View {
                     }
                 }
             }
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 var announcement = "Adegan \(viewModel.index + 1)"
                 
@@ -184,7 +190,7 @@ struct StoryView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         viewModel.currentScene.path = "Scene 6_2"
-
+                        
                         if let sound = viewModel.currentScene.soundEffect {
                             audioManager.playSoundEffect(effectName: sound)
                         }
@@ -192,9 +198,9 @@ struct StoryView: View {
                 }
             }
             
-//            if let sound = viewModel.currentScene.soundEffect  {
-//                audioManager.playSoundEffect(effectName: sound)
-//            }
+            //            if let sound = viewModel.currentScene.soundEffect  {
+            //                audioManager.playSoundEffect(effectName: sound)
+            //            }
         }
     }
 }
@@ -203,7 +209,7 @@ extension RiveViewModel {
     func setBool(_ name: String, to value: Bool) {
         setInput(name, value: value)
     }
-
+    
     func trigger(_ name: String) {
         triggerInput(name)
     }
