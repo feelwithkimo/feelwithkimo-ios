@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct EmotionStoryView: View {
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: EmotionStoryViewModel
     @ObservedObject private var audioManager = AudioManager.shared
     @StateObject private var accessibilityManager = AccessibilityManager.shared
+    
+    let subtleFeel = Animation.easeInOut
     
     var body: some View {
         HStack(spacing: 37) {
@@ -87,6 +90,13 @@ struct EmotionStoryView: View {
                                 }
                             }
                             .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
+                        }
+                        .transaction { transaction in
+                            if reduceMotion {
+                                transaction.animation = nil
+                            } else {
+                                transaction.animation = subtleFeel
+                            }
                         }
                         .kimoNavigationAccessibility(
                             label: "Cerita \(story.name)",

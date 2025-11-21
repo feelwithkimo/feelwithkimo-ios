@@ -15,7 +15,9 @@ extension StoryView {
             HStack(spacing: 0) {
                 if viewModel.currentScene.nextScene.count > 1 || viewModel.currentScene.isEnd {
                     Button(action: {
-                        viewModel.goScene(to: -1, choice: 0)
+                        withAnimation(reduceMotion ? .none : .easeInOut(duration: 0.5)) {
+                            viewModel.goScene(to: -1, choice: 0)
+                        }
                         accessibilityManager.announce("Kembali ke adegan sebelumnya")
                     }, label: {
                         KimoImage(image: "PreviousScene", width: 100.getWidth())
@@ -41,7 +43,9 @@ extension StoryView {
                             dismiss()
                             return
                         }
-                        viewModel.goScene(to: 1, choice: 0)
+                        withAnimation(reduceMotion ? .none : .easeInOut(duration: 0.5)) {
+                            viewModel.goScene(to: 1, choice: 0)
+                        }
                         accessibilityManager.announce("Melanjutkan ke adegan berikutnya")
                     }, label: {
                         KimoImage(image: "NextScene", width: 100.getWidth())
@@ -130,14 +134,18 @@ extension StoryView {
                             Spacer()
                             
                             OptionChoiceButton(buttonImage: question.option[1], buttonImageSize: 150, title: "") {
-                                viewModel.goScene(to: 1, choice: 0)
+                                withAnimation(reduceMotion ? .none : .easeInOut(duration: 0.5)) {
+                                    viewModel.goScene(to: 1, choice: 0)
+                                }
                                 accessibilityManager.announce("Memilih: \(question.option[1])")
                             }
                             
                             Spacer()
                             
                             OptionChoiceButton(buttonImage: question.option[0], buttonImageSize: 150, title: "") {
-                                viewModel.goScene(to: 1, choice: 0)
+                                withAnimation(reduceMotion ? .none : .easeInOut(duration: 0.5)) {
+                                    viewModel.goScene(to: 1, choice: 0)
+                                }
                                 accessibilityManager.announce("Memilih: \(question.option[0])")
                             }
                             
@@ -159,13 +167,17 @@ extension StoryView {
 
                     if let question = viewModel.currentScene.question {
                         OptionChoiceButton(buttonImage: "OptionButton", buttonImageSize: 442, title: question.option[0]) {
-                            viewModel.goScene(to: 1, choice: 0)
+                            withAnimation(reduceMotion ? .none : .easeInOut(duration: 0.5)) {
+                                viewModel.goScene(to: 1, choice: 0)
+                            }
                             accessibilityManager.announce("Memilih: \(question.option[0])")
                         }
                         .padding(.trailing, 50.getWidth())
 
                         OptionChoiceButton(buttonImage: "OptionButton", buttonImageSize: 442, title: question.option[1]) {
-                            viewModel.goScene(to: 1, choice: 1)
+                            withAnimation(reduceMotion ? .none : .easeInOut(duration: 0.5)) {
+                                viewModel.goScene(to: 1, choice: 1)
+                            }
                             accessibilityManager.announce("Memilih: \(question.option[1])")
                         }
                     }

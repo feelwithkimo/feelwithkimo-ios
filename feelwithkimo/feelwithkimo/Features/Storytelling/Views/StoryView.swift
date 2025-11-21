@@ -14,6 +14,8 @@ struct StoryView: View {
     @ObservedObject private var audioManager = AudioManager.shared
     @StateObject var viewModel: StoryViewModel
     @StateObject var accessibilityManager = AccessibilityManager.shared
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+    
     @State var moveButton = false
 
     @State private var charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
@@ -26,7 +28,14 @@ struct StoryView: View {
                 .clipped()
                 .ignoresSafeArea()
                 .id(viewModel.currentScene.path)
-                .modifier(FadeContentTransition())
+                .pageCurlTransition(
+                    isForward: viewModel.isNavigatingForward,
+                    reduceMotion: reduceMotion
+                )
+                .animation(
+                    reduceMotion ? .none : .easeInOut(duration: 0.6),
+                    value: viewModel.index
+                )
                 .kimoImageAccessibility(
                     label: "Gambar cerita adegan \(viewModel.index + 1)",
                     isDecorative: false,
@@ -178,15 +187,4 @@ struct StoryView: View {
 // Helper aman akses index
 fileprivate extension Array {
     subscript(safe idx: Int) -> Element? { indices.contains(idx) ? self[idx] : nil }
-}
-
-/// Modifier fade crossfade
-struct FadeContentTransition: ViewModifier {
-    func body(content: Content) -> some View {
-        if #available(iOS 17.0, *) {
-            content.contentTransition(.opacity)
-        } else {
-            content.transition(.opacity)
-        }
-    }
 }

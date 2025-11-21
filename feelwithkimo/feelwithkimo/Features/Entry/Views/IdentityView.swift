@@ -22,15 +22,17 @@ struct IdentityView: View {
                     // Ellipse decorations
                     ellipseView(geometry: geometry)
                     
-                    HStack(spacing: 0) {
+                    HStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 0) {
                             titleView
                             
                             kimoMascotView
                                 .frame(width: 485.getWidth(), height: 470.getHeight())
-                                .offset(x: geometry.size.width * 0.035)
-                            
+                                .offset(x: geometry.size.width * 0.03)
+                                
+                            Spacer()
                         }
+                        .padding(.top, 78.getHeight())
                         .padding(.leading, 59.getWidth())
                         .zIndex(1)
                         
@@ -40,12 +42,13 @@ struct IdentityView: View {
                             
                             textFieldView
                                 .frame(maxWidth: 600.getWidth())
+                                .zIndex(-1)
                             
                             submitButtonView
                                 .offset(x: -geometry.size.width * 0.002)
                         }
-                        .padding(.trailing, 82.getWidth())
                         .padding(.bottom, 70.getHeight())
+                        .padding(.trailing, 82.getWidth())
                     }
                 }
                 .onAppear {
@@ -62,20 +65,22 @@ struct IdentityView: View {
     }
     
     private var titleView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("Kenalan")
-                .font(.customFont(size: 104, weight: .bold))
+        VStack {
+            Text("Kenalan\nYuk!")
+                .font(Font(
+                    UIFont.appFont(
+                        size: 104.getAdaptiveWidth(),
+                        family: .primary,
+                        weight: .bold
+                    )
+                ))
                 .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-            
-            Text("Yuk!")
-                .font(.customFont(size: 104, weight: .bold))
-                .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                .kimoTextAccessibility(
+                    label: "Isi identitas",
+                    identifier: "identity.parentTitle",
+                    sortPriority: 1
+                )
         }
-        .kimoTextAccessibility(
-            label: "Isi identitas",
-            identifier: "identity.parentTitle",
-            sortPriority: 1
-        )
     }
     
     private func ellipseView(geometry: GeometryProxy) -> some View {
@@ -90,7 +95,7 @@ struct IdentityView: View {
             Ellipse()
                 .fill(ColorToken.backgroundIdentity.toColor())
                 .frame(width: 651.getWidth(), height: 591.getHeight())
-                .offset(x: geometry.size.width * 0.35, y: -geometry.size.height * 0.5)
+                .offset(x: geometry.size.width * 0.5, y: -geometry.size.height * 0.5)
             
             // Bottom-left ellipse
             Ellipse()
@@ -147,7 +152,7 @@ struct IdentityView: View {
             // Content
             VStack(alignment: .leading, spacing: 0) {
                 Text("Nama Panggilan untuk si Kecil:")
-                    .font(.customFont(size: 22, family: .primary, weight: .bold))
+                    .font(.app(.title2, family: .primary))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, 8)
                     .kimoTextAccessibility(
@@ -166,7 +171,7 @@ struct IdentityView: View {
                     )
                 
                 Text(viewModel.errorMessageChild)
-                    .font(.customFont(size: 16, family: .primary, weight: .regular))
+                    .font(.app(.callout, family: .primary))
                     .foregroundStyle(viewModel.showErrorChild ? ColorToken.emotionAnger.toColor() : Color.clear)
                     .padding(.top, 4)
                     .kimoTextAccessibility(
@@ -176,7 +181,7 @@ struct IdentityView: View {
                     )
                 
                 Text("Nama Panggilan untuk Orang Tua:")
-                    .font(.customFont(size: 22, family: .primary, weight: .bold))
+                    .font(.app(.title2, family: .primary))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, 8)
                     .kimoTextAccessibility(
@@ -196,7 +201,7 @@ struct IdentityView: View {
                     )
                 
                 Text(viewModel.errorMessageNickname)
-                    .font(.customFont(size: 16, family: .primary, weight: .regular))
+                    .font(.app(.callout, family: .primary))
                     .foregroundStyle(viewModel.showErrorNickname ? ColorToken.emotionAnger.toColor() : Color.clear)
                     .padding(.top, 4)
                     .kimoTextAccessibility(

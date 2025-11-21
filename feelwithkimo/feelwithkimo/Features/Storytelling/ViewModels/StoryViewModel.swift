@@ -27,6 +27,8 @@ internal class StoryViewModel: ObservableObject {
     @Published var tutorialStep: Int = 1
     
     @Published var showDialogue: Bool = false
+    @Published var isNavigatingForward: Bool = true
+    
     var isTappedMascot: Bool = false
 
     var story: StoryModel = StoryModel(
@@ -68,7 +70,9 @@ internal class StoryViewModel: ObservableObject {
         switch number {
         case 1:
             guard !self.currentScene.isEnd else { return }
-
+            
+            isNavigatingForward = true
+            
             // Next scene for first scene since the first scene has no previous scene the index will be 0 instead of 1
             if self.currentScene.path == story.storyScene[0].path {
                 self.currentScene = self.story.storyScene[1]
@@ -82,11 +86,14 @@ internal class StoryViewModel: ObservableObject {
         // Previous Scene
         case -1:
             guard self.currentScene.nextScene.count > 1 else { return }
-
+            
+            isNavigatingForward = false
+            
             self.currentScene = self.story.storyScene[self.currentScene.nextScene[0]]
             self.showDialogue = false
             self.isTappedMascot = false
             self.index -= 1
+            
         default:
             break
         }
@@ -144,4 +151,3 @@ internal class StoryViewModel: ObservableObject {
         }
     }
 }
-

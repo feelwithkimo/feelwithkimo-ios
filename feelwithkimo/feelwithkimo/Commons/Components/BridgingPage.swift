@@ -61,6 +61,7 @@ struct BridgingPage<Destination: View>: View {
                                 } label: {
                                     continueLabel()
                                 }
+                                
                             } else {
                                 Button(action: {
                                     action?()

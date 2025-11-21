@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct EntryView: View {
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
     @StateObject private var accessibilityManager = AccessibilityManager.shared
+    
+    let subtleFeel = Animation.easeInOut
     
     var body: some View {
         NavigationStack {
@@ -56,6 +59,13 @@ struct EntryView: View {
                     KimoBubbleButtonPrimary(buttonLabel: "Ayo Mulai")
                 }
                 .padding(.top, geometry.size.height * 0.084)
+                .transaction { transaction in
+                    if reduceMotion {
+                        transaction.animation = nil
+                    } else {
+                        transaction.animation = subtleFeel
+                    }
+                }
                 
                 Spacer()
             }
