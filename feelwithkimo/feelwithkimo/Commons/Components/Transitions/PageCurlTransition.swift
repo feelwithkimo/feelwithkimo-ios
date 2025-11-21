@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import CoreImage
-import CoreImage.CIFilterBuiltins
 
 // MARK: - 1. The Transition Modifier
 struct PageCurlTransitionModifier: ViewModifier {
@@ -18,12 +16,11 @@ struct PageCurlTransitionModifier: ViewModifier {
         content
             .transition(
                 reduceMotion ? .opacity : .asymmetric(
-                    // INSERTION: From Curled (0) to Flat (1)
                     insertion: AnyTransition.modifier(
                         active: PageCurlModifier(progress: 0, isForward: isForward),
                         identity: PageCurlModifier(progress: 1, isForward: isForward)
                     ),
-                    // REMOVAL: From Flat (1) to Curled (0)
+                    
                     removal: AnyTransition.modifier(
                         active: PageCurlModifier(progress: 0, isForward: isForward),
                         identity: PageCurlModifier(progress: 1, isForward: isForward)
@@ -33,7 +30,7 @@ struct PageCurlTransitionModifier: ViewModifier {
     }
 }
 
-// MARK: - 2. The Geometry Modifier (Animatable)
+// MARK: - 2. The Geometry Effect (The "Peel" Logic)
 struct PageCurlModifier: ViewModifier, Animatable {
     var progress: Double
     let isForward: Bool
@@ -44,38 +41,44 @@ struct PageCurlModifier: ViewModifier, Animatable {
     }
     
     func body(content: Content) -> some View {
-        content
-            // 1. Rotation: Simulates the page bending
+        GeometryReader { geo in
+            let size = geo.size
+            
+            ZStack(alignment: isForward ? .leading : .trailing) {
+                // THE PAGE CONTENT
+                content
+                    .frame(width: size.width, height: size.height)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                
+                // THE SHADOW OVERLAY
+                LinearGradient(
+                    colors: [.black.opacity(0.5), .clear],
+                    startPoint: isForward ? .leading : .trailing,
+                    endPoint: isForward ? .trailing : .leading
+                )
+                .opacity(1 - progress)
+                .allowsHitTesting(false)
+            }
+            // 3D ROTATION LOGIC
             .rotation3DEffect(
                 .degrees(calcRotation()),
                 axis: (x: 0, y: 1, z: 0),
-                anchor: isForward ? .leading : .trailing, // Pivot point
-                perspective: 0.5
+                anchor: isForward ? .leading : .trailing,
+                perspective: 0.8
             )
-            // 2. Offset: Moves the page slightly as it curls
-            .offset(x: calcOffset())
-            // 3. Opacity: Fades out when fully curled to prevent glitching
-            .opacity(progress < 0.2 ? progress * 5 : 1)
-            // 4. ZIndex: Ensures the curling page stays on top
-            .zIndex(progress)
+        }
+        .zIndex(progress < 1 ? 100 : 0)
+        .ignoresSafeArea(.all)
     }
     
-    // Helper: Calculate Rotation Angle
     private func calcRotation() -> Double {
         let targetAngle: Double = isForward ? -90 : 90
         return (1 - progress) * targetAngle
     }
-    
-    // Helper: Calculate X Offset
-    private func calcOffset() -> CGFloat {
-        let width = UIScreen.main.bounds.width
-        // When progress is 1 (Flat), offset is 0.
-        // When progress is 0 (Curled), offset moves entirely off screen.
-        return isForward ? (progress - 1) * width : (1 - progress) * width
-    }
 }
 
 // MARK: - 3. Extensions
+
 extension AnyTransition {
     static func pageCurl(isForward: Bool) -> AnyTransition {
         .asymmetric(
@@ -99,57 +102,67 @@ extension View {
 
 // MARK: - Preview
 #Preview {
-    PageCurlTransitionPreview()
+    PageCurlPreview()
 }
 
-struct PageCurlTransitionPreview: View {
+struct PageCurlPreview: View {
     @State private var currentPage = 0
     @State private var isForward = true
-    @Environment(\.accessibilityReduceMotion) var reduceMotion
     
-    let scenes = ["Scene 1", "Scene 2", "Scene 3", "Scene 4", "Scene 5"]
-    let colors: [Color] = [.blue, .red, .green, .orange, .purple]
-
+    let colors: [Color] = [.blue, .red, .orange, .purple, .green]
+    let scenes = ["Page 1", "Page 2", "Page 3", "Page 4", "Page 5"]
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             
-            // Content
+            // PAGE CONTENT
             ZStack {
                 colors[currentPage % colors.count]
-                Text(scenes[currentPage])
-                    .font(.system(size: 60, weight: .bold))
-                    .foregroundColor(.white)
+                
+                VStack(spacing: 20) {
+                    Text(scenes[currentPage])
+                        .font(.system(size: 60, weight: .bold))
+                        .foregroundStyle(.white)
+                    
+                    Image(systemName: "book.closed.fill")
+                        .font(.system(size: 80))
+                        .foregroundStyle(.white.opacity(0.8))
+                }
             }
-            // This ID forces the view to redraw/transition when page changes
+            .ignoresSafeArea()
             .id(currentPage)
-            .pageCurlTransition(isForward: isForward, reduceMotion: reduceMotion)
+            .pageCurlTransition(isForward: isForward, reduceMotion: false)
             
-            // Controls
+            // CONTROLS
             VStack {
                 Spacer()
                 HStack(spacing: 60) {
-                    Button("Previous") {
-                        if currentPage > 0 {
-                            isForward = false
-                            withAnimation(.easeInOut(duration: 0.8)) {
-                                currentPage -= 1
-                            }
+                    Button {
+                        guard currentPage > 0 else { return }
+                        isForward = false
+                        withAnimation(.easeInOut(duration: 0.7)) {
+                            currentPage -= 1
                         }
+                    } label: {
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.system(size: 50))
+                            .foregroundStyle(.white)
                     }
                     .disabled(currentPage == 0)
-                    .buttonStyle(.borderedProminent)
                     
-                    Button("Next") {
-                        if currentPage < scenes.count - 1 {
-                            isForward = true
-                            withAnimation(.easeInOut(duration: 0.8)) {
-                                currentPage += 1
-                            }
+                    Button {
+                        guard currentPage < scenes.count - 1 else { return }
+                        isForward = true
+                        withAnimation(.easeInOut(duration: 0.7)) {
+                            currentPage += 1
                         }
+                    } label: {
+                        Image(systemName: "arrow.right.circle.fill")
+                            .font(.system(size: 50))
+                            .foregroundStyle(.white)
                     }
                     .disabled(currentPage == scenes.count - 1)
-                    .buttonStyle(.borderedProminent)
                 }
                 .padding(.bottom, 50)
             }

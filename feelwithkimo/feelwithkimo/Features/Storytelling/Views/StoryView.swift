@@ -111,6 +111,7 @@ struct StoryView: View {
                 )
             }
         }
+        .ignoresSafeArea(.all)
         .onAppear {
             // Announce story scene information
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
