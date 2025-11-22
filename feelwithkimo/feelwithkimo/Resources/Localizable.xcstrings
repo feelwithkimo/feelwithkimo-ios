@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Ayo_Mulai" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let’s Start"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayo Mulai"
+          }
+        }
+      }
+    },
     "Bacakan cerita ini untuk si kecil, ya!" : {
       "localizations" : {
         "en" : {
@@ -49,6 +66,74 @@
         }
       }
     },
+    "Breathing Practice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathing Practice"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latihan Pernapasan"
+          }
+        }
+      }
+    },
+    "BreathingBridgingText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's Practice Breathing"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayo Latihan Pernapasan"
+          }
+        }
+      }
+    },
+    "BreathingSuccess" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hooray… you managed to breathe"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hore.. kamu berhasil tarik nafas"
+          }
+        }
+      }
+    },
+    "ClappingSkip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like Kimo didn't see you clapping"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wah sepertinya kimo tidak melihat kamu tepuk tangan"
+          }
+        }
+      }
+    },
     "Coba Lagi" : {
       "localizations" : {
         "en" : {
@@ -60,7 +145,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coba Lagi"
+            "value" : "Coba lagi"
           }
         }
       }
@@ -81,19 +166,19 @@
         }
       }
     },
-    "detik" : {
+    "Exhale" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "second"
+            "value" : "Exhale"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "detik"
+            "value" : "Buang Nafas"
           }
         }
       }
@@ -126,6 +211,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala."
+          }
+        }
+      }
+    },
+    "Hold" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tahan Nafas"
+          }
+        }
+      }
+    },
+    "Hooray!!!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hooray !!!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hore berhasil !!!"
+          }
+        }
+      }
+    },
+    "Inhale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inhale"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarik Nafas"
           }
         }
       }
@@ -177,9 +312,6 @@
           }
         }
       }
-    },
-    "Key" : {
-      "extractionState" : "manual"
     },
     "Kimo akan memberikan petunjuk saat si kecil butuh bantuan" : {
       "localizations" : {
@@ -341,6 +473,23 @@
         }
       }
     },
+    "Second" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Second"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Detik"
+          }
+        }
+      }
+    },
     "Selamat datang di Sekolah" : {
       "localizations" : {
         "en" : {
@@ -357,19 +506,53 @@
         }
       }
     },
-    "Tarik\\nNafas" : {
+    "Skip" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inhale"
+            "value" : "Skip"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tarik\\nNafas"
+            "value" : "Lewati"
+          }
+        }
+      }
+    },
+    "Stage_Complete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stage Complete"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tahap 1 Selesai"
+          }
+        }
+      }
+    },
+    "StartPlaying" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Playing"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mulai Bermain"
           }
         }
       }

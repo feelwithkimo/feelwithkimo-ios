@@ -129,7 +129,7 @@ struct BreathingModuleView: View {
                                 .frame(width: 143.getWidth(),
                                        height: 143.getWidth())
                             
-                            Text("\(viewModel.remainingTime) " + ((Locale.current.language.languageCode?.identifier ?? "") == "en" ? "second" : "detik"))
+                            Text("\(viewModel.remainingTime) " + NSLocalizedString("Second", comment: ""))
                                 .font(.customFont(size: 30, weight: .bold))
                                 .foregroundColor(ColorToken.backgroundSecondary.toColor())
                         }
@@ -174,7 +174,7 @@ struct BreathingModuleView: View {
                         } else {
                             HStack(spacing: 20.getWidth()) {
                                 // Cycle indicator - show when active
-                                Text((Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Breathing Practice " : "Latihan Tarik Nafas ") + "\(viewModel.cycleCount) / 3")
+                                Text(NSLocalizedString("Breathing Practice", comment: "") + " \(viewModel.cycleCount) / 3")
                                     .font(.customFont(size: 22, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
@@ -250,14 +250,10 @@ struct BreathingModuleView: View {
     // MARK: - Completion View
     private var completionView: some View {
         KimoDialogueView(
-            textDialogue: Locale.current.language.languageCode?.identifier ?? "" == "en" ?
-                "Hooray… you managed to breathe" :
-                "Hore.. kamu berhasil tarik nafas",
+            textDialogue: NSLocalizedString("BreathingSuccess", comment: ""),
             buttonLayout: .horizontal([
                 KimoDialogueButtonConfig(
-                    title: Locale.current.language.languageCode?.identifier ?? "" == "en" ?
-                        "Try again" :
-                        "Coba lagi",
+                    title: NSLocalizedString("Coba Lagi", comment: ""),
                     symbol: .arrowClockwise,
                     style: .bubbleSecondary,
                     action: {
@@ -265,9 +261,7 @@ struct BreathingModuleView: View {
                     }
                 ),
                 KimoDialogueButtonConfig(
-                    title: Locale.current.language.languageCode?.identifier ?? "" == "en" ?
-                        "Continue" :
-                        "Lanjutkan",
+                    title: NSLocalizedString("Lanjutkan", comment: ""),
                     symbol: .chevronRight,
                     style: .bubbleSecondary,
                     action: {

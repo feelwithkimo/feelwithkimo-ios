@@ -21,11 +21,7 @@ struct BlockGameStageView: View {
     }
     
     var completionTitle: String {
-        if Locale.current.language.languageCode?.identifier ?? "" == "en" {
-            return phase == 1 ? "Stage Complete" : "Hooray !!!"
-        } else {
-            return phase == 1 ? "Tahap 1 Selesai!!!" : "Hore Berhasil!!!"
-        }
+        return phase == 1 ? NSLocalizedString("Stage_Complete", comment: "") : NSLocalizedString("Hooray!!!", comment: "")
     }
     
     var body: some View {
@@ -40,8 +36,8 @@ struct BlockGameStageView: View {
             if showCompletion {
                 CompletionPageView(
                     title: completionTitle,
-                    primaryButtonLabel: Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Try again" : "Coba lagi",
-                    secondaryButtonLabel: Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Continue" : "Lanjutkan",
+                    primaryButtonLabel: NSLocalizedString("Coba Lagi", comment: ""),
+                    secondaryButtonLabel: NSLocalizedString("Lanjutkan", comment: ""),
                     onPrimaryAction: {
                         /// Retry current phase
                         showCompletion = false

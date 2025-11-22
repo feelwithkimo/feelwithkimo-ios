@@ -51,14 +51,13 @@ final class BreathingModuleViewModel: ObservableObject {
         }
         
         var localizedText: String {
-            let isEnglish = (Locale.current.language.languageCode?.identifier ?? "") == "en"
             switch self {
             case .inhale:
-                return isEnglish ? "Inhale" : "Tarik\nNafas"
+                return NSLocalizedString("Inhale", comment: "")
             case .hold:
-                return isEnglish ? "Hold" : "Tahan\nNafas"
+                return NSLocalizedString("Hold", comment: "")
             case .exhale:
-                return isEnglish ? "Exhale" : "Buang\nNafas"
+                return NSLocalizedString("Exhale", comment: "")
             }
         }
         

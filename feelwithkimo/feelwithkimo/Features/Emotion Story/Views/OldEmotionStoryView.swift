@@ -71,7 +71,7 @@ struct OldEmotionStoryView: View {
                              NavigationLink(destination: {
                                  StoryView(viewModel: StoryViewModel(story: viewModel.emotion.stories[0]))
                              }, label: {
-                                 KimoBubbleButtonPrimary(buttonLabel: Locale.current.language.languageCode?.identifier ?? "" == "en" ? "Start" : "Mulai Bermain")
+                                 KimoBubbleButtonPrimary(buttonLabel: NSLocalizedString("StartPlaying", comment: ""))
                              })
                          }
                      }

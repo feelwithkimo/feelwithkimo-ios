@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct KimoBubbleButtonPrimary: View {
-    var buttonLabel: String = ((Locale.current.language.languageCode?.identifier ?? "") == "en") ? "Let's Start" : "Ayo Mulai"
+    var buttonLabel: String = NSLocalizedString("Ayo_Mulai", comment: "")
 
     var body: some View {
         ZStack {
