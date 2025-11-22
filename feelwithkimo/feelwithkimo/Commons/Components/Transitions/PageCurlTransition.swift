@@ -44,7 +44,7 @@ struct PageCurlModifier: ViewModifier, Animatable {
         GeometryReader { geo in
             let size = geo.size
             
-            ZStack(alignment: isForward ? .leading : .trailing) {
+            ZStack(alignment: isForward ? .trailing : .leading) {
                 // THE PAGE CONTENT
                 content
                     .frame(width: size.width, height: size.height)
@@ -53,8 +53,8 @@ struct PageCurlModifier: ViewModifier, Animatable {
                 // THE SHADOW OVERLAY
                 LinearGradient(
                     colors: [.black.opacity(0.5), .clear],
-                    startPoint: isForward ? .leading : .trailing,
-                    endPoint: isForward ? .trailing : .leading
+                    startPoint: isForward ? .trailing : .leading,
+                    endPoint: isForward ? .leading : .trailing
                 )
                 .opacity(1 - progress)
                 .allowsHitTesting(false)
@@ -63,7 +63,7 @@ struct PageCurlModifier: ViewModifier, Animatable {
             .rotation3DEffect(
                 .degrees(calcRotation()),
                 axis: (x: 0, y: 1, z: 0),
-                anchor: isForward ? .leading : .trailing,
+                anchor: isForward ? .trailing : .leading,
                 perspective: 0.8
             )
         }
@@ -72,7 +72,7 @@ struct PageCurlModifier: ViewModifier, Animatable {
     }
     
     private func calcRotation() -> Double {
-        let targetAngle: Double = isForward ? -90 : 90
+        let targetAngle: Double = isForward ? 90 : -90
         return (1 - progress) * targetAngle
     }
 }
