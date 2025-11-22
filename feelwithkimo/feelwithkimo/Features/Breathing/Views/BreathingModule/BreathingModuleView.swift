@@ -174,7 +174,7 @@ struct BreathingModuleView: View {
                         } else {
                             HStack(spacing: 20.getWidth()) {
                                 // Cycle indicator - show when active
-                                Text(NSLocalizedString("Breathing Practice", comment: "") + " \(viewModel.cycleCount) / 3")
+                                Text(NSLocalizedString("BreathingPractice", comment: "") + " \(viewModel.cycleCount) / 3")
                                     .font(.customFont(size: 22, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)

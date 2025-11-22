@@ -66,23 +66,6 @@
         }
       }
     },
-    "Breathing Practice" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathing Practice"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Latihan Pernapasan"
-          }
-        }
-      }
-    },
     "BreathingBridgingText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -96,6 +79,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ayo Latihan Pernapasan"
+          }
+        }
+      }
+    },
+    "BreathingPractice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathing Exercise"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latihan Pernapasan"
           }
         }
       }
@@ -484,7 +484,7 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Detik"
           }
         }
@@ -551,7 +551,7 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Mulai Bermain"
           }
         }

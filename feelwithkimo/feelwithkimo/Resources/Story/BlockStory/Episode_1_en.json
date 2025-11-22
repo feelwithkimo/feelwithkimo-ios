@@ -12,7 +12,7 @@
   },
   {
     "path": "Scene 2",
-    "text": "This is Teacher Tina, she is Lala's teacher.",
+    "text": "This is Miss Tina, she is Lala's teacher.",
     "nextScene": [0, 2],
     "kimoVisual": "star",
     "kimoText": "",
@@ -84,7 +84,7 @@
   },
   {
     "path": "Scene 6",
-    "text": "Suddenly Jack arrives and kicks down Lala's tower.",
+    "text": "Suddenly Jack came and kicked down Lala’s tower.",
     "nextScene": [7, 9],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -108,7 +108,7 @@
   },
   {
     "path": "Scene 7",
-    "text": "Teacher Tina comes to Lala and says, \"Lala, what happened?\"",
+    "text": "Miss Tina comes to Lala and says, \"Lala, what happened?\"",
     "nextScene": [9, 11],
     "kimoVisual": "star",
     "kimoText": "",
@@ -118,7 +118,7 @@
   },
   {
     "path": "Scene 8",
-    "text": "Lala tells Teacher Tina what Jack did.",
+    "text": "Lala tells Miss Tina what Jack did.",
     "nextScene": [10, 12],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -138,7 +138,7 @@
   },
   {
     "path": "Scene 10",
-    "text": "\"Let's take a breathe with me!\", said Teacher Tina. \"Okay, Teacher\", answered Lala.",
+    "text": "\"Let's take a breathe with me!\", said Miss Tina. \"Okay, Miss\", answered Lala.",
     "nextScene": [12, 14],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -148,7 +148,7 @@
   },
   {
     "path": "Scene 10",
-    "text": "\"Let's take a breathe with me!\", said Teacher Tina. \"Okay, Teacher\", answered Lala.",
+    "text": "\"Let's take a breathe with me!\", said Miss Tina. \"Okay, Miss\", answered Lala.",
     "nextScene": [13, 15],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -158,7 +158,7 @@
   },
   {
     "path": "Scene 11",
-    "text": "\"How are you feeling now, Lala?\", asked Teacher Tina.\n\"I feel more calm, Teacher.\", answered Lala.",
+    "text": "\"How are you feeling now, Lala?\", asked Miss Tina.\n\"I feel more calm, Miss.\", answered Lala.",
     "nextScene": [14, 16],
     "kimoVisual": "star",
     "kimoText": "",
@@ -168,7 +168,7 @@
   },
   {
     "path": "Scene 12",
-    "text": "\"Let's try building the tower again\", said Teacher Tina. \"Yes, Teacher!\" answered Lala.",
+    "text": "\"Let's try building the tower again\", said Miss Tina. \"Let's go!\" answered Lala.",
     "nextScene": [15, 17],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -198,7 +198,7 @@
   },
   {
     "path": "Scene 13",
-    "text": "\"Hooray! The tower is done!\" said Teacher Tina happily.\n\"Thank you, Teacher. I'm amazed at how beautiful the tower is\" said Lala while looking at it happily.",
+    "text": "\"Hooray! The tower is done!\" said Miss Tina happily.\n\"Thank you, Miss. I'm amazed at how beautiful the tower is\" said Lala while looking at it happily.",
     "nextScene": [18, 20],
     "kimoVisual": "star",
     "kimoText": "",
@@ -208,7 +208,7 @@
   },
   {
     "path": "Scene 13",
-    "text": "Let's clap our hands together with Teacher Tina and Lala!",
+    "text": "Let's clap our hands together with Miss Tina and Lala!",
     "nextScene": [19, 21],
     "kimoVisual": "normal",
     "kimoText": null,
