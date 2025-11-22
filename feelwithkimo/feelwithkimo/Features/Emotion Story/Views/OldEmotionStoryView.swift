@@ -48,9 +48,7 @@ struct OldEmotionStoryView: View {
                 
                 // TODO: Move this code to KimoDialogueView
                  HStack(spacing: 39) {
-//                     KimoImage(image: "KimoTutorialAsset", width: 512.getWidth())
-                     
-                     KimoImage(image: "KimoTutorialAsset", width: 0.429 * UIScreen.main.bounds.width)
+                    KimoImage(image: "KimoTutorialAsset", width: 0.429 * UIScreen.main.bounds.width)
                      
                      VStack(spacing: 0) {
                          Text("Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala.")
@@ -91,6 +89,8 @@ struct OldEmotionStoryView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 accessibilityManager.announceScreenChange("Halaman cerita \(viewModel.emotion.title). Pilih salah satu cerita untuk dimulai.")
             }
+            
+            AudioManager.shared.stopAll()
         }
     }
 }

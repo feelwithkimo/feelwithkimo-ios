@@ -18,18 +18,17 @@ struct EntryView: View {
             GeometryReader { geometry in
                 ZStack {
                     mainBackgroundView(geometry: geometry)
-                    
                     mainEntryView(geometry: geometry)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
             }
         }
         .onAppear {
-            // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
         }
-        .dynamicTypeSize(.xSmall ... .large)
     }
     
     private func mainEntryView(geometry: GeometryProxy) -> some View {
@@ -39,14 +38,14 @@ struct EntryView: View {
             VStack(alignment: .trailing, spacing: 0) {
                 Spacer()
                 
-                Text("Hai, aku")
+                Text("Selamat datang di Sekolah")
                     .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, geometry.size.height * 0.01)
                 
                 KimoImage(image: "Kimo-Pink-Wave", width: geometry.size.width * 0.51)
                 
-                Text("Aku akan menemani kamu dan si kecil belajar mengenal perasaan lewat cerita dan permainan seru.")
+                Text("Kimo akan menemani kamu dan si kecil belajar mengenal perasaan")
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .frame(maxWidth: 356.getWidth())
@@ -73,17 +72,17 @@ struct EntryView: View {
             .offset(y: -geometry.size.height * 0.096)
         }
     }
-    
+
     private func mainBackgroundView(geometry: GeometryProxy) -> some View {
         ZStack(alignment: .bottomLeading) {
             KimoEllipseView()
                 .offset(y: geometry.size.height * 0.675)
             
-            Image("KimoDefault")
+            Image("KimoSchool")
                 .resizable()
                 .scaledToFit()
-                .frame(width: geometry.size.width * 0.587, height: geometry.size.height * 0.687)
-                .offset(x: geometry.size.width * 0.042, y: geometry.size.height * 0.055)
+                .frame(width: 800.getWidth())
+
         }
     }
 }
