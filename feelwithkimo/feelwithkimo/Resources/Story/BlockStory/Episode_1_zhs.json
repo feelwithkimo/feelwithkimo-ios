@@ -101,7 +101,7 @@
     "kimoText": null,
     "question": {
         "question": "你觉得Lala现在是什么心情？",
-        "option": ["开心", "生气"]
+        "option": ["Senang", "Marah"]
     },
     "interactionType": "scaffoldingOption",
     "isEnd": false

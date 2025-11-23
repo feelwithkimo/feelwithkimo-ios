@@ -15,6 +15,18 @@
             "state" : "translated",
             "value" : "Ayo Mulai"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始"
+          }
         }
       }
     },
@@ -87,6 +99,18 @@
             "state" : "translated",
             "value" : "Both Hands Detected"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检测到双手"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "偵測到雙手"
+          }
         }
       }
     },
@@ -103,6 +127,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ayo Latihan Pernapasan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我们练习呼吸吧"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我們練習呼吸吧"
           }
         }
       }
@@ -121,6 +157,18 @@
             "state" : "translated",
             "value" : "Latihan Pernapasan"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "呼吸练习"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "呼吸練習"
+          }
         }
       }
     },
@@ -138,6 +186,18 @@
             "state" : "translated",
             "value" : "Hore.. kamu berhasil tarik nafas"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "太好了...你成功地呼吸了呀"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "太好了...你成功地呼吸了呀"
+          }
         }
       }
     },
@@ -154,6 +214,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wah sepertinya kimo tidak melihat kamu tepuk tangan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "看起来Kimo没有看到你拍手"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "看起來Kimo沒有看到你拍手"
           }
         }
       }
@@ -220,25 +292,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "second"
+            "value" : "Exhale"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "detik"
+            "value" : "Hembus Nafas"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "秒"
+            "value" : "呼气"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "秒"
+            "value" : "呼氣"
           }
         }
       }
@@ -312,6 +384,18 @@
             "state" : "translated",
             "value" : "Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天，Kimo想和Kimo的朋友玩，她的名字叫Lala。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天，Kimo想和Kimo的朋友玩，她的名字叫Lala。"
+          }
         }
       }
     },
@@ -329,10 +413,23 @@
             "state" : "translated",
             "value" : "Tahan Nafas"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏息"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏息"
+          }
         }
       }
     },
     "Hooray!!!" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -344,6 +441,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hore berhasil !!!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好耶！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好耶！"
           }
         }
       }
@@ -361,6 +470,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tarik Nafas"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "吸入"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "吸入"
           }
         }
       }
@@ -403,19 +524,19 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Kenalan"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "认识"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "認識"
           }
         }
@@ -743,6 +864,18 @@
             "state" : "translated",
             "value" : "Pilih Emosi!"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择情感！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇情感！"
+          }
         }
       }
     },
@@ -760,6 +893,18 @@
             "state" : "translated",
             "value" : "Detik"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "秒"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "秒"
+          }
         }
       }
     },
@@ -775,6 +920,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Selamat datang di Sekolah"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欢迎来到学校"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "歡迎來到學校"
           }
         }
       }
@@ -793,6 +950,18 @@
             "state" : "translated",
             "value" : "Lewati"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "略过"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "略過"
+          }
         }
       }
     },
@@ -809,6 +978,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tahap 1 Selesai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阶段完成"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "階段完成"
           }
         }
       }
@@ -831,13 +1012,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "吸入"
+            "value" : "开始游戏"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "吸入"
+            "value" : "開始遊戲"
           }
         }
       }
@@ -908,19 +1089,19 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Yuk!"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "走吧！"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "走吧！"
           }
         }
@@ -936,19 +1117,19 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Coba Lagi"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "再试一次"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "再試一次"
           }
         }
@@ -964,19 +1145,19 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Coba Lagi"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "再试一次"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "再試一次"
           }
         }
@@ -992,19 +1173,19 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Keluar"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "退出"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "退出"
           }
         }

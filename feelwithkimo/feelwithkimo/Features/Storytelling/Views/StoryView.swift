@@ -120,6 +120,11 @@ struct StoryView: View {
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onChange(of: viewModel.currentScene.soundEffect) {
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
+        }
         .onChange(of: viewModel.quitStory) {
             dismiss()
         }
