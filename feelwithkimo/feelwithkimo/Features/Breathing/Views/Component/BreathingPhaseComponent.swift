@@ -1,86 +1,88 @@
 import SwiftUI
 
 struct BreathingPhaseComponent: View {
-    @State private var currentPhase: Int = 0
-    @State private var progress: CGFloat = 0
-    @State private var isAnimating = false
+    @ObservedObject var viewModel: BreathingModuleViewModel
     
-    let phases: [(id: Int, title: String, duration: Double)] = [
-        (id: 0, title: "Tarik Nafas", duration: 4.0),
-        (id: 1, title: "Tahan Nafas", duration: 3.0),
-        (id: 2, title: "Hembus Nafas", duration: 4.0)
-    ]
+    let circleSize: CGFloat = 60
+    let inactiveCircleSize: CGFloat = 50
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<phases.count, id: \.self) { index in
-                let phase = phases[index]
+            ForEach(0..<viewModel.phases.count, id: \.self) { index in
+                let phase = viewModel.phases[index]
                 HStack(spacing: 16) {
-                    // Circle with progress ring
+                    /// Circle with progress ring
                     ZStack {
-                        // Background circle
+                        /// Background circle with stroke
                         Circle()
-                            .fill(Color(uiColor: isPhaseCompleted(index) || isPhaseActive(index) ?
-                                       ColorToken.corePrimary : ColorToken.corePrimary.withAlphaComponent(0.3)))
-                            .frame(width: 48, height: 48)
+                            .fill(Color(uiColor: ColorToken.corePinkDialogue))
+                            .frame(width: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize,
+                                   height: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color(uiColor: ColorToken.backgroundEntry), lineWidth: 12)
+                            )
                         
-                        // Progress ring
-                        if isPhaseActive(index) {
+                        /// Progress ring
+                        if viewModel.isPhaseActive(index) || viewModel.isPhaseCompleted(index) {
                             Circle()
-                                .trim(from: 0, to: progress)
+                                .trim(from: 0, to: viewModel.isPhaseCompleted(index) ? 1.0 : viewModel.circleProgress)
                                 .stroke(
-                                    Color(uiColor: ColorToken.coreAccent),
-                                    style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                                    Color(uiColor: ColorToken.backgroundSecondary),
+                                    style: StrokeStyle(lineWidth: 14, lineCap: .round)
                                 )
-                                .frame(width: 48, height: 48)
+                                .frame(width: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize,
+                                       height: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize)
                                 .rotationEffect(.degrees(-90))
                         }
                         
-                        // Content (number or checkmark)
-                        if isPhaseCompleted(index) {
+                        /// Content (number or checkmark)
+                        if viewModel.isPhaseCompleted(index) {
                             Image(systemName: "checkmark")
-                                .foregroundColor(Color(uiColor: ColorToken.additionalColorsWhite))
+                                .foregroundColor(Color(uiColor: ColorToken.backgroundSecondary))
                                 .font(.system(size: 20, weight: .bold))
                         } else {
                             Text("\(index + 1)")
                                 .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(Color(uiColor: isPhaseActive(index) ?
-                                                      ColorToken.additionalColorsWhite :
-                                                      ColorToken.textSecondary))
+                                .foregroundColor(Color(uiColor: viewModel.isPhaseActive(index) ?
+                                    ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
                         }
                     }
+                    .frame(width: circleSize, height: circleSize)
+                    .zIndex(1) /// Circle on top
                     
-                    // Phase title
+                    /// Phase title
                     Text(phase.title)
-                        .font(.system(size: isPhaseActive(index) ? 24 : 20,
-                                    weight: isPhaseActive(index) ? .bold : .regular))
-                        .foregroundColor(Color(uiColor: isPhaseActive(index) ?
-                                              ColorToken.textPrimary : ColorToken.textSecondary))
+                        .font(.system(size: viewModel.isPhaseActive(index) ? 60 : 24,
+                                    weight: viewModel.isPhaseActive(index) ? .bold : .regular))
+                        .foregroundColor(Color(uiColor: viewModel.isPhaseActive(index) || viewModel.isPhaseCompleted(index) ?
+                                              ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
                     
                     Spacer()
                 }
                 
-                // Connecting line with progress
-                if index < phases.count - 1 {
+                /// Connecting line with progress
+                if index < viewModel.phases.count - 1 {
                     HStack(spacing: 16) {
                         ZStack(alignment: .top) {
-                            // Background line
+                            /// Background line
                             Rectangle()
-                                .fill(Color(uiColor: ColorToken.corePrimary.withAlphaComponent(0.3)))
-                                .frame(width: 4, height: 80)
+                                .fill(Color(uiColor: ColorToken.backgroundEntry))
+                                .frame(width: 10, height: 80)
                             
-                            // Progress line
-                            if isPhaseCompleted(index) {
+                            /// Progress line
+                            if viewModel.isPhaseCompleted(index) {
                                 Rectangle()
-                                    .fill(Color(uiColor: ColorToken.coreAccent))
-                                    .frame(width: 4, height: 80)
-                            } else if isPhaseActive(index) {
+                                    .fill(Color(uiColor: ColorToken.backgroundSecondary))
+                                    .frame(width: 10, height: 80)
+                            } else if viewModel.isPhaseActive(index) {
                                 Rectangle()
-                                    .fill(Color(uiColor: ColorToken.coreAccent))
-                                    .frame(width: 4, height: 80 * progress)
+                                    .fill(Color(uiColor: ColorToken.backgroundSecondary))
+                                    .frame(width: 10, height: 80 * viewModel.lineProgress)
                             }
                         }
-                        .frame(width: 48, alignment: .center)
+                        .frame(width: circleSize, alignment: .center)
+                        .zIndex(0) /// Line behind
                         
                         Spacer()
                     }
@@ -88,51 +90,5 @@ struct BreathingPhaseComponent: View {
             }
         }
         .padding(.leading, 32)
-        .onAppear {
-            startBreathingCycle()
-        }
-    }
-    
-    private func isPhaseActive(_ index: Int) -> Bool {
-        return currentPhase == index && isAnimating
-    }
-    
-    private func isPhaseCompleted(_ index: Int) -> Bool {
-        return index < currentPhase
-    }
-    
-    private func startBreathingCycle() {
-        guard currentPhase < phases.count else { return }
-        
-        isAnimating = true
-        progress = 0
-        
-        let currentPhaseDuration = phases[currentPhase].duration
-        
-        withAnimation(.linear(duration: currentPhaseDuration)) {
-            progress = 1.0
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + currentPhaseDuration) {
-            currentPhase += 1
-            
-            if currentPhase < phases.count {
-                startBreathingCycle()
-            } else {
-                isAnimating = false
-            }
-        }
-    }
-}
-
-// MARK: - Preview
-struct BreathingPhaseComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color(uiColor: ColorToken.backgroundBreathing)
-                .ignoresSafeArea()
-            
-            BreathingPhaseComponent()
-        }
     }
 }
