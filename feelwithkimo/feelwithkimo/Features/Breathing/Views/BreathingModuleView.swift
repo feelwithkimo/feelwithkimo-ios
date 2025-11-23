@@ -17,6 +17,7 @@ struct BreathingModuleView: View {
     
     // Constants for path calculations
     let circleSize: CGFloat = 60
+    let inactiveCircleSize: CGFloat = 50
     let lineHeight: CGFloat = 80
     
     var circleCircumference: CGFloat {
@@ -45,22 +46,23 @@ struct BreathingModuleView: View {
                                 // Background circle with stroke
                                 Circle()
                                     .fill(Color(uiColor: ColorToken.corePinkDialogue))
-                                    .frame(width: isPhaseActive(index) ? circleSize : 48,
-                                           height: isPhaseActive(index) ? circleSize : 48)
+                                    .frame(width: isPhaseActive(index) ? circleSize : inactiveCircleSize,
+                                           height: isPhaseActive(index) ? circleSize : inactiveCircleSize)
                                     .overlay(
                                         Circle()
-                                            .stroke(Color(uiColor: ColorToken.backgroundEntry), lineWidth: 2)
+                                            .stroke(Color(uiColor: ColorToken.backgroundEntry), lineWidth: 12)
                                     )
                                 
                                 // Progress ring
-                                if isPhaseActive(index) {
+                                if isPhaseActive(index) || isPhaseCompleted(index) {
                                     Circle()
-                                        .trim(from: 0, to: circleProgress)
+                                        .trim(from: 0, to: isPhaseCompleted(index) ? 1.0 : circleProgress)
                                         .stroke(
                                             Color(uiColor: ColorToken.backgroundSecondary),
-                                            style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                                            style: StrokeStyle(lineWidth: 14, lineCap: .round)
                                         )
-                                        .frame(width: circleSize, height: circleSize)
+                                        .frame(width: isPhaseActive(index) ? circleSize : inactiveCircleSize,
+                                               height: isPhaseActive(index) ? circleSize : inactiveCircleSize)
                                         .rotationEffect(.degrees(-90))
                                 }
                                 
@@ -72,16 +74,18 @@ struct BreathingModuleView: View {
                                 } else {
                                     Text("\(index + 1)")
                                         .font(.system(size: 20, weight: .bold))
-                                        .foregroundColor(Color(uiColor: ColorToken.backgroundSecondary))
+                                        .foregroundColor(Color(uiColor: isPhaseActive(index) ?
+                                            ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
                                 }
                             }
                             .frame(width: circleSize, height: circleSize)
+                            .zIndex(1) // Circle on top
                             
                             // Phase title
                             Text(phase.title)
-                                .font(.system(size: isPhaseActive(index) ? 28 : 20,
+                                .font(.system(size: isPhaseActive(index) ? 60 : 24,
                                             weight: isPhaseActive(index) ? .bold : .regular))
-                                .foregroundColor(Color(uiColor: isPhaseActive(index) ?
+                                .foregroundColor(Color(uiColor: isPhaseActive(index) || isPhaseCompleted(index) ?
                                                       ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
                             
                             Spacer()
@@ -94,20 +98,21 @@ struct BreathingModuleView: View {
                                     // Background line
                                     Rectangle()
                                         .fill(Color(uiColor: ColorToken.backgroundEntry))
-                                        .frame(width: 4, height: 80)
+                                        .frame(width: 10, height: 80)
                                     
                                     // Progress line
                                     if isPhaseCompleted(index) {
                                         Rectangle()
                                             .fill(Color(uiColor: ColorToken.backgroundSecondary))
-                                            .frame(width: 4, height: 80)
+                                            .frame(width: 10, height: 80)
                                     } else if isPhaseActive(index) {
                                         Rectangle()
                                             .fill(Color(uiColor: ColorToken.backgroundSecondary))
-                                            .frame(width: 4, height: 80 * lineProgress)
+                                            .frame(width: 10, height: 80 * lineProgress)
                                     }
                                 }
-                                .frame(width: 48, alignment: .center)
+                                .frame(width: circleSize, alignment: .center)
+                                .zIndex(0) // Line behind
                                 
                                 Spacer()
                             }
@@ -178,6 +183,11 @@ struct BreathingModuleView: View {
         
         // Move to next phase after total duration
         DispatchQueue.main.asyncAfter(deadline: .now() + currentPhaseDuration) {
+            // Instantly set line to complete before moving to next phase (no animation)
+            withAnimation(nil) {
+                lineProgress = 1.0
+            }
+            
             currentPhase += 1
             
             if currentPhase < phases.count {
@@ -198,4 +208,3 @@ struct BreathingModuleView_Previews: PreviewProvider {
         })
     }
 }
-
