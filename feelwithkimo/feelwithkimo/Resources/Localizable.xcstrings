@@ -429,6 +429,7 @@
       }
     },
     "Hooray!!!" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {

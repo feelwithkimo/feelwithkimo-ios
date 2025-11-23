@@ -40,8 +40,7 @@ internal class StoryViewModel: ObservableObject {
 
     init(story storyModel: StoryModel) {
         self.story = storyModel
-        let language: String = Locale.current.language.languageCode?.identifier ?? "id"
-        fetchStory(story: storyModel.id + "_\(language)")
+        fetchStory(story: storyModel.id)
     }
     
     // MARK: - Private Helper Methods
