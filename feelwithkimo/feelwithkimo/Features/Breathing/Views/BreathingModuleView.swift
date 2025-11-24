@@ -16,7 +16,7 @@ struct BreathingModuleView: View {
                 /// Left side - Phase indicator
                 VStack(alignment: .leading) {
                     Spacer()
-                        .frame(height: 120)
+                        .frame(height: 140)
                     
                     BreathingPhaseComponent(viewModel: viewModel)
                     
@@ -32,8 +32,8 @@ struct BreathingModuleView: View {
                             Capsule()
                                 .fill(Color(red: 108/255, green: 99/255, blue: 140/255))
                         )
-                        .padding(.leading, 50)
-                        .padding(.bottom, 60)
+                        .padding(.leading, 70)
+                        .padding(.bottom, 80)
                 }
                 
                 Spacer()
@@ -44,16 +44,16 @@ struct BreathingModuleView: View {
                     Image("BackgroundCircle")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 650, height: 650)
+                        .frame(width: 700, height: 700)
                     
                     /// Kimo character
                     Image(viewModel.getCurrentPhaseImage())
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 550, height: 550)
+                        .frame(width: 600, height: 600)
                 }
-                .padding(.trailing, 80)
-                .padding(.top, 40)
+                .padding(.trailing, 40)
+                .padding(.top, 20)
             }
             
             /// Top overlay - Profile icon and pause button

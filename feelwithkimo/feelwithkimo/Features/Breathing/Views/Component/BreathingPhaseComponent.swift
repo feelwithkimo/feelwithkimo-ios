@@ -54,13 +54,13 @@ struct BreathingPhaseComponent: View {
                     
                     /// Phase title
                     Text(phase.title)
-                        .font(.system(size: viewModel.isPhaseActive(index) ? 72 : 32,
+                        .font(.system(size: viewModel.isPhaseActive(index) ? 56 : 32,
                                     weight: viewModel.isPhaseActive(index) ? .bold : .semibold))
                         .foregroundColor(Color(uiColor: viewModel.isPhaseActive(index) || viewModel.isPhaseCompleted(index) ?
                                               ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
                         .lineLimit(1)
-                    
-                    Spacer()
+                        .minimumScaleFactor(0.5)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 
                 /// Connecting line with progress
