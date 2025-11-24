@@ -32,7 +32,24 @@ struct InteractionBanner: View {
                     identifier: "story.clappingButton"
                 )
             }
-        
+            
+        case .blockGame:
+            let currentPhase = viewModel.currentBlockGamePhase
+            BridgingPage(textDialogue: viewModel.currentScene.text) {
+                BlockGameStageView(
+                    phase: currentPhase,
+                    onCompletion: {
+                        viewModel.completeBlockGamePhase()
+                    },
+                    storyViewModel: viewModel
+                )
+                .kimoNavigationAccessibility(
+                    label: "Mulai Bermain Membangun Balok",
+                    hint: "Tekan dan Geser balok dengan bentuk yang sesuai",
+                    identifier: "story.blockButton"
+                )
+            }
+            
         case .scaffolding:
             BridgingPage<EmptyView>(
                 textDialogue: viewModel.currentScene.text,

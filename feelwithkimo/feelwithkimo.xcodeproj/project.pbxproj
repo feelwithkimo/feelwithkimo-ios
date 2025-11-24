@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		799525E42ECCB7C2001AE475 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 799525E32ECCB7C2001AE475 /* RiveRuntime */; };
+		ABEEC94E2ECDE92400FB5BB1 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = ABEEC94D2ECDE92400FB5BB1 /* RiveRuntime */; };
+		B5FA10AB2ECB29D30064DBE8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B5FA10AA2ECB29D30064DBE8 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				799525E42ECCB7C2001AE475 /* RiveRuntime in Frameworks */,
+				B5FA10AB2ECB29D30064DBE8 /* Lottie in Frameworks */,
+				ABEEC94E2ECDE92400FB5BB1 /* RiveRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +86,8 @@
 			);
 			name = feelwithkimo;
 			packageProductDependencies = (
-				799525E32ECCB7C2001AE475 /* RiveRuntime */,
+				B5FA10AA2ECB29D30064DBE8 /* Lottie */,
+				ABEEC94D2ECDE92400FB5BB1 /* RiveRuntime */,
 			);
 			productName = feelwithkimo;
 			productReference = ABD50B9E2E9D558100237461 /* feelwithkimo.app */;
@@ -116,7 +119,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				AB486DBA2E9E290600B5AB0E /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				799525E22ECC9BA5001AE475 /* XCRemoteSwiftPackageReference "rive-ios" */,
+				B5FA10A92ECB29D30064DBE8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				ABEEC94C2ECDE92400FB5BB1 /* XCRemoteSwiftPackageReference "rive-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ABD50B9F2E9D558100237461 /* Products */;
@@ -302,7 +306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"feelwithkimo/Preview Content\"";
-				DEVELOPMENT_TEAM = LN4DD83473;
+				DEVELOPMENT_TEAM = 256ZMJ37L8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -341,7 +345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"feelwithkimo/Preview Content\"";
-				DEVELOPMENT_TEAM = LN4DD83473;
+				DEVELOPMENT_TEAM = 256ZMJ37L8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -412,13 +416,34 @@
 				minimumVersion = 0.62.1;
 			};
 		};
+		ABEEC94C2ECDE92400FB5BB1 /* XCRemoteSwiftPackageReference "rive-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rive-app/rive-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.12.2;
+			};
+		};
+		B5FA10A92ECB29D30064DBE8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		799525E32ECCB7C2001AE475 /* RiveRuntime */ = {
+		ABEEC94D2ECDE92400FB5BB1 /* RiveRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 799525E22ECC9BA5001AE475 /* XCRemoteSwiftPackageReference "rive-ios" */;
+			package = ABEEC94C2ECDE92400FB5BB1 /* XCRemoteSwiftPackageReference "rive-ios" */;
 			productName = RiveRuntime;
+		};
+		B5FA10AA2ECB29D30064DBE8 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5FA10A92ECB29D30064DBE8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

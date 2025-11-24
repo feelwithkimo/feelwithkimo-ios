@@ -21,12 +21,14 @@ internal class StoryViewModel: ObservableObject {
     )
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
+    @Published var hasCompletedBlockGame: Bool = false
+    @Published var currentBlockGamePhase: Int = 1  // Track which phase should be played
     @Published var tutorialStep: Int = 1
     
     @Published var showDialogue: Bool = false
     var isTappedMascot: Bool = false
 
-    lazy var story: StoryModel = StoryModel(
+    var story: StoryModel = StoryModel(
         id: "Episode_1",
         name: "Story Angry 1",
         thumbnail: "Thumbnail 1",
@@ -101,6 +103,18 @@ internal class StoryViewModel: ObservableObject {
         goScene(to: 1, choice: 0)
     }
     
+    /// Mark block game phase as completed and advance to next scene
+    func completeBlockGamePhase() {
+        // Increment phase after completing current phase
+        currentBlockGamePhase += 1
+        goScene(to: 1, choice: 0)
+    }
+    
+    /// Legacy function for compatibility - redirects to completeBlockGamePhase
+    func completeBlockGame() {
+        completeBlockGamePhase()
+    }
+    
     func nextTutorial() {
         guard self.tutorialStep < 1 else {
             DispatchQueue.main.async {
@@ -121,6 +135,8 @@ internal class StoryViewModel: ObservableObject {
             self.currentScene = self.story.storyScene[0]
             self.hasCompletedBreathing = false
             self.hasCompletedClapping = false
+            self.hasCompletedBlockGame = false
+            self.currentBlockGamePhase = 1  // Reset to phase 1 when replaying
         }
     }
 }

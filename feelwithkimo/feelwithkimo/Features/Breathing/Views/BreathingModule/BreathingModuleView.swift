@@ -78,13 +78,7 @@ struct BreathingModuleView: View {
                     
                     HStack(alignment: .center, spacing: 60.getWidth()) {
                         Text(viewModel.currentPhase.rawValue)
-                            .font(Font(
-                                UIFont.appFont(
-                                    size: 72.getWidth(),
-                                    family: .primary,
-                                    weight: .bold
-                                )
-                            ))
+                            .font(.customFont(size: 72, weight: .bold))
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .multilineTextAlignment(.leading)
                             .lineSpacing(0)
@@ -116,13 +110,7 @@ struct BreathingModuleView: View {
                                        height: 143.getWidth())
                             
                             Text("\(viewModel.remainingTime) detik")
-                                .font(Font(
-                                    UIFont.appFont(
-                                        size: 30.getWidth(),
-                                        family: .primary,
-                                        weight: .bold
-                                    )
-                                ))
+                                .font(.customFont(size: 30, weight: .bold))
                                 .foregroundColor(ColorToken.backgroundSecondary.toColor())
                         }
                         .padding(.trailing, 72.getWidth())

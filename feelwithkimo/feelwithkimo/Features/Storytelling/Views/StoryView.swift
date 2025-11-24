@@ -101,9 +101,11 @@ struct StoryView: View {
             if !viewModel.hasSeenTutor {
                 ColorToken.additionalColorsBlack.toColor().opacity(0.6)
                     .ignoresSafeArea()
+                    .onTapGesture(perform: viewModel.nextTutorial)
                 
                 switch viewModel.tutorialStep {
                 case 1: firstTutorialView()
+                        .onTapGesture(perform: viewModel.nextTutorial)
                 case 2: secondTutorialView()
                 case 3: thirdTutorialView()
                 default: EmptyView()
@@ -142,6 +144,10 @@ struct StoryView: View {
             }
             
             audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
+            
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -163,7 +169,6 @@ struct StoryView: View {
             // Announce scene changes
             if viewModel.index == 6 {
                 jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     
                     withAnimation(.easeInOut(duration: 2)) {
@@ -186,21 +191,17 @@ struct StoryView: View {
                 accessibilityManager.announce(announcement)
             }
             
-            if viewModel.index == 6 {
+            if viewModel.index == 8 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         viewModel.currentScene.path = "Scene 6_2"
-                        
-                        if let sound = viewModel.currentScene.soundEffect {
-                            audioManager.playSoundEffect(effectName: sound)
-                        }
                     }
                 }
             }
             
-            //            if let sound = viewModel.currentScene.soundEffect  {
-            //                audioManager.playSoundEffect(effectName: sound)
-            //            }
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
         }
     }
 }

@@ -211,7 +211,7 @@ extension StoryView {
                     .padding(.horizontal, 159.getWidth())
                     .padding(.top, 11.getHeight())
                 
-                NarrationCard(text: viewModel.currentScene.text, onTap: viewModel.nextTutorial)
+                NarrationCard(text: viewModel.currentScene.text)
             }
         }
         .padding(.bottom, 50.getHeight())
