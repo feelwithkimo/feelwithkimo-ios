@@ -62,11 +62,7 @@ struct KimoBreathingTutorialCard: View {
     let kimoBreathingMode: BreathingPhase
 
     var title: String {
-        switch kimoBreathingMode {
-        case .inhale: "Tarik Nafas"
-        case .hold: "Tahan Nafas"
-        case .exhale: "Hembus Nafas"
-        }
+        kimoBreathingMode.rawValue
     }
     
     var duration: String {
@@ -81,14 +77,7 @@ struct KimoBreathingTutorialCard: View {
     }
     
     var imageName: String {
-        switch kimoBreathingMode {
-        case .inhale:
-            "Kimo-Inhale"
-        case .hold:
-            "Kimo-Hold-Breath"
-        case .exhale:
-            "Kimo-Exhale"
-        }
+        kimoBreathingMode.imageName
     }
     
     var body: some View {

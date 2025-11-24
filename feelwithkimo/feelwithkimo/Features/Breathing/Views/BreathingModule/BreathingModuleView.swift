@@ -96,6 +96,7 @@ struct BreathingModuleView: View {
                     HStack(alignment: .center, spacing: 60.getWidth()) {
                         Text(viewModel.currentPhase.rawValue)
                             .font(.customFont(size: 72, weight: .bold))
+                            .frame(maxWidth: 240, alignment: .leading)
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .multilineTextAlignment(.leading)
                             .lineSpacing(0)

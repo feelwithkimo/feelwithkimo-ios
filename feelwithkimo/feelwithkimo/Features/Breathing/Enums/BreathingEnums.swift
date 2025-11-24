@@ -43,9 +43,9 @@ enum BreathingClassificationError: Error {
 }
 
 enum BreathingPhase: String, CaseIterable {
-    case inhale = "Tarik\nNafas"
-    case hold = "Tahan\nNafas"
-    case exhale = "Buang\nNafas"
+    case inhale = "Tarik Nafas"
+    case hold = "Tahan Nafas"
+    case exhale = "Buang Nafas"
     
     var duration: TimeInterval {
         switch self {
