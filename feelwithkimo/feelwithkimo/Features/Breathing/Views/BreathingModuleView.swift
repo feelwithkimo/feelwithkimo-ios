@@ -9,15 +9,93 @@ struct BreathingModuleView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: ColorToken.backgroundBreathing)
+            Color.white
                 .ignoresSafeArea()
             
+            HStack(alignment: .top, spacing: 0) {
+                /// Left side - Phase indicator
+                VStack(alignment: .leading) {
+                    Spacer()
+                        .frame(height: 120)
+                    
+                    BreathingPhaseComponent(viewModel: viewModel)
+                    
+                    Spacer()
+                    
+                    /// Round counter
+                    Text("Putaran \(viewModel.currentRound)/\(viewModel.totalRounds)")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 18)
+                        .background(
+                            Capsule()
+                                .fill(Color(red: 108/255, green: 99/255, blue: 140/255))
+                        )
+                        .padding(.leading, 50)
+                        .padding(.bottom, 60)
+                }
+                
+                Spacer()
+                
+                /// Right side - Kimo character with background circle
+                ZStack {
+                    /// Purple background circle
+                    Image("BackgroundCircle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 650, height: 650)
+                    
+                    /// Kimo character
+                    Image(viewModel.getCurrentPhaseImage())
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 550, height: 550)
+                }
+                .padding(.trailing, 80)
+                .padding(.top, 40)
+            }
+            
+            /// Top overlay - Profile icon and pause button
             VStack {
-                Spacer()
+                HStack {
+                    Spacer()
+                    
+                    /// Profile icon - smaller circle
+                    Circle()
+                        .fill(Color(red: 186/255, green: 178/255, blue: 214/255))
+                        .frame(width: 60, height: 60)
+                        .overlay(
+                            Circle()
+                                .stroke(Color(red: 108/255, green: 99/255, blue: 140/255), lineWidth: 3)
+                        )
+                        .padding(.trailing, 8)
+                    
+                    /// Pause button
+                    KimoPauseButton {
+                        viewModel.pauseBreathing()
+                    }
+                    .padding(.trailing, 40)
+                }
+                .padding(.top, 40)
                 
-                BreathingPhaseComponent(viewModel: viewModel)
-                
                 Spacer()
+            }
+            
+            /// Pause overlay
+            if viewModel.isPaused {
+                BlocksGamePauseView(
+                    onReset: {
+                        viewModel.resetBreathingCycle()
+                        viewModel.startBreathingCycle()
+                    },
+                    onHome: {
+                        dismiss()
+                    },
+                    onResume: {
+                        viewModel.resumeBreathing()
+                    }
+                )
             }
             
             /// Show completion page overlay when breathing is finished

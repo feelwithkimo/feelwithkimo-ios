@@ -1,18 +1,31 @@
 import SwiftUI
 import Combine
 
-class BreathingModuleViewModel: ObservableObject {
+// MARK: - Breathing Phase Model
+struct BreathingPhase {
+    let id: Int
+    let title: String
+    let duration: Double
+    let imageName: String
+}
+
+// MARK: - View Model
+final class BreathingModuleViewModel: ObservableObject {
     @Published var currentPhase: Int = 0
     @Published var circleProgress: CGFloat = 0
     @Published var lineProgress: CGFloat = 0
     @Published var isAnimating = false
     @Published var hasCompleted = false
+    @Published var isPaused = false
+    @Published var currentRound: Int = 0
     
-    let phases: [(id: Int, title: String, duration: Double)] = [
-        (id: 0, title: "Tarik Nafas", duration: 4.0),
-        (id: 1, title: "Tahan Nafas", duration: 3.0),
-        (id: 2, title: "Hembus Nafas", duration: 4.0)
+    let phases: [BreathingPhase] = [
+        BreathingPhase(id: 0, title: "Tarik Nafas", duration: 4.0, imageName: "Kimo-Inhale"),
+        BreathingPhase(id: 1, title: "Tahan Nafas", duration: 3.0, imageName: "Kimo-Hold-Breath"),
+        BreathingPhase(id: 2, title: "Hembus Nafas", duration: 4.0, imageName: "Kimo-Exhale")
     ]
+    
+    let totalRounds = 4
     
     /// Constants for path calculations
     let circleSize: CGFloat = 60
@@ -25,6 +38,12 @@ class BreathingModuleViewModel: ObservableObject {
     var totalPathLength: CGFloat {
         circleCircumference + lineHeight
     }
+    
+    private var pausedTime: DispatchTime?
+    private var remainingDuration: Double = 0
+    private var circleWorkItem: DispatchWorkItem?
+    private var lineWorkItem: DispatchWorkItem?
+    private var phaseWorkItem: DispatchWorkItem?
     
     func startBreathingCycle() {
         guard currentPhase < phases.count else { return }
@@ -46,15 +65,17 @@ class BreathingModuleViewModel: ObservableObject {
         
         /// After circle completes, animate line (only if not last phase)
         if currentPhase < phases.count - 1 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + circleDuration) {
+            let workItem = DispatchWorkItem {
                 withAnimation(.linear(duration: lineDuration)) {
                     self.lineProgress = 1.0
                 }
             }
+            lineWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + circleDuration, execute: workItem)
         }
         
         /// Move to next phase after total duration
-        DispatchQueue.main.asyncAfter(deadline: .now() + currentPhaseDuration) {
+        let workItem = DispatchWorkItem {
             /// Instantly set line to complete before moving to next phase (no animation)
             withAnimation(nil) {
                 self.lineProgress = 1.0
@@ -65,10 +86,36 @@ class BreathingModuleViewModel: ObservableObject {
             if self.currentPhase < self.phases.count {
                 self.startBreathingCycle()
             } else {
-                self.isAnimating = false
-                self.hasCompleted = true
+                /// Completed one round
+                self.currentRound += 1
+                
+                if self.currentRound < self.totalRounds {
+                    /// Start next round
+                    self.currentPhase = 0
+                    self.startBreathingCycle()
+                } else {
+                    /// All rounds completed
+                    self.isAnimating = false
+                    self.hasCompleted = true
+                }
             }
         }
+        phaseWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + currentPhaseDuration, execute: workItem)
+    }
+    
+    func pauseBreathing() {
+        isPaused = true
+        isAnimating = false
+        
+        /// Cancel pending work items
+        lineWorkItem?.cancel()
+        phaseWorkItem?.cancel()
+    }
+    
+    func resumeBreathing() {
+        isPaused = false
+        startBreathingCycle()
     }
     
     func isPhaseActive(_ index: Int) -> Bool {
@@ -85,5 +132,18 @@ class BreathingModuleViewModel: ObservableObject {
         lineProgress = 0
         isAnimating = false
         hasCompleted = false
+        isPaused = false
+        currentRound = 0
+        
+        /// Cancel any pending work items
+        lineWorkItem?.cancel()
+        phaseWorkItem?.cancel()
+    }
+    
+    func getCurrentPhaseImage() -> String {
+        guard currentPhase < phases.count else {
+            return phases.last?.imageName ?? "Kimo-Inhale"
+        }
+        return phases[currentPhase].imageName
     }
 }
