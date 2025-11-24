@@ -38,39 +38,7 @@ final class BreathingModuleViewModel: ObservableObject {
     // MARK: - Completion Handler
     var onCompletion: (() -> Void)?
     
-    let dialogueText = "Ayo latihan pernafasan bersama 4 kali tarik nafas, 4 kali tahan nafas dan 4 kali buang nafas!"
-    
-    // MARK: - Enum
-    enum BreathingPhase: String, CaseIterable {
-        case inhale = "Tarik\nNafas"
-        case hold = "Tahan\nNafas"
-        case exhale = "Buang\nNafas"
-        
-        var duration: TimeInterval {
-            return 4.0 // 4 seconds for each phase
-        }
-        
-        var imageName: String {
-            switch self {
-            case .inhale:
-                return "Kimo-Inhale"
-            case .hold:
-                return "Kimo-Hold-Breath"
-            case .exhale:
-                return "Kimo-Exhale"
-            }
-        }
-        
-        // Lazy computed property for scale values
-        var scaleValue: CGFloat {
-            switch self {
-            case .inhale, .hold:
-                return 1.5
-            case .exhale:
-                return 1.0
-            }
-        }
-    }
+    let dialogueText = "Ayo latihan pernafasan bersama 4 kali tarik nafas, 4 kali tahan nafas dan 4 kali buang"
     
     // MARK: - Breathing Functions
     func startBreathing() {

@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum KimoBreathingTutEnum {
-    case inhale, hold, exhale
-}
-
 struct BreathingModuleTutorialView: View {
     var body: some View {
         ZStack {
@@ -63,7 +59,7 @@ struct BreathingModuleTutorialView: View {
 }
 
 struct KimoBreathingTutorialCard: View {
-    let kimoBreathingMode: KimoBreathingTutEnum
+    let kimoBreathingMode: BreathingPhase
 
     var title: String {
         switch kimoBreathingMode {

@@ -6,12 +6,6 @@
 //
 import Foundation
 
-enum BreathType {
-    case inhale
-    case exhale
-    case none
-}
-
 enum GamePhase {
     case welcome
     case parentTurn
@@ -46,4 +40,35 @@ enum BreathingClassificationError: Error {
     case audioStreamInterrupted
     /// The app doesn't have permission to access microphone input
     case noMicrophoneAccess
+}
+
+enum BreathingPhase: String, CaseIterable {
+    case inhale = "Tarik\nNafas"
+    case hold = "Tahan\nNafas"
+    case exhale = "Buang\nNafas"
+    
+    var duration: TimeInterval {
+        return 4.0 // 4 seconds for each phase
+    }
+    
+    var imageName: String {
+        switch self {
+        case .inhale:
+            return "Kimo-Inhale"
+        case .hold:
+            return "Kimo-Hold-Breath"
+        case .exhale:
+            return "Kimo-Exhale"
+        }
+    }
+    
+    // Lazy computed property for scale values
+    var scaleValue: CGFloat {
+        switch self {
+        case .inhale, .hold:
+            return 1.5
+        case .exhale:
+            return 1.0
+        }
+    }
 }
