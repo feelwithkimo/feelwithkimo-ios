@@ -48,7 +48,14 @@ enum BreathingPhase: String, CaseIterable {
     case exhale = "Buang\nNafas"
     
     var duration: TimeInterval {
-        return 4.0 // 4 seconds for each phase
+        switch self {
+        case .inhale:
+            return 4
+        case .hold:
+            return 3
+        case .exhale:
+            return 4
+        }
     }
     
     var imageName: String {
