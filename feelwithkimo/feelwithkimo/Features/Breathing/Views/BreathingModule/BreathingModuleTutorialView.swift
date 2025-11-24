@@ -49,6 +49,11 @@ struct BreathingModuleTutorialView: View {
                 .padding(.vertical, 30)
                 .background(Color.white)
                 .cornerRadius(30)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(ColorToken.corePinkDialogue.toColor(), lineWidth: 5)
+                )
+                .shadow(color: ColorToken.backgroundSecondary.toColor().opacity(0.25), radius: 18.3, x: 4, y: 4)
                 Spacer()
             }
             .padding(.vertical, 60)
