@@ -44,16 +44,16 @@ struct BreathingModuleView: View {
                     Image("BackgroundCircle")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 700, height: 700)
+                        .frame(width: 1000, height: 1000)
                     
                     /// Kimo character
                     Image(viewModel.getCurrentPhaseImage())
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 600, height: 600)
+                        .frame(width: 850, height: 850)
                 }
-                .padding(.trailing, 40)
-                .padding(.top, 20)
+                .frame(width: 800, height: 800)
+                .offset(x: 100, y: 200)
             }
             
             /// Top overlay - Profile icon and pause button
