@@ -38,7 +38,7 @@ struct BreathingModuleView: View {
             // Back button overlay - top left
             VStack {
                 HStack {
-                    KimoBackButton {
+                    KimoBackButton(imagePath: "Back") {
                         dismiss()
                     }
 

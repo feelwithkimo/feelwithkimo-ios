@@ -117,6 +117,23 @@
         }
       }
     },
+    "ClapHands" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clap Hands"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tepuk Tangan"
+          }
+        }
+      }
+    },
     "ClappingSkip" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -553,22 +570,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mulai Bermain"
-          }
-        }
-      }
-    },
-    "Tepuk Tangan" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Clap Hands"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tepuk Tangan"
           }
         }
       }

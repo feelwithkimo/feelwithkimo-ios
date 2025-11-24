@@ -77,7 +77,7 @@ struct BlocksGameView: View {
             .padding(.horizontal, 55.getWidth())
             
             if viewModel.isPaused {
-                BlocksGamePauseView(
+                PauseView(
                     onReset: {
                         viewModel.resetGame()
                         viewModel.onPausePressed()
@@ -86,7 +86,8 @@ struct BlocksGameView: View {
                         self.storyViewModel.quitStory = true
                         dismiss()
                     },
-                    onResume: viewModel.onPausePressed
+                    onResume: viewModel.onPausePressed,
+                    onBack: { dismiss() }
                 )
             }
         }
@@ -136,15 +137,15 @@ struct BlocksGameView: View {
         }
         .overlay(
             Group {
-                    if viewModel.showIdleOverlay {
-                        BlocksGameAnimationView()
-                            .transition(.opacity)
-                    }
-
-                    if let loc = viewModel.burstLocation {
-                        StarBurstView(center: loc)
-                    }
+                if viewModel.showIdleOverlay {
+                    BlocksGameAnimationView()
+                        .transition(.opacity)
                 }
+
+                if let loc = viewModel.burstLocation {
+                    StarBurstView(center: loc)
+                }
+            }
         )
         .onReceive(viewModel.idleTimer) { _ in
             viewModel.handleIdleTick()
