@@ -20,19 +20,17 @@ internal class EmotionStoryViewModel: ObservableObject {
         self.fetchStory(story: path)
     }
 
-    private func fetchStory(story storyPath: String) {
-        guard let url = Bundle.main.url(forResource: storyPath, withExtension: "json") else {
-            print("❌ \(storyPath).json not found in bundle")
-            return
+    private func fetchStory(story storyPath: String, defaultStoryPath: String = "Balok") {
+        var emotionModel: EmotionModel! = JSONLoader.load(EmotionModel.self, from: storyPath, fallback: defaultStoryPath)
+        if emotionModel == nil {
+            emotionModel = EmotionModel(
+                id: "",
+                title: "",
+                description: "",
+                image: "",
+                stories: []
+            )
         }
-
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            self.emotion = try decoder.decode(EmotionModel.self, from: data)
-            
-        } catch {
-            print("❌ Failed to load story.json:", error)
-        }
+        self.emotion = emotionModel
     }
 }

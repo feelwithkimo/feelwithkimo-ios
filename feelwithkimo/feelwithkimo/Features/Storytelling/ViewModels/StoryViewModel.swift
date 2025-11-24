@@ -55,23 +55,13 @@ internal class StoryViewModel: ObservableObject {
     }
 
     /// Load story scene
-    private func fetchStory(story storyPath: String = "Episode_1") {
-        guard let url = Bundle.main.url(forResource: storyPath, withExtension: "json") else {
-            print("❌ \(storyPath).json not found in bundle")
-            return
+    private func fetchStory(story storyPath: String, defaultStoryPath: String = "Episode_1") {
+        var storyScene: [StorySceneModel]! = JSONLoader.load([StorySceneModel].self, from: storyPath, fallback: defaultStoryPath)
+        if storyScene == nil {
+            storyScene = []
         }
-
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let scenes = try decoder.decode([StorySceneModel].self, from: data)
-            
-            // Assign to your properties
-            self.story.storyScene = scenes
-            self.currentScene = self.story.storyScene[0]
-        } catch {
-            print("❌ Failed to load story.json:", error)
-        }
+        self.story.storyScene = storyScene
+        self.currentScene = self.story.storyScene[0]
     }
 
     // MARK: - Public Methods
