@@ -30,10 +30,11 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var resetCounter: Int = 0
     
     @Published var showIdleOverlay: Bool = false
+    @Published var riveViewModel = RiveViewModel(fileName: "LalaInBlockGame", fit: .fitHeight)
+    @Published private(set) var lalaMascotCurrentState: BlockMascotState = .lalaConfused
     
     let idleTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
     
-    private let riveViewModel: RiveViewModel
     private var timer: Timer?
         
     var onComplete: (() -> Void)?
@@ -56,10 +57,9 @@ final class BlocksGameViewModel: ObservableObject {
         return isCompleted
     }
     
-    init(level: GameLevel, onComplete: (() -> Void)? = nil, riveViewModel: RiveViewModel) {
+    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
         self.level = level
         self.onComplete = onComplete
-        self.riveViewModel = riveViewModel
         bottomBlocks = level.templatePlacements.map { placement in
             BlockModel(
                 id: placement.block.id,
@@ -86,6 +86,8 @@ final class BlocksGameViewModel: ObservableObject {
     }
     
     func resetGame() {
+        switchAnimation(to: BlockMascotState.lalaConfused)
+        
         placedMap = [:]
         templateFrames = [:]
         bottomFrames = [:]
@@ -154,7 +156,9 @@ final class BlocksGameViewModel: ObservableObject {
                         strokeColor: Color.clear
                     )
                 }
-                                
+                     
+                self.updateMascotState()
+                
                 self.templatePositions.removeAll { $0.point == positionOfOutline }
                 
                 self.advanceReveal()
@@ -219,6 +223,11 @@ final class BlocksGameViewModel: ObservableObject {
         timer?.invalidate()
         timer = nil
     }
+    
+    func switchAnimation(to state: BlockMascotState) {
+        lalaMascotCurrentState = state
+        riveViewModel.setInput("state", value: Double(state.rawValue))
+    }
 
     @MainActor
     private func doLidSequence() {
@@ -227,6 +236,25 @@ final class BlocksGameViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.riveViewModel.triggerInput("doLidUp")
         }
-        
     }
+    
+    private func remainingBlocksCount() -> Int {
+        bottomBlocks.filter { $0.baseColor != .clear }.count
+    }
+    
+    private func updateMascotState() {
+        let remaining = remainingBlocksCount()
+         
+        if remaining == 1 {
+            let newState: BlockMascotState = .lalaClapping
+            guard newState != lalaMascotCurrentState else { return }
+            switchAnimation(to: newState)
+
+        } else {
+            let newState: BlockMascotState = .lalaExcited
+            guard newState != lalaMascotCurrentState else { return }
+            switchAnimation(to: newState)
+        }
+    }
+
 }
