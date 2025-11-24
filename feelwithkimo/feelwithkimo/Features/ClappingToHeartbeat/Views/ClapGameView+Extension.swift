@@ -17,7 +17,7 @@ extension ClapGameView {
             
             Spacer()
             
-            Text("Tepuk Tangan")
+            Text(NSLocalizedString("Clapping_Title", comment: ""))
                 .font(.customFont(size: 34, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.corePrimary.toColor())
                 .kimoTextAccessibility(
