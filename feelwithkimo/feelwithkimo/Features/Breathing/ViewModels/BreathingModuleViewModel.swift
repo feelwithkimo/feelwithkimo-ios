@@ -1,10 +1,3 @@
-//
-//  BreathingModuleViewModel.swift
-//  feelwithkimo
-//
-//  Created by Aristo Yongka on 23/11/25.
-//
-
 import SwiftUI
 import Combine
 
@@ -84,5 +77,13 @@ class BreathingModuleViewModel: ObservableObject {
     
     func isPhaseCompleted(_ index: Int) -> Bool {
         return index < currentPhase
+    }
+    
+    func resetBreathingCycle() {
+        currentPhase = 0
+        circleProgress = 0
+        lineProgress = 0
+        isAnimating = false
+        hasCompleted = false
     }
 }
