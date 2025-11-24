@@ -65,18 +65,7 @@ extension StoryView {
         ZStack {
             RoundedRectangle(cornerRadius: 24)
                 .fill(ColorToken.backgroundSecondary.toColor())
-                .overlay(
-                    Text(viewModel.currentScene.text)
-                        .font(.customFont(size: 22, family: .primary, weight: .bold))
-                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                        .padding(.horizontal, 24.getWidth())
-                        .padding(.vertical, 16.getHeight())
-                        .multilineTextAlignment(.center)
-                )
-                .frame(
-                    width: 840.getWidth(),
-                    height: 120.getHeight()
-                )
+                .frame(width: 840.getWidth(), height: 120.getHeight())
                 .offset(y: 10)
                 .shadow(color: .white.opacity(0.3), radius: 10, x: 0, y: 5)
 
