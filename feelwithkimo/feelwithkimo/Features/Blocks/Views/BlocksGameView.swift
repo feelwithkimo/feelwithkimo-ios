@@ -65,8 +65,8 @@ struct BlocksGameView: View {
                             Spacer()
                             
                             viewModel.riveViewModel.view()
-                                .frame(width: 350.getWidth(), height: 600.getHeight())
-                                .offset(x: -70.getWidth())
+                                .frame(width: 350.getWidth(), height: 550.getHeight())
+                                .offset(x: -50.getWidth())
                         }
                     }
                 }
