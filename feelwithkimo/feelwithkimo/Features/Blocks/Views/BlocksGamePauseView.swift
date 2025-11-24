@@ -11,6 +11,7 @@ struct BlocksGamePauseView: View {
     let onReset: () -> Void
     let onHome: () -> Void
     let onResume: () -> Void
+    let onBack: () -> Void
     
     var body: some View {
         ZStack {
@@ -23,6 +24,7 @@ struct BlocksGamePauseView: View {
                 }
                 
                 HStack {
+                    KimoPauseItemButton(imagePath: "BackButton", action: onBack)
                     KimoReplayButton(isLarge: true, action: onReset)
                     KimoMuteButton(isLarge: true, audioManager: AudioManager.shared)
                 }
@@ -36,6 +38,7 @@ struct BlocksGamePauseView: View {
     BlocksGamePauseView(
         onReset: { print("Reset") },
         onHome: { print("Home") },
-        onResume: { print("Resume") }
+        onResume: { print("Resume") },
+        onBack: { print("Back") }
     )
 }
