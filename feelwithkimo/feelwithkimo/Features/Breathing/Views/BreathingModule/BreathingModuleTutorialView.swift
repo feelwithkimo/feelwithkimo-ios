@@ -66,14 +66,7 @@ struct KimoBreathingTutorialCard: View {
     }
     
     var duration: String {
-        switch kimoBreathingMode {
-        case .inhale:
-            "4 detik"
-        case .hold:
-            "3 detik"
-        case .exhale:
-            "1 detik"
-        }
+        return "\(Int(kimoBreathingMode.duration)) detik"
     }
     
     var imageName: String {
