@@ -39,7 +39,7 @@ struct CompletionPage: View {
                                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                                     .frame(maxWidth: 28, maxHeight: 28)
                                 
-                                Text("Coba Lagi")
+                                Text(NSLocalizedString("Try_Again", comment: ""))
                                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                             }
@@ -56,7 +56,7 @@ struct CompletionPage: View {
                                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                                     .frame(maxWidth: 28, maxHeight: 28)
 
-                                Text("Lanjutkan")
+                                Text(NSLocalizedString("Continue", comment: ""))
                                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                                     .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                             }

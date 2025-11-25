@@ -50,6 +50,17 @@ final class BreathingModuleViewModel: ObservableObject {
             return 4.0 // 4 seconds for each phase
         }
         
+        var localizedText: String {
+            switch self {
+            case .inhale:
+                return NSLocalizedString("Inhale", comment: "")
+            case .hold:
+                return NSLocalizedString("Hold_Breath", comment: "")
+            case .exhale:
+                return NSLocalizedString("Exhale", comment: "")
+            }
+        }
+        
         var imageName: String {
             switch self {
             case .inhale:

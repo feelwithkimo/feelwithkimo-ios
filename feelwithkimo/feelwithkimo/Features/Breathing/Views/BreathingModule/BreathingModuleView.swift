@@ -38,7 +38,7 @@ struct BreathingModuleView: View {
             // Back button overlay - top left
             VStack {
                 HStack {
-                    KimoBackButton {
+                    KimoBackButton(imagePath: "Back", isLarge: false) {
                         dismiss()
                     }
 
@@ -97,7 +97,7 @@ struct BreathingModuleView: View {
                     Spacer()
                     
                     HStack(alignment: .center, spacing: 60.getWidth()) {
-                        Text(viewModel.currentPhase.rawValue)
+                        Text(viewModel.currentPhase.localizedText)
                             .font(.customFont(size: 72, weight: .bold))
                             .foregroundColor(ColorToken.backgroundSecondary.toColor())
                             .multilineTextAlignment(.leading)
@@ -129,7 +129,7 @@ struct BreathingModuleView: View {
                                 .frame(width: 143.getWidth(),
                                        height: 143.getWidth())
                             
-                            Text("\(viewModel.remainingTime) detik")
+                            Text("\(viewModel.remainingTime) " + NSLocalizedString("Second", comment: ""))
                                 .font(.customFont(size: 30, weight: .bold))
                                 .foregroundColor(ColorToken.backgroundSecondary.toColor())
                         }
@@ -158,7 +158,7 @@ struct BreathingModuleView: View {
                                 viewModel.startBreathing()
                                 accessibilityManager.announce("Latihan pernapasan dimulai. Ikuti instruksi Kimo")
                             }, label: {
-                                Text("Mulai")
+                                Text(NSLocalizedString("StartButton", comment: ""))
                                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
@@ -174,7 +174,7 @@ struct BreathingModuleView: View {
                         } else {
                             HStack(spacing: 20.getWidth()) {
                                 // Cycle indicator - show when active
-                                Text("Latihan Tarik Nafas \(viewModel.cycleCount)/3")
+                                Text(NSLocalizedString("Breathing_Exercise", comment: "") + " \(viewModel.cycleCount) / 3")
                                     .font(.customFont(size: 22, family: .primary, weight: .bold))
                                     .foregroundColor(ColorToken.textPrimary.toColor())
                                     .padding(.horizontal, geometry.size.width * 0.035)
@@ -187,7 +187,7 @@ struct BreathingModuleView: View {
                                     viewModel.isActive = false
                                     viewModel.stopBreathing()
                                 }, label: {
-                                    Text("Berhenti")
+                                    Text(NSLocalizedString("Stop", comment: ""))
                                         .font(.customFont(size: 28, family: .primary, weight: .bold))
                                         .foregroundColor(ColorToken.backgroundSecondary.toColor())
                                         .padding(.horizontal, geometry.size.width * 0.035)
@@ -250,10 +250,10 @@ struct BreathingModuleView: View {
     // MARK: - Completion View
     private var completionView: some View {
         KimoDialogueView(
-            textDialogue: "Hore.. kamu berhasil tarik nafas",
+            textDialogue: NSLocalizedString("BreathingSuccess", comment: ""),
             buttonLayout: .horizontal([
                 KimoDialogueButtonConfig(
-                    title: "Coba lagi",
+                    title: NSLocalizedString("Try_Again", comment: ""),
                     symbol: .arrowClockwise,
                     style: .bubbleSecondary,
                     action: {
@@ -261,7 +261,7 @@ struct BreathingModuleView: View {
                     }
                 ),
                 KimoDialogueButtonConfig(
-                    title: "Lanjutkan",
+                    title: NSLocalizedString("Continue", comment: ""),
                     symbol: .chevronRight,
                     style: .bubbleSecondary,
                     action: {
@@ -269,8 +269,7 @@ struct BreathingModuleView: View {
                         storyViewModel.goScene(to: 1, choice: 0)
                     }
                 )
-            ]),
-            stageCompleted: "Stage 1 Completed"
+            ])
         )
     }
 }

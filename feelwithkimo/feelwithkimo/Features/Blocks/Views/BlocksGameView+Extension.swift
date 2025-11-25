@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension BlocksGameView {
+    
     func solidBlockView(_ placement: BlockPlacement) -> some View {
         shape(for: placement.block.type)
             .fill(placement.block.baseColor)
@@ -210,4 +211,12 @@ struct ViewPositionKey: PreferenceKey {
     static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
         value = nextValue()
     }
+}
+
+#Preview("Blocks Game View (Lv. 1)") {
+    BlocksGameView(level: .level1)
+}
+
+#Preview("Blocks Game View (Lv. 2)") {
+    BlocksGameView(level: .level2)
 }

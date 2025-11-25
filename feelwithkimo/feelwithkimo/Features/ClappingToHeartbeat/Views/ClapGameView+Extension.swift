@@ -11,13 +11,13 @@ import SwiftUI
 extension ClapGameView {
     func headerView() -> some View {
         HStack {
-            KimoBackButton {
+            KimoBackButton(imagePath: "Back", isLarge: false) {
                 dismiss()
             }
             
             Spacer()
             
-            Text("Tepuk Tangan")
+            Text(NSLocalizedString("Clapping_Title", comment: ""))
                 .font(.customFont(size: 34, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.corePrimary.toColor())
                 .kimoTextAccessibility(
@@ -77,9 +77,9 @@ extension ClapGameView {
     func completionView(skip: Bool) -> some View {
             if skip {
                 CompletionPageView(
-                    title: "Kimo kayaknya belum lihat kamu tepuk tangan nih",
-                    primaryButtonLabel: "Lewati",
-                    secondaryButtonLabel: "Coba Lagi",
+                    title: NSLocalizedString("ClappingSkip", comment: ""),
+                    primaryButtonLabel: NSLocalizedString("Skip", comment: ""),
+                    secondaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
                     primaryButtonSymbol: .chevronRight2,
                     secondaryButtonSymbol: .arrowClockwise,
                     onPrimaryAction: {
@@ -93,9 +93,9 @@ extension ClapGameView {
                 .transition(.opacity)
             } else {
                 CompletionPageView(
-                    title: "Hore Berhasil !",
-                    primaryButtonLabel: "Coba Lagi",
-                    secondaryButtonLabel: "Lanjutkan",
+                    title: NSLocalizedString("Completion_Text", comment: ""),
+                    primaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
+                    secondaryButtonLabel: NSLocalizedString("Continue", comment: ""),
                     primaryButtonSymbol: .arrowClockwise,
                     secondaryButtonSymbol: .chevronRight,
                     onPrimaryAction: {
@@ -244,7 +244,8 @@ extension ClapGameView {
                             .font(.system(size: 80))
                             .foregroundStyle(ColorToken.grayscale40.toColor())
                             .padding(.bottom, 8)
-                        Text("No Hands Detected")
+                            
+                        Text(NSLocalizedString("No_Hands_Detected", comment: ""))
                             .font(.customFont(size: 17, family: .primary, weight: .semibold))
                             .foregroundStyle(ColorToken.grayscale100.toColor())
                     }
@@ -256,7 +257,7 @@ extension ClapGameView {
                             .font(.system(size: 80))
                             .foregroundStyle(.yellow.opacity(0.8))
                             .padding(.bottom, 8)
-                        Text("One Hand Detected")
+                        Text(NSLocalizedString("One_Hand_Detected", comment: ""))
                             .font(.customFont(size: 17, family: .primary, weight: .semibold))
                             .foregroundStyle(.yellow)
                     }
@@ -268,7 +269,7 @@ extension ClapGameView {
                             .font(.system(size: 80))
                             .foregroundStyle(.green.opacity(0.9))
                             .padding(.bottom, 8)
-                        Text("Both Hands Detected")
+                        Text(NSLocalizedString("Both_Hands_Detected", comment: ""))
                             .font(.customFont(size: 17, family: .primary, weight: .semibold))
                             .foregroundStyle(.green)
                     }

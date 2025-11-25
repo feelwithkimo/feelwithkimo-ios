@@ -38,7 +38,9 @@ struct StoryView: View {
             }
             
             if viewModel.currentScene.question == nil {
-                storySceneView()
+                if viewModel.currentScene.interactionType == .normal {
+                    storySceneView()
+                }
             } else {
                 Color.black.opacity(0.8)
                     .ignoresSafeArea()
@@ -150,11 +152,13 @@ struct StoryView: View {
             
             if viewModel.index == 8 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        viewModel.currentScene.path = "Scene 6_2"
+                    if viewModel.currentScene.path == "Scene 6" {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            viewModel.currentScene.path = "Scene 6_2"
+                        }
+                        
+                        audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
                     }
-                    
-                    audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
                 }
             } else {
                 audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")

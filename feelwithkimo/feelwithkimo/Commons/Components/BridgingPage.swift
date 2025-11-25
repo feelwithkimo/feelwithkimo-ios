@@ -21,7 +21,7 @@ struct BridgingPage<Destination: View>: View {
                 .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                 .frame(maxWidth: 28, maxHeight: 28)
 
-            Text("Lanjutkan")
+            Text(NSLocalizedString("Continue", comment: ""))
                 .font(.customFont(size: 28, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
         }
