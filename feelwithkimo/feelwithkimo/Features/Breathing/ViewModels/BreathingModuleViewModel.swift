@@ -84,6 +84,10 @@ final class BreathingModuleViewModel: ObservableObject {
             
             self.phaseCounter += 1
             
+            /// Update currentPhase based on phaseCounter
+            let phases: [BreathingPhase] = [.inhale, .hold, .exhale]
+            self.currentPhase = phases[self.phaseCounter % phases.count]
+            
             if self.phaseCounter < self.totalPhaseCount {
                 self.startBreathingCycle()
             } else {
