@@ -28,7 +28,7 @@ extension ClapGameView {
             Button(action: {
                 viewModel.toggleShowTutorial()
             }, label: {
-                Image(systemName: "questionmark.circle.fill")
+                Image("Question")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 80.getWidth(), height: 80.getHeight())
@@ -118,23 +118,23 @@ extension ClapGameView {
             ClappingTutorialStep(
                 image: "TutorialClappingFirst",
                 stepNumber: "1",
-                description: "Dimainkan anak bersama orang tua dengan posisi berada di garis putus-putus"
+                description: NSLocalizedString("TutorialClappingFirst", comment: "")
             )
 
             ClappingTutorialStep(
                 image: "TutorialClappingSecond",
                 stepNumber: "2",
-                description: "Pastikan tangan terlihat di layar"
+                description: NSLocalizedString("TutorialClappingSecond", comment: "")
             )
 
             ClappingTutorialStep(
                 image: "TutorialClappingThird",
                 stepNumber: "3",
-                description: "Tepuk tangan sampai progress bar selesai."
+                description: NSLocalizedString("TutorialClappingThird", comment: "")
             )
         }
     }
-
+    
     private var parentSkeleton: some View {
         VStack(spacing: 29.getWidth()) {
             DashedCircleView(

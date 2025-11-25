@@ -17,7 +17,7 @@ struct KimoMenuButton: View {
             Image("Menu")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80.getWidth())
+                .frame(width: 80.getWidth(), height: 80.getWidth())
                 .kimoButtonAccessibility(
                     label: NSLocalizedString("Menu", comment: ""),
                     hint: "Hentikan permainan sebentar",
