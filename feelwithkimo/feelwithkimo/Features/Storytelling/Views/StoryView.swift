@@ -9,7 +9,6 @@ import SwiftUI
 import RiveRuntime
 
 struct StoryView: View {
-    @AppStorage("hasSeenTutorial") var seenTutorial = false
     @Environment(\.dismiss) var dismiss
     @ObservedObject private var audioManager = AudioManager.shared
     @StateObject var viewModel: StoryViewModel
@@ -57,9 +56,11 @@ struct StoryView: View {
             }
             
             if viewModel.currentScene.question == nil {
-                storySceneView()
+                if viewModel.currentScene.interactionType == .normal {
+                    storySceneView()
+                }
             } else {
-                Color.black.opacity(0.5)
+                Color.black.opacity(0.8)
                     .ignoresSafeArea()
                 
                 questionView()
@@ -113,7 +114,8 @@ struct StoryView: View {
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
                     dismiss: { dismiss() },
-                    replay: { viewModel.replayStory() }
+                    replay: { viewModel.replayStory() },
+                    textDialogue: viewModel.currentScene.text
                 )
             }
         }
@@ -142,9 +144,16 @@ struct StoryView: View {
             }
             
             audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
+            
+            if let sound = viewModel.currentScene.soundEffect {
+                audioManager.playSoundEffect(effectName: sound)
+            }
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onChange(of: viewModel.quitStory) {
+            dismiss()
+        }
         .onChange(of: viewModel.index) {
             
             if viewModel.index == 3 || viewModel.index == 4 || viewModel.index == 5 {
@@ -186,7 +195,7 @@ struct StoryView: View {
                 accessibilityManager.announce(announcement)
             }
             
-            if viewModel.index == 6 {
+            if viewModel.index == 8 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         viewModel.currentScene.path = "Scene 6_2"
@@ -194,8 +203,12 @@ struct StoryView: View {
                         if let sound = viewModel.currentScene.soundEffect {
                             audioManager.playSoundEffect(effectName: sound)
                         }
+                        
+                        audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
                     }
                 }
+            } else {
+                audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
             
             //            if let sound = viewModel.currentScene.soundEffect  {

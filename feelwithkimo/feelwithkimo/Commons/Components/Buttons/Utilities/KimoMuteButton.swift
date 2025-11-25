@@ -9,6 +9,8 @@ import SwiftUI
 
 /// A mute button for controlling background music
 struct KimoMuteButton: View {
+    var isLarge: Bool = false
+    
     @ObservedObject var audioManager: AudioManager
     var body: some View {
         Button(action: {
@@ -17,7 +19,7 @@ struct KimoMuteButton: View {
             Image(audioManager.isMuted ? "Mute" : "Music")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80.getWidth())
+                .frame(width: isLarge ? 120.getWidth() : 80.getWidth())
         })
         .scaleEffect(audioManager.isMuted ? 0.95 : 1.0)
         .animation(.easeInOut(duration: 0.2), value: audioManager.isMuted)

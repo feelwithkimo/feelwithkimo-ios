@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct KimoBubbleButtonPrimary: View {
-    var buttonLabel: String = "Ayo Mulai!"
-    
+    var buttonLabel: String = NSLocalizedString("Lets_Start", comment: "")
+
     var body: some View {
         ZStack {
             Image("KimoBubbleButtonPrimary")

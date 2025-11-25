@@ -54,8 +54,8 @@ struct HomeView: View {
 
     private var emotionSelectionSection: some View {
         VStack(alignment: .center, spacing: 40.getHeight()) {
-            Text("Pilih Emosi!")
-                .font(.app(size: 80, family: .primary, weight: .bold))
+            Text(NSLocalizedString("Choose_Emotion", comment: ""))
+                .font(.customFont(size: 80, weight: .bold))
                 .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                 .kimoTextAccessibility(
                     label: "Hari ini mau belajar emosi apa, ya?",
@@ -85,7 +85,7 @@ private extension HomeView {
     var headerView: some View {
         KimoHeaderView {
             HStack(spacing: 23) {
-                Text("Hi, \(viewModel.currentUser?.name ?? "Guest")!")
+                Text("Hi, " + "\(viewModel.currentUser?.name ?? "Guest")!")
                     .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .fontWeight(.bold)
                     .padding()

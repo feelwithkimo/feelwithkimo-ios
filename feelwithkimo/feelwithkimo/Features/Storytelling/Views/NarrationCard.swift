@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NarrationCard: View {
     let text: String
-    let onTap: () -> Void
 
     var body: some View {
         RoundedRectangle(cornerRadius: 24)
@@ -30,6 +29,5 @@ struct NarrationCard: View {
             )
             .padding(.horizontal, 177.getWidth())
             .padding(.top, 11.getHeight())
-            .onTapGesture(perform: onTap)
     }
 }

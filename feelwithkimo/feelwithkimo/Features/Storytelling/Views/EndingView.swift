@@ -8,60 +8,79 @@
 import SwiftUI
 
 extension StoryView {
-    func endSceneOverlay(dismiss: @escaping () -> Void, replay: @escaping () -> Void) -> some View {
+    func endSceneOverlay(dismiss: @escaping () -> Void, replay: @escaping () -> Void, textDialogue: String) -> some View {
         ZStack {
-            Color.black.opacity(0.7)
+            ColorToken.additionalColorsBlack.toColor().opacity(0.8)
                 .ignoresSafeArea()
             
-            VStack {
-                Spacer()
-                
-                HStack(spacing: 10) {
-                    KimoImage(image: "Kimo", width: 400.getWidth())
+            ZStack {
+                HStack(spacing: 39) {
+                    KimoImage(image: "KimoTutorialAsset", width: 400.getWidth())
                     
-                    VStack {
-                        Spacer()
+                    VStack(spacing: 0) {
+                        Text(textDialogue)
+                            .frame(maxWidth: 500.getWidth(), alignment: .leading)
+                            .padding(.horizontal, 49.getWidth())
+                            .padding(.vertical, 42.getHeight())
+                            .background(ColorToken.corePinkDialogue.toColor())
+                            .cornerRadius(30)
                         
-                        KimoImage(image: "Closing", width: 594.getWidth())
-                    }
-                    .padding(.bottom, 36.getHeight())
-                }
-                
-                HStack {
-                    Spacer()
-                    
-                    Button(action: dismiss) {
                         HStack {
-                            Image(systemName: "arrow.right.square")
-                                .font(.customFont(size: 28, family: .primary, weight: .bold))
+                            KimoImage(image: "KimoDialogue", width: 157.getWidth())
+                            Spacer()
+                        }
+                        
+                        HStack(spacing: 50) {
+                            // Button 1: Replay
+                            Button(action: replay) {
+                                HStack {
+                                    Image(systemName: "arrow.trianglehead.2.clockwise")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 22, maxHeight: 22)
+                                        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    
+                                    Text(NSLocalizedString("Try_Again", comment: ""))
+                                        .font(.customFont(size: 22, family: .primary, weight: .bold))
+                                        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                }
+                                .frame(maxWidth: 193.getWidth())
+                                .padding(.horizontal, 23)
+                                .padding(.vertical, 13)
+                                .background(ColorToken.emotionSurprise.toColor())
+                                .cornerRadius(30)
+                            }
                             
-                            Text("Keluar")
-                                .font(.customFont(size: 28, family: .primary, weight: .bold))
+                            // Button 2: Dismiss/Exit
+                            Button(action: dismiss) {
+                                HStack {
+                                    Image(systemName: "chevron.right")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 22, maxHeight: 22)
+                                        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    
+                                    Text(NSLocalizedString("Exit", comment: ""))
+                                        .font(.customFont(size: 22, family: .primary, weight: .bold))
+                                        .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                }
+                                .frame(maxWidth: 193.getWidth())
+                                .padding(.horizontal, 23)
+                                .padding(.vertical, 13)
+                                .background(ColorToken.emotionSurprise.toColor())
+                                .cornerRadius(30)
+                            }
                         }
-                        .padding()
-                        .background(ColorToken.corePinkStory.toColor().opacity(0.8))
-                        .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
-                        .cornerRadius(50)
-                    }
-                    
-                    Button(action: replay) {
-                        HStack {
-                            Image(systemName: "arrow.clockwise")
-                                .font(.customFont(size: 28, family: .primary, weight: .bold))
-                            Text("Mulai Lagi")
-                                .font(.customFont(size: 28, family: .primary, weight: .bold))
-                        }
-                        .padding()
-                        .background(ColorToken.corePinkStory.toColor().opacity(0.8))
-                        .foregroundStyle(ColorToken.additionalColorsBlack.toColor())
-                        .cornerRadius(50)
+                        .padding(.top, 20)
                     }
                 }
-                
-                Spacer()
+                .padding(.vertical, 53)
+                .padding(.horizontal, 72)
             }
             .padding(.horizontal, 94.getWidth())
             .padding(.vertical, 164.getHeight())
         }
+        .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
     }
 }

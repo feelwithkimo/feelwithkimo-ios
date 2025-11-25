@@ -44,13 +44,24 @@ struct ClapGameView: View {
                 }
                 .padding(.horizontal, 31.getWidth())
             }
-            
+            .padding(.horizontal, 55.getWidth())
+
             if viewModel.showCompletionView {
                 completionView(skip: viewModel.skip)
+                    .padding(.horizontal, 55.getWidth())
+            }
+            
+            if viewModel.showTutorial {
+                TutorialPage(textDialogue:
+                    "Tantangan Tepuk Tangan! Letakkan perangkat agar kamera bisa melihat kalian berdua." +
+                    "Posisikan wajah di dalam area garis putus-putus.  Mulai tepuk tangan bersama!" +
+                    "Pastikan tangan kalian terlihat kamera agar progress bar cepat penuh dan permainan selesai!")
+                .onTapGesture {
+                    viewModel.showTutorial = false
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
-        .padding(.horizontal, 65.getHeight())
         .onAppear {
             // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

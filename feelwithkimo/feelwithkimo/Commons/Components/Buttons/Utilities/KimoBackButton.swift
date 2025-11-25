@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct KimoBackButton: View {
+    let imagePath: String
+    let isLarge: Bool
     var action: (() -> Void)?
     
     var body: some View {
         Button(action: {
             action?()
         }, label: {
-            KimoImage(image: "Back", width: 80.getWidth())
+            KimoImage(image: imagePath, width: isLarge ? 120.getWidth() : 80.getWidth())
                 .kimoButtonAccessibility(
                     label: "Kembali",
                     hint: "Ketuk dua kali untuk kembali ke halaman sebelumnya",
@@ -25,5 +27,5 @@ struct KimoBackButton: View {
 }
 
 #Preview {
-    KimoBackButton()
+    KimoBackButton(imagePath: "Back", isLarge: true)
 }

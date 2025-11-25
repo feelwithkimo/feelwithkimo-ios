@@ -1,0 +1,229 @@
+[
+    {
+    "path": "Scene 1",
+    "text": "這是Lala，她在KIMO學校。",
+    "nextScene": [1],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "LalaSoundCn"
+},
+    {
+    "path": "Scene 2",
+    "text": "這位是Tina老師，她是Lala的老師。",
+    "nextScene": [0, 2],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "TinaSoundCn"
+},
+    {
+    "path": "Scene 3",
+    "text": "這是Jack，他是Lala的朋友。",
+    "nextScene": [1, 3],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "JackSoundCn"
+},
+    {
+    "path": "Scene 4",
+    "text": "有一天，Lala正在搭積木。",
+    "nextScene": [2, 4],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 4_2",
+    "text": "我們來幫Lala搭一座高塔吧！",
+    "nextScene": [3, 5],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+},
+    {
+    "path": "Scene 5",
+    "text": "哇，高塔已經搭好一半了！",
+    "nextScene": [4, 6],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 4",
+    "text": "我們把塔搭得更高吧！",
+    "nextScene": [5, 7],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+},
+    {
+    "path": "Scene 5",
+    "text": "耶！Lala的高塔快要搭好了。",
+    "nextScene": [6, 8],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 6",
+    "text": "突然，Jack跑過來踢倒了Lala的塔。",
+    "nextScene": [7, 9],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "FallingBlock"
+},
+    {
+    "path": "Scene 6_2",
+    "text": "你覺得Lala現在是什麼心情？",
+    "nextScene": [8, 10, 10],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": {
+        "question": "你覺得Lala現在是什麼心情？",
+        "option": ["Senang", "Marah"]
+    },
+    "interactionType": "scaffoldingOption",
+    "isEnd": false
+},
+    {
+    "path": "Scene 7",
+    "text": "Tina老師走到Lala身邊問道：「Lala，怎麼了？」",
+    "nextScene": [9, 11],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 8",
+    "text": "Lala告訴了Tina老師剛才Jack做的事情。",
+    "nextScene": [10, 12],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 9",
+    "text": "Lala，遇到不開心的事情會有情緒是很正常的。這說明你有自己的感受，這沒關係。",
+    "nextScene": [11, 13],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 10",
+    "text": "「跟我一起做個深呼吸吧！」Tina老師說。「好的，老師，」Lala回答道。",
+    "nextScene": [12, 14],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 10",
+    "text": "「跟我一起做個深呼吸吧！」Tina老師說。「好的，老師，」Lala回答道。",
+    "nextScene": [13, 15],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+},
+    {
+    "path": "Scene 11",
+    "text": "「Lala，你現在感覺怎麼樣？」Tina老師問。\n「老師，我感覺平靜多了。」Lala回答。",
+    "nextScene": [14, 16],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 12",
+    "text": "「我們再試著搭一次塔吧，」Tina老師說。「好的，老師！」Lala回答。",
+    "nextScene": [15, 17],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 12",
+    "text": "我們再重新搭一次塔吧！",
+    "nextScene": [16, 18],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+},
+    {
+    "path": "Scene 12",
+    "text": "我們把塔搭得比剛才更高吧！",
+    "nextScene": [17, 19],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+},
+    {
+    "path": "Scene 13",
+    "text": "「太棒了！高塔搭好了！」Tina老師開心地說。\n「謝謝老師。這塔真漂亮，我自己都驚呆了！」Lala開心地看著塔說道。",
+    "nextScene": [18, 20],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+},
+    {
+    "path": "Scene 13",
+    "text": "讓我們和Tina老師還有Lala一起拍拍手吧！",
+    "nextScene": [19, 21],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "clapping",
+    "isEnd": false
+},
+    {
+    "path": "Scene 14",
+    "text": "生氣是一種正常的情緒，但我們要學會調節它。",
+    "nextScene": [20],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": true
+    }
+]

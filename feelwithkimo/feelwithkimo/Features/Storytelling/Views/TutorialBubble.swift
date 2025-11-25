@@ -10,10 +10,10 @@ import SwiftUI
 struct TutorialBubble: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Bacakan cerita ini untuk si kecil, ya!")
+            Text(NSLocalizedString("Tutorial_Text_1", comment: ""))
                 .font(.customFont(size: 20, family: .primary, weight: .regular))
             
-            Text("Gunakan suara dan ekspresi supaya si kecil ikut merasakannya")
+            Text(NSLocalizedString("Tutorial_Text_2", comment: ""))
                 .font(.customFont(size: 20, family: .primary, weight: .regular))
         }
         .padding(.vertical, 24.getHeight())

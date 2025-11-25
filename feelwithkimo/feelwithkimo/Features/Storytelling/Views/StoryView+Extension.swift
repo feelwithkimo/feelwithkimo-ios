@@ -56,28 +56,45 @@ extension StoryView {
                         .frame(width: 100.getWidth())
                 }
             }
-            .padding(.bottom, 50.getHeight())
+            .padding(.bottom, 49.getHeight())
             .padding(.horizontal, 57.getWidth())
         }
     }
     
     func narrationBox() -> some View {
-        RoundedRectangle(cornerRadius: 24)
-            .fill(ColorToken.additionalColorsWhite.toColor())
-            .overlay(
-                Text(viewModel.currentScene.text)
-                    .font(.customFont(size: 22, family: .primary, weight: .bold))
-                    .foregroundColor(ColorToken.additionalColorsBlack.toColor())
-                    .padding(.horizontal, 24.getWidth())
-                    .padding(.vertical, 16.getHeight())
-                    .multilineTextAlignment(.center)
-                    .kimoTextAccessibility(label: "Narasi: \(viewModel.currentScene.text)", identifier: "story.narration.text"),
-                alignment: .center
-            )
-            .frame(
-                width: 840.getWidth(),
-                height: 120.getHeight()
-            )
+        ZStack {
+            RoundedRectangle(cornerRadius: 24)
+                .fill(ColorToken.backgroundSecondary.toColor())
+                .frame(width: 840.getWidth(), height: 120.getHeight())
+                .offset(y: 10)
+                .shadow(color: .white.opacity(0.3), radius: 10, x: 0, y: 5)
+
+            RoundedRectangle(cornerRadius: 24)
+                .fill(ColorToken.additionalColorsWhite.toColor())
+                .overlay(
+                    Text(viewModel.currentScene.text)
+                        .font(.customFont(size: 22, family: .primary, weight: .bold))
+                        .foregroundColor(ColorToken.additionalColorsBlack.toColor())
+                        .padding(.horizontal, 24.getWidth())
+                        .padding(.vertical, 16.getHeight())
+                        .multilineTextAlignment(.center)
+                        .kimoTextAccessibility(label: "Narasi: \(viewModel.currentScene.text)", identifier: "story.narration.text"),
+                    alignment: .center
+                )
+                .frame(
+                    width: 840.getWidth(),
+                    height: 120.getHeight()
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24)
+                        .stroke(Color.black.opacity(0.5), lineWidth: 4)
+                        .blur(radius: 6)
+                        .offset(x: 0, y: 3)
+                        .mask(
+                            RoundedRectangle(cornerRadius: 24)
+                        )
+                )
+        }
     }
     
     private struct OptionChoiceButton: View {
@@ -94,19 +111,21 @@ extension StoryView {
                         .font(.customFont(size: 28, family: .primary, weight: .bold))
                         .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
                         .multilineTextAlignment(.center)
-                        .frame(maxWidth: 380.getWidth()) // keep text within bounds
+                        .frame(maxWidth: 380.getWidth())
                 }
             }
         }
-    }
+    }   
     
     func questionView() -> some View {
         VStack(spacing: 0) {
             Spacer()
             
             HStack(spacing: 0) {
-                KimoImage(image: "KimoStoryBranching", width: 504.getWidth())
-                    .padding(.trailing, 29.getWidth())
+                KimoImage(image: "KimoScaffolding", width: 0.65 * UIScreen.main.bounds.width)
+                    .frame(height: 750.getHeight())
+                    .padding(.trailing, 8.getWidth())
+                    .offset(y: 30.getHeight())
                 
                 VStack(spacing: 0) {
                     Text(viewModel.currentScene.text)
@@ -127,21 +146,23 @@ extension StoryView {
                         HStack {
                             Spacer()
                             
-                            OptionChoiceButton(buttonImage: "Kimo\(question.option[0])", buttonImageSize: 157, title: "") {
+                            OptionChoiceButton(buttonImage: question.option[1], buttonImageSize: 150, title: "") {
+                                viewModel.goScene(to: 1, choice: 0)
+                                accessibilityManager.announce("Memilih: \(question.option[1])")
+                            }
+                            
+                            Spacer()
+                            
+                            OptionChoiceButton(buttonImage: question.option[0], buttonImageSize: 150, title: "") {
                                 viewModel.goScene(to: 1, choice: 0)
                                 accessibilityManager.announce("Memilih: \(question.option[0])")
                             }
                             
                             Spacer()
-                            
-                            OptionChoiceButton(buttonImage: "Kimo\(question.option[1])", buttonImageSize: 157, title: "") {
-                                viewModel.goScene(to: 1, choice: 0)
-                                accessibilityManager.announce("Memilih: \(question.option[1])")
-                            }
-                            Spacer()
                         }
                     }
                 }
+                .padding(.trailing, 55.getWidth())
             }
             
             if viewModel.currentScene.interactionType == .storyBranching {
@@ -166,10 +187,9 @@ extension StoryView {
                         }
                     }
                 }
+                .padding(.trailing, 55.getWidth())
             }
         }
-        .padding(.bottom, 50.getHeight())
-        .padding(.horizontal, 57.getWidth())
     }
 }
 
@@ -177,6 +197,11 @@ extension StoryView {
 extension StoryView {
     func firstTutorialView() -> some View {
         VStack(alignment: .center) {
+            Text(NSLocalizedString("TapAnywhere", comment: ""))
+                .font(.customFont(size: 28, weight: .bold))
+                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                .padding(.top, 60.getHeight())
+
             Spacer()
             
             HStack(alignment: .bottom, spacing: 0) {
@@ -211,7 +236,7 @@ extension StoryView {
                     .padding(.horizontal, 159.getWidth())
                     .padding(.top, 11.getHeight())
                 
-                NarrationCard(text: viewModel.currentScene.text, onTap: viewModel.nextTutorial)
+                NarrationCard(text: viewModel.currentScene.text)
             }
         }
         .padding(.bottom, 50.getHeight())
@@ -231,10 +256,10 @@ extension StoryView {
                 
                 // Text
                 VStack(alignment: .leading) {
-                    Text("Klik ikon Kimo, ya!")
+                    Text(NSLocalizedString("Kimo_Tutorial_Text_1", comment: ""))
                         .font(.customFont(size: 20, family: .primary, weight: .regular))
                     
-                    Text("Kimo akan memberikan petunjuk saat si kecil butuh bantuan")
+                    Text(NSLocalizedString("Kimo_Tutorial_Text_2", comment: ""))
                         .font(.customFont(size: 20, family: .primary, weight: .regular))
                 }
                 .frame(maxWidth: 564)
@@ -259,9 +284,6 @@ extension StoryView {
                 KimoImage(image: "KimoVisual", width: 105.getWidth())
                     .padding(.top, 45.getHeight())
                     .padding(.bottom, 71.getHeight())
-                    .onTapGesture {
-                        viewModel.nextTutorial()
-                    }
             }
             .padding(.bottom, 175.getHeight())
         }
@@ -282,7 +304,7 @@ extension StoryView {
                     .padding(.top, 71.getHeight())
                 
                 // Text
-                Text("dan juga komentar seru untuk menemani si kecil sepanjang cerita!...")
+                Text(NSLocalizedString("Tutorial_Text_3", comment: ""))
                     .font(.customFont(size: 20, family: .primary, weight: .regular))
                     .frame(maxWidth: 564)
                     .padding(.vertical, 24)
@@ -305,9 +327,6 @@ extension StoryView {
                 
                 KimoImage(image: "KimoVisual", width: 105.getWidth())
                     .padding(.bottom, 71.getHeight())
-                    .onTapGesture {
-                        viewModel.nextTutorial()
-                    }
             }
             .padding(.bottom, 175.getHeight())
         }
