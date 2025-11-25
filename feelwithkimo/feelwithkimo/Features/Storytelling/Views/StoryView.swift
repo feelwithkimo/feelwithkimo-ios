@@ -15,9 +15,14 @@ struct StoryView: View {
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
     @State private var charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+    
+    // Spotlight effect states
+    @State private var showSpotlight = false
+    @State private var spotlightTimer: Timer?
 
     var body: some View {
         ZStack {
+            // Base scene image
             Image(viewModel.currentScene.path)
                 .resizable()
                 .frame(maxHeight: .infinity)
@@ -30,6 +35,25 @@ struct StoryView: View {
                     isDecorative: false,
                     identifier: "story.scene.\(viewModel.index)"
                 )
+            
+            // Spotlight overlay for Scene 1
+            if viewModel.currentScene.path == "Scene 1" && showSpotlight {
+                GeometryReader { geometry in
+                    Image("Scene1Spotlight")
+                        .resizable()
+                        .frame(maxHeight: .infinity)
+                        .clipped()
+                        .ignoresSafeArea()
+                        .mask(
+                            VStack(spacing: 0) {
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .frame(height: showSpotlight ? geometry.size.height : 0)
+                                Spacer(minLength: 0)
+                            }
+                        )
+                }
+            }
             
             if viewModel.currentScene.path == "Scene 6" {
                 RiveViewModel(fileName: "JackMove").view()
@@ -117,6 +141,9 @@ struct StoryView: View {
             if let sound = viewModel.currentScene.soundEffect {
                 audioManager.playSoundEffect(effectName: sound)
             }
+            
+            // Start spotlight timer for Scene 1
+            startSpotlightTimerIfNeeded()
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -124,6 +151,10 @@ struct StoryView: View {
             dismiss()
         }
         .onChange(of: viewModel.index) {
+            // Cancel timer when scene changes
+            cancelSpotlightTimer()
+            showSpotlight = false
+            
             // Announce scene changes
             if viewModel.index == 8 {
                 charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
@@ -163,7 +194,41 @@ struct StoryView: View {
             } else {
                 audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
+            
+            // Restart spotlight timer if returning to Scene 1
+            startSpotlightTimerIfNeeded()
         }
+        .onChange(of: viewModel.currentScene.path) {
+            // Cancel and restart timer if scene path changes
+            if viewModel.currentScene.path == "Scene 1" {
+                cancelSpotlightTimer()
+                showSpotlight = false
+                startSpotlightTimerIfNeeded()
+            } else {
+                cancelSpotlightTimer()
+                showSpotlight = false
+            }
+        }
+        .onDisappear {
+            cancelSpotlightTimer()
+        }
+    }
+    
+    // MARK: - Spotlight Timer Functions
+    
+    private func startSpotlightTimerIfNeeded() {
+        guard viewModel.currentScene.path == "Scene 1" else { return }
+        
+        spotlightTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+            withAnimation(.easeInOut(duration: 1.0)) {
+                showSpotlight = true
+            }
+        }
+    }
+    
+    private func cancelSpotlightTimer() {
+        spotlightTimer?.invalidate()
+        spotlightTimer = nil
     }
 }
 
