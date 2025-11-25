@@ -32,6 +32,7 @@ struct EntryView: View {
                 entrySound = true
             }
         }
+        .statusBarHidden(true)
     }
     
     private func mainEntryView(geometry: GeometryProxy) -> some View {

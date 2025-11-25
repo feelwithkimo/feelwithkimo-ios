@@ -19,10 +19,8 @@ struct ScaffoldingView: View {
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Button(action: {
+                    KimoCloseButton(action: {
                         storyViewModel.goScene(to: -1)
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
                     })
                     
                     Spacer()

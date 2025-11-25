@@ -45,12 +45,8 @@ struct StoryView: View {
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Button(action: {
-                        dismiss()
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
-                    })
-                    
+                    KimoHomeButton(isLarge: false, action: { dismiss() })
+            
                     Spacer()
                 
                     KimoMuteButton(audioManager: audioManager)

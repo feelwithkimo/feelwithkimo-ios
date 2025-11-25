@@ -28,20 +28,9 @@ struct OldEmotionStoryView: View {
             
             VStack(alignment: .center, spacing: 0) {
                 HStack {
-                    Button(action: {
-                        dismiss()
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
-                    })
+                    KimoCloseButton(action: { dismiss() })
                     
                     Spacer()
-                    
-                    KimoMuteButton(audioManager: audioManager)
-                        .kimoButtonAccessibility(
-                            label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
-                            hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
-                            identifier: "story.muteButton"
-                        )
                 }
                 .padding(.horizontal, 55.getWidth())
                 .padding(.top, 44.getHeight())
