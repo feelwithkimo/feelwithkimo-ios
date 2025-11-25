@@ -16,7 +16,7 @@ struct BreathingModuleView: View {
                 /// Left side - Phase indicator
                 VStack(alignment: .leading) {
                     Spacer()
-                        .frame(height: 140)
+                        .frame(height: 140.getHeight())
                     
                     BreathingPhaseComponent(viewModel: viewModel)
                     
@@ -24,16 +24,16 @@ struct BreathingModuleView: View {
                     
                     /// Round counter
                     Text("Putaran \(viewModel.currentRound)/\(viewModel.totalRounds)")
-                        .font(.system(size: 24, weight: .semibold))
+                        .font(.customFont(size: 24.getWidth(), family: .primary, weight: .semibold))
                         .foregroundColor(.white)
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 18)
+                        .padding(.horizontal, 40.getWidth())
+                        .padding(.vertical, 18.getHeight())
                         .background(
                             Capsule()
-                                .fill(Color(red: 108/255, green: 99/255, blue: 140/255))
+                                .fill(ColorToken.corePrimary.toColor())
                         )
-                        .padding(.leading, 70)
-                        .padding(.bottom, 80)
+                        .padding(.leading, 70.getWidth())
+                        .padding(.bottom, 80.getHeight())
                 }
                 
                 Spacer()
@@ -44,16 +44,16 @@ struct BreathingModuleView: View {
                     Image("BackgroundCircle")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 1000, height: 1000)
+                        .frame(width: 1000.getWidth(), height: 1000.getHeight())
                     
                     /// Kimo character
                     Image(viewModel.getCurrentPhaseImage())
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 850, height: 850)
+                        .frame(width: 850.getWidth(), height: 850.getHeight())
                 }
-                .frame(width: 800, height: 800)
-                .offset(x: 100, y: 200)
+                .frame(width: 800.getWidth(), height: 800.getHeight())
+                .offset(x: 100.getWidth(), y: 200.getHeight())
             }
             
             /// Top overlay - Profile icon and pause button
@@ -63,21 +63,21 @@ struct BreathingModuleView: View {
                     
                     /// Profile icon - smaller circle
                     Circle()
-                        .fill(Color(red: 186/255, green: 178/255, blue: 214/255))
-                        .frame(width: 60, height: 60)
+                        .fill(ColorToken.coreLightPrimary.toColor())
+                        .frame(width: 60.getWidth(), height: 60.getHeight())
                         .overlay(
                             Circle()
-                                .stroke(Color(red: 108/255, green: 99/255, blue: 140/255), lineWidth: 3)
+                                .stroke(ColorToken.corePrimary.toColor(), lineWidth: 3)
                         )
-                        .padding(.trailing, 8)
+                        .padding(.trailing, 8.getWidth())
                     
                     /// Pause button
                     KimoPauseButton {
                         viewModel.pauseBreathing()
                     }
-                    .padding(.trailing, 40)
+                    .padding(.trailing, 40.getWidth())
                 }
-                .padding(.top, 40)
+                .padding(.top, 40.getHeight())
                 
                 Spacer()
             }

@@ -3,25 +3,25 @@ import SwiftUI
 struct BreathingPhaseComponent: View {
     @ObservedObject var viewModel: BreathingModuleViewModel
     
-    let circleSize: CGFloat = 80
-    let inactiveCircleSize: CGFloat = 60
-    let lineHeight: CGFloat = 100
+    let circleSize: CGFloat = 80.getWidth()
+    let inactiveCircleSize: CGFloat = 60.getWidth()
+    let lineHeight: CGFloat = 100.getHeight()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<viewModel.phases.count, id: \.self) { index in
                 let phase = viewModel.phases[index]
-                HStack(spacing: 20) {
+                HStack(spacing: 20.getWidth()) {
                     /// Circle with progress ring
                     ZStack {
                         /// Background circle with stroke
                         Circle()
-                            .fill(Color(uiColor: ColorToken.corePinkDialogue))
+                            .fill(ColorToken.corePinkDialogue.toColor())
                             .frame(width: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize,
                                    height: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize)
                             .overlay(
                                 Circle()
-                                    .stroke(Color(uiColor: ColorToken.backgroundEntry), lineWidth: 12)
+                                    .stroke(ColorToken.backgroundEntry.toColor(), lineWidth: 12)
                             )
                         
                         /// Progress ring
@@ -29,7 +29,7 @@ struct BreathingPhaseComponent: View {
                             Circle()
                                 .trim(from: 0, to: viewModel.isPhaseCompleted(index) ? 1.0 : viewModel.circleProgress)
                                 .stroke(
-                                    Color(uiColor: ColorToken.backgroundSecondary),
+                                    ColorToken.backgroundSecondary.toColor(),
                                     style: StrokeStyle(lineWidth: 14, lineCap: .round)
                                 )
                                 .frame(width: viewModel.isPhaseActive(index) ? circleSize : inactiveCircleSize,
@@ -40,13 +40,17 @@ struct BreathingPhaseComponent: View {
                         /// Content (number or checkmark)
                         if viewModel.isPhaseCompleted(index) {
                             Image(systemName: "checkmark")
-                                .foregroundColor(Color(uiColor: ColorToken.backgroundSecondary))
+                                .foregroundColor(ColorToken.backgroundSecondary.toColor())
                                 .font(.system(size: 24, weight: .bold))
                         } else {
                             Text("\(index + 1)")
-                                .font(.system(size: viewModel.isPhaseActive(index) ? 32 : 24, weight: .bold))
-                                .foregroundColor(Color(uiColor: viewModel.isPhaseActive(index) ?
-                                    ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
+                                .font(.customFont(
+                                    size: viewModel.isPhaseActive(index) ? 32.getWidth() : 24.getWidth(),
+                                    family: .primary,
+                                    weight: .bold
+                                ))
+                                .foregroundColor(viewModel.isPhaseActive(index) ?
+                                    ColorToken.backgroundSecondary.toColor() : ColorToken.backgroundEntry.toColor())
                         }
                     }
                     .frame(width: circleSize, height: circleSize)
@@ -54,10 +58,13 @@ struct BreathingPhaseComponent: View {
                     
                     /// Phase title
                     Text(phase.title)
-                        .font(.system(size: viewModel.isPhaseActive(index) ? 56 : 32,
-                                    weight: viewModel.isPhaseActive(index) ? .bold : .semibold))
-                        .foregroundColor(Color(uiColor: viewModel.isPhaseActive(index) || viewModel.isPhaseCompleted(index) ?
-                                              ColorToken.backgroundSecondary : ColorToken.backgroundEntry))
+                        .font(.customFont(
+                            size: viewModel.isPhaseActive(index) ? 56.getWidth() : 32.getWidth(),
+                            family: .primary,
+                            weight: viewModel.isPhaseActive(index) ? .bold : .semibold
+                        ))
+                        .foregroundColor(viewModel.isPhaseActive(index) || viewModel.isPhaseCompleted(index) ?
+                                          ColorToken.backgroundSecondary.toColor() : ColorToken.backgroundEntry.toColor())
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .fixedSize(horizontal: false, vertical: true)
@@ -65,21 +72,21 @@ struct BreathingPhaseComponent: View {
                 
                 /// Connecting line with progress
                 if index < viewModel.phases.count - 1 {
-                    HStack(spacing: 20) {
+                    HStack(spacing: 20.getWidth()) {
                         ZStack(alignment: .top) {
                             /// Background line
                             Rectangle()
-                                .fill(Color(uiColor: ColorToken.backgroundEntry))
+                                .fill(ColorToken.backgroundEntry.toColor())
                                 .frame(width: 12, height: lineHeight)
                             
                             /// Progress line
                             if viewModel.isPhaseCompleted(index) {
                                 Rectangle()
-                                    .fill(Color(uiColor: ColorToken.backgroundSecondary))
+                                    .fill(ColorToken.backgroundSecondary.toColor())
                                     .frame(width: 12, height: lineHeight)
                             } else if viewModel.isPhaseActive(index) {
                                 Rectangle()
-                                    .fill(Color(uiColor: ColorToken.backgroundSecondary))
+                                    .fill(ColorToken.backgroundSecondary.toColor())
                                     .frame(width: 12, height: lineHeight * viewModel.lineProgress)
                             }
                         }
@@ -91,6 +98,6 @@ struct BreathingPhaseComponent: View {
                 }
             }
         }
-        .padding(.leading, 50)
+        .padding(.leading, 50.getWidth())
     }
 }

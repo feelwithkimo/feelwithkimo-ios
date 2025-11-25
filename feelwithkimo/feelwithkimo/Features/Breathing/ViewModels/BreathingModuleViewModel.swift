@@ -28,8 +28,8 @@ final class BreathingModuleViewModel: ObservableObject {
     let totalRounds = 4
     
     /// Constants for path calculations
-    let circleSize: CGFloat = 60
-    let lineHeight: CGFloat = 80
+    let circleSize: CGFloat = 60.getWidth()
+    let lineHeight: CGFloat = 80.getHeight()
     
     var circleCircumference: CGFloat {
         .pi * circleSize
