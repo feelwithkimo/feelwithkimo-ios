@@ -26,7 +26,7 @@ extension ClapGameView {
             Spacer()
             
             Button(action: {
-                viewModel.showTutorial = true
+                viewModel.toggleShowTutorial()
             }, label: {
                 Image(systemName: "questionmark.circle.fill")
                     .resizable()
@@ -109,7 +109,28 @@ extension ClapGameView {
                 .transition(.opacity)
             }
     }
+    
+    func tutorialContentView() -> some View {
+        HStack(alignment: .top) {
+            ClappingTutorialStep(
+                image: "TutorialClappingFirst",
+                stepNumber: "1",
+                description: "Dimainkan anak bersama orang tua dengan posisi berada di garis putus-putus"
+            )
 
+            ClappingTutorialStep(
+                image: "TutorialClappingSecond",
+                stepNumber: "2",
+                description: "Pastikan tangan terlihat di layar"
+            )
+
+            ClappingTutorialStep(
+                image: "TutorialClappingThird",
+                stepNumber: "3",
+                description: "Tepuk tangan sampai progress bar selesai."
+            )
+        }
+    }
 
     private var parentSkeleton: some View {
         VStack(spacing: 29.getWidth()) {

@@ -96,6 +96,10 @@ final class ClapGameViewModel: ObservableObject {
         )
     }
     
+    func toggleShowTutorial() {
+        showTutorial.toggle()
+    }
+    
     func onPausePressed() {
         isPaused = !isPaused
     }

@@ -55,13 +55,13 @@ struct ClapGameView: View {
             }
             
             if viewModel.showTutorial {
-                TutorialPage(textDialogue:
-                    "Tantangan Tepuk Tangan! Letakkan perangkat agar kamera bisa melihat kalian berdua." +
-                    "Posisikan wajah di dalam area garis putus-putus.  Mulai tepuk tangan bersama!" +
-                    "Pastikan tangan kalian terlihat kamera agar progress bar cepat penuh dan permainan selesai!")
-                .onTapGesture {
-                    viewModel.showTutorial = false
-                }
+                KimoInteractionTutorialWrapper(
+                    title: "Cara Bermain",
+                    quotePrefix: "Menurut Dr. Idit Sulkin, ",
+                    quoteBody: "bertepuk tangan dapat membantu melatih keterampilan motorik anak sehingga menghasilkan menulis dengan lebih baik, tulisan yang rapi, dan hanya sedikit membuat kesalahan dalam mengeja.",
+                    action: { viewModel.toggleShowTutorial() },
+                    content: tutorialContentView
+                )
             }
             
             if viewModel.isPaused {
