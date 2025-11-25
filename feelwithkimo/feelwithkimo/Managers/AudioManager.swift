@@ -71,8 +71,6 @@ final class AudioManager: NSObject, ObservableObject {
 
     /// Play a one-off sound effect (stored so you can stop it early). Playing a new effect stops any previous effect.
     func playSoundEffect(effectName: String, volume: Float = 1.0, loop: Bool = false, soundExtension: String = "mp3") {
-        guard effectName != "" else { return }
-        
         // Stop existing effect (we only keep a single effect player in this manager)
         effectPlayer?.stop()
         effectPlayer = nil
@@ -126,6 +124,15 @@ final class AudioManager: NSObject, ObservableObject {
 
         effectPlayer?.stop()
         effectPlayer = nil
+
+        // Deactivate session off the main thread
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try AVAudioSession.sharedInstance().setActive(false)
+            } catch {
+                print("AVAudioSession setActive(false) failed: \(error)")
+            }
+        }
     }
 
     // MARK: - Private helpers

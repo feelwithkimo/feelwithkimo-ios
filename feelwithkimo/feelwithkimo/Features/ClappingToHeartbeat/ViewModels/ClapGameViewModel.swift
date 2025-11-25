@@ -55,6 +55,7 @@ final class ClapGameViewModel: ObservableObject {
     @Published var showCompletionView: Bool = false
     @Published var skip: Bool = false
     @Published var showTutorial: Bool = false
+    @Published var isPaused: Bool = false
 
     // Properti komputasi untuk View agar lebih bersih
     var user1HandState: HandState { detectHandState(for: user1Hands) }
@@ -95,9 +96,24 @@ final class ClapGameViewModel: ObservableObject {
         )
     }
     
+    func toggleShowTutorial() {
+        showTutorial.toggle()
+    }
+    
+    func onPausePressed() {
+        isPaused = true
+        self.stopTimer()
+    }
+    
+    func onResumePressed() {
+        isPaused = false
+        skipTimer = setTimer()
+    }
+    
     func restart() {
         self.beatCount = 0
         self.showCompletionView = false
+        self.resetSkipTimer()
     }
 
     // MARK: - Private Logic
@@ -143,7 +159,7 @@ final class ClapGameViewModel: ObservableObject {
     }
     
     private func setTimer() -> Timer {
-        return Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { [weak self] _ in
+        return Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { [weak self] _ in
             guard let self else { return }
             Task { @MainActor in
                 self.skip = true
@@ -153,10 +169,13 @@ final class ClapGameViewModel: ObservableObject {
     }
     
     private func resetSkipTimer() {
+        stopTimer()
+        skipTimer = setTimer()
+    }
+    
+    private func stopTimer() {
         skipTimer?.invalidate()
         skip = false
-
-        skipTimer = setTimer()
     }
 
     private func triggerBothClap() {
@@ -177,7 +196,6 @@ final class ClapGameViewModel: ObservableObject {
     
     private func finish() {
         self.showCompletionView = true
-        self.onCompletion?()
     }
 
     private func detectHandState(for hands: (left: CGPoint?, right: CGPoint?)) -> HandState {

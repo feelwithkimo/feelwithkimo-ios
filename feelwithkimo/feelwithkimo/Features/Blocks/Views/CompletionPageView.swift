@@ -11,6 +11,8 @@ struct CompletionPageView: View {
     var title: String = "Tahap 1 Selesai!!!"
     var primaryButtonLabel: String = "Coba lagi"
     var secondaryButtonLabel: String = "Lanjutkan"
+    var primaryButtonSymbol: SFSymbolName? = .arrowClockwise
+    var secondaryButtonSymbol: SFSymbolName? = .chevronRight
     var onPrimaryAction: (() -> Void)?
     var onSecondaryAction: (() -> Void)?
     
@@ -36,6 +38,8 @@ struct CompletionPageView: View {
                 secondaryButtonLabel: secondaryButtonLabel,
                 onPrimaryAction: onPrimaryAction,
                 onSecondaryAction: onSecondaryAction,
+                primaryButtonSymbol: primaryButtonSymbol,
+                secondaryButtonSymbol: secondaryButtonSymbol,
                 showCard: showCard,
                 showTitle: showTitle,
                 showElephant: showElephant,
@@ -50,6 +54,7 @@ struct CompletionPageView: View {
                     .transition(.opacity)
             }
         }
+        .ignoresSafeArea()
         .onAppear {
             startAnimationSequence()
         }
@@ -84,6 +89,8 @@ struct AnimatedCompletionCard: View {
     var secondaryButtonLabel: String
     var onPrimaryAction: (() -> Void)?
     var onSecondaryAction: (() -> Void)?
+    let primaryButtonSymbol: SFSymbolName?
+    let secondaryButtonSymbol: SFSymbolName?
     
     var showCard: Bool
     var showTitle: Bool
@@ -122,18 +129,20 @@ struct AnimatedCompletionCard: View {
                     /// Shadow layer (flatter, more elongated)
                     RoundedRectangle(cornerRadius: 20)
                         .fill(ColorToken.coreAccent.toColor())
-                        .frame(width: 520.getWidth(), height: 68.getHeight())
                         .offset(y: 12)
                     
                     /// Main title background (flatter elongated rounded rectangle)
                     RoundedRectangle(cornerRadius: 20)
                         .fill(ColorToken.emotionDisgusted.toColor())
-                        .frame(width: 520.getWidth(), height: 68.getHeight())
-                    
+                        
                     Text(title)
+                        .padding(.horizontal, 10)
                         .font(.customFont(size: 60, weight: .bold))
                         .foregroundStyle(Color.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.1)
                 }
+                .frame(width: 520.getWidth(), height: 68.getHeight())
                 .offset(y: showTitle ? -34.getHeight() : -200.getHeight())
                 .opacity(showTitle ? 1 : 0)
                 .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showTitle)
@@ -146,7 +155,7 @@ struct AnimatedCompletionCard: View {
                     KimoDialogueButton(
                         config: KimoDialogueButtonConfig(
                             title: primaryButtonLabel,
-                            symbol: .arrowClockwise,
+                            symbol: primaryButtonSymbol,
                             style: .bubbleSecondary,
                             action: {
                                 onPrimaryAction?()
@@ -160,7 +169,7 @@ struct AnimatedCompletionCard: View {
                     KimoDialogueButton(
                         config: KimoDialogueButtonConfig(
                             title: secondaryButtonLabel,
-                            symbol: .chevronRight,
+                            symbol: secondaryButtonSymbol,
                             style: .bubbleSecondary,
                             action: {
                                 onSecondaryAction?()

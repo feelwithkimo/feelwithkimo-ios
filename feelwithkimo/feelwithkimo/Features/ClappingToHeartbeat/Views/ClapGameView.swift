@@ -13,6 +13,9 @@ struct ClapGameView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClapGameViewModel
     @ObservedObject var storyViewModel: StoryViewModel
+    
+    @State var orientation = UIDevice.current.orientation
+    
     var onCompletion: (() -> Void)?
 
     init(onCompletion: @escaping () -> Void, storyViewModel: StoryViewModel) {
@@ -34,12 +37,13 @@ struct ClapGameView: View {
                             // MARK: - ProgressBar
                             ClapProgressBarView(value: viewModel.progress)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                                .padding(.top, 33.getHeight())
+                                .padding(.top, 60.getHeight())
                                 .padding(.horizontal, 181.getWidth())
                                 .animation(.spring(duration: 0.5), value: viewModel.progress)
                             
                             skeletonPairView()
                         }
+                        .frame(width: 1002.getWidth(), height: 645.getHeight())
                     }
                 }
                 .padding(.horizontal, 31.getWidth())
@@ -48,17 +52,30 @@ struct ClapGameView: View {
 
             if viewModel.showCompletionView {
                 completionView(skip: viewModel.skip)
-                    .padding(.horizontal, 55.getWidth())
             }
             
             if viewModel.showTutorial {
-                TutorialPage(textDialogue:
-                    "Tantangan Tepuk Tangan! Letakkan perangkat agar kamera bisa melihat kalian berdua." +
-                    "Posisikan wajah di dalam area garis putus-putus.  Mulai tepuk tangan bersama!" +
-                    "Pastikan tangan kalian terlihat kamera agar progress bar cepat penuh dan permainan selesai!")
-                .onTapGesture {
-                    viewModel.showTutorial = false
-                }
+                KimoInteractionTutorialWrapper(
+                    title: "Cara Bermain",
+                    quotePrefix: "Menurut Dr. Idit Sulkin, ",
+                    quoteBody: "bertepuk tangan dapat membantu melatih keterampilan motorik anak sehingga menghasilkan menulis dengan lebih baik, tulisan yang rapi, dan hanya sedikit membuat kesalahan dalam mengeja.",
+                    action: { viewModel.toggleShowTutorial() },
+                    content: tutorialContentView
+                )
+            }
+            
+            if viewModel.isPaused {
+                PauseView(
+                    onReset: {
+                        viewModel.restart()
+                    },
+                    onHome: {
+                        self.storyViewModel.quitStory = true
+                        dismiss()
+                    },
+                    onResume: viewModel.onResumePressed,
+                    onBack: { dismiss() }
+                )
             }
         }
         .navigationBarBackButtonHidden(true)

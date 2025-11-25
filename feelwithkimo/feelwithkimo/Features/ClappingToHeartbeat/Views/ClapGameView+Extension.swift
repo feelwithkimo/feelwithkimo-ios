@@ -10,11 +10,8 @@ import SwiftUI
 // MARK: - Subviews
 extension ClapGameView {
     func headerView() -> some View {
-        HStack {
-            KimoBackButton(imagePath: "Back", isLarge: false) {
-                dismiss()
-            }
-            
+        HStack(spacing: 18.getWidth()) {
+            Spacer()
             Spacer()
             
             Text(NSLocalizedString("Clapping_Title", comment: ""))
@@ -25,10 +22,11 @@ extension ClapGameView {
                     identifier: "clapping.title",
                     sortPriority: 1
                 )
+            
             Spacer()
             
             Button(action: {
-                viewModel.showTutorial = true
+                viewModel.toggleShowTutorial()
             }, label: {
                 Image(systemName: "questionmark.circle.fill")
                     .resizable()
@@ -36,18 +34,26 @@ extension ClapGameView {
                     .frame(width: 80.getWidth(), height: 80.getHeight())
                     .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
             })
+            
+            KimoPauseButton(action: viewModel.onPausePressed)
         }
     }
 
     var cameraContentView: some View {
         ZStack {
-            CameraPreview(session: viewModel.avSession)
+            CameraPreview(session: viewModel.avSession, orientation: $orientation)
                 .kimoAccessibility(
                     label: "Kamera untuk deteksi tangan",
                     hint: "Posisikan kedua tangan di depan kamera untuk bermain",
                     traits: .allowsDirectInteraction,
                     identifier: "clapping.cameraPreview"
                 )
+                .onAppear {
+                    orientation = UIDevice.current.orientation
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                    orientation = UIDevice.current.orientation
+                }
 
 //            // Debugging overlays
 //            handDebugOverlays
@@ -72,57 +78,60 @@ extension ClapGameView {
     
     // MARK: - Completion View
     func completionView(skip: Bool) -> some View {
-        ZStack {
-            Color.black.opacity(0.9)
-                .ignoresSafeArea()
-            
             if skip {
-                KimoDialogueView(
-                    textDialogue: NSLocalizedString("ClappingSkip", comment: ""),
-                    buttonLayout: .horizontal([
-                        KimoDialogueButtonConfig(
-                            title: NSLocalizedString("Skip", comment: ""),
-                            symbol: .chevronRight2,
-                            style: .bubbleSecondary,
-                            action: {
-                                dismiss()
-                                storyViewModel.goScene(to: 1, choice: 0)
-                            }
-                        ),
-                        KimoDialogueButtonConfig(
-                            title: NSLocalizedString("Try_Again", comment: ""),
-                            symbol: .arrowClockwise,
-                            style: .bubbleSecondary,
-                            action: {
-                                viewModel.restart()
-                            }
-                        )
-                    ])
+                CompletionPageView(
+                    title: NSLocalizedString("ClappingSkip", comment: ""),
+                    primaryButtonLabel: NSLocalizedString("Skip", comment: ""),
+                    secondaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
+                    primaryButtonSymbol: .chevronRight2,
+                    secondaryButtonSymbol: .arrowClockwise,
+                    onPrimaryAction: {
+                        dismiss()
+                        storyViewModel.goScene(to: 1, choice: 0)
+                    },
+                    onSecondaryAction: {
+                        viewModel.restart()
+                    }
                 )
+                .transition(.opacity)
             } else {
-                KimoDialogueView(
-                    textDialogue: NSLocalizedString("Completion_Text", comment: ""),
-                    buttonLayout: .horizontal([
-                        KimoDialogueButtonConfig(
-                            title: NSLocalizedString("Try_Again", comment: ""),
-                            symbol: .arrowClockwise,
-                            style: .bubbleSecondary,
-                            action: {
-                                viewModel.restart()
-                            }
-                        ),
-                        KimoDialogueButtonConfig(
-                            title: NSLocalizedString("Continue", comment: ""),
-                            symbol: .chevronRight,
-                            style: .bubbleSecondary,
-                            action: {
-                                dismiss()
-                                storyViewModel.goScene(to: 1, choice: 0)
-                            }
-                        )
-                    ])
+                CompletionPageView(
+                    title: NSLocalizedString("Completion_Text", comment: ""),
+                    primaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
+                    secondaryButtonLabel: NSLocalizedString("Continue", comment: ""),
+                    primaryButtonSymbol: .arrowClockwise,
+                    secondaryButtonSymbol: .chevronRight,
+                    onPrimaryAction: {
+                        viewModel.restart()
+                    },
+                    onSecondaryAction: {
+                        dismiss()
+                        storyViewModel.goScene(to: 1, choice: 0)
+                    }
                 )
+                .transition(.opacity)
             }
+    }
+    
+    func tutorialContentView() -> some View {
+        HStack(alignment: .top) {
+            ClappingTutorialStep(
+                image: "TutorialClappingFirst",
+                stepNumber: "1",
+                description: "Dimainkan anak bersama orang tua dengan posisi berada di garis putus-putus"
+            )
+
+            ClappingTutorialStep(
+                image: "TutorialClappingSecond",
+                stepNumber: "2",
+                description: "Pastikan tangan terlihat di layar"
+            )
+
+            ClappingTutorialStep(
+                image: "TutorialClappingThird",
+                stepNumber: "3",
+                description: "Tepuk tangan sampai progress bar selesai."
+            )
         }
     }
 
