@@ -54,9 +54,21 @@ final class BreathingModuleViewModel: ObservableObject {
         
         let currentPhaseDuration = phases[currentPhase].duration
         
-        /// Calculate durations based on path lengths for constant velocity
-        let circleDuration = (circleCircumference / totalPathLength) * currentPhaseDuration
-        let lineDuration = (lineHeight / totalPathLength) * currentPhaseDuration
+        /// For the last phase, circle takes full duration. Otherwise, split between circle and line
+        let isLastPhase = currentPhase == phases.count - 1
+        
+        let circleDuration: Double
+        let lineDuration: Double
+        
+        if isLastPhase {
+            /// Last phase: circle takes the full duration
+            circleDuration = currentPhaseDuration
+            lineDuration = 0
+        } else {
+            /// Other phases: Calculate durations based on path lengths for constant velocity
+            circleDuration = (circleCircumference / totalPathLength) * currentPhaseDuration
+            lineDuration = (lineHeight / totalPathLength) * currentPhaseDuration
+        }
         
         /// Animate circle first
         withAnimation(.linear(duration: circleDuration)) {
@@ -64,7 +76,7 @@ final class BreathingModuleViewModel: ObservableObject {
         }
         
         /// After circle completes, animate line (only if not last phase)
-        if currentPhase < phases.count - 1 {
+        if !isLastPhase {
             let workItem = DispatchWorkItem {
                 withAnimation(.linear(duration: lineDuration)) {
                     self.lineProgress = 1.0
