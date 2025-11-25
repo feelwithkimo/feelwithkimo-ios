@@ -68,13 +68,12 @@ struct ClapGameView: View {
                 PauseView(
                     onReset: {
                         viewModel.restart()
-                        viewModel.onPausePressed()
                     },
                     onHome: {
                         self.storyViewModel.quitStory = true
                         dismiss()
                     },
-                    onResume: viewModel.onPausePressed,
+                    onResume: viewModel.onResumePressed,
                     onBack: { dismiss() }
                 )
             }

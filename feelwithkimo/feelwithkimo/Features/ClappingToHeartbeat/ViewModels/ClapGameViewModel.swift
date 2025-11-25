@@ -101,7 +101,13 @@ final class ClapGameViewModel: ObservableObject {
     }
     
     func onPausePressed() {
-        isPaused = !isPaused
+        isPaused = true
+        self.stopTimer()
+    }
+    
+    func onResumePressed() {
+        isPaused = false
+        skipTimer = setTimer()
     }
     
     func restart() {
@@ -163,10 +169,13 @@ final class ClapGameViewModel: ObservableObject {
     }
     
     private func resetSkipTimer() {
+        stopTimer()
+        skipTimer = setTimer()
+    }
+    
+    private func stopTimer() {
         skipTimer?.invalidate()
         skip = false
-
-        skipTimer = setTimer()
     }
 
     private func triggerBothClap() {
@@ -187,7 +196,6 @@ final class ClapGameViewModel: ObservableObject {
     
     private func finish() {
         self.showCompletionView = true
-        self.onCompletion?()
     }
 
     private func detectHandState(for hands: (left: CGPoint?, right: CGPoint?)) -> HandState {

@@ -48,9 +48,12 @@ extension ClapGameView {
                     traits: .allowsDirectInteraction,
                     identifier: "clapping.cameraPreview"
                 )
+                .onAppear {
+                    orientation = UIDevice.current.orientation
+                }
                 .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                                orientation = UIDevice.current.orientation
-                            }
+                    orientation = UIDevice.current.orientation
+                }
 
 //            // Debugging overlays
 //            handDebugOverlays
