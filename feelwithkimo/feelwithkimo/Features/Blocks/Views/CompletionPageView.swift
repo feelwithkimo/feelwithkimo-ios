@@ -199,21 +199,21 @@ struct AnimatedCompletionCard: View {
     }
 }
 
-#Preview {
-    ZStack {
-        /// Simulate game background
-        BlocksGameView(level: .level1)
-        
-        /// Overlay the completion page
-        CompletionPageView(
-            primaryButtonSymbol: .arrowClockwise,
-            secondaryButtonSymbol: .chevronRight2,
-            onPrimaryAction: {
-                print("Primary button tapped")
-            },
-            onSecondaryAction: {
-                print("Secondary button tapped")
-            }
-        )
-    }
-}
+//#Preview {
+//    ZStack {
+//        /// Simulate game background
+//        BlocksGameView(level: .level1)
+//        
+//        /// Overlay the completion page
+//        CompletionPageView(
+//            primaryButtonSymbol: .arrowClockwise,
+//            secondaryButtonSymbol: .chevronRight2,
+//            onPrimaryAction: {
+//                print("Primary button tapped")
+//            },
+//            onSecondaryAction: {
+//                print("Secondary button tapped")
+//            }
+//        )
+//    }
+//}
