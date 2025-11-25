@@ -218,8 +218,18 @@
   },
   {
     "path": "Scene 14",
+    "text": "“Horeeeee!!!!” kata Lala.",
+    "nextScene": [20, 22],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 14",
     "text": "Marah adalah hal yang wajar dan perlu diregulasi dengan baik",
-    "nextScene": [20],
+    "nextScene": [21],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,

@@ -726,6 +726,9 @@
         }
       }
     },
+    "Menu" : {
+
+    },
     "No_Hands_Detected" : {
       "extractionState" : "manual",
       "localizations" : {

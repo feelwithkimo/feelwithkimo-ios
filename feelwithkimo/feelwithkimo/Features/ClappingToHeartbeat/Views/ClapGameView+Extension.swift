@@ -86,7 +86,7 @@ extension ClapGameView {
                             style: .bubbleSecondary,
                             action: {
                                 dismiss()
-                                storyViewModel.goScene(to: 1, choice: 0)
+                                storyViewModel.goScene(to: 1)
                             }
                         ),
                         KimoDialogueButtonConfig(

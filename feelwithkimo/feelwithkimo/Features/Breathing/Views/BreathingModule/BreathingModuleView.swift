@@ -47,11 +47,10 @@ struct BreathingModuleView: View {
                     Button(action: {
                         showTutorial = true
                     }, label: {
-                        Image(systemName: "questionmark.circle.fill")
+                        Image("Question")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 80.getWidth(), height: 80.getHeight())
-                            .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
                     })
                 }
                 .padding(.horizontal, 55.getWidth())

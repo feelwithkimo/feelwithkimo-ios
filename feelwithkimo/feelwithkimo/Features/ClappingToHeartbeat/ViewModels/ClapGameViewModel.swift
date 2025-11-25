@@ -177,7 +177,6 @@ final class ClapGameViewModel: ObservableObject {
     
     private func finish() {
         self.showCompletionView = true
-        self.onCompletion?()
     }
 
     private func detectHandState(for hands: (left: CGPoint?, right: CGPoint?)) -> HandState {
