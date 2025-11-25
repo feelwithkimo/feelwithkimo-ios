@@ -99,17 +99,6 @@ struct StoryView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
-            if !viewModel.hasSeenTutor {
-                ColorToken.additionalColorsBlack.toColor().opacity(0.6)
-                    .ignoresSafeArea()
-                
-                switch viewModel.tutorialStep {
-                case 1: firstTutorialView()
-                case 2: secondTutorialView()
-                case 3: thirdTutorialView()
-                default: EmptyView()
-                }
-            }
             
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
@@ -170,7 +159,7 @@ struct StoryView: View {
             }
             
             // Announce scene changes
-            if viewModel.index == 6 {
+            if viewModel.index == 8 {
                 jackPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
