@@ -18,7 +18,7 @@ struct KimoPauseButton: View {
                 .resizable()
                 .frame(width: 100, height: 80)
                 .kimoButtonAccessibility(
-                    label: "Berhenti",
+                    label: NSLocalizedString("Stop", comment: ""),
                     hint: "Hentikan permainan sebentar",
                     identifier: "kimoPauseButton"
                 )

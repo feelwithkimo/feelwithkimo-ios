@@ -10,22 +10,20 @@ import RiveRuntime
 
 struct BlocksGameView: View {
     @StateObject var viewModel: BlocksGameViewModel
-    // TODO: refactor to environtment model
-    @StateObject private var riveViewModel: RiveViewModel
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var storyViewModel: StoryViewModel
     
     let gameCoordinateSpaceName = "blocksGame"
     
-    init(level: GameLevel, onComplete: (() -> Void)? = nil) {
-        let rive = RiveViewModel(fileName: "LalaInBlockGame")
-
-        _riveViewModel = StateObject(wrappedValue: rive)
+    init(level: GameLevel, onComplete: (() -> Void)? = nil, storyViewModel: StoryViewModel) {
         _viewModel = StateObject(
             wrappedValue: BlocksGameViewModel(
                 level: level,
-                onComplete: onComplete,
-                riveViewModel: rive
+                onComplete: onComplete
             )
         )
+
+        self.storyViewModel = storyViewModel
     }
     
     var body: some View {
@@ -38,6 +36,7 @@ struct BlocksGameView: View {
                         .frame(width: 80, height: 80)
                     KimoPauseButton(action: viewModel.onPausePressed)
                 }
+                
                 VStack {
                     ZStack(alignment: .topLeading) {
                         HStack {
@@ -62,9 +61,13 @@ struct BlocksGameView: View {
                             .frame(width: 854.getWidth())
                         }
                         
-                        riveViewModel.view()
-                            .frame(width: 276.getWidth())
-                            .padding(.top, 150.getHeight())
+                        VStack {
+                            Spacer()
+                            
+                            viewModel.riveViewModel.view()
+                                .frame(width: 350.getWidth(), height: 550.getHeight())
+                                .offset(x: -50.getWidth())
+                        }
                     }
                 }
             }
@@ -72,13 +75,17 @@ struct BlocksGameView: View {
             .padding(.horizontal, 55.getWidth())
             
             if viewModel.isPaused {
-                BlocksGamePauseView(
+                PauseView(
                     onReset: {
                         viewModel.resetGame()
                         viewModel.onPausePressed()
                     },
-                    onHome: { print("yay home") },
-                    onResume: viewModel.onPausePressed
+                    onHome: {
+                        self.storyViewModel.quitStory = true
+                        dismiss()
+                    },
+                    onResume: viewModel.onPausePressed,
+                    onBack: { dismiss() }
                 )
             }
         }
@@ -128,15 +135,15 @@ struct BlocksGameView: View {
         }
         .overlay(
             Group {
-                    if viewModel.showIdleOverlay {
-                        BlocksGameAnimationView()
-                            .transition(.opacity)
-                    }
-
-                    if let loc = viewModel.burstLocation {
-                        StarBurstView(center: loc)
-                    }
+                if viewModel.showIdleOverlay {
+                    BlocksGameAnimationView()
+                        .transition(.opacity)
                 }
+
+                if let loc = viewModel.burstLocation {
+                    StarBurstView(center: loc)
+                }
+            }
         )
         .onReceive(viewModel.idleTimer) { _ in
             viewModel.handleIdleTick()
@@ -150,8 +157,4 @@ struct BlocksGameView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-}
-
-#Preview {
-    BlocksGameView(level: .level1)
 }

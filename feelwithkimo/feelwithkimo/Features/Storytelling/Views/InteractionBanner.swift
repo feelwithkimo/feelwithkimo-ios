@@ -14,7 +14,7 @@ struct InteractionBanner: View {
     var body: some View {
         switch viewModel.currentScene.interactionType {
         case .breathing:
-            BridgingPage(textDialogue: "Ayo Latihan Pernapasan") {
+            BridgingPage(textDialogue: NSLocalizedString("BreathingBridgingText", comment: "")) {
                 BreathingModuleView(onCompletion: viewModel.completeBreathingExercise)
                 .kimoNavigationAccessibility(
                     label: "Ayo Latihan Pernapasan",
@@ -24,7 +24,7 @@ struct InteractionBanner: View {
             }
             
         case .clapping:
-            BridgingPage(textDialogue: "Mulai bermain") {
+            BridgingPage(textDialogue: NSLocalizedString("StartPlaying", comment: "")) {
                 ClapGameView(onCompletion: viewModel.completeClappingExercise, storyViewModel: viewModel)
                 .kimoNavigationAccessibility(
                     label: "Mulai Bermain tepuk tangan",

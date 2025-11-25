@@ -15,7 +15,6 @@ struct EntryView: View {
             GeometryReader { geometry in
                 ZStack {
                     mainBackgroundView(geometry: geometry)
-                    
                     mainEntryView(geometry: geometry)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -23,7 +22,6 @@ struct EntryView: View {
             }
         }
         .onAppear {
-            // Announce screen when it appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
@@ -37,14 +35,14 @@ struct EntryView: View {
             VStack(alignment: .trailing, spacing: 0) {
                 Spacer()
                 
-                Text("Selamat datang di Sekolah")
+                Text("Entry_Title_1", comment: "")
                     .font(.customFont(size: 34, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .padding(.bottom, geometry.size.height * 0.01)
                 
                 KimoImage(image: "Kimo-Pink-Wave", width: geometry.size.width * 0.51)
                 
-                Text("Kimo akan menemani kamu dan si kecil belajar mengenal perasaan")
+                Text("Entry_Title_2", comment: "")
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                     .frame(maxWidth: 356.getWidth())
@@ -54,7 +52,9 @@ struct EntryView: View {
                 NavigationLink {
                     OldEmotionStoryView(viewModel: EmotionStoryViewModel(path: "Balok"))
                 } label: {
-                    KimoBubbleButtonPrimary(buttonLabel: "Ayo Mulai")
+                    KimoBubbleButtonPrimary(
+                        buttonLabel: NSLocalizedString("Lets_Start", comment: "")
+                    )
                 }
                 .padding(.top, geometry.size.height * 0.084)
                 
@@ -64,7 +64,7 @@ struct EntryView: View {
             .offset(y: -geometry.size.height * 0.096)
         }
     }
-    
+
     private func mainBackgroundView(geometry: GeometryProxy) -> some View {
         ZStack(alignment: .bottomLeading) {
             KimoEllipseView()

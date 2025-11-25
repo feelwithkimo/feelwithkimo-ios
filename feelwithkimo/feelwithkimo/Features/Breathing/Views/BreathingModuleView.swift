@@ -185,7 +185,7 @@ struct BreathingModuleView: View {
     @ViewBuilder
     private var pauseOverlay: some View {
         if viewModel.isPaused {
-            BlocksGamePauseView(
+            PauseView(
                 onReset: {
                     viewModel.resetBreathingCycle()
                     viewModel.startBreathingCycle()
@@ -197,6 +197,9 @@ struct BreathingModuleView: View {
                 onResume: {
                     viewModel.resumeBreathing()
                     syncAnimations()
+                },
+                onBack: {
+                    dismiss()
                 }
             )
         }

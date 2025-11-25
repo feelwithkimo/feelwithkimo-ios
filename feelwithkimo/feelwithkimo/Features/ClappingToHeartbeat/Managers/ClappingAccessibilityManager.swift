@@ -131,7 +131,7 @@ extension View {
         bpm: Int = 100
     ) -> some View {
         let label = isActive ? "Detak jantung aktif" : "Detak jantung tidak aktif"
-        let value = isActive ? "\(bpm) ketukan per menit" : "Berhenti"
+        let value = isActive ? "\(bpm) ketukan per menit" : NSLocalizedString("Stop", comment: "")
         let hint = isActive ? "Dengarkan irama dan tepuk tangan mengikuti detak" : "Ketuk tombol mulai untuk memulai detak jantung"
         
         return self.clappingAccessibility(

@@ -25,7 +25,7 @@ struct KimoAskView: View {
     
     // MARK: - Initializers
     init(
-        dialogueText: String = "Halo Kimo",
+        dialogueText: String = NSLocalizedString("Lets_Start", comment: ""),
         dialogueIcon: String = "Kimo",
         textDialogueLeft: String = "TextDialogueLeft",
         titleText: String = "Title",

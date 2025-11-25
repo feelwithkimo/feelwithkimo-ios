@@ -1,0 +1,229 @@
+[
+  {
+    "path": "Scene 1",
+    "text": "Meet Lala, she is at KIMO school.",
+    "nextScene": [1],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "LalaSoundEn"
+  },
+  {
+    "path": "Scene 2",
+    "text": "This is Miss Tina, she is Lala's teacher.",
+    "nextScene": [0, 2],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "TinaSoundEn"
+  },
+  {
+    "path": "Scene 3",
+    "text": "And this is Jack, he is Lala's friend.",
+    "nextScene": [1, 3],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "JackSoundEn"
+  },
+  {
+    "path": "Scene 4",
+    "text": "One day, Lala is building blocks.",
+    "nextScene": [2, 4],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 4_2",
+    "text": "Let's help Lala build a tower!",
+    "nextScene": [3, 5],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 5",
+    "text": "Wow, the tower is halfway done!",
+    "nextScene": [4, 6],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 4",
+    "text": "Let's make the tower taller!",
+    "nextScene": [5, 7],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 5",
+    "text": "Yay! Lala is almost done building the tower.",
+    "nextScene": [6, 8],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 6",
+    "text": "Suddenly Jack came and kicked down Lala’s tower.",
+    "nextScene": [7, 9],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false,
+    "soundEffect": "FallingBlock"
+  },
+  {
+    "path": "Scene 6_2",
+    "text": "What do you think Lala is feeling right now?",
+    "nextScene": [8, 10, 10],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": {
+      "question": "What do you think Lala is feeling right now?",
+      "option": ["Senang", "Marah"]
+    },
+    "interactionType": "scaffoldingOption",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 7",
+    "text": "Miss Tina comes to Lala and says, \"Lala, what happened?\"",
+    "nextScene": [9, 11],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 8",
+    "text": "Lala tells Miss Tina what Jack did.",
+    "nextScene": [10, 12],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 9",
+    "text": "Lala, it's normal to feel something when something unpleasant happens. That means you have feelings, Lala, and that's okay.",
+    "nextScene": [11, 13],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 10",
+    "text": "\"Let's take a breathe with me!\", said Miss Tina. \"Okay, Miss\", answered Lala.",
+    "nextScene": [12, 14],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 10",
+    "text": "\"Let's take a breathe with me!\", said Miss Tina. \"Okay, Miss\", answered Lala.",
+    "nextScene": [13, 15],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "breathing",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 11",
+    "text": "\"How are you feeling now, Lala?\", asked Miss Tina.\n\"I feel more calm, Miss.\", answered Lala.",
+    "nextScene": [14, 16],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 12",
+    "text": "\"Let's try building the tower again\", said Miss Tina. \"Let's gooo!\" answered Lala.",
+    "nextScene": [15, 17],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 12",
+    "text": "Let's build the tower again!",
+    "nextScene": [16, 18],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 12",
+    "text": "Let's make the tower even taller!",
+    "nextScene": [17, 19],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 13",
+    "text": "\"Hooray! The tower is done!\" said Miss Tina happily.\n\"Thank you, Miss. I'm amazed at how beautiful the tower is\" said Lala while looking at it happily.",
+    "nextScene": [18, 20],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 13",
+    "text": "Let's clap our hands together with Miss Tina and Lala!",
+    "nextScene": [19, 21],
+    "kimoVisual": "normal",
+    "kimoText": null,
+    "question": null,
+    "interactionType": "clapping",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 14",
+    "text": "Anger is a normal feeling and needs to be regulated well",
+    "nextScene": [20],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": true
+  }
+]
