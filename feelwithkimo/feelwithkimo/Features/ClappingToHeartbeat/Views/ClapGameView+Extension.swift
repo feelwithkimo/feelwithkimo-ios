@@ -10,11 +10,8 @@ import SwiftUI
 // MARK: - Subviews
 extension ClapGameView {
     func headerView() -> some View {
-        HStack {
-            KimoBackButton(imagePath: "Back", isLarge: false) {
-                dismiss()
-            }
-            
+        HStack(spacing: 18.getWidth()) {
+            Spacer()
             Spacer()
             
             Text(NSLocalizedString("Clapping_Title", comment: ""))
@@ -25,6 +22,7 @@ extension ClapGameView {
                     identifier: "clapping.title",
                     sortPriority: 1
                 )
+            
             Spacer()
             
             Button(action: {
@@ -36,6 +34,8 @@ extension ClapGameView {
                     .frame(width: 80.getWidth(), height: 80.getHeight())
                     .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
             })
+            
+            KimoPauseButton(action: viewModel.onPausePressed)
         }
     }
 

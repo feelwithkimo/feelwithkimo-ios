@@ -212,11 +212,3 @@ struct ViewPositionKey: PreferenceKey {
         value = nextValue()
     }
 }
-
-//#Preview("Blocks Game View (Lv. 1)") {
-//    BlocksGameView(level: .level1)
-//}
-//
-//#Preview("Blocks Game View (Lv. 2)") {
-//    BlocksGameView(level: .level2)
-//}

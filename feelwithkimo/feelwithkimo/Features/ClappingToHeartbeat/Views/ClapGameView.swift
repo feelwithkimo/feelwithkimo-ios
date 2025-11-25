@@ -63,6 +63,21 @@ struct ClapGameView: View {
                     viewModel.showTutorial = false
                 }
             }
+            
+            if viewModel.isPaused {
+                PauseView(
+                    onReset: {
+                        viewModel.restart()
+                        viewModel.onPausePressed()
+                    },
+                    onHome: {
+                        self.storyViewModel.quitStory = true
+                        dismiss()
+                    },
+                    onResume: viewModel.onPausePressed,
+                    onBack: { dismiss() }
+                )
+            }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {

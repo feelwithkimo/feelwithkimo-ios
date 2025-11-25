@@ -55,6 +55,7 @@ final class ClapGameViewModel: ObservableObject {
     @Published var showCompletionView: Bool = false
     @Published var skip: Bool = false
     @Published var showTutorial: Bool = false
+    @Published var isPaused: Bool = false
 
     // Properti komputasi untuk View agar lebih bersih
     var user1HandState: HandState { detectHandState(for: user1Hands) }
@@ -93,6 +94,10 @@ final class ClapGameViewModel: ObservableObject {
         accessibilityManager.announceScreenChange(
             "Permainan tepuk tangan dimulai! Ayo posisikan tangan di depan kamera, dan tepuklah bersama dengan penuh semangat dan keceriaan."
         )
+    }
+    
+    func onPausePressed() {
+        isPaused = !isPaused
     }
     
     func restart() {

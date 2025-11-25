@@ -198,22 +198,3 @@ struct AnimatedCompletionCard: View {
         .frame(width: 700.getWidth(), height: 620.getHeight())
     }
 }
-
-//#Preview {
-//    ZStack {
-//        /// Simulate game background
-//        BlocksGameView(level: .level1)
-//        
-//        /// Overlay the completion page
-//        CompletionPageView(
-//            primaryButtonSymbol: .arrowClockwise,
-//            secondaryButtonSymbol: .chevronRight2,
-//            onPrimaryAction: {
-//                print("Primary button tapped")
-//            },
-//            onSecondaryAction: {
-//                print("Secondary button tapped")
-//            }
-//        )
-//    }
-//}
