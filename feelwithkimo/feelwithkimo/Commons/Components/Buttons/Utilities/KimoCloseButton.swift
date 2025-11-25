@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct KimoCloseButton: View {
-    let isLarge: Bool = false
+    var isLarge: Bool = false
     var action: (() -> Void)?
     
     var body: some View {

@@ -48,7 +48,7 @@ struct EntryView: View {
                     .padding(.bottom, geometry.size.height * 0.01)
                 
                 KimoImage(image: "Kimo-Pink-Wave", width: geometry.size.width * 0.51)
-                
+            
                 Text("Entry_Title_2", comment: "")
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())

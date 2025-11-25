@@ -58,7 +58,8 @@ struct ClapGameView: View {
                 KimoInteractionTutorialWrapper(
                     title: "Cara Bermain",
                     quotePrefix: "Menurut Dr. Idit Sulkin, ",
-                    quoteBody: "bertepuk tangan dapat membantu melatih keterampilan motorik anak sehingga menghasilkan menulis dengan lebih baik, tulisan yang rapi, dan hanya sedikit membuat kesalahan dalam mengeja.",
+                    quoteBody: "Bertepuk tangan dapat membantu melatih keterampilan motorik anak sehingga menghasilkan menulis dengan lebih baik, tulisan yang rapi, " +
+                                "dan hanya sedikit membuat kesalahan dalam mengeja.",
                     action: { viewModel.toggleShowTutorial() },
                     content: tutorialContentView
                 )

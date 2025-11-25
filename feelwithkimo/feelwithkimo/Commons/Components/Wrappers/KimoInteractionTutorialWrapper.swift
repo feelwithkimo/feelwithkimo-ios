@@ -76,13 +76,15 @@ struct KimoInteractionTutorialWrapper<Content: View>: View {
     KimoInteractionTutorialWrapper(
         title: "Cara latihan pernafasan",
         quotePrefix: "Menurut Dokter Weil, ",
-        quoteBody: "latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya.",
-        action: {}
-    ) {
-        VStack {
-            ForEach(0..<4) {_ in 
-                Text("Test")
+        quoteBody: "Latihan pernapasan ini membantu menenangkan sistem saraf secara alami. " +
+                    "Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya.",
+        action: {},
+        content: {
+            VStack {
+                ForEach(0..<4) {_ in
+                    Text("Test")
+                }
             }
         }
-    }
+    )
 }
