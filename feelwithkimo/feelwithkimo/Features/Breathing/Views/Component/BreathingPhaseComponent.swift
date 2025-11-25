@@ -6,6 +6,7 @@ struct BreathingPhaseComponent: View {
     let circleSize: CGFloat = 80.getWidth()
     let inactiveCircleSize: CGFloat = 60.getWidth()
     let lineHeight: CGFloat = 100.getHeight()
+    let strokeWidth: CGFloat = 12 // Circle stroke width
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -18,22 +19,44 @@ struct BreathingPhaseComponent: View {
                     
                     /// Connecting line with progress
                     if phase.id < viewModel.totalPhaseCount - 1 {
+                        let isCurrentPhaseActive = viewModel.isPhaseActive(phase.id)
+                        let isCurrentPhaseCompleted = viewModel.isPhaseCompleted(phase.id)
+                        let isNextPhaseActive = viewModel.isPhaseActive(phase.id + 1)
+                        let isNextPhaseCompleted = viewModel.isPhaseCompleted(phase.id + 1)
+                        
+                        /// Calculate extensions needed to reach the outer edge of the circle strokes
+                        /// Circles have a 12pt stroke, so we need to account for stroke/2 = 6pt on each side
+                        
+                        let currentCircleSize = (isCurrentPhaseActive || isCurrentPhaseCompleted) ? circleSize : inactiveCircleSize
+                        let nextCircleSize = (isNextPhaseActive || isNextPhaseCompleted) ? circleSize : inactiveCircleSize
+                        
+                        /// Distance from bottom of frame to bottom outer edge of stroke
+                        let topGap = (circleSize - currentCircleSize) / 2 + strokeWidth / 2
+                        /// Distance from top of frame to top outer edge of stroke
+                        let bottomGap = (circleSize - nextCircleSize) / 2 + strokeWidth / 2
+                        
+                        /// Extend line to reach the stroke edges
+                        let extendedHeight = lineHeight + topGap + bottomGap
+                        
                         HStack(spacing: 20.getWidth()) {
                             ZStack(alignment: .top) {
                                 /// Background line
                                 Rectangle()
                                     .fill(ColorToken.backgroundEntry.toColor())
-                                    .frame(width: 12, height: lineHeight)
+                                    .frame(width: 12, height: extendedHeight)
+                                    .offset(y: -topGap)
                                 
                                 /// Progress line
                                 if viewModel.isPhaseCompleted(phase.id) {
                                     Rectangle()
                                         .fill(ColorToken.backgroundSecondary.toColor())
-                                        .frame(width: 12, height: lineHeight)
+                                        .frame(width: 12, height: extendedHeight)
+                                        .offset(y: -topGap)
                                 } else if viewModel.isPhaseActive(phase.id) {
                                     Rectangle()
                                         .fill(ColorToken.backgroundSecondary.toColor())
-                                        .frame(width: 12, height: lineHeight * viewModel.lineProgress)
+                                        .frame(width: 12, height: extendedHeight * viewModel.lineProgress)
+                                        .offset(y: -topGap)
                                 }
                             }
                             .frame(width: circleSize, alignment: .center)
