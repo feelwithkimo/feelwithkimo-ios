@@ -47,7 +47,7 @@ struct BreathingModuleView: View {
                         .frame(width: 1000.getWidth(), height: 1000.getHeight())
                     
                     /// Kimo character
-                    Image(viewModel.getCurrentPhaseImage())
+                    Image(viewModel.currentPhase.imageName)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 850.getWidth(), height: 850.getHeight())
@@ -62,14 +62,15 @@ struct BreathingModuleView: View {
                     Spacer()
                     
                     /// Profile icon - smaller circle
-                    Circle()
-                        .fill(ColorToken.coreLightPrimary.toColor())
-                        .frame(width: 60.getWidth(), height: 60.getHeight())
-                        .overlay(
-                            Circle()
-                                .stroke(ColorToken.corePrimary.toColor(), lineWidth: 3)
-                        )
-                        .padding(.trailing, 8.getWidth())
+                    Button(action: {
+                        viewModel.showTutorial = true
+                    }, label: {
+                        Image(systemName: "questionmark.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80.getWidth(), height: 80.getHeight())
+                            .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
+                    })
                     
                     /// Pause button
                     KimoPauseButton {
@@ -80,6 +81,14 @@ struct BreathingModuleView: View {
                 .padding(.top, 40.getHeight())
                 
                 Spacer()
+            }
+            
+            /// Tutorial overlay
+            if viewModel.showTutorial {
+                BreathingModuleTutorialView()
+                    .onTapGesture {
+                        viewModel.showTutorial = false
+                    }
             }
             
             /// Pause overlay
@@ -124,8 +133,8 @@ struct BreathingModuleView: View {
         .onAppear {
             viewModel.startBreathingCycle()
         }
-        .onChange(of: viewModel.hasCompleted) { completed in
-            if completed {
+        .onChange(of: viewModel.hasCompleted) {
+            if viewModel.hasCompleted {
                 showCompletionPage = true
             }
         }
