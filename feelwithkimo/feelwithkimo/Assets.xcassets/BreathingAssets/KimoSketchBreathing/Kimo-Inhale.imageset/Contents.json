@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Inhale-1x.png",
+      "filename" : "Kimo-Inhale.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Inhale-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Inhale-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
