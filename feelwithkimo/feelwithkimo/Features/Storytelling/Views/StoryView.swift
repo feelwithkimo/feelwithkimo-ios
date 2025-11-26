@@ -124,7 +124,7 @@ struct StoryView: View {
             AudioManager.shared.startBackgroundMusic(assetName: viewModel.story.backsong)
             
             if let sound = viewModel.currentScene.soundEffect {
-                audioManager.playSoundEffect(effectName: sound)
+                AudioManager.shared.playSoundEffect(effectName: sound)
             }
             
             // Start spotlight timer for Scene 1
