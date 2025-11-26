@@ -18,7 +18,6 @@ internal class StoryViewModel: ObservableObject {
     )
     @Published var hasCompletedBreathing: Bool = false
     @Published var hasCompletedClapping: Bool = false
-    @Published var isNavigatingForward: Bool = true
     
     /// Highest phase for the block game. When exceeded, it wraps back to 1.
     private let maxBlockGamePhase: Int = 2
@@ -50,7 +49,7 @@ internal class StoryViewModel: ObservableObject {
             let scriptCode = locale.language.script?.identifier
             languageCode = scriptCode == "Hant" ? "zht" : "zh"
         }
-
+        
         fetchStory(story: storyModel.id + "_\(languageCode)")
     }
 
@@ -70,54 +69,29 @@ internal class StoryViewModel: ObservableObject {
     func goScene(to number: Int, choice: Int = 0) {
         switch number {
         case 1:
-            goToNextScene(choice: choice)
+            guard !self.currentScene.isEnd else { return }
+            
+            // Next scene for first scene since the first scene has no previous scene the index will be 0 instead of 1
+            if self.currentScene.path == story.storyScene[0].path {
+                self.currentScene = self.story.storyScene[1]
+            } else {
+                self.currentScene = choice == 0 ? self.story.storyScene[self.currentScene.nextScene[1]] : self.story.storyScene[self.currentScene.nextScene[2]]
+            }
+            self.showDialogue = false
+            self.isTappedMascot = false
+            self.index += 1
+            
+        // Previous Scene
         case -1:
-            goToPreviousScene()
+            guard self.currentScene.nextScene.count > 1 else { return }
+            
+            self.currentScene = self.story.storyScene[self.currentScene.nextScene[0]]
+            self.showDialogue = false
+            self.isTappedMascot = false
+            self.index -= 1
         default:
             break
         }
-    }
-    
-    /// Navigate to next scene
-    private func goToNextScene(choice: Int) {
-        guard !currentScene.isEnd else { return }
-        
-        isNavigatingForward = true
-
-        // Next scene for first scene
-        if currentScene.path == story.storyScene[0].path {
-            guard story.storyScene.count > 1 else { return }
-            currentScene = story.storyScene[1]
-        } else {
-            let targetIndex = choice == 0 ? currentScene.nextScene[1] : currentScene.nextScene[2]
-            guard story.storyScene.indices.contains(targetIndex) else {
-                print("❌ Invalid scene index: \(targetIndex)")
-                return
-            }
-            currentScene = story.storyScene[targetIndex]
-        }
-        
-        showDialogue = false
-        isTappedMascot = false
-        index += 1
-    }
-    
-    /// Navigate to previous scene
-    private func goToPreviousScene() {
-        guard currentScene.nextScene.count > 1 else { return }
-        
-        isNavigatingForward = false
-        
-        let previousIndex = currentScene.nextScene[0]
-        guard story.storyScene.indices.contains(previousIndex) else {
-            print("❌ Invalid previous scene index: \(previousIndex)")
-            return
-        }
-        
-        currentScene = story.storyScene[previousIndex]
-        showDialogue = false
-        isTappedMascot = false
-        index -= 1
     }
     
     /// Mark breathing exercise as completed and move to next scene

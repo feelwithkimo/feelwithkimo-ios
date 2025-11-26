@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension BlocksGameView {
+    
     func solidBlockView(_ placement: BlockPlacement) -> some View {
         shape(for: placement.block.type)
             .fill(placement.block.baseColor)

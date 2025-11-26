@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld" : {
+
+    },
     "Both_Hands_Detected" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -117,6 +120,9 @@
         }
       }
     },
+    "Cara latihan pernafasan" : {
+
+    },
     "Choose_Emotion" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -145,6 +151,9 @@
           }
         }
       }
+    },
+    "ClapHowToPlay" : {
+
     },
     "Clapping_Title" : {
       "extractionState" : "manual",
@@ -203,6 +212,12 @@
           }
         }
       }
+    },
+    "ClapQuoteBody" : {
+
+    },
+    "ClapQuotePrefix" : {
+
     },
     "Completion_Text" : {
       "extractionState" : "manual",
@@ -610,6 +625,9 @@
         }
       }
     },
+    "Ketuk bagian mana pun di layar untuk lanjut." : {
+
+    },
     "Kicking_The_Blocks" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -697,6 +715,9 @@
         }
       }
     },
+    "latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya." : {
+
+    },
     "Lets_Start" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -725,6 +746,12 @@
           }
         }
       }
+    },
+    "Menu" : {
+
+    },
+    "Menurut Dokter Weil, " : {
+
     },
     "No_Hands_Detected" : {
       "extractionState" : "manual",
@@ -780,6 +807,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "偵測到一隻手"
+          }
+        }
+      }
+    },
+    "Putaran %lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Putaran %1$lld/%2$lld"
           }
         }
       }
@@ -1130,6 +1167,15 @@
           }
         }
       }
+    },
+    "TutorialClappingFirst" : {
+
+    },
+    "TutorialClappingSecond" : {
+
+    },
+    "TutorialClappingThird" : {
+
     }
   },
   "version" : "1.1"

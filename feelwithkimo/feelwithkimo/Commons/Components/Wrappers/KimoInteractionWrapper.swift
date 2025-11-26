@@ -21,7 +21,6 @@ struct InteractionWrapper<Content: View>: View {
             self.onCompletion()
             self.dismiss()
         }
-        .navigationBarHidden(true)
         .onDisappear {
             if audioManager.isMuted {
                 audioManager.startBackgroundMusic(volume: 1.0)

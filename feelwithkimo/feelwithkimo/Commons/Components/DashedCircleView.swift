@@ -65,10 +65,10 @@ private struct DashedArcShape: Shape {
 
             // Convert to SwiftUI Path arc (startAngle in degrees, 0 degrees points to +x axis)
             path.addArc(center: center,
-                        radius: radius,
-                        startAngle: startAngle,
-                        endAngle: endAngle,
-                        clockwise: !clockwise)
+                radius: radius,
+                startAngle: startAngle,
+                endAngle: endAngle,
+                clockwise: !clockwise)
         }
 
         return path

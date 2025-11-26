@@ -155,13 +155,13 @@ struct BreathingModuleView: View {
     private var tutorialButton: some View {
         Button(action: {
             viewModel.showTutorial = true
-        }) {
+        }, label: {
             Image(systemName: "questionmark.circle.fill")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80.getWidth(), height: 80.getHeight())
                 .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
-        }
+        })
     }
     
     private var pauseButton: some View {

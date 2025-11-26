@@ -34,7 +34,8 @@ struct BlocksGameView: View {
                     
                     KimoReplayButton(action: viewModel.resetGame)
                         .frame(width: 80, height: 80)
-                    KimoPauseButton(action: viewModel.onPausePressed)
+                    
+                    KimoMenuButton(action: viewModel.onPausePressed)
                 }
                 
                 VStack {

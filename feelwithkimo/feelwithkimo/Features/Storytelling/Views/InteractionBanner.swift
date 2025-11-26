@@ -14,7 +14,7 @@ struct InteractionBanner: View {
     var body: some View {
         switch viewModel.currentScene.interactionType {
         case .breathing:
-            BridgingPage(textDialogue: NSLocalizedString("BreathingBridgingText", comment: "")) {
+            BridgingPage(textDialogue: NSLocalizedString("BreathingBridgingText", comment: ""), storyViewModel: viewModel) {
                 BreathingModuleView(onCompletion: viewModel.completeBreathingExercise)
                 .kimoNavigationAccessibility(
                     label: "Ayo Latihan Pernapasan",
@@ -24,7 +24,7 @@ struct InteractionBanner: View {
             }
             
         case .clapping:
-            BridgingPage(textDialogue: NSLocalizedString("StartPlaying", comment: "")) {
+            BridgingPage(textDialogue: NSLocalizedString("StartPlaying", comment: ""), storyViewModel: viewModel) {
                 ClapGameView(onCompletion: viewModel.completeClappingExercise, storyViewModel: viewModel)
                 .kimoNavigationAccessibility(
                     label: "Mulai Bermain tepuk tangan",
@@ -35,7 +35,7 @@ struct InteractionBanner: View {
             
         case .blockGame:
             let currentPhase = viewModel.currentBlockGamePhase
-            BridgingPage(textDialogue: viewModel.currentScene.text) {
+            BridgingPage(textDialogue: viewModel.currentScene.text, storyViewModel: viewModel) {
                 BlockGameStageView(
                     phase: currentPhase,
                     onCompletion: {
@@ -53,11 +53,13 @@ struct InteractionBanner: View {
         case .scaffolding:
             BridgingPage<EmptyView>(
                 textDialogue: viewModel.currentScene.text,
+                storyViewModel: viewModel,
                 destination: nil,
-                action: {
-                    viewModel.goScene(to: 1)
-                }
+                action: { viewModel.goScene(to: 1) }
             )
+            
+        case .scaffoldingOption:
+            ScaffoldingView(storyViewModel: viewModel, accessibilityManager: accessibilityManager)
             
         default:
             EmptyView()

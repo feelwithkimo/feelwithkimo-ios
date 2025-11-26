@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  JSONLoader.swift
 //  feelwithkimo
 //
 //  Created by jonathan calvin sutrisna on 24/11/25.

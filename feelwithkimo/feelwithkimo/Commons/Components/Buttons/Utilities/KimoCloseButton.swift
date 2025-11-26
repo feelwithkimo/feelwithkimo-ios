@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct KimoCloseButton: View {
+    var isLarge: Bool = false
+    var action: (() -> Void)?
+    
     var body: some View {
-        Image("Close")
-            .resizable()
-            .frame(maxWidth: 55, maxHeight: 55)
-            .kimoButtonAccessibility(
-                label: "Tutup",
-                hint: "Ketuk dua kali untuk menutup halaman ini",
-                identifier: "kimoCloseButton"
-            )
+        Button(action: {
+            action?()
+        }, label: {
+            Image("xmark")
+                .resizable()
+                .scaledToFit()
+                .frame(width: isLarge ? 120.getWidth() : 80.getWidth())
+                .kimoButtonAccessibility(
+                    label: "Tutup",
+                    hint: "Ketuk dua kali untuk menutup halaman ini",
+                    identifier: "kimoCloseButton"
+                )
+        })
     }
 }
 
