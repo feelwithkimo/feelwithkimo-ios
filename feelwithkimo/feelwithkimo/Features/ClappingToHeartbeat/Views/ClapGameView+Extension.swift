@@ -96,7 +96,7 @@ extension ClapGameView {
                 .transition(.opacity)
             } else {
                 CompletionPageView(
-                    title: NSLocalizedString("Completion_Text", comment: ""),
+                    title: NSLocalizedString("Congratulate_Text", comment: ""),
                     primaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
                     secondaryButtonLabel: NSLocalizedString("Continue", comment: ""),
                     primaryButtonSymbol: .arrowClockwise,

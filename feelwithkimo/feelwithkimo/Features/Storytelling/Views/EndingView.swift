@@ -52,5 +52,7 @@ extension StoryView {
             .frame(maxWidth: 193.getWidth()).padding(.horizontal, 23).padding(.vertical, 13)
             .background(ColorToken.emotionSurprise.toColor()).cornerRadius(30)
         }
+        .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
     }
 }

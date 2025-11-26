@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld" : {
+
+    },
     "Both_Hands_Detected" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -117,6 +120,9 @@
         }
       }
     },
+    "Cara latihan pernafasan" : {
+
+    },
     "Choose_Emotion" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -147,21 +153,7 @@
       }
     },
     "ClapHowToPlay" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "How to Play"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cara Bermain"
-          }
-        }
-      }
+
     },
     "Clapping_Title" : {
       "extractionState" : "manual",
@@ -222,38 +214,10 @@
       }
     },
     "ClapQuoteBody" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "clapping can help improve children's motor skills, leading to better handwriting, neater writing, and fewer spelling mistakes."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "tepuk tangan membantu motorik anak, sehingga anak lebih siap menulis, tulisannya rapi, dan lebih sedikit salah mengeja."
-          }
-        }
-      }
+
     },
     "ClapQuotePrefix" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "According to Dr. Idit Sulkin, "
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Menurut Dr. Idit Sulkin, "
-          }
-        }
-      }
+
     },
     "Completion_Text" : {
       "extractionState" : "manual",
@@ -261,24 +225,24 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stage 1 Completed"
+            "value" : "Stage 1 Complete!!!"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tahap 1 Selesai !"
+            "value" : "Tahap 1 Selesai!!!"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "阶段完成！"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "階段完成！"
           }
         }
@@ -661,6 +625,9 @@
         }
       }
     },
+    "Ketuk bagian mana pun di layar untuk lanjut." : {
+
+    },
     "Kicking_The_Blocks" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -748,6 +715,9 @@
         }
       }
     },
+    "latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya." : {
+
+    },
     "Lets_Start" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -778,14 +748,10 @@
       }
     },
     "Menu" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Menu"
-          }
-        }
-      }
+
+    },
+    "Menurut Dokter Weil, " : {
+
     },
     "No_Hands_Detected" : {
       "extractionState" : "manual",
@@ -841,6 +807,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "偵測到一隻手"
+          }
+        }
+      }
+    },
+    "Putaran %lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Putaran %1$lld/%2$lld"
           }
         }
       }
@@ -928,6 +904,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "略過"
+          }
+        }
+      }
+    },
+    "Stage_Complete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stage Complete"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tahap 1 Selesai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阶段完成"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "階段完成"
           }
         }
       }
@@ -1164,48 +1169,13 @@
       }
     },
     "TutorialClappingFirst" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "⁠Played with the child and parent positioned along the dotted line."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dimainkan anak bersama orang tua dengan posisi berada di garis putus-putus."
-          }
-        }
-      }
+
     },
     "TutorialClappingSecond" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tepuk tangan sampai progress bar selesai."
-          }
-        }
-      }
+
     },
     "TutorialClappingThird" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Make sure the hands are visible on the screen."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pastikan tangan terlihat di layar."
-          }
-        }
-      }
+
     }
   },
   "version" : "1.1"
