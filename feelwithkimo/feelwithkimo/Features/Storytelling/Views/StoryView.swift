@@ -10,7 +10,6 @@ import RiveRuntime
 
 struct StoryView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject private var audioManager = AudioManager.shared
     @StateObject var viewModel: StoryViewModel
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
@@ -49,10 +48,10 @@ struct StoryView: View {
             
                     Spacer()
                 
-                    KimoMuteButton(audioManager: audioManager)
+                    KimoMuteButton(audioManager: AudioManager.shared)
                         .kimoButtonAccessibility(
-                            label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
-                            hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                            label: AudioManager.shared.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
+                            hint: AudioManager.shared.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
                             identifier: "story.muteButton"
                         )
                 }
@@ -96,11 +95,9 @@ struct StoryView: View {
                 accessibilityManager.announceScreenChange(announcement)
             }
             
-            audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
+            AudioManager.shared.startBackgroundMusic(assetName: viewModel.story.backsong)
             
-            if let sound = viewModel.currentScene.soundEffect {
-                audioManager.playSoundEffect(effectName: sound)
-            }
+            AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -141,11 +138,11 @@ struct StoryView: View {
                             viewModel.currentScene.path = "Scene 6_2"
                         }
                         
-                        audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
+                        AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
                     }
                 }
             } else {
-                audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
+                AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
         }
     }

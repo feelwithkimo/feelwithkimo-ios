@@ -50,7 +50,7 @@ internal class StoryViewModel: ObservableObject {
             languageCode = scriptCode == "Hant" ? "zht" : "zh"
         }
         
-        fetchStory(story: storyModel.id + "_\(languageCode)")
+        fetchStory(story: "\(storyModel.id)_\(languageCode)")
     }
 
     /// Load story scene

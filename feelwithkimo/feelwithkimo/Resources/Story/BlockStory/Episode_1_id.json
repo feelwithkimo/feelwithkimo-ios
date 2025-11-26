@@ -54,7 +54,7 @@
   },
   {
     "path": "Scene 5",
-    "text": "Wah, baloknya sudah jadi setengah nih.",
+    "text": "Wah, menara baloknya sudah jadi setengah nih.",
     "nextScene": [4, 6],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -108,7 +108,7 @@
   },
   {
     "path": "Scene 7",
-    "text": "Bu guru datang ke Lala dan berkata, “Lala, apa yang terjadi?”",
+    "text": "Bu guru datang ke Lala dan bertanya, “Lala, apa yang terjadi?”",
     "nextScene": [9, 11],
     "kimoVisual": "star",
     "kimoText": "",
@@ -128,7 +128,7 @@
   },
   {
     "path": "Scene 9",
-    "text": "Lala..., Wajar kok kalau kamu merasa sesuatu waktu ada hal yang nggak enak. Itu tandanya kamu sedang punya perasaan Lala, dan itu nggak apa-apa.",
+    "text": "“Lala..” (dengan nada lembut).",
     "nextScene": [11, 13],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -138,7 +138,7 @@
   },
   {
     "path": "Scene 10",
-    "text": "\"Ayo ikut gerakan ibu!\", kata Bu guru. \"Baik, Bu\", jawab Lala.",
+    "text": "“Wajar kok kalau kamu sesuatu waktu merasa ada hal yang ngga enak.",
     "nextScene": [12, 14],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -147,18 +147,18 @@
     "isEnd": false
   },
   {
-    "path": "Scene 10",
-    "text": "\"Ayo ikut gerakan ibu!\", kata Bu guru. \"Baik, Bu\", jawab Lala.",
+    "path": "Scene 11",
+    "text": "Itu tandanya kamu sedang punya perasaan Lala, dan itu nggak apa-apa.”",
     "nextScene": [13, 15],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
-    "interactionType": "breathing",
+    "interactionType": "normal",
     "isEnd": false
   },
   {
-    "path": "Scene 11",
-    "text": "\"Sekarang, Lala gimana?\", tanya Bu guru.\n\"Aku jadi lebih tenang, Bu.\", jawab Lala.",
+    "path": "Scene 12",
+    "text": "“Ayo ikut gerakan Ibu!”, kata Bu guru.\n“Baik, Bu” jawab Lala.",
     "nextScene": [14, 16],
     "kimoVisual": "star",
     "kimoText": "",
@@ -167,8 +167,8 @@
     "isEnd": false
   },
   {
-    "path": "Scene 12",
-    "text": "\"Ayo kita coba lagi susun baloknya\", ajak Bu guru. \"Mau Bu!\" jawab Lala.",
+    "path": "Scene 13",
+    "text": "Ibu mencontohkan menarik napas.",
     "nextScene": [15, 17],
     "kimoVisual": "normal",
     "kimoText": null,
@@ -177,28 +177,28 @@
     "isEnd": false
   },
   {
-    "path": "Scene 12",
-    "text": "Ayo kita buat ulang menara baloknya!",
+    "path": "Scene 14",
+    "text": "Lala menarik napas dalam... “Haaa... Tahan... Fuuuh... Haaa... Tahan... Fuuuh...”",
     "nextScene": [16, 18],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "blockGame",
+    "interactionType": "normal",
     "isEnd": false
   },
   {
-    "path": "Scene 12",
-    "text": "Ayo buat menaranya makin tinggi!",
+    "path": "Scene 14",
+    "text": "Ayo tarik napas bersama Lala!!!",
     "nextScene": [17, 19],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "blockGame",
+    "interactionType": "breathing",
     "isEnd": false
   },
   {
-    "path": "Scene 13",
-    "text": "\"Hore! Menaranya sudah jadi, La!\" kata Bu Guru dengan gembira.\n\"Terima kasih, Bu. Lala kagum sekali dengan menaranya\" jawab Lala sambil menatap dengan senang.",
+    "path": "Scene 15",
+    "text": "”Sekarang, Lala gimana?”, tanya Bu guru.",
     "nextScene": [18, 20],
     "kimoVisual": "star",
     "kimoText": "",
@@ -207,18 +207,18 @@
     "isEnd": false
   },
   {
-    "path": "Scene 13",
-    "text": "Ayo kita tepuk tangan bersama bu guru dan Lala!",
+    "path": "Scene 16",
+    "text": "”Aku jadi lebih tenang, Bu.”, jawab Lala.",
     "nextScene": [19, 21],
     "kimoVisual": "normal",
     "kimoText": null,
     "question": null,
-    "interactionType": "clapping",
+    "interactionType": "normal",
     "isEnd": false
   },
   {
-    "path": "Scene 14",
-    "text": "“Horeeeee!!!!” kata Lala.",
+    "path": "Scene 17",
+    "text": "”Ayo Lala kita main lagi yuk!”, ajak Bu guru.",
     "nextScene": [20, 22],
     "kimoVisual": "star",
     "kimoText": "",
@@ -227,9 +227,79 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 18",
+    "text": "”Ayooo!”, jawab Lala.",
+    "nextScene": [21, 23],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 18",
+    "text": "Ayo bantu Lala membangun menara balok!!",
+    "nextScene": [22, 24],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 18",
+    "text": "Ayo bangun lebih tinggi lagi!!",
+    "nextScene": [23, 25],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "blockGame",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 19",
+    "text": "”Hore! Menaranya udah jadi ni, La!”, kata Bu guru dengan gembira.",
+    "nextScene": [24, 26],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 20",
+    "text": "”Makasih, Bu. Lala kagum sama menaranya.”, kata Lala.",
+    "nextScene": [25, 27],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 20",
+    "text": "Horee menara baloknya jadi, ayo tepuk tangan bersama",
+    "nextScene": [26, 28],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "clapping",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 21",
+    "text": "“Horeeeee!!!!” kata Lala.",
+    "nextScene": [27, 29],
+    "kimoVisual": "star",
+    "kimoText": "",
+    "question": null,
+    "interactionType": "normal",
+    "isEnd": false
+  },
+  {
+    "path": "Scene 21",
     "text": "Marah adalah hal yang wajar dan perlu diregulasi dengan baik",
-    "nextScene": [21],
+    "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
