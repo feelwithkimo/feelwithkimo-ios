@@ -14,9 +14,14 @@ struct StoryView: View {
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
     @State private var charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
+    
+    // Spotlight effect states
+    @State private var showSpotlight = false
+    @State private var spotlightTimer: Timer?
 
     var body: some View {
         ZStack {
+            // Base scene image
             Image(viewModel.currentScene.path)
                 .resizable()
                 .frame(maxHeight: .infinity)
@@ -29,6 +34,27 @@ struct StoryView: View {
                     isDecorative: false,
                     identifier: "story.scene.\(viewModel.index)"
                 )
+            
+            // Spotlight overlay for Scene 1, 2, and 3
+            if showSpotlight {
+                if let spotlightImage = getSpotlightImageName() {
+                    GeometryReader { geometry in
+                        Image(spotlightImage)
+                            .resizable()
+                            .frame(maxHeight: .infinity)
+                            .clipped()
+                            .ignoresSafeArea()
+                            .mask(
+                                VStack(spacing: 0) {
+                                    Rectangle()
+                                        .fill(Color.white)
+                                        .frame(height: showSpotlight ? geometry.size.height : 0)
+                                    Spacer(minLength: 0)
+                                }
+                            )
+                    }
+                }
+            }
             
             if viewModel.currentScene.path == "Scene 6" {
                 RiveViewModel(fileName: "JackMove").view()
@@ -97,7 +123,12 @@ struct StoryView: View {
             
             AudioManager.shared.startBackgroundMusic(assetName: viewModel.story.backsong)
             
-            AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
+            if let sound = viewModel.currentScene.soundEffect {
+                AudioManager.shared.playSoundEffect(effectName: sound)
+            }
+            
+            // Start spotlight timer for Scene 1
+            startSpotlightTimerIfNeeded()
         }
         .statusBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -105,6 +136,12 @@ struct StoryView: View {
             dismiss()
         }
         .onChange(of: viewModel.index) {
+            // Cancel timer and reset spotlight when scene changes
+            cancelSpotlightTimer()
+            
+            // Important: Reset spotlight state immediately
+            showSpotlight = false
+            
             // Announce scene changes
             if viewModel.index == 8 {
                 charPos = CGPoint(x: UIScreen.main.bounds.width * 0.9, y: UIScreen.main.bounds.height * 0.55)
@@ -144,6 +181,61 @@ struct StoryView: View {
             } else {
                 AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
+            
+            // Restart spotlight timer if on Scene 1, 2, or 3
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                startSpotlightTimerIfNeeded()
+            }
+        }
+        .onChange(of: viewModel.currentScene.path) {
+            // Cancel and restart timer if scene path changes
+            if viewModel.currentScene.path == "Scene 1" {
+                cancelSpotlightTimer()
+                showSpotlight = false
+                startSpotlightTimerIfNeeded()
+            } else {
+                cancelSpotlightTimer()
+                showSpotlight = false
+            }
+        }
+        .onDisappear {
+            cancelSpotlightTimer()
+        }
+    }
+    
+    // MARK: - Spotlight Timer Functions
+    
+    private func startSpotlightTimerIfNeeded() {
+        guard shouldShowSpotlight() else { return }
+        
+        spotlightTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+            withAnimation(.easeInOut(duration: 1.0)) {
+                showSpotlight = true
+            }
+        }
+    }
+    
+    private func cancelSpotlightTimer() {
+        spotlightTimer?.invalidate()
+        spotlightTimer = nil
+    }
+    
+    private func shouldShowSpotlight() -> Bool {
+        return viewModel.currentScene.path == "Scene 1" ||
+               viewModel.currentScene.path == "Scene 2" ||
+               viewModel.currentScene.path == "Scene 3"
+    }
+    
+    private func getSpotlightImageName() -> String? {
+        switch viewModel.currentScene.path {
+        case "Scene 1":
+            return "Scene1Spotlight"
+        case "Scene 2":
+            return "Scene2Spotlight"
+        case "Scene 3":
+            return "Scene3Spotlight"
+        default:
+            return nil
         }
     }
 }
