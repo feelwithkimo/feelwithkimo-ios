@@ -36,22 +36,24 @@ struct StoryView: View {
                     identifier: "story.scene.\(viewModel.index)"
                 )
             
-            // Spotlight overlay for Scene 1
-            if viewModel.currentScene.path == "Scene 1" && showSpotlight {
-                GeometryReader { geometry in
-                    Image("Scene1Spotlight")
-                        .resizable()
-                        .frame(maxHeight: .infinity)
-                        .clipped()
-                        .ignoresSafeArea()
-                        .mask(
-                            VStack(spacing: 0) {
-                                Rectangle()
-                                    .fill(Color.white)
-                                    .frame(height: showSpotlight ? geometry.size.height : 0)
-                                Spacer(minLength: 0)
-                            }
-                        )
+            // Spotlight overlay for Scene 1, 2, and 3
+            if showSpotlight {
+                if let spotlightImage = getSpotlightImageName() {
+                    GeometryReader { geometry in
+                        Image(spotlightImage)
+                            .resizable()
+                            .frame(maxHeight: .infinity)
+                            .clipped()
+                            .ignoresSafeArea()
+                            .mask(
+                                VStack(spacing: 0) {
+                                    Rectangle()
+                                        .fill(Color.white)
+                                        .frame(height: showSpotlight ? geometry.size.height : 0)
+                                    Spacer(minLength: 0)
+                                }
+                            )
+                    }
                 }
             }
             
@@ -151,8 +153,10 @@ struct StoryView: View {
             dismiss()
         }
         .onChange(of: viewModel.index) {
-            // Cancel timer when scene changes
+            // Cancel timer and reset spotlight when scene changes
             cancelSpotlightTimer()
+            
+            // Important: Reset spotlight state immediately
             showSpotlight = false
             
             // Announce scene changes
@@ -195,8 +199,10 @@ struct StoryView: View {
                 audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
             
-            // Restart spotlight timer if returning to Scene 1
-            startSpotlightTimerIfNeeded()
+            // Restart spotlight timer if on Scene 1, 2, or 3
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                startSpotlightTimerIfNeeded()
+            }
         }
         .onChange(of: viewModel.currentScene.path) {
             // Cancel and restart timer if scene path changes
@@ -217,9 +223,9 @@ struct StoryView: View {
     // MARK: - Spotlight Timer Functions
     
     private func startSpotlightTimerIfNeeded() {
-        guard viewModel.currentScene.path == "Scene 1" else { return }
+        guard shouldShowSpotlight() else { return }
         
-        spotlightTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+        spotlightTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
             withAnimation(.easeInOut(duration: 1.0)) {
                 showSpotlight = true
             }
@@ -229,6 +235,25 @@ struct StoryView: View {
     private func cancelSpotlightTimer() {
         spotlightTimer?.invalidate()
         spotlightTimer = nil
+    }
+    
+    private func shouldShowSpotlight() -> Bool {
+        return viewModel.currentScene.path == "Scene 1" ||
+               viewModel.currentScene.path == "Scene 2" ||
+               viewModel.currentScene.path == "Scene 3"
+    }
+    
+    private func getSpotlightImageName() -> String? {
+        switch viewModel.currentScene.path {
+        case "Scene 1":
+            return "Scene1Spotlight"
+        case "Scene 2":
+            return "Scene2Spotlight"
+        case "Scene 3":
+            return "Scene3Spotlight"
+        default:
+            return nil
+        }
     }
 }
 
