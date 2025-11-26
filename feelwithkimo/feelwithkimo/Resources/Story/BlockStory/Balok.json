@@ -1,0 +1,16 @@
+{
+    "id": "Balok",
+    "title": "Bermain Balok",
+    "description": "Mari bermain balok bersama Lala",
+    "image": "Balok",
+    "stories": [
+        {
+            "id": "Episode_1",
+            "name": "Episode 1",
+            "thumbnail": "Episode_1",
+            "description": "Deskripsi episode 1",
+            "backsong": "Backsong_1",
+            "storyScene": []
+        }
+    ]
+}
