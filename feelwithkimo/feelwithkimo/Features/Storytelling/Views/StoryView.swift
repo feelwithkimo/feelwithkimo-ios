@@ -10,7 +10,6 @@ import RiveRuntime
 
 struct StoryView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject private var audioManager = AudioManager.shared
     @StateObject var viewModel: StoryViewModel
     @StateObject var accessibilityManager = AccessibilityManager.shared
     @State var moveButton = false
@@ -67,45 +66,29 @@ struct StoryView: View {
                 if viewModel.currentScene.interactionType == .normal {
                     storySceneView()
                 }
-            } else {
-                Color.black.opacity(0.8)
-                    .ignoresSafeArea()
-
-                questionView()
-            }
-            
-            if viewModel.currentScene.interactionType != .normal &&
-                viewModel.currentScene.interactionType != .storyBranching &&
-                viewModel.currentScene.interactionType != .scaffoldingOption {
-                Color.black.opacity(0.8)
-                    .ignoresSafeArea()
             }
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Button(action: {
-                        dismiss()
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
-                    })
-                    
+                    KimoHomeButton(isLarge: false, action: { dismiss() })
+            
                     Spacer()
                 
-                    KimoMuteButton(audioManager: audioManager)
+                    KimoMuteButton(audioManager: AudioManager.shared)
                         .kimoButtonAccessibility(
-                            label: audioManager.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
-                            hint: audioManager.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                            label: AudioManager.shared.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
+                            hint: AudioManager.shared.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
                             identifier: "story.muteButton"
                         )
                 }
                 .padding(.horizontal, 55.getWidth())
                 .padding(.top, 44.getHeight())
-                
-                InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
-                
+                                    
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            
+            InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
           
             if viewModel.currentScene.isEnd {
                 endSceneOverlay(
@@ -138,7 +121,7 @@ struct StoryView: View {
                 accessibilityManager.announceScreenChange(announcement)
             }
             
-            audioManager.startBackgroundMusic(assetName: viewModel.story.backsong)
+            AudioManager.shared.startBackgroundMusic(assetName: viewModel.story.backsong)
             
             if let sound = viewModel.currentScene.soundEffect {
                 audioManager.playSoundEffect(effectName: sound)
@@ -192,11 +175,11 @@ struct StoryView: View {
                             viewModel.currentScene.path = "Scene 6_2"
                         }
                         
-                        audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
+                        AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
                     }
                 }
             } else {
-                audioManager.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
+                AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
             }
             
             // Restart spotlight timer if on Scene 1, 2, or 3

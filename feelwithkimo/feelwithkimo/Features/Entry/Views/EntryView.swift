@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EntryView: View {
     @StateObject private var accessibilityManager = AccessibilityManager.shared
+    @State var entrySound: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -25,7 +26,13 @@ struct EntryView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
+            
+            if !entrySound {
+                AudioManager.shared.playSoundEffect(effectName: "EntrySound")
+                entrySound = true
+            }
         }
+        .statusBarHidden(true)
     }
     
     private func mainEntryView(geometry: GeometryProxy) -> some View {
@@ -41,7 +48,7 @@ struct EntryView: View {
                     .padding(.bottom, geometry.size.height * 0.01)
                 
                 KimoImage(image: "Kimo-Pink-Wave", width: geometry.size.width * 0.51)
-                
+            
                 Text("Entry_Title_2", comment: "")
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                     .foregroundStyle(ColorToken.backgroundSecondary.toColor())
@@ -74,7 +81,6 @@ struct EntryView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 800.getWidth())
-
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BridgingPage<Destination: View>: View {
     var textDialogue: String = ""
+    @ObservedObject var storyViewModel: StoryViewModel
     var destination: (() -> Destination)?
     var action: (() -> Void)?
     
@@ -34,6 +35,27 @@ struct BridgingPage<Destination: View>: View {
     
     var body: some View {
         ZStack {
+            ColorToken.additionalColorsBlack.toColor()
+                .opacity(0.8)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    Button(action: {
+                        storyViewModel.goScene(to: -1)
+                    }, label: {
+                        KimoImage(image: "xmark", width: 80.getWidth())
+                    })
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 55.getWidth())
+                .padding(.top, 44.getHeight())
+                
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            
             HStack {
                 HStack(spacing: 39) {
                     KimoImage(image: "KimoTutorialAsset", width: 512.getWidth())

@@ -8,7 +8,7 @@
 import SwiftUI
 
 internal class AppDelegate: NSObject, UIApplicationDelegate {
-    static var orientation: UIInterfaceOrientationMask = .landscapeRight
+    static var orientation: UIInterfaceOrientationMask = .landscape
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
