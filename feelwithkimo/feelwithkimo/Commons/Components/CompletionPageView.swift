@@ -156,7 +156,7 @@ struct AnimatedCompletionCard: View {
                         config: KimoDialogueButtonConfig(
                             title: primaryButtonLabel,
                             symbol: primaryButtonSymbol,
-                            style: .bubbleSecondary,
+                            style: .bubblePrimary,
                             action: {
                                 onPrimaryAction?()
                             }
@@ -170,7 +170,7 @@ struct AnimatedCompletionCard: View {
                         config: KimoDialogueButtonConfig(
                             title: secondaryButtonLabel,
                             symbol: secondaryButtonSymbol,
-                            style: .bubbleSecondary,
+                            style: .bubblePrimary,
                             action: {
                                 onSecondaryAction?()
                             }

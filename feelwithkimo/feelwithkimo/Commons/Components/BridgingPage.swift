@@ -19,17 +19,17 @@ struct BridgingPage<Destination: View>: View {
             Image(systemName: "chevron.right")
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                 .frame(maxWidth: 28, maxHeight: 28)
 
             Text(NSLocalizedString("Continue", comment: ""))
                 .font(.customFont(size: 28, family: .primary, weight: .bold))
-                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                .foregroundStyle(ColorToken.backgroundSecondary.toColor())
         }
         .frame(maxWidth: 193.getWidth())
         .padding(.horizontal, 23)
         .padding(.vertical, 13)
-        .background(ColorToken.emotionSurprise.toColor())
+        .background(ColorToken.purpleColorButton.toColor())
         .cornerRadius(30)
     }
     
@@ -62,7 +62,7 @@ struct BridgingPage<Destination: View>: View {
                     
                     VStack(spacing: 0) {
                         Text(textDialogue)
-                            .font(.customFont(size: 20, family: .primary, weight: .regular))
+                            .font(.customFont(size: 22, family: .primary, weight: .regular))
                             .frame(maxWidth: 500.getWidth())
                             .padding(.horizontal, 49.getWidth())
                             .padding(.vertical, 42.getHeight())

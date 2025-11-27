@@ -76,7 +76,7 @@ struct BreathingModuleView: View {
     private var roundCounter: some View {
         Text("Putaran \(viewModel.currentRound)/\(viewModel.totalRounds)")
             .font(.customFont(size: 24.getWidth(), family: .primary, weight: .semibold))
-            .foregroundColor(.white)
+            .foregroundColor(ColorToken.additionalColorsWhite.toColor())
             .padding(.horizontal, 40.getWidth())
             .padding(.vertical, 18.getHeight())
             .background(
