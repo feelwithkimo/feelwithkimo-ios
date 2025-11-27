@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Mute-Button-1x.png",
+      "filename" : "MuteButton.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Mute-Button-2x.png",
+      "filename" : "MuteButton 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Mute-Button-3x.png",
+      "filename" : "MuteButton 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

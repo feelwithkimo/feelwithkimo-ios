@@ -495,7 +495,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hembus"
+            "value" : "Buang Nafas"
           }
         },
         "zh-Hans" : {
@@ -547,25 +547,42 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hold"
+            "value" : "Hold Breathe"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tahan"
+            "value" : "Tahan Nafas"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "屏息"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "屏息"
+          }
+        }
+      }
+    },
+    "Hold_Breathe" : {
+      "comment" : "Hold breath phase",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold Breathe"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tahan Nafas"
           }
         }
       }
@@ -698,7 +715,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tarik"
+            "value" : "Tarik Nafas"
           }
         },
         "zh-Hans" : {

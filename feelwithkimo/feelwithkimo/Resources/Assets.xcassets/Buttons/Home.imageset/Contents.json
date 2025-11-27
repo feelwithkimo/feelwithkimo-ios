@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Home.png",
+      "filename" : "KimoHomeButton.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Home2.png",
+      "filename" : "KimoHomeButton 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Home3.png",
+      "filename" : "KimoHomeButton 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

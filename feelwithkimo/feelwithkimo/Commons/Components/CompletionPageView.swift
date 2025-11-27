@@ -15,10 +15,11 @@ struct CompletionPageView: View {
     var secondaryButtonSymbol: SFSymbolName? = .chevronRight
     var onPrimaryAction: (() -> Void)?
     var onSecondaryAction: (() -> Void)?
+    let imagePath: String
+    var showConfetti: Bool = true
     
     @Environment(\.dismiss) var dismiss
     @State private var showOverlay = false
-    @State private var showConfetti = false
     @State private var showCard = false
     @State private var showTitle = false
     @State private var showElephant = false
@@ -43,7 +44,8 @@ struct CompletionPageView: View {
                 showCard: showCard,
                 showTitle: showTitle,
                 showElephant: showElephant,
-                showButtons: showButtons
+                showButtons: showButtons,
+                imagePath: imagePath
             )
             
             /// Confetti effect layer - on top of everything
@@ -63,7 +65,6 @@ struct CompletionPageView: View {
     private func startAnimationSequence() {
         /// 1. Show overlay and confetti immediately
         showOverlay = true
-        showConfetti = true
         
         /// 2. Show card with all elements after 0.3s delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -96,6 +97,7 @@ struct AnimatedCompletionCard: View {
     var showTitle: Bool
     var showElephant: Bool
     var showButtons: Bool
+    var imagePath: String = "KimoSenang"
     
     var body: some View {
         ZStack {
@@ -186,7 +188,7 @@ struct AnimatedCompletionCard: View {
             }
             
             /// Elephant image - bounces in with scale and slight jump
-            Image("KimoSenang")
+            Image(imagePath)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 460.getWidth(), height: 460.getHeight())

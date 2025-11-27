@@ -31,10 +31,6 @@ struct BlocksGameView: View {
             VStack(alignment: .center, spacing: 18.getHeight()) {
                 HStack(spacing: 18.getWidth()) {
                     Spacer()
-                    
-                    KimoReplayButton(action: viewModel.resetGame)
-                        .frame(width: 80, height: 80)
-                    
                     KimoMenuButton(action: viewModel.onPausePressed)
                 }
                 

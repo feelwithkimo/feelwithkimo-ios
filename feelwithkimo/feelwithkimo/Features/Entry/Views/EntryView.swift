@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct EntryView: View {
+    @StateObject var viewModel: EntryViewModel
     @StateObject private var accessibilityManager = AccessibilityManager.shared
-    @State var entrySound: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -27,9 +27,9 @@ struct EntryView: View {
                 accessibilityManager.announceScreenChange("Selamat datang di aplikasi Kimo. Halaman pembuka siap digunakan.")
             }
             
-            if !entrySound {
+            if !viewModel.entrySound {
                 AudioManager.shared.playSoundEffect(effectName: "EntrySound")
-                entrySound = true
+                viewModel.entrySound = true
             }
         }
         .statusBarHidden(true)
@@ -57,7 +57,7 @@ struct EntryView: View {
                     .padding(.top, geometry.size.height * 0.006)
                 
                 NavigationLink {
-                    OldEmotionStoryView(viewModel: EmotionStoryViewModel(path: "Balok"))
+                    StoryView(viewModel: StoryViewModel(story: viewModel.emotion.stories[0]))
                 } label: {
                     KimoBubbleButtonPrimary(
                         buttonLabel: NSLocalizedString("Lets_Start", comment: "")
@@ -86,5 +86,5 @@ struct EntryView: View {
 }
 
 #Preview {
-    EntryView()
+    EntryView(viewModel: EntryViewModel(path: "Balok"))
 }

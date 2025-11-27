@@ -55,7 +55,8 @@ struct BlockGameStageView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             dismiss()
                         }
-                    }
+                    },
+                    imagePath: "KimoSenang"
                 )
                 .transition(.opacity)
             }

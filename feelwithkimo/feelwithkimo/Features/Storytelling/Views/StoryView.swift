@@ -48,12 +48,14 @@ struct StoryView: View {
             
                     Spacer()
                 
-                    KimoMuteButton(audioManager: AudioManager.shared)
-                        .kimoButtonAccessibility(
-                            label: AudioManager.shared.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
-                            hint: AudioManager.shared.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
-                            identifier: "story.muteButton"
-                        )
+                    if viewModel.currentScene.interactionType == .normal {
+                        KimoMuteButton(audioManager: AudioManager.shared)
+                            .kimoButtonAccessibility(
+                                label: AudioManager.shared.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
+                                hint: AudioManager.shared.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                                identifier: "story.muteButton"
+                            )
+                    }
                 }
                 .padding(.horizontal, 55.getWidth())
                 .padding(.top, 44.getHeight())

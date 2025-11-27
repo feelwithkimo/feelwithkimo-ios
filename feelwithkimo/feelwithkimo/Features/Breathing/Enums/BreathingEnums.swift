@@ -58,6 +58,17 @@ enum BreathingPhase: String, CaseIterable {
         }
     }
     
+    var localizedText: String {
+        switch self {
+        case .inhale:
+            return NSLocalizedString("Inhale", comment: "Inhale phase")
+        case .hold:
+            return NSLocalizedString("Hold_Breathe", comment: "Hold breath phase")
+        case .exhale:
+            return NSLocalizedString("Exhale", comment: "Exhale phase")
+        }
+    }
+    
     var duration: TimeInterval {
         switch self {
         case .inhale:

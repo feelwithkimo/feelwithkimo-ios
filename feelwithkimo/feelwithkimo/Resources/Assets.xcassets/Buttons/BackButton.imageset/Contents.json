@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "BackButton.png",
+      "filename" : "KimoBackButton.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "KimoBackButton 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "KimoBackButton 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

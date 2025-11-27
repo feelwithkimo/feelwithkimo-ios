@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Play1.png",
+      "filename" : "KimoResumeButton.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Play2.png",
+      "filename" : "KimoResumeButton 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Play3.png",
+      "filename" : "KimoResumeButton 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

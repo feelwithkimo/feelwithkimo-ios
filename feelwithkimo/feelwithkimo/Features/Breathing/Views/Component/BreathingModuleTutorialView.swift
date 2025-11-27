@@ -66,7 +66,6 @@ struct BreathingModuleTutorialView: View {
             }
             .padding(.vertical, 60)
         }
-        .frame(width: .infinity, height: .infinity)
         .ignoresSafeArea()
     }
 }
@@ -79,7 +78,7 @@ struct KimoBreathingTutorialCard: View {
     }
     
     var duration: String {
-        return "\(Int(kimoBreathingMode.duration)) detik"
+        return "\(Int(kimoBreathingMode.duration)) " + NSLocalizedString("Second", comment: "")
     }
     
     var imageName: String {

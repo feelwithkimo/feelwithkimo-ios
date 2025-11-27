@@ -35,7 +35,7 @@ extension ClapGameView {
                     .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
             })
             
-            KimoPauseButton(action: viewModel.onPausePressed)
+            KimoMenuButton(action: viewModel.onPausePressed)
         }
     }
 
@@ -91,7 +91,9 @@ extension ClapGameView {
                     },
                     onSecondaryAction: {
                         viewModel.restart()
-                    }
+                    },
+                    imagePath: "KimoSedih",
+                    showConfetti: false
                 )
                 .transition(.opacity)
             } else {
@@ -107,7 +109,8 @@ extension ClapGameView {
                     onSecondaryAction: {
                         dismiss()
                         storyViewModel.goScene(to: 1, choice: 0)
-                    }
+                    },
+                    imagePath: "KimoSenang"
                 )
                 .transition(.opacity)
             }
