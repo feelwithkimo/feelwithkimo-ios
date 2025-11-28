@@ -20,6 +20,9 @@ struct EntryView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
+                .onAppear {
+                    AudioManager.shared.stopAll()
+                }
             }
         }
         .onAppear {
