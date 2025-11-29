@@ -9,9 +9,7 @@ enum InteractionType: String, Decodable {
     case breathing
     case clapping
     case normal
-    case facialExpressions
-    case storyBranching
-    case scaffolding
     case scaffoldingOption
     case blockGame
+    case ending
 }

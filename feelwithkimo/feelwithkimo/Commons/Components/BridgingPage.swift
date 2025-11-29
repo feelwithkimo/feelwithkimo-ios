@@ -12,6 +12,7 @@ struct BridgingPage<Destination: View>: View {
     @ObservedObject var storyViewModel: StoryViewModel
     var destination: (() -> Destination)?
     var action: (() -> Void)?
+    var isOverlayed: Bool = true
     
     @ViewBuilder
     private func continueLabel() -> some View {
@@ -38,9 +39,11 @@ struct BridgingPage<Destination: View>: View {
     
     var body: some View {
         ZStack {
-            ColorToken.additionalColorsBlack.toColor()
-                .opacity(0.8)
-                .ignoresSafeArea()
+            if isOverlayed {
+                ColorToken.additionalColorsBlack.toColor()
+                    .opacity(0.8)
+                    .ignoresSafeArea()
+            }
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {

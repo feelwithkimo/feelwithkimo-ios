@@ -91,14 +91,6 @@ struct StoryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
             InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
-          
-            if viewModel.currentScene.isEnd {
-                endSceneOverlay(
-                    dismiss: { dismiss() },
-                    replay: { viewModel.replayStory() },
-                    textDialogue: viewModel.currentScene.text
-                )
-            }
         }
         .onAppear {
             // Announce story scene information

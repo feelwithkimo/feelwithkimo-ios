@@ -297,13 +297,13 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
+    "path": "Scene 22",
     "text": "生气是正常的情绪，我们需要学会好好调节它",
     "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "normal",
+    "interactionType": "ending",
     "isEnd": true
   }
 ]
