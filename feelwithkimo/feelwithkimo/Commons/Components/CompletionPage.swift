@@ -36,34 +36,34 @@ struct CompletionPage: View {
                                 Image(systemName: "arrow.trianglehead.2.clockwise")
                                     .resizable()
                                     .scaledToFit()
-                                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                                     .frame(maxWidth: 28, maxHeight: 28)
                                 
                                 Text(NSLocalizedString("Try_Again", comment: ""))
                                     .font(.customFont(size: 28, family: .primary, weight: .bold))
-                                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                             }
                             .frame(maxWidth: 193.getWidth())
                             .padding(.horizontal, 23)
                             .padding(.vertical, 13)
-                            .background(ColorToken.emotionSurprise.toColor())
+                            .background(ColorToken.purpleColorButton.toColor())
                             .cornerRadius(30)
                             
                             HStack {
                                 Image(systemName: "chevron.right")
                                     .resizable()
                                     .scaledToFit()
-                                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                                     .frame(maxWidth: 28, maxHeight: 28)
 
                                 Text(NSLocalizedString("Continue", comment: ""))
                                     .font(.customFont(size: 28, family: .primary, weight: .bold))
-                                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                             }
                             .frame(maxWidth: 193.getWidth())
                             .padding(.horizontal, 23)
                             .padding(.vertical, 13)
-                            .background(ColorToken.emotionSurprise.toColor())
+                            .background(ColorToken.purpleColorButton.toColor())
                             .cornerRadius(30)
                         }
                         .padding(.top, 20)

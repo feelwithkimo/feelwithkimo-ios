@@ -13,7 +13,7 @@ struct FeelwithkimoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EntryView()
+            EntryView(viewModel: EntryViewModel(path: "Balok"))
                 .dynamicTypeSize(.xSmall ... .large)
         }
     }

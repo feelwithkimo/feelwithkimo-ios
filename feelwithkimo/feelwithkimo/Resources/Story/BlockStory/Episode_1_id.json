@@ -138,7 +138,7 @@
   },
   {
     "path": "Scene 10",
-    "text": "“Wajar kok kalau kamu sesuatu waktu merasa ada hal yang ngga enak.",
+    "text": "“Wajar kok kalau kamu merasakan sesuatu waktu ada hal yang ngga enak.",
     "nextScene": [12, 14],
     "kimoVisual": "normal",
     "kimoText": null,

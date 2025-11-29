@@ -74,9 +74,9 @@ struct BreathingModuleView: View {
     }
     
     private var roundCounter: some View {
-        Text("Putaran \(viewModel.currentRound)/\(viewModel.totalRounds)")
+        Text(NSLocalizedString("Round", comment: "") + " \(viewModel.currentRound) / \(viewModel.totalRounds)")
             .font(.customFont(size: 24.getWidth(), family: .primary, weight: .semibold))
-            .foregroundColor(.white)
+            .foregroundColor(ColorToken.additionalColorsWhite.toColor())
             .padding(.horizontal, 40.getWidth())
             .padding(.vertical, 18.getHeight())
             .background(
@@ -145,7 +145,7 @@ struct BreathingModuleView: View {
             HStack {
                 Spacer()
                 tutorialButton
-                pauseButton
+                menuButton
             }
             .padding(.top, 40.getHeight())
             
@@ -154,22 +154,14 @@ struct BreathingModuleView: View {
     }
     
     private var tutorialButton: some View {
-        Button(action: {
+        KimoQuestionButton {
             viewModel.showTutorial = true
-        }, label: {
-            Image("Question")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 80.getWidth(), height: 80.getHeight())
-                .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
-        })
+        }
     }
     
-    private var pauseButton: some View {
-        KimoPauseButton {
-            viewModel.pauseBreathing()
-        }
-        .padding(.trailing, 40.getWidth())
+    private var menuButton: some View {
+        KimoMenuButton(action: viewModel.pauseBreathing)
+            .padding(.trailing, 40.getWidth())
     }
     
     // MARK: - Overlays
@@ -225,7 +217,8 @@ struct BreathingModuleView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         onCompletion()
                     }
-                }
+                },
+                imagePath: "KimoSenang"
             )
         }
     }

@@ -12,7 +12,7 @@
   },
   {
     "path": "Scene 2",
-    "text": "這是Tina老師，她是Lala的老師……",
+    "text": "這是Tina老師，她是Lala的老師…",
     "nextScene": [0, 2],
     "kimoVisual": "star",
     "kimoText": "",

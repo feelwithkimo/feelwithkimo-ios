@@ -50,14 +50,6 @@ struct InteractionBanner: View {
                 )
             }
             
-        case .scaffolding:
-            BridgingPage<EmptyView>(
-                textDialogue: viewModel.currentScene.text,
-                storyViewModel: viewModel,
-                destination: nil,
-                action: { viewModel.goScene(to: 1) }
-            )
-            
         case .scaffoldingOption:
             ScaffoldingView(storyViewModel: viewModel, accessibilityManager: accessibilityManager)
             

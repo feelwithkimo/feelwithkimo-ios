@@ -27,8 +27,8 @@ extension StoryView {
                     }
 
                     HStack(spacing: 50) {
-                        actionButton(title: NSLocalizedString("Try_Again", comment: ""), system: "arrow.trianglehead.2.clockwise", action: replay)
-                        actionButton(title: NSLocalizedString("Exit", comment: ""), system: "chevron.right", action: dismiss)
+                        actionButton(title: NSLocalizedString("Try_Again", comment: ""), system: .arrowClockwise, action: replay)
+                        actionButton(title: NSLocalizedString("Exit", comment: ""), system: .chevronRight, action: dismiss)
                     }.padding(.top, 20)
                 }
             }
@@ -38,19 +38,15 @@ extension StoryView {
         .ignoresSafeArea().navigationBarBackButtonHidden(true)
     }
 
-    @ViewBuilder private func actionButton(title: String, system: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack {
-                Image(systemName: system)
-                    .resizable().scaledToFit().frame(maxWidth: 22, maxHeight: 22)
-                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
-
-                Text(title)
-                    .font(.customFont(size: 22, family: .primary, weight: .bold))
-                    .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
-            }
-            .frame(maxWidth: 193.getWidth()).padding(.horizontal, 23).padding(.vertical, 13)
-            .background(ColorToken.emotionSurprise.toColor()).cornerRadius(30)
-        }
+    @ViewBuilder
+    private func actionButton(title: String, system: SFSymbolName, action: @escaping () -> Void) -> some View {
+        KimoDialogueButton(
+            config: KimoDialogueButtonConfig(
+                title: title,
+                symbol: system,
+                style: .bubblePrimary,
+                action: { action() }
+            )
+        )
     }
 }

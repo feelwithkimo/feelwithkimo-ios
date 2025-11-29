@@ -14,38 +14,43 @@ struct BridgingPage<Destination: View>: View {
     var action: (() -> Void)?
     
     @ViewBuilder
-    private func continueLabel() -> some View {
-        HStack {
-            Image(systemName: "chevron.right")
+    private func continueLabel(action: (() -> Void)?) -> some View {
+        ZStack {
+            Image("KimoBubbleButton")
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
-                .frame(maxWidth: 28, maxHeight: 28)
-
-            Text(NSLocalizedString("Continue", comment: ""))
-                .font(.customFont(size: 28, family: .primary, weight: .bold))
-                .foregroundStyle(ColorToken.additionalColorsWhite.toColor())
+                .frame(width: 253.getWidth())
+                .padding(0)
+            
+            HStack(spacing: 20) {
+                Image(systemName: "chevron.right")
+                        .font(.customFont(size: 28, family: .primary, weight: .bold))
+                
+                Text(NSLocalizedString("Continue", comment: ""))
+                    .font(.customFont(size: 28, family: .primary, weight: .bold))
+            }
+            .foregroundStyle(ColorToken.textPrimary.toColor())
+            .padding(.bottom, 8.getHeight())
         }
-        .frame(maxWidth: 193.getWidth())
-        .padding(.horizontal, 23)
-        .padding(.vertical, 13)
-        .background(ColorToken.emotionSurprise.toColor())
-        .cornerRadius(30)
+        .frame(maxWidth: 253.getWidth())
+        .cornerRadius(100)
     }
     
     var body: some View {
         ZStack {
             ColorToken.additionalColorsBlack.toColor()
-                .opacity(0.8)
+                .opacity(0.7)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Button(action: {
-                        storyViewModel.goScene(to: -1)
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
-                    })
+                    if let destination = destination {
+                        NavigationLink {
+                            destination()
+                        } label: {
+                            KimoImage(image: "xmark", width: 80.getWidth())
+                        }
+                    }
                     
                     Spacer()
                 }
@@ -62,7 +67,7 @@ struct BridgingPage<Destination: View>: View {
                     
                     VStack(spacing: 0) {
                         Text(textDialogue)
-                            .font(.customFont(size: 20, family: .primary, weight: .regular))
+                            .font(.customFont(size: 22, family: .primary, weight: .regular))
                             .frame(maxWidth: 500.getWidth())
                             .padding(.horizontal, 49.getWidth())
                             .padding(.vertical, 42.getHeight())
@@ -73,25 +78,6 @@ struct BridgingPage<Destination: View>: View {
                             KimoImage(image: "KimoDialogue", width: 157.getWidth())
                             Spacer()
                         }
-                        
-                        HStack(spacing: 50) {
-                            Spacer()
-                            
-                            if let destination = destination {
-                                NavigationLink {
-                                    destination()
-                                } label: {
-                                    continueLabel()
-                                }
-                            } else {
-                                Button(action: {
-                                    action?()
-                                }, label: {
-                                    continueLabel()
-                                })
-                            }
-                        }
-                        .padding(.top, 20)
                     }
                 }
                 .padding(.top, 53)

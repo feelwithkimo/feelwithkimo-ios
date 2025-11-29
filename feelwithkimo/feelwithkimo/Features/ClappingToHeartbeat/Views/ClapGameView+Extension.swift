@@ -25,17 +25,11 @@ extension ClapGameView {
             
             Spacer()
             
-            Button(action: {
+            KimoQuestionButton {
                 viewModel.toggleShowTutorial()
-            }, label: {
-                Image("Question")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80.getWidth(), height: 80.getHeight())
-                    .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
-            })
+            }
             
-            KimoPauseButton(action: viewModel.onPausePressed)
+            KimoMenuButton(action: viewModel.onPausePressed)
         }
     }
 
@@ -91,7 +85,9 @@ extension ClapGameView {
                     },
                     onSecondaryAction: {
                         viewModel.restart()
-                    }
+                    },
+                    imagePath: "KimoSedih",
+                    showConfetti: false
                 )
                 .transition(.opacity)
             } else {
@@ -107,7 +103,8 @@ extension ClapGameView {
                     onSecondaryAction: {
                         dismiss()
                         storyViewModel.goScene(to: 1, choice: 0)
-                    }
+                    },
+                    imagePath: "KimoSenang"
                 )
                 .transition(.opacity)
             }

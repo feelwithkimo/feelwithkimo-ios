@@ -102,26 +102,110 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Hore.. kamu berhasil tarik nafas"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "太好了...你成功地呼吸了呀"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "太好了...你成功地呼吸了呀"
           }
         }
       }
     },
-    "Cara latihan pernafasan" : {
-
+    "BreathingTutorialBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "these breathing exercises help naturally calm the nervous system. The more regularly they are practiced, the easier it will be for children to manage anxiety and calm their bodies."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这些呼吸练习有助于自然舒缓神经系统。练习得越规律，孩子就越能轻松管理焦虑并让身体平静下来。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這些呼吸練習有助於自然舒緩神經系統。練習得越規律，孩子就越能輕鬆管理焦慮並讓身體平靜下來。"
+          }
+        }
+      }
+    },
+    "BreathingTutorialReference" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "According to Dr. Weil, "
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menurut Dokter Weil, "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据Weil医生的说法，"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根據Weil醫生的說法，"
+          }
+        }
+      }
+    },
+    "BreathingTutorialTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathing exercise methods"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cara latihan pernafasan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "呼吸练习方法"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "呼吸練習方法"
+          }
+        }
+      }
     },
     "Choose_Emotion" : {
       "extractionState" : "manual",
@@ -165,6 +249,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cara Bermain"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如何玩"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如何玩"
           }
         }
       }
@@ -241,6 +337,18 @@
             "state" : "translated",
             "value" : "tepuk tangan membantu motorik anak, sehingga anak lebih siap menulis, tulisannya rapi, dan lebih sedikit salah mengeja."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拍手有助于提高孩子们的运动技能，使他们的手写更好，书写更整洁，拼写错误更少。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拍手有助於提升孩子的運動技能，使他們的手寫更好，書寫更整潔，拼字錯誤更少。"
+          }
         }
       }
     },
@@ -257,6 +365,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menurut Dr. Idit Sulkin, "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据Idit Sulkin医生的说法，"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根據Idit Sulkin醫生的說法，"
           }
         }
       }
@@ -278,13 +398,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "阶段完成！"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "階段完成！"
           }
         }
@@ -447,7 +567,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hembus"
+            "value" : "Buang Nafas"
           }
         },
         "zh-Hans" : {
@@ -499,25 +619,54 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hold"
+            "value" : "Hold Breathe"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tahan"
+            "value" : "Tahan Nafas"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屏息"
+            "value" : "屏气"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屏息"
+            "value" : "屏氣"
+          }
+        }
+      }
+    },
+    "Hold_Breathe" : {
+      "comment" : "Hold breath phase",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold Breathe"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tahan Nafas"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏气"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏氣"
           }
         }
       }
@@ -650,7 +799,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tarik"
+            "value" : "Tarik Nafas"
           }
         },
         "zh-Hans" : {
@@ -666,9 +815,6 @@
           }
         }
       }
-    },
-    "Ketuk bagian mana pun di layar untuk lanjut." : {
-
     },
     "Kicking_The_Blocks" : {
       "extractionState" : "manual",
@@ -757,9 +903,6 @@
         }
       }
     },
-    "latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya." : {
-
-    },
     "Lets_Start" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -791,16 +934,31 @@
     },
     "Menu" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menu"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选单"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選單"
+          }
         }
       }
-    },
-    "Menurut Dokter Weil, " : {
-
     },
     "No_Hands_Detected" : {
       "extractionState" : "manual",
@@ -860,12 +1018,31 @@
         }
       }
     },
-    "Putaran %lld/%lld" : {
+    "Round" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Putaran %1$lld/%2$lld"
+            "state" : "translated",
+            "value" : "Round"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Putaran"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "回合"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "回合"
           }
         }
       }
@@ -1202,15 +1379,45 @@
             "state" : "translated",
             "value" : "Dimainkan anak bersama orang tua dengan posisi berada di garis putus-putus."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⁠与孩子和家长一起沿着虚线玩耍。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⁠與孩子和家長一起沿著虛線玩耍。"
+          }
         }
       }
     },
     "TutorialClappingSecond" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clap until the progress bar is complete."
+          }
+        },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tepuk tangan sampai progress bar selesai."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拍手直到进度条完成。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拍手直到進度條完成。"
           }
         }
       }
@@ -1228,6 +1435,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pastikan tangan terlihat di layar."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确保手在屏幕上可见。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確保手在螢幕上可見。"
           }
         }
       }

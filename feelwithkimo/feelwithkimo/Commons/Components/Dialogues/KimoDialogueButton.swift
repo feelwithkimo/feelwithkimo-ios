@@ -2,7 +2,7 @@
 //  KimoDialogueButton.swift
 //  feelwithkimo
 //
-//  Created by GitHub Copilot on 03/11/25.
+//  Created by Ferdinand Lunardy on 03/11/25.
 //
 
 import SwiftUI
@@ -13,6 +13,7 @@ enum SFSymbolName: String {
     case arrowClockwise = "arrow.trianglehead.2.clockwise.rotate.90"
     case chevronRight = "chevron.right"
     case chevronRight2 = "chevron.forward.2"
+
 }
 
 // MARK: - Button Style Types
