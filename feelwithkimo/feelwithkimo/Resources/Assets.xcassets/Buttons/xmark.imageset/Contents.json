@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "KimoCloseButton.png",
+      "filename" : "Close.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "KimoCloseButton 1.png",
+      "filename" : "Close 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "KimoCloseButton 2.png",
+      "filename" : "Close 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

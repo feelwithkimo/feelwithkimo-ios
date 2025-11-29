@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "KimoTutorialButton.png",
+      "filename" : "Question.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "KimoTutorialButton 1.png",
+      "filename" : "Question 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "KimoTutorialButton 2.png",
+      "filename" : "Question 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

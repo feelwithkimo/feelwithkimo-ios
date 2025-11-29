@@ -44,11 +44,13 @@ struct BridgingPage<Destination: View>: View {
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Button(action: {
-                        storyViewModel.goScene(to: -1)
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
-                    })
+                    if let destination = destination {
+                        NavigationLink {
+                            destination()
+                        } label: {
+                            KimoImage(image: "xmark", width: 80.getWidth())
+                        }
+                    }
                     
                     Spacer()
                 }
@@ -76,19 +78,6 @@ struct BridgingPage<Destination: View>: View {
                             KimoImage(image: "KimoDialogue", width: 157.getWidth())
                             Spacer()
                         }
-                        
-                        HStack(spacing: 50) {
-                            Spacer()
-                            
-                            if let destination = destination {
-                                NavigationLink {
-                                    destination()
-                                } label: {
-                                    continueLabel(action: action)
-                                }
-                            }
-                        }
-                        .padding(.top, 20)
                     }
                 }
                 .padding(.top, 53)
