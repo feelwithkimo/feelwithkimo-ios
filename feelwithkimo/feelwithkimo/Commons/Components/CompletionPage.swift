@@ -27,7 +27,7 @@ struct CompletionPage: View {
                             .cornerRadius(30)
                         
                         HStack {
-                            KimoImage(image: "KimoDialogue", width: 157.getWidth())
+                            KimoImage(image: "KimoDialogue", width: 74.getWidth())
                             Spacer()
                         }
                         

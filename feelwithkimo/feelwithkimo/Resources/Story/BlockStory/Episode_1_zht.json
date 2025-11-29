@@ -297,13 +297,13 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
+    "path": "Scene 22",
     "text": "生氣是正常的情緒，我們需要學會好好調節它",
     "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "normal",
+    "interactionType": "ending",
     "isEnd": true
   }
 ]

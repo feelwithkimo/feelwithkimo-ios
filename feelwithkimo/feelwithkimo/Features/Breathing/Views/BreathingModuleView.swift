@@ -236,7 +236,7 @@ struct BreathingModuleView: View {
     private var completionOverlay: some View {
         if showCompletionPage {
             CompletionPageView(
-                title: "Latihan Selesai!!!",
+                title: NSLocalizedString("Congratulate_Text", comment: ""),
                 primaryButtonLabel: "Coba lagi",
                 secondaryButtonLabel: "Lanjutkan",
                 onPrimaryAction: {

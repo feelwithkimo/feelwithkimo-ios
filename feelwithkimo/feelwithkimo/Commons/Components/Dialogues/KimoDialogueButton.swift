@@ -13,7 +13,7 @@ enum SFSymbolName: String {
     case arrowClockwise = "arrow.trianglehead.2.clockwise.rotate.90"
     case chevronRight = "chevron.right"
     case chevronRight2 = "chevron.forward.2"
-
+    case exitSymbol = "Exit"
 }
 
 // MARK: - Button Style Types
@@ -93,6 +93,7 @@ struct KimoDialogueButton: View {
                 Image(systemName: symbol.rawValue)
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
             }
+            
             Text(config.title)
                 .font(.customFont(size: 28, family: .primary, weight: .bold))
         }
@@ -113,10 +114,15 @@ struct KimoDialogueButton: View {
                 .padding(0)
             
             HStack(spacing: 20) {
-                if let symbol = config.symbol {
+                if let symbol = config.symbol, UIImage(systemName: symbol.rawValue) != nil {
                     Image(systemName: symbol.rawValue)
                         .font(.customFont(size: 28, family: .primary, weight: .bold))
+                } else {
+                    if let symbol = config.symbol {
+                        Image(symbol.rawValue)
+                    }
                 }
+                
                 Text(config.title)
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
             }

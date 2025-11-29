@@ -297,13 +297,13 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
-    "text": "Marah adalah hal yang wajar dan perlu diregulasi dengan baik",
+    "path": "Scene 22",
+    "text": "Marah itu wajar dan dengan memahami gejala serta penyebabnya kita bisa mengelolanya tanpa menyakiti diri sendiri maupun orang lain",
     "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "normal",
+    "interactionType": "ending",
     "isEnd": true
   }
 ]

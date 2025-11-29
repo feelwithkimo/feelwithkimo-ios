@@ -297,13 +297,13 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
-    "text": "Anger is normal and needs to be regulated properly",
+    "path": "Scene 22",
+    "text": "Anger is normal and by understanding the symptoms and causes we can manage it without hurting ourselves or others",
     "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "normal",
+    "interactionType": "ending",
     "isEnd": true
   }
 ]

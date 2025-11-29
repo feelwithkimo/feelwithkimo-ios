@@ -52,7 +52,7 @@ struct ScaffoldingView: View {
                             .cornerRadius(30)
                         
                         HStack {
-                            KimoImage(image: "KimoDialogue", width: 157.getWidth())
+                            KimoImage(image: "KimoDialogueTriangle", width: 157.getWidth())
                             Spacer()
                         }
                         
@@ -74,6 +74,7 @@ struct ScaffoldingView: View {
                                 
                                 Spacer()
                             }
+                            .padding(.top, 10.getHeight())
                         }
                     }
                     .padding(.trailing, 55.getWidth())
