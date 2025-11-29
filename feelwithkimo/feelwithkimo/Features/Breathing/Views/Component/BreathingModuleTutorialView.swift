@@ -12,32 +12,40 @@ struct BreathingModuleTutorialView: View {
         ZStack {
             Color.black.opacity(0.6)
             VStack(spacing: 40) {
-                Text("Ketuk bagian mana pun di layar untuk lanjut.")
+                Text(NSLocalizedString("TapAnywhere", comment: ""))
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
                     .foregroundStyle(Color.white)
+                
                 Spacer()
+                
                 VStack {
-                    Text("Cara latihan pernafasan")
+                    Text(NSLocalizedString("BreathingTutorialTitle", comment: ""))
                         .font(.customFont(size: 34, family: .primary, weight: .bold))
                         .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                    
                     VStack(spacing: 25) {
                         HStack(spacing: 25) {
                             KimoBreathingTutorialCard(
                                 kimoBreathingMode: .inhale)
+                            
                             CustomChevron()
+                            
                             KimoBreathingTutorialCard(
                                 kimoBreathingMode: .hold
                             )
+                            
                             CustomChevron()
+                            
                             KimoBreathingTutorialCard(
                                 kimoBreathingMode: .exhale
                             )
                         }
+                        
                         (Text(
-                            "Menurut Dokter Weil, ")
+                            NSLocalizedString("BreathingTutorialReference", comment: ""))
                             .font(.customFont(size: 17, family: .primary, weight: .bold))
                          +
-                         Text("latihan pernapasan ini membantu menenangkan sistem saraf secara alami. Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya.")
+                         Text(NSLocalizedString("BreathingTutorialBody", comment: ""))
                             .font(.customFont(size: 17, family: .primary, weight: .regular)))
                         .foregroundStyle(ColorToken.backgroundSecondary.toColor())
                         .lineLimit(3)
@@ -58,7 +66,6 @@ struct BreathingModuleTutorialView: View {
             }
             .padding(.vertical, 60)
         }
-        .frame(width: .infinity, height: .infinity)
         .ignoresSafeArea()
     }
 }
@@ -67,11 +74,11 @@ struct KimoBreathingTutorialCard: View {
     let kimoBreathingMode: BreathingPhase
 
     var title: String {
-        kimoBreathingMode.rawValue
+        kimoBreathingMode.localizedText
     }
     
     var duration: String {
-        return "\(Int(kimoBreathingMode.duration)) detik"
+        return "\(Int(kimoBreathingMode.duration)) " + NSLocalizedString("Second", comment: "")
     }
     
     var imageName: String {

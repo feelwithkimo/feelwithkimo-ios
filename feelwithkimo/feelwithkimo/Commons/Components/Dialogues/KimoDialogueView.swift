@@ -12,18 +12,19 @@ struct KimoDialogueView: View {
     var textDialogue: String = "Hari ini, Kimo mau bermain dengan teman Kimo, namanya Lala."
     var textDialogueTriangle: String = "KimoDialogueTriangle"
     var buttonLayout: KimoDialogueButtonLayout = .horizontal([
-            KimoDialogueButtonConfig(
-                title: "Coba lagi",
-                symbol: .arrowClockwise,
-                backgroundColor: ColorToken.coreSecondary.toColor(),
-                foregroundColor: ColorToken.textPrimary.toColor(),
-                action: { print("Try again tapped") }
-            ),
-            KimoDialogueButtonConfig(
-                title: "Lanjutkan",
-                action: { print("Continue tapped") }
-            )
-        ])
+        KimoDialogueButtonConfig(
+            title: "Coba lagi",
+            symbol: .arrowClockwise,
+            backgroundColor: ColorToken.coreSecondary.toColor(),
+            foregroundColor: ColorToken.textPrimary.toColor(),
+            action: { print("Try again tapped") }
+        ),
+        KimoDialogueButtonConfig(
+            title: "Lanjutkan",
+            action: { print("Continue tapped") }
+        )
+    ])
+    
     var stageCompleted: String?
     
     var body: some View {

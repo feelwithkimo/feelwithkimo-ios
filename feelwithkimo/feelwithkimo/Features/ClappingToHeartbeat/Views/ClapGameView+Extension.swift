@@ -25,17 +25,11 @@ extension ClapGameView {
             
             Spacer()
             
-            Button(action: {
+            KimoQuestionButton {
                 viewModel.toggleShowTutorial()
-            }, label: {
-                Image("Question")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80.getWidth(), height: 80.getHeight())
-                    .foregroundStyle(ColorToken.additionalColorsLightPink.toColor())
-            })
+            }
             
-            KimoPauseButton(action: viewModel.onPausePressed)
+            KimoMenuButton(action: viewModel.onPausePressed)
         }
     }
 
@@ -78,39 +72,42 @@ extension ClapGameView {
     
     // MARK: - Completion View
     func completionView(skip: Bool) -> some View {
-            if skip {
-                CompletionPageView(
-                    title: NSLocalizedString("ClappingSkip", comment: ""),
-                    primaryButtonLabel: NSLocalizedString("Skip", comment: ""),
-                    secondaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
-                    primaryButtonSymbol: .chevronRight2,
-                    secondaryButtonSymbol: .arrowClockwise,
-                    onPrimaryAction: {
-                        dismiss()
-                        storyViewModel.goScene(to: 1, choice: 0)
-                    },
-                    onSecondaryAction: {
-                        viewModel.restart()
-                    }
-                )
-                .transition(.opacity)
-            } else {
-                CompletionPageView(
-                    title: NSLocalizedString("Congratulate_Text", comment: ""),
-                    primaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
-                    secondaryButtonLabel: NSLocalizedString("Continue", comment: ""),
-                    primaryButtonSymbol: .arrowClockwise,
-                    secondaryButtonSymbol: .chevronRight,
-                    onPrimaryAction: {
-                        viewModel.restart()
-                    },
-                    onSecondaryAction: {
-                        dismiss()
-                        storyViewModel.goScene(to: 1, choice: 0)
-                    }
-                )
-                .transition(.opacity)
-            }
+        if skip {
+            CompletionPageView(
+                title: NSLocalizedString("ClappingSkip", comment: ""),
+                primaryButtonLabel: NSLocalizedString("Skip", comment: ""),
+                secondaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
+                primaryButtonSymbol: .chevronRight2,
+                secondaryButtonSymbol: .arrowClockwise,
+                onPrimaryAction: {
+                    dismiss()
+                    storyViewModel.goScene(to: 1, choice: 0)
+                },
+                onSecondaryAction: {
+                    viewModel.restart()
+                },
+                imagePath: "KimoSedih",
+                showConfetti: false
+            )
+            .transition(.opacity)
+        } else {
+            CompletionPageView(
+                title: NSLocalizedString("Congratulate_Text", comment: ""),
+                primaryButtonLabel: NSLocalizedString("Try_Again", comment: ""),
+                secondaryButtonLabel: NSLocalizedString("Continue", comment: ""),
+                primaryButtonSymbol: .arrowClockwise,
+                secondaryButtonSymbol: .chevronRight,
+                onPrimaryAction: {
+                    viewModel.restart()
+                },
+                onSecondaryAction: {
+                    dismiss()
+                    storyViewModel.goScene(to: 1, choice: 0)
+                },
+                imagePath: "KimoSenang"
+            )
+            .transition(.opacity)
+        }
     }
     
     func tutorialContentView() -> some View {

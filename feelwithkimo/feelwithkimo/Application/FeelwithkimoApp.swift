@@ -10,10 +10,10 @@ import SwiftUI
 @main
 struct FeelwithkimoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
+    
     var body: some Scene {
         WindowGroup {
-            EntryView()
+            EntryView(viewModel: EntryViewModel(path: "Balok"))
                 .dynamicTypeSize(.xSmall ... .large)
         }
     }

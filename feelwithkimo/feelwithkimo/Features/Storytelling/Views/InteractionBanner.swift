@@ -50,16 +50,33 @@ struct InteractionBanner: View {
                 )
             }
             
-        case .scaffolding:
-            BridgingPage<EmptyView>(
-                textDialogue: viewModel.currentScene.text,
-                storyViewModel: viewModel,
-                destination: nil,
-                action: { viewModel.goScene(to: 1) }
-            )
-            
         case .scaffoldingOption:
             ScaffoldingView(storyViewModel: viewModel, accessibilityManager: accessibilityManager)
+            
+        case .ending:
+            switch viewModel.isEnding {
+            case true:
+                CompletionPageView(
+                    title: NSLocalizedString("StoryEnd", comment: ""),
+                    primaryButtonLabel: NSLocalizedString("Exit", comment: ""),
+                    secondaryButtonLabel: NSLocalizedString("Replay", comment: ""),
+                    primaryButtonSymbol: .exitSymbol,
+                    secondaryButtonSymbol: .arrowClockwise,
+                    onPrimaryAction: {
+                        viewModel.exitStory()
+                    },
+                    onSecondaryAction: {
+                        viewModel.replayStory()
+                    },
+                    imagePath: "KimoSenang"
+                )
+                .transition(.opacity)
+            case false:
+                BridgingPage<EmptyView>(textDialogue: viewModel.currentScene.text, storyViewModel: viewModel, action: {
+                    viewModel.isEnding = true
+                    viewModel.currentScene.path = viewModel.story.storyScene[viewModel.story.storyScene.count - 2].path
+                }, isOverlayed: false)
+            }
             
         default:
             EmptyView()

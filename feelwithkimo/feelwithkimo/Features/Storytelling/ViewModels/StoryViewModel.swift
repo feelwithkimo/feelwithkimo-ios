@@ -25,6 +25,7 @@ internal class StoryViewModel: ObservableObject {
     @Published var tutorialStep: Int = 1
     @Published var showDialogue: Bool = false
     @Published var quitStory: Bool = false
+    @Published var isEnding: Bool = false
     
     var isTappedMascot: Bool = false
 
@@ -121,6 +122,7 @@ internal class StoryViewModel: ObservableObject {
         completeBlockGamePhase()
     }
   
+    /// Replay story to first scene
     func replayStory() {
         DispatchQueue.main.async {
             self.index = 0
@@ -130,6 +132,14 @@ internal class StoryViewModel: ObservableObject {
             self.hasCompletedBreathing = false
             self.hasCompletedClapping = false
             self.currentBlockGamePhase = 1
+            self.isEnding = false
+        }
+    }
+    
+    /// Quit story
+    func exitStory() {
+        DispatchQueue.main.async {
+            self.quitStory = true
         }
     }
 }

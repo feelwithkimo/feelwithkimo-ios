@@ -116,7 +116,7 @@ struct BreathingPhaseComponent: View {
                         .frame(width: circleSize, height: circleSize)
                         
                         /// Phase title
-                        Text(phase.rawValue)
+                        Text(phase.localizedText)
                             .font(.customFont(
                                 size: viewModel.isPhaseActive(phase.id) ? 56.getWidth() : 32.getWidth(),
                                 family: .primary,

@@ -74,12 +74,14 @@ struct StoryView: View {
             
                     Spacer()
                 
-                    KimoMuteButton(audioManager: AudioManager.shared)
-                        .kimoButtonAccessibility(
-                            label: AudioManager.shared.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
-                            hint: AudioManager.shared.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
-                            identifier: "story.muteButton"
-                        )
+                    if viewModel.currentScene.interactionType == .normal {
+                        KimoMuteButton(audioManager: AudioManager.shared)
+                            .kimoButtonAccessibility(
+                                label: AudioManager.shared.isMuted ? "Suara dimatikan" : "Suara dinyalakan",
+                                hint: AudioManager.shared.isMuted ? "Ketuk dua kali untuk menyalakan suara" : "Ketuk dua kali untuk mematikan suara",
+                                identifier: "story.muteButton"
+                            )
+                    }
                 }
                 .padding(.horizontal, 55.getWidth())
                 .padding(.top, 44.getHeight())
@@ -89,14 +91,6 @@ struct StoryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
             InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
-          
-            if viewModel.currentScene.isEnd {
-                endSceneOverlay(
-                    dismiss: { dismiss() },
-                    replay: { viewModel.replayStory() },
-                    textDialogue: viewModel.currentScene.text
-                )
-            }
         }
         .onAppear {
             // Announce story scene information
@@ -121,12 +115,9 @@ struct StoryView: View {
                 accessibilityManager.announceScreenChange(announcement)
             }
             
-            AudioManager.shared.startBackgroundMusic(assetName: viewModel.story.backsong)
-            
-            if let sound = viewModel.currentScene.soundEffect {
-                AudioManager.shared.playSoundEffect(effectName: sound)
-            }
-            
+            AudioManager.shared.startBackgroundMusic(assetName: viewModel.story.backsong)            
+            AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
+
             // Start spotlight timer for Scene 1
             startSpotlightTimerIfNeeded()
         }
