@@ -63,7 +63,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 4",
+    "path": "Scene 5",
     "text": "Ayo buat menaranya makin tinggi!",
     "nextScene": [5, 7],
     "kimoVisual": "star",
@@ -73,7 +73,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 5",
+    "path": "Scene 6",
     "text": "Yey! Lala sudah mau selesai nih menyusun baloknya.",
     "nextScene": [6, 8],
     "kimoVisual": "normal",
@@ -83,7 +83,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 6",
+    "path": "Scene 7",
     "text": "Tiba-tiba Jack datang dan menendang balok Lala.",
     "nextScene": [7, 9],
     "kimoVisual": "normal",
@@ -94,7 +94,7 @@
     "soundEffect": "FallingBlock"
   },
   {
-    "path": "Scene 6_2",
+    "path": "Scene 7_2",
     "text": "Menurutmu, bagaimana perasaan Lala saat ini?",
     "nextScene": [8, 10, 10],
     "kimoVisual": "normal",
@@ -107,7 +107,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 7",
+    "path": "Scene 8",
     "text": "Bu guru datang ke Lala dan bertanya, “Lala, apa yang terjadi?”",
     "nextScene": [9, 11],
     "kimoVisual": "star",
@@ -117,7 +117,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 8",
+    "path": "Scene 9",
     "text": "Lala menceritakan apa yang Jack lakukan.",
     "nextScene": [10, 12],
     "kimoVisual": "normal",
@@ -127,7 +127,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 9",
+    "path": "Scene 10",
     "text": "“Lala..” (dengan nada lembut).",
     "nextScene": [11, 13],
     "kimoVisual": "normal",
@@ -137,7 +137,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 10",
+    "path": "Scene 11",
     "text": "“Wajar kok kalau kamu merasakan sesuatu waktu ada hal yang ngga enak.",
     "nextScene": [12, 14],
     "kimoVisual": "normal",
@@ -147,7 +147,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 11",
+    "path": "Scene 12",
     "text": "Itu tandanya kamu sedang punya perasaan Lala, dan itu nggak apa-apa.”",
     "nextScene": [13, 15],
     "kimoVisual": "normal",
@@ -157,7 +157,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 12",
+    "path": "Scene 13",
     "text": "“Ayo ikut gerakan Ibu!”, kata Bu guru.\n“Baik, Bu” jawab Lala.",
     "nextScene": [14, 16],
     "kimoVisual": "star",
@@ -167,7 +167,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 13",
+    "path": "Scene 14",
     "text": "Ibu mencontohkan menarik napas.",
     "nextScene": [15, 17],
     "kimoVisual": "normal",
@@ -177,7 +177,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 15",
     "text": "Lala menarik napas dalam... “Haaa... Tahan... Fuuuh... Haaa... Tahan... Fuuuh...”",
     "nextScene": [16, 18],
     "kimoVisual": "star",
@@ -187,7 +187,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 15",
     "text": "Ayo tarik napas bersama Lala!!!",
     "nextScene": [17, 19],
     "kimoVisual": "star",
@@ -197,7 +197,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 15",
+    "path": "Scene 16",
     "text": "”Sekarang, Lala gimana?”, tanya Bu guru.",
     "nextScene": [18, 20],
     "kimoVisual": "star",
@@ -207,7 +207,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 16",
+    "path": "Scene 17",
     "text": "”Aku jadi lebih tenang, Bu.”, jawab Lala.",
     "nextScene": [19, 21],
     "kimoVisual": "normal",
@@ -217,7 +217,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 17",
+    "path": "Scene 18",
     "text": "”Ayo Lala kita main lagi yuk!”, ajak Bu guru.",
     "nextScene": [20, 22],
     "kimoVisual": "star",
@@ -227,7 +227,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "”Ayooo!”, jawab Lala.",
     "nextScene": [21, 23],
     "kimoVisual": "star",
@@ -237,7 +237,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "Ayo bantu Lala membangun menara balok!!",
     "nextScene": [22, 24],
     "kimoVisual": "star",
@@ -247,7 +247,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "Ayo bangun lebih tinggi lagi!!",
     "nextScene": [23, 25],
     "kimoVisual": "star",
@@ -257,7 +257,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 19",
+    "path": "Scene 20",
     "text": "”Hore! Menaranya udah jadi ni, La!”, kata Bu guru dengan gembira.",
     "nextScene": [24, 26],
     "kimoVisual": "star",
@@ -267,7 +267,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 20",
+    "path": "Scene 21",
     "text": "”Makasih, Bu. Lala kagum sama menaranya.”, kata Lala.",
     "nextScene": [25, 27],
     "kimoVisual": "star",
@@ -277,7 +277,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 20",
+    "path": "Scene 21",
     "text": "Horee menara baloknya jadi, ayo tepuk tangan bersama",
     "nextScene": [26, 28],
     "kimoVisual": "star",
@@ -287,7 +287,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
+    "path": "Scene 22",
     "text": "“Horeeeee!!!!” kata Lala.",
     "nextScene": [27, 29],
     "kimoVisual": "star",
@@ -297,7 +297,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 22",
+    "path": "Scene 23",
     "text": "Marah itu wajar dan dengan memahami gejala serta penyebabnya kita bisa mengelolanya tanpa menyakiti diri sendiri maupun orang lain",
     "nextScene": [28],
     "kimoVisual": "star",
@@ -306,4 +306,5 @@
     "interactionType": "ending",
     "isEnd": true
   }
+
 ]

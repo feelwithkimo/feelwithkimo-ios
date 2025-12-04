@@ -55,7 +55,7 @@ struct StoryView: View {
                 }
             }
             
-            if viewModel.currentScene.path == "Scene 6" {
+            if viewModel.currentScene.path == "Scene 7" {
                 RiveViewModel(fileName: "JackMove").view()
                     .frame(width: 232.getWidth())
                     .position(charPos)
@@ -160,9 +160,9 @@ struct StoryView: View {
             
             if viewModel.index == 8 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    if viewModel.currentScene.path == "Scene 6" {
+                    if viewModel.currentScene.path == "Scene 7" {
                         withAnimation(.easeInOut(duration: 0.5)) {
-                            viewModel.currentScene.path = "Scene 6_2"
+                            viewModel.currentScene.path = "Scene 7_2"
                         }
                         
                         AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")
