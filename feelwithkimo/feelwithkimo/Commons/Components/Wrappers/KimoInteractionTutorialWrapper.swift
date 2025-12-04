@@ -13,6 +13,7 @@ struct KimoInteractionTutorialWrapper<Content: View>: View {
     let quoteBody: String
     let action: (() -> Void)?
     var cornerRadius: CGFloat = 30
+    private let headerOffset: CGFloat = 44.getHeight()
     @ViewBuilder let content: Content
     
     var body: some View {
@@ -20,6 +21,7 @@ struct KimoInteractionTutorialWrapper<Content: View>: View {
             Color.black.opacity(0.8)
             
             headerView
+                .padding(.top, headerOffset)
             
             VStack {
                 Spacer()
@@ -34,6 +36,7 @@ struct KimoInteractionTutorialWrapper<Content: View>: View {
 
                 Spacer()
             }
+            .padding(.top, headerOffset)
         }
         .ignoresSafeArea()
     }
@@ -98,7 +101,7 @@ private extension KimoInteractionTutorialWrapper {
                 Spacer()
             }
             .padding(.horizontal, 55.getWidth())
-            .padding(.top, 44.getHeight())
+            .padding(.top, headerOffset)
             
             Spacer()
         }
