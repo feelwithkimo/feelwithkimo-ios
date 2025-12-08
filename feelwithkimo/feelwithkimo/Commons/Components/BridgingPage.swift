@@ -15,18 +15,18 @@ struct BridgingPage<Destination: View>: View {
     var isOverlayed: Bool = true
     
     @ViewBuilder
-    private func continueLabel() -> some View {
+    private func continueLabel(action: (() -> Void)?) -> some View {
         ZStack {
             Image("KimoBubbleButton")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 253.getWidth())
                 .padding(0)
-
+            
             HStack(spacing: 20) {
                 Image(systemName: "chevron.right")
                         .font(.customFont(size: 28, family: .primary, weight: .bold))
-
+                
                 Text(NSLocalizedString("Continue", comment: ""))
                     .font(.customFont(size: 28, family: .primary, weight: .bold))
             }
@@ -47,11 +47,13 @@ struct BridgingPage<Destination: View>: View {
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Button(action: {
-                        storyViewModel.goScene(to: -1)
-                    }, label: {
-                        KimoImage(image: "xmark", width: 80.getWidth())
-                    })
+                    if let destination = destination {
+                        NavigationLink {
+                            destination()
+                        } label: {
+                            KimoImage(image: "xmark", width: 80.getWidth())
+                        }
+                    }
                     
                     Spacer()
                 }
