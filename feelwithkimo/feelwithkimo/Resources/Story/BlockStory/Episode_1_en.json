@@ -63,7 +63,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 4",
+    "path": "Scene 5",
     "text": "Let’s make the tower taller!",
     "nextScene": [5, 7],
     "kimoVisual": "star",
@@ -73,7 +73,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 5",
+    "path": "Scene 6",
     "text": "Yay! Lala is almost finished building the tower.",
     "nextScene": [6, 8],
     "kimoVisual": "normal",
@@ -83,7 +83,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 6",
+    "path": "Scene 7",
     "text": "Suddenly, Jack came and kicked Lala’s tower.",
     "nextScene": [7, 9],
     "kimoVisual": "normal",
@@ -94,7 +94,7 @@
     "soundEffect": "FallingBlock"
   },
   {
-    "path": "Scene 6_2",
+    "path": "Scene 7_2",
     "text": "What do you think Lala is feeling right now?",
     "nextScene": [8, 10, 10],
     "kimoVisual": "normal",
@@ -107,7 +107,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 7",
+    "path": "Scene 8",
     "text": "Miss Tina came to Lala and asked, “Lala, what happened?”",
     "nextScene": [9, 11],
     "kimoVisual": "star",
@@ -117,7 +117,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 8",
+    "path": "Scene 9",
     "text": "Lala told what Jack had done.",
     "nextScene": [10, 12],
     "kimoVisual": "normal",
@@ -127,7 +127,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 9",
+    "path": "Scene 10",
     "text": "“Lala…” (in a gentle tone).",
     "nextScene": [11, 13],
     "kimoVisual": "normal",
@@ -137,7 +137,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 10",
+    "path": "Scene 11",
     "text": "“It’s okay if sometimes you feel something unpleasant.",
     "nextScene": [12, 14],
     "kimoVisual": "normal",
@@ -147,7 +147,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 11",
+    "path": "Scene 12",
     "text": "That means you have feelings, Lala, and that’s okay.”",
     "nextScene": [13, 15],
     "kimoVisual": "normal",
@@ -157,7 +157,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 12",
+    "path": "Scene 13",
     "text": "“Come on, follow my movements!”, said Miss Tina.\n“Yes, Miss,” replied Lala.",
     "nextScene": [14, 16],
     "kimoVisual": "star",
@@ -167,7 +167,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 13",
+    "path": "Scene 14",
     "text": "Miss Tina demonstrated how to take a deep breath.",
     "nextScene": [15, 17],
     "kimoVisual": "normal",
@@ -177,7 +177,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 15",
     "text": "Lala took a deep breath... “Haaa... Hold... Fuuuh... Haaa... Hold... Fuuuh...”",
     "nextScene": [16, 18],
     "kimoVisual": "star",
@@ -187,7 +187,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 15",
     "text": "Let’s breathe together with Lala!!!",
     "nextScene": [17, 19],
     "kimoVisual": "star",
@@ -197,7 +197,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 15",
+    "path": "Scene 16",
     "text": "“How do you feel now, Lala?”, asked Miss Tina.",
     "nextScene": [18, 20],
     "kimoVisual": "star",
@@ -207,7 +207,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 16",
+    "path": "Scene 17",
     "text": "“I feel calmer now, Miss.”, answered Lala.",
     "nextScene": [19, 21],
     "kimoVisual": "normal",
@@ -217,7 +217,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 17",
+    "path": "Scene 18",
     "text": "“Come on Lala, let’s play again!”, said Miss Tina.",
     "nextScene": [20, 22],
     "kimoVisual": "star",
@@ -227,7 +227,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "“Let’s gooo!”, answered Lala.",
     "nextScene": [21, 23],
     "kimoVisual": "star",
@@ -237,7 +237,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "Help Lala rebuild the block tower!!",
     "nextScene": [22, 24],
     "kimoVisual": "star",
@@ -247,7 +247,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "Let’s build it even taller!!",
     "nextScene": [23, 25],
     "kimoVisual": "star",
@@ -257,7 +257,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 19",
+    "path": "Scene 20",
     "text": "“Hooray! The tower is finished, Lala!”, said Miss Tina happily.",
     "nextScene": [24, 26],
     "kimoVisual": "star",
@@ -267,7 +267,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 20",
+    "path": "Scene 21",
     "text": "“Thank you, Miss. Lala is amazed by the tower.”, said Lala.",
     "nextScene": [25, 27],
     "kimoVisual": "star",
@@ -277,7 +277,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 20",
+    "path": "Scene 21",
     "text": "Hooray, the block tower is finished, let’s celebrate together",
     "nextScene": [26, 28],
     "kimoVisual": "star",
@@ -287,7 +287,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
+    "path": "Scene 22",
     "text": "“Hooray!!!!” said Lala.",
     "nextScene": [27, 29],
     "kimoVisual": "star",
@@ -297,13 +297,13 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
-    "text": "Anger is normal and needs to be regulated properly",
+    "path": "Scene 23",
+    "text": "Anger is normal and by understanding the symptoms and causes we can manage it without hurting ourselves or others",
     "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "normal",
+    "interactionType": "ending",
     "isEnd": true
   }
 ]

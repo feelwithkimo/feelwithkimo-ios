@@ -34,6 +34,10 @@ final class BreathingModuleViewModel: ObservableObject {
     private var lineWorkItem: DispatchWorkItem?
     private var phaseWorkItem: DispatchWorkItem?
     
+    func toggleShowTutorial() {
+        showTutorial.toggle()
+    }
+    
     func startBreathingCycle() {
         guard phaseCounter < totalPhaseCount else { return }
         

@@ -11,7 +11,18 @@
 		B5FA10AB2ECB29D30064DBE8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B5FA10AA2ECB29D30064DBE8 /* Lottie */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		799DF0982EDAADCC00512FD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABD50B962E9D558100237461 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABD50B9D2E9D558100237461;
+			remoteInfo = feelwithkimo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		799DF0942EDAADCC00512FD8 /* feelwithkimoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = feelwithkimoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABD50B9E2E9D558100237461 /* feelwithkimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feelwithkimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -26,6 +37,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		799DF0952EDAADCC00512FD8 /* feelwithkimoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = feelwithkimoTests;
+			sourceTree = "<group>";
+		};
 		ABD50BA02E9D558100237461 /* feelwithkimo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -37,6 +53,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		799DF0912EDAADCC00512FD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABD50B9B2E9D558100237461 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD50BA02E9D558100237461 /* feelwithkimo */,
+				799DF0952EDAADCC00512FD8 /* feelwithkimoTests */,
 				ABD50B9F2E9D558100237461 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD50B9E2E9D558100237461 /* feelwithkimo.app */,
+				799DF0942EDAADCC00512FD8 /* feelwithkimoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +93,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		799DF0932EDAADCC00512FD8 /* feelwithkimoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 799DF09C2EDAADCC00512FD8 /* Build configuration list for PBXNativeTarget "feelwithkimoTests" */;
+			buildPhases = (
+				799DF0902EDAADCC00512FD8 /* Sources */,
+				799DF0912EDAADCC00512FD8 /* Frameworks */,
+				799DF0922EDAADCC00512FD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				799DF0992EDAADCC00512FD8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				799DF0952EDAADCC00512FD8 /* feelwithkimoTests */,
+			);
+			name = feelwithkimoTests;
+			packageProductDependencies = (
+			);
+			productName = feelwithkimoTests;
+			productReference = 799DF0942EDAADCC00512FD8 /* feelwithkimoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		ABD50B9D2E9D558100237461 /* feelwithkimo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ABD50BAC2E9D558200237461 /* Build configuration list for PBXNativeTarget "feelwithkimo" */;
@@ -100,9 +148,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 2610;
 				TargetAttributes = {
+					799DF0932EDAADCC00512FD8 = {
+						CreatedOnToolsVersion = 26.1;
+						TestTargetID = ABD50B9D2E9D558100237461;
+					};
 					ABD50B9D2E9D558100237461 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -129,11 +181,19 @@
 			projectRoot = "";
 			targets = (
 				ABD50B9D2E9D558100237461 /* feelwithkimo */,
+				799DF0932EDAADCC00512FD8 /* feelwithkimoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		799DF0922EDAADCC00512FD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABD50B9C2E9D558100237461 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +226,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		799DF0902EDAADCC00512FD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABD50B9A2E9D558100237461 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,7 +242,67 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		799DF0992EDAADCC00512FD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABD50B9D2E9D558100237461 /* feelwithkimo */;
+			targetProxy = 799DF0982EDAADCC00512FD8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		799DF09A2EDAADCC00512FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LN4DD83473;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Richard.feelwithkimoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/feelwithkimo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/feelwithkimo";
+			};
+			name = Debug;
+		};
+		799DF09B2EDAADCC00512FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LN4DD83473;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Richard.feelwithkimoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/feelwithkimo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/feelwithkimo";
+			};
+			name = Release;
+		};
 		ABD50BAA2E9D558200237461 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -384,6 +511,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		799DF09C2EDAADCC00512FD8 /* Build configuration list for PBXNativeTarget "feelwithkimoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				799DF09A2EDAADCC00512FD8 /* Debug */,
+				799DF09B2EDAADCC00512FD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ABD50B992E9D558100237461 /* Build configuration list for PBXProject "feelwithkimo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

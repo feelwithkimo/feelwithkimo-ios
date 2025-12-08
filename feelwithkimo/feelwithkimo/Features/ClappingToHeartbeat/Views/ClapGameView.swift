@@ -56,10 +56,10 @@ struct ClapGameView: View {
             
             if viewModel.showTutorial {
                 KimoInteractionTutorialWrapper(
-                    title: NSLocalizedString("ClapHowToPlay", comment: ""),
+                    title: NSLocalizedString("HowToPlay", comment: ""),
                     quotePrefix: NSLocalizedString("ClapQuotePrefix", comment: ""),
                     quoteBody: NSLocalizedString("ClapQuoteBody", comment: ""),
-                    action: { viewModel.toggleShowTutorial() },
+                    action: viewModel.toggleShowTutorial,
                     content: tutorialContentView
                 )
             }

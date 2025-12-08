@@ -12,76 +12,134 @@ struct KimoInteractionTutorialWrapper<Content: View>: View {
     let quotePrefix: String
     let quoteBody: String
     let action: (() -> Void)?
+    var cornerRadius: CGFloat = 30
+    private let headerOffset: CGFloat = 44.getHeight()
     @ViewBuilder let content: Content
     
     var body: some View {
         ZStack {
             Color.black.opacity(0.8)
+            
+            headerView
+                .padding(.top, headerOffset)
+            
             VStack {
-                HStack {
-                    KimoCloseButton(
-                        isLarge: false,
-                        action: action
-                    )
-                    
-                    Spacer()
-                    
-                    KimoMuteButton(isLarge: false, audioManager: AudioManager.shared)
-                }
-                .padding(.horizontal, 55.getWidth())
-                .padding(.top, 44.getHeight())
-                
                 Spacer()
-            }
 
-            VStack(spacing: 40) {
-                Spacer()
-                VStack(spacing: 40.getHeight()) {
-                    VStack(spacing: 25.getHeight()) {
-                        Text(title)
-                            .font(.customFont(size: 34, family: .primary, weight: .bold))
-                            .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-                        
-                        content
-                    }
-                    
-                    (Text(quotePrefix)
-                        .font(.customFont(size: 17, family: .primary, weight: .bold))
-                     +
-                     Text(quoteBody)
-                        .font(.customFont(size: 17, family: .primary, weight: .regular)))
-                    .foregroundStyle(ColorToken.backgroundSecondary.toColor())
-                    .lineLimit(3)
-                    .frame(width: 604.getWidth())
-                    .multilineTextAlignment(.center)
+                ZStack(alignment: .top) {
+
+                    mainBubble
+
+                    floatingTitle
+                    .offset(y: -35.getHeight())
                 }
-                .padding(.horizontal, 38)
-                .padding(.vertical, 30)
-                .background(Color.white)
-                .cornerRadius(30)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(ColorToken.corePinkDialogue.toColor(), lineWidth: 5)
-                )
-                .shadow(color: ColorToken.backgroundSecondary.toColor().opacity(0.25), radius: 18.3, x: 4, y: 4)
+
                 Spacer()
             }
-            .padding(.vertical, 60)
+            .padding(.top, headerOffset)
         }
         .ignoresSafeArea()
+    }
+}
+private extension KimoInteractionTutorialWrapper {
+    var mainBubble: some View {
+        VStack {
+            bubbleContent
+        }
+        .padding(.horizontal, 26.getWidth())
+        .padding(.vertical, 26.getHeight())
+        .background(
+            Color.white
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .strokeBorder(ColorToken.coreAccent.toColor(), lineWidth: 15.getWidth())
+        )
+    }
+
+    var bubbleContent: some View {
+        VStack {
+            VStack(spacing: 40.getHeight()) {
+                content
+
+                quoteView
+            }
+            .padding(.top, 59.getHeight())
+            .padding(.bottom, 58.getHeight())
+            .padding(.horizontal, 51.getWidth())
+            .cornerRadius(cornerRadius)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .strokeBorder(
+                        ColorToken.coreAccent.toColor(),
+                        style: StrokeStyle(
+                            lineWidth: 7.getWidth(),
+                            dash: [40, 16]
+                        )
+                    )
+            )
+        }
+    }
+
+    var quoteView: some View {
+        (Text(quotePrefix)
+            .font(.customFont(size: 17, family: .primary, weight: .bold))
+        +
+        Text(quoteBody)
+            .font(.customFont(size: 17, family: .primary, weight: .regular)))
+        .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+        .lineLimit(3)
+        .frame(width: 604.getWidth())
+        .multilineTextAlignment(.center)
+    }
+        
+    var headerView: some View {
+        VStack {
+            HStack {
+                KimoCloseButton(isLarge: false, action: action)
+                Spacer()
+            }
+            .padding(.horizontal, 55.getWidth())
+            .padding(.top, headerOffset)
+            
+            Spacer()
+        }
+    }
+
+    var floatingTitle: some View {
+        return HStack {
+                Text(title)
+                    .padding(.horizontal, 10)
+                    .font(.customFont(size: 34, weight: .bold))
+                    .foregroundStyle(Color.white)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.1)
+            }
+            .padding(.horizontal, 58.getWidth())
+            .padding(.vertical, 24.getHeight())
+            .background(
+                ColorToken.emotionSadness.toColor()
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            )
+            .shadow(color: ColorToken.emotionDisgusted.toColor(), radius: 3, y: 3)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .strokeBorder(ColorToken.backgroundIdentity.toColor(), lineWidth: 8.getWidth())
+            )
     }
 }
 
 #Preview {
     KimoInteractionTutorialWrapper(
-        title: "Cara latihan pernafasan",
+        title: "Cara Bermain",
         quotePrefix: "Menurut Dokter Weil, ",
         quoteBody: "Latihan pernapasan ini membantu menenangkan sistem saraf secara alami. " +
                     "Semakin rutin dilakukan, semakin mudah anak mengatur rasa cemas dan menenangkan tubuhnya.",
         action: {},
         content: {
             VStack {
-                ForEach(0..<4) {_ in
+                ForEach(0..<5) {_ in
                     Text("Test")
                 }
             }

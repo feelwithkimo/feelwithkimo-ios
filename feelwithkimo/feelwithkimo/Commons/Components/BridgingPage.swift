@@ -12,6 +12,7 @@ struct BridgingPage<Destination: View>: View {
     @ObservedObject var storyViewModel: StoryViewModel
     var destination: (() -> Destination)?
     var action: (() -> Void)?
+    var isOverlayed: Bool = true
     
     @ViewBuilder
     private func continueLabel(action: (() -> Void)?) -> some View {
@@ -38,9 +39,11 @@ struct BridgingPage<Destination: View>: View {
     
     var body: some View {
         ZStack {
-            ColorToken.additionalColorsBlack.toColor()
-                .opacity(0.7)
-                .ignoresSafeArea()
+            if isOverlayed {
+                ColorToken.additionalColorsBlack.toColor()
+                    .opacity(0.8)
+                    .ignoresSafeArea()
+            }
             
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
@@ -61,28 +64,52 @@ struct BridgingPage<Destination: View>: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
-            HStack {
-                HStack(spacing: 39) {
-                    KimoImage(image: "KimoTutorialAsset", width: 512.getWidth())
-                    
-                    VStack(spacing: 0) {
-                        Text(textDialogue)
-                            .font(.customFont(size: 22, family: .primary, weight: .regular))
-                            .frame(maxWidth: 500.getWidth())
-                            .padding(.horizontal, 49.getWidth())
-                            .padding(.vertical, 42.getHeight())
-                            .background(ColorToken.corePinkDialogue.toColor())
-                            .cornerRadius(30)
-                        
-                        HStack {
-                            KimoImage(image: "KimoDialogue", width: 157.getWidth())
-                            Spacer()
+            HStack(spacing: 39) {
+                VStack(spacing: 0) {
+                    Spacer()
+                    KimoImage(image: "KimoBridging", width: 693.getWidth())
+                }
+
+                VStack(spacing: 0) {
+                    // Dialogue bubble
+                    Text(textDialogue)
+                        .font(.customFont(size: 20, family: .primary, weight: .regular))
+                        .frame(maxWidth: 500.getWidth())
+                        .padding(.horizontal, 49.getWidth())
+                        .padding(.vertical, 42.getHeight())
+                        .background(ColorToken.corePinkDialogue.toColor())
+                        .cornerRadius(30)
+
+                    // Tail image
+                    HStack {
+                        KimoImage(image: "KimoDialogue", width: 74.getWidth())
+                        Spacer()
+                    }
+
+                    // Continue button
+                    HStack(spacing: 50) {
+                        Spacer()
+
+                        if let destination = destination {
+                            NavigationLink {
+                                destination()
+                            } label: {
+                                continueLabel()
+                            }
+                        } else {
+                            Button {
+                                action?()
+                            } label: {
+                                continueLabel()
+                            }
                         }
                     }
+                    .padding(.top, 20.getHeight())
                 }
-                .padding(.top, 53)
-                .padding(.horizontal, 72)
             }
+            .ignoresSafeArea()
+            .padding(.top, 53)
+            .padding(.horizontal, 41.getWidth())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarBackButtonHidden(true)

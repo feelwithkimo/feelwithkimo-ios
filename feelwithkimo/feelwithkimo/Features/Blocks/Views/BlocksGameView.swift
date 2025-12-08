@@ -31,9 +31,9 @@ struct BlocksGameView: View {
             VStack(alignment: .center, spacing: 18.getHeight()) {
                 HStack(spacing: 18.getWidth()) {
                     Spacer()
-                    KimoQuestionButton {
-                        // TODO: add action for question button in blocks game
-                    }
+                    
+                    tutorialButton
+                    
                     KimoMenuButton(action: viewModel.onPausePressed)
                 }
                 
@@ -88,6 +88,8 @@ struct BlocksGameView: View {
                     onBack: { dismiss() }
                 )
             }
+            
+            tutorialOverlay
         }
         .background(
             ZStack {

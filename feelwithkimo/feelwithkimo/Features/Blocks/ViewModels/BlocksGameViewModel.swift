@@ -32,6 +32,7 @@ final class BlocksGameViewModel: ObservableObject {
     @Published var showIdleOverlay: Bool = false
     @Published var riveViewModel = RiveViewModel(fileName: "LalaInBlockGame", fit: .fitHeight)
     @Published private(set) var lalaMascotCurrentState: BlockMascotState = .lalaConfused
+    @Published var showTutorial: Bool = false
     
     let idleTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
     
@@ -67,6 +68,10 @@ final class BlocksGameViewModel: ObservableObject {
                 baseColor: placement.block.baseColor,
                 strokeColor: placement.block.strokeColor)
         }
+    }
+    
+    func toggleShowTutorial() {
+        showTutorial.toggle()
     }
     
     func onPausePressed() {

@@ -90,18 +90,20 @@ struct KimoBreathingTutorialCard: View {
             Text(title)
                 .font(.customFont(size: 22, family: .primary, weight: .bold))
                 .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                .fixedSize(horizontal: true, vertical: false)
             Text(duration)
                 .font(.customFont(size: 15, family: .primary, weight: .regular))
                 .foregroundStyle(ColorToken.backgroundSecondary.toColor())
+                .fixedSize(horizontal: true, vertical: false)
             ZStack {
                 Ellipse()
                     .foregroundStyle(ColorToken.corePinkDialogue.toColor())
                     .frame(width: 100.getWidth(), height: 20.getHeight())
-                    .padding(.top, 108.getHeight())
+                    .padding(.top, 116.getHeight())
                 Image(imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 92.getWidth(), height: 118.getHeight())
+                    .frame(width: 138.getWidth(), height: 126.getHeight())
                     .padding(.leading, 15.getWidth())
             }
         }

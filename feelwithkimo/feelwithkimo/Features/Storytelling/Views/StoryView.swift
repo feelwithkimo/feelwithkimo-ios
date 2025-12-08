@@ -35,7 +35,6 @@ struct StoryView: View {
                     identifier: "story.scene.\(viewModel.index)"
                 )
             
-            // Spotlight overlay for Scene 1, 2, and 3
             if showSpotlight {
                 if let spotlightImage = getSpotlightImageName() {
                     GeometryReader { geometry in
@@ -56,7 +55,7 @@ struct StoryView: View {
                 }
             }
             
-            if viewModel.currentScene.path == "Scene 6" {
+            if viewModel.currentScene.path == "Scene 7" {
                 RiveViewModel(fileName: "JackMove").view()
                     .frame(width: 232.getWidth())
                     .position(charPos)
@@ -91,14 +90,6 @@ struct StoryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
             InteractionBanner(viewModel: viewModel, accessibilityManager: accessibilityManager)
-          
-            if viewModel.currentScene.isEnd {
-                endSceneOverlay(
-                    dismiss: { dismiss() },
-                    replay: { viewModel.replayStory() },
-                    textDialogue: viewModel.currentScene.text
-                )
-            }
         }
         .onAppear {
             // Announce story scene information
@@ -169,9 +160,9 @@ struct StoryView: View {
             
             if viewModel.index == 8 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    if viewModel.currentScene.path == "Scene 6" {
+                    if viewModel.currentScene.path == "Scene 7" {
                         withAnimation(.easeInOut(duration: 0.5)) {
-                            viewModel.currentScene.path = "Scene 6_2"
+                            viewModel.currentScene.path = "Scene 7_2"
                         }
                         
                         AudioManager.shared.playSoundEffect(effectName: viewModel.currentScene.soundEffect ?? "")

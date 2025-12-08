@@ -4,6 +4,122 @@
     "%lld" : {
 
     },
+    "BlockFirstTip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag and drop the shapes into the correct boxes."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seret dan geser bentuk ke kotak yang sesuai."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将形状拖放到相应的方框中."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將形狀拖放到相應的方框中."
+          }
+        }
+      }
+    },
+    "BlockSecondTip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue until the shapes are arranged like this example."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teruskan sampai bentuknya tersusun seperti contoh ini."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续直到形状按照此示例排列好."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繼續直到形狀按照此範例排列好."
+          }
+        }
+      }
+    },
+    "BlockTutorialBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "playing with shapes helps children develop logic and problem-solving skills."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bermain dengan bentuk membantu anak mengembangkan logika dan keterampilan memecahkan masalah."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "玩形状有助于儿童发展逻辑和解决问题的能力."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "玩形狀有助於兒童發展邏輯和解決問題的能力."
+          }
+        }
+      }
+    },
+    "BlockTutorialReference" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "According to Jean Piaget, "
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menurut Jean Piaget, "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据让·皮亚杰的观点，"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根據尚·皮亞傑的觀點，"
+          }
+        }
+      }
+    },
     "Both_Hands_Detected" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -232,35 +348,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "選擇情感！"
-          }
-        }
-      }
-    },
-    "ClapHowToPlay" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "How to Play"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cara Bermain"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "如何玩"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "如何玩"
           }
         }
       }
@@ -532,25 +619,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kimo will accompany you and your little one to learn to recognize feelings."
+            "value" : "Kimo will accompany you and your little one to learn to recognize feelings"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kimo akan menemani kamu dan si kecil belajar mengenal perasaan."
+            "value" : "Kimo akan menemani kamu dan si kecil belajar mengenal perasaan"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kimo将陪伴你和你的孩子学习识别感受。"
+            "value" : "Kimo将陪伴你和你的孩子学习识别感受"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kimo將陪伴你和你的孩子學習辨識感受。"
+            "value" : "Kimo將陪伴你和你的孩子學習辨識感受"
           }
         }
       }
@@ -667,6 +754,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "屏氣"
+          }
+        }
+      }
+    },
+    "HowToPlay" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Play"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cara Bermain"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如何玩"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如何玩"
           }
         }
       }
@@ -1018,6 +1134,29 @@
         }
       }
     },
+    "Replay" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ulangi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重复"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重复"
+          }
+        }
+      }
+    },
     "Round" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1217,6 +1356,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "停"
+          }
+        }
+      }
+    },
+    "StoryEnd" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Story Finished"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerita Selesai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "故事完成"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "故事讲完了"
           }
         }
       }

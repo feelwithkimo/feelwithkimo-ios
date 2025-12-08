@@ -144,6 +144,17 @@ struct BreathingModuleView: View {
         VStack {
             HStack {
                 Spacer()
+                Button {
+                    dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        onCompletion()
+                    }
+                } label: {
+                    Color.clear
+                }
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
+                
                 tutorialButton
                 menuButton
             }
@@ -155,7 +166,7 @@ struct BreathingModuleView: View {
     
     private var tutorialButton: some View {
         KimoQuestionButton {
-            viewModel.showTutorial = true
+            viewModel.toggleShowTutorial()
         }
     }
     
@@ -168,10 +179,44 @@ struct BreathingModuleView: View {
     @ViewBuilder
     private var tutorialOverlay: some View {
         if viewModel.showTutorial {
-            BreathingModuleTutorialView()
-                .onTapGesture {
-                    viewModel.showTutorial = false
-                }
+            KimoInteractionTutorialWrapper(
+                title: NSLocalizedString("BreathingTutorialTitle", comment: ""),
+                quotePrefix: NSLocalizedString("BreathingTutorialReference", comment: ""),
+                quoteBody: NSLocalizedString("BreathingTutorialBody", comment: ""),
+                action: viewModel.toggleShowTutorial,
+                content: { tutorialContent }
+            )
+        }
+    }
+    
+    @ViewBuilder
+    private var tutorialContent: some View {
+        HStack(spacing: 25.getWidth()) {
+            KimoBreathingTutorialCard(
+                kimoBreathingMode: .inhale)
+            
+            chevronLabel
+            
+            KimoBreathingTutorialCard(
+                kimoBreathingMode: .hold
+            )
+            
+            chevronLabel
+            
+            KimoBreathingTutorialCard(
+                kimoBreathingMode: .exhale
+            )
+        }
+    }
+    
+    @ViewBuilder
+    private var chevronLabel: some View {
+        KimoCircleWrapper {
+            Image(systemName: "chevron.right")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(ColorToken.backgroundSecondary.toColor())
+                .frame(width: 14.getWidth(), height: 23.getHeight())
         }
     }
     
@@ -202,7 +247,7 @@ struct BreathingModuleView: View {
     private var completionOverlay: some View {
         if showCompletionPage {
             CompletionPageView(
-                title: "Latihan Selesai!!!",
+                title: NSLocalizedString("Congratulate_Text", comment: ""),
                 primaryButtonLabel: "Coba lagi",
                 secondaryButtonLabel: "Lanjutkan",
                 onPrimaryAction: {
@@ -212,7 +257,6 @@ struct BreathingModuleView: View {
                     syncAnimations()
                 },
                 onSecondaryAction: {
-                    print("DEBUG: Lanjutkan button tapped")
                     dismiss()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         onCompletion()

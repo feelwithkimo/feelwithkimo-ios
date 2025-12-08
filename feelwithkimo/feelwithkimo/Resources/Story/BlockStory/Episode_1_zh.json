@@ -63,7 +63,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 4",
+    "path": "Scene 5",
     "text": "来把塔搭得更高吧！",
     "nextScene": [5, 7],
     "kimoVisual": "star",
@@ -73,7 +73,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 5",
+    "path": "Scene 6",
     "text": "耶！Lala的积木塔快要搭好了。",
     "nextScene": [6, 8],
     "kimoVisual": "normal",
@@ -83,7 +83,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 6",
+    "path": "Scene 7",
     "text": "突然，Jack跑过来踢倒了Lala的积木。",
     "nextScene": [7, 9],
     "kimoVisual": "normal",
@@ -94,7 +94,7 @@
     "soundEffect": "FallingBlock"
   },
   {
-    "path": "Scene 6_2",
+    "path": "Scene 7_2",
     "text": "你觉得Lala现在是什么心情？",
     "nextScene": [8, 10, 10],
     "kimoVisual": "normal",
@@ -107,7 +107,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 7",
+    "path": "Scene 8",
     "text": "Tina老师走到Lala身边问道：“Lala，发生了什么事？”",
     "nextScene": [9, 11],
     "kimoVisual": "star",
@@ -117,7 +117,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 8",
+    "path": "Scene 9",
     "text": "Lala告诉了老师Jack做的事情。",
     "nextScene": [10, 12],
     "kimoVisual": "normal",
@@ -127,7 +127,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 9",
+    "path": "Scene 10",
     "text": "“Lala……”（语气温柔地）。",
     "nextScene": [11, 13],
     "kimoVisual": "normal",
@@ -137,7 +137,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 10",
+    "path": "Scene 11",
     "text": "“当你遇到不开心的事情时，感到难过是正常的。",
     "nextScene": [12, 14],
     "kimoVisual": "normal",
@@ -147,7 +147,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 11",
+    "path": "Scene 12",
     "text": "这说明你有自己的感受，这没关系。”",
     "nextScene": [13, 15],
     "kimoVisual": "normal",
@@ -157,7 +157,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 12",
+    "path": "Scene 13",
     "text": "“来跟着老师做动作！”老师说。\n“好的，老师，”Lala回答道。",
     "nextScene": [14, 16],
     "kimoVisual": "star",
@@ -167,7 +167,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 13",
+    "path": "Scene 14",
     "text": "老师示范深呼吸。",
     "nextScene": [15, 17],
     "kimoVisual": "normal",
@@ -177,7 +177,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 15",
     "text": "Lala深吸一口气……“哈……屏住……呼……哈……屏住……呼……”",
     "nextScene": [16, 18],
     "kimoVisual": "star",
@@ -187,7 +187,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 14",
+    "path": "Scene 15",
     "text": "来和Lala一起深呼吸吧！！！",
     "nextScene": [17, 19],
     "kimoVisual": "star",
@@ -197,7 +197,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 15",
+    "path": "Scene 16",
     "text": "“现在，Lala感觉怎么样？”老师问。",
     "nextScene": [18, 20],
     "kimoVisual": "star",
@@ -207,7 +207,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 16",
+    "path": "Scene 17",
     "text": "“我感觉平静多了，老师。”Lala回答。",
     "nextScene": [19, 21],
     "kimoVisual": "normal",
@@ -217,7 +217,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 17",
+    "path": "Scene 18",
     "text": "“来，Lala，我们再玩一次吧！”老师提议道。",
     "nextScene": [20, 22],
     "kimoVisual": "star",
@@ -227,7 +227,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "“好啊！”Lala回答。",
     "nextScene": [21, 23],
     "kimoVisual": "star",
@@ -237,7 +237,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "来帮Lala搭积木塔！！",
     "nextScene": [22, 24],
     "kimoVisual": "star",
@@ -247,7 +247,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 18",
+    "path": "Scene 19",
     "text": "来搭得更高一点！！",
     "nextScene": [23, 25],
     "kimoVisual": "star",
@@ -257,7 +257,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 19",
+    "path": "Scene 20",
     "text": "“太棒了！塔搭好了，Lala！”老师高兴地说。",
     "nextScene": [24, 26],
     "kimoVisual": "star",
@@ -267,7 +267,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 20",
+    "path": "Scene 21",
     "text": "“谢谢老师。Lala自己也很喜欢这个塔。”Lala说。",
     "nextScene": [25, 27],
     "kimoVisual": "star",
@@ -277,7 +277,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 20",
+    "path": "Scene 21",
     "text": "好耶，积木塔完成了，大家一起鼓掌吧",
     "nextScene": [26, 28],
     "kimoVisual": "star",
@@ -287,7 +287,7 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
+    "path": "Scene 22",
     "text": "“好耶！！！！”Lala欢呼道。",
     "nextScene": [27, 29],
     "kimoVisual": "star",
@@ -297,13 +297,14 @@
     "isEnd": false
   },
   {
-    "path": "Scene 21",
+    "path": "Scene 23",
     "text": "生气是正常的情绪，我们需要学会好好调节它",
     "nextScene": [28],
     "kimoVisual": "star",
     "kimoText": "",
     "question": null,
-    "interactionType": "normal",
+    "interactionType": "ending",
     "isEnd": true
   }
+
 ]
